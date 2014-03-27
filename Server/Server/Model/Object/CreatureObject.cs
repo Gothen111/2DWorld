@@ -10,7 +10,7 @@ namespace Server.Model.Object
         //protected Inventory inventory;
         private List<EquipmentObject> equipment;
 
-        protected List<EquipmentObject> Equipment
+        public List<EquipmentObject> Equipment
         {
             get { return equipment; }
             set { equipment = value; }
@@ -19,7 +19,7 @@ namespace Server.Model.Object
         //protected Skill skill;
         private String name;
 
-        protected String Name
+        public String Name
         {
             get { return name; }
             set { name = value; }

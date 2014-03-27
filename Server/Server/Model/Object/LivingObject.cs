@@ -9,7 +9,7 @@ namespace Server.Model.Object
     {
         private float healthPoints;
 
-        protected float HealthPoints
+        public float HealthPoints
         {
             get { return healthPoints; }
             set { healthPoints = value; }

@@ -11,7 +11,7 @@ namespace Server.Model.Object
     {
         private float scale;
 
-        protected float Scale
+        public float Scale
         {
             get { return scale; }
             set { scale = value; }
@@ -19,14 +19,14 @@ namespace Server.Model.Object
         //protected int animation; //???
         private Vector3 size;
 
-        protected Vector3 Size
+        public Vector3 Size
         {
             get { return size; }
             set { size = value; }
         }
         private String graphicPath;
 
-        protected String GraphicPath
+        public String GraphicPath
         {
             get { return graphicPath; }
             set { graphicPath = value; }

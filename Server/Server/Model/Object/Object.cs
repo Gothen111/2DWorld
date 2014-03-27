@@ -11,21 +11,21 @@ namespace Server.Model.Object
     {
         private Vector3 position;
 
-        protected Vector3 Position
+        public Vector3 Position
         {
             get { return position; }
             set { position = value; }
         }
         private List<Object> objects;
 
-        protected List<Object> Objects
+        public List<Object> Objects
         {
             get { return objects; }
             set { objects = value; }
         }
         private Vector3 velocity;
 
-        protected Vector3 Velocity
+        public Vector3 Velocity
         {
             get { return velocity; }
             set { velocity = value; }
