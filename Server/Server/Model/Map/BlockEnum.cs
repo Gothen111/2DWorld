@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Server.Model.Map
 {
-    class BlockEnum
+    enum BlockEnum
     {
+        Gras,
+        Stone
     }
 }
