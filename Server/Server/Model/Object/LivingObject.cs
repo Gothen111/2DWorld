@@ -7,7 +7,13 @@ namespace Server.Model.Object
 {
     class LivingObject : AnimatedObject
     {
-        protected float healthPoints;
+        private float healthPoints;
+
+        protected float HealthPoints
+        {
+            get { return healthPoints; }
+            set { healthPoints = value; }
+        }
         //protected InterAction interAction; //???
     }
 }

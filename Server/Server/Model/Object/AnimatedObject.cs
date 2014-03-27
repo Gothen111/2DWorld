@@ -9,9 +9,27 @@ namespace Server.Model.Object
 {
     class AnimatedObject: Object
     {
-        protected float scale;
+        private float scale;
+
+        protected float Scale
+        {
+            get { return scale; }
+            set { scale = value; }
+        }
         //protected int animation; //???
-        protected Vector3 size;
-        protected String graphicPath;
+        private Vector3 size;
+
+        protected Vector3 Size
+        {
+            get { return size; }
+            set { size = value; }
+        }
+        private String graphicPath;
+
+        protected String GraphicPath
+        {
+            get { return graphicPath; }
+            set { graphicPath = value; }
+        }
     }
 }
