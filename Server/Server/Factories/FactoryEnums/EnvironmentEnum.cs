@@ -5,11 +5,7 @@ using System.Text;
 
 namespace Server.Factories.FactoryEnums
 {
-    enum CreatureEnum
+    class EnvironmentEnum
     {
-        Human_Male,
-        Human_Female,
-        Orc_Male,
-        Orc_Female
     }
 }

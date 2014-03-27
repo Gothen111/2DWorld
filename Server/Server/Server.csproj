@@ -107,6 +107,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\CreatureFactory.cs" />
+    <Compile Include="Factories\EnvironmentFactory.cs" />
+    <Compile Include="Factories\FactoryEnums\CreatureEnum.cs" />
+    <Compile Include="Factories\FactoryEnums\EnvironmentEnum.cs" />
     <Compile Include="IO\Load.cs" />
     <Compile Include="IO\Save.cs" />
     <Compile Include="Model\Behaviour\Behaviour.cs" />
@@ -114,7 +118,7 @@
     <Compile Include="Model\Map\Chunk.cs" />
     <Compile Include="Model\Object\AnimatedObject.cs" />
     <Compile Include="Model\Object\CreatureObject.cs" />
-    <Compile Include="Model\Object\EnviormentObject.cs" />
+    <Compile Include="Model\Object\EnvironmentObject.cs" />
     <Compile Include="Model\Object\EquipmentObject.cs" />
     <Compile Include="Model\Object\FactionObject.cs" />
     <Compile Include="Model\Object\LivingObject.cs" />

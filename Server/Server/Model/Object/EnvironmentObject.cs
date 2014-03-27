@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Server.Model.Object
 {
-    class EnviormentObject : LivingObject
+    class EnvironmentObject : LivingObject
     {
     }
 }
