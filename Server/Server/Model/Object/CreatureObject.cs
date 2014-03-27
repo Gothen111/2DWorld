@@ -8,9 +8,21 @@ namespace Server.Model.Object
     class CreatureObject : LivingObject
     {
         //protected Inventory inventory;
-        protected List<EquipmentObject> equipment;
+        private List<EquipmentObject> equipment;
+
+        protected List<EquipmentObject> Equipment
+        {
+            get { return equipment; }
+            set { equipment = value; }
+        }
         //protected Armor armor;
         //protected Skill skill;
-        protected String name;
+        private String name;
+
+        protected String Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
     }
 }

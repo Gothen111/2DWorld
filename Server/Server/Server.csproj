@@ -110,7 +110,9 @@
     <Compile Include="IO\Load.cs" />
     <Compile Include="IO\Save.cs" />
     <Compile Include="Model\Behaviour\Behaviour.cs" />
+    <Compile Include="Model\Collison\QuadTree.cs" />
     <Compile Include="Model\Faction\Faction.cs" />
+    <Compile Include="Model\Map\BlockEnum.cs" />
     <Compile Include="Model\Map\Chunk.cs" />
     <Compile Include="Model\Object\AnimatedObject.cs" />
     <Compile Include="Model\Object\CreatureObject.cs" />
