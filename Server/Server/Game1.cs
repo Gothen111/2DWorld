@@ -9,6 +9,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using Server.Factories;
+using Server.Factories.FactoryEnums;
+using Server.Model.Behaviour.Member;
+
 namespace Server
 {
     /// <summary>
@@ -34,6 +38,9 @@ namespace Server
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            Race race = BehaviourFactory.behaviourFactory.getRace(RaceEnum.Human);
+            Faction faction = BehaviourFactory.behaviourFactory.getFaction(FactionEnum.Wizard);
 
             base.Initialize();
         }

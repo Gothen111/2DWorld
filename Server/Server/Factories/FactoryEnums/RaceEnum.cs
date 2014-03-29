@@ -7,6 +7,9 @@ namespace Server.Factories.FactoryEnums
 {
     enum RaceEnum
     {
-        
+        Human,
+        Orc,
+        Troll,
+        Ogre,
     }
 }

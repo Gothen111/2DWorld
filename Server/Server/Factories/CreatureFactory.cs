@@ -20,14 +20,14 @@ namespace Server.Factories
         public NpcObject createNpcObject(CreatureEnum objectType)
         {
             NpcObject npcObject = new NpcObject();
+            npcObject.Scale = 1;
+            npcObject.Velocity = new Vector3(0, 0, 0);
 
             switch (objectType)
             {
                 case CreatureEnum.Human_Female:
                     {
                         npcObject.Name = "Frau";
-                        npcObject.Scale = 1;
-                        npcObject.Velocity = new Vector3(0, 0, 0);
                         break;
                     }
             }

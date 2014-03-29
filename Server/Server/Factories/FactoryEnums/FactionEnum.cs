@@ -7,10 +7,8 @@ namespace Server.Factories.FactoryEnums
 {
     enum FactionEnum
     {
-        Human,
-        Orc,
-        Troll,
-        Nothing,
-
+        Wizard,
+        Chieftain,
+        General,
     }
 }

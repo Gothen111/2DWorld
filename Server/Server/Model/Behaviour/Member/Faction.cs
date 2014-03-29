@@ -7,27 +7,13 @@ using Server.Model.Behaviour;
 using Server.Factories;
 using Server.Factories.FactoryEnums;
 
-namespace Server.Model.Behaviour.Member.Faction
+namespace Server.Model.Behaviour.Member
 {
-    class Faction
+    class Faction : Behaviour<Faction, FactionEnum>
     {
-        protected Behaviour<Faction> behaviour;
-        public Behaviour<Faction> Behaviour
+        public Faction(FactionEnum _type) : base(_type)
         {
-            get { return behaviour; }
-            set { behaviour = value; }
-        }
 
-        protected FactionEnum type;
-        public FactionEnum Type
-        {
-            get { return type; }
-        }
-
-        public Faction(FactionEnum _type)
-        {
-            this.type = _type;
-            this.behaviour = BehaviourFactory.behaviourFactory.Factions;
         }
     }
 }

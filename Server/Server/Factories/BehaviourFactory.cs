@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Server.Model.Behaviour.Member.Faction;
-using Server.Model.Behaviour.Member.Race;
+using Server.Model.Behaviour.Member;
 using Server.Factories.FactoryEnums;
 using Server.Model.Behaviour;
 
@@ -14,51 +13,103 @@ namespace Server.Factories
     {
         public static BehaviourFactory behaviourFactory = new BehaviourFactory();
 
-        protected List<Behaviour<Faction>> factions;
-        public List<Behaviour<Faction>> Factions
+        private BehaviourFactory()
         {
-            get{ return factions;}
+            createFactions();
+            createRaces();
+
+        }
+
+        protected List<Faction> factions;
+        public List<Faction> Factions
+        {
+            get { return factions; }
         }
 
         protected List<Race> races;
-        public List<Race> Races{
-            get{ return races;}
+        public List<Race> Races
+        {
+            get { return races; }
         }
 
-        private BehaviourFactory() { }
-
-        public Faction getFaction(FactionEnum item)
+        private void createFactions()
         {
-            foreach(Behaviour<Faction> behave in factions)
+            factions = new List<Faction>();
+            Random random = new Random();
+
+            //Erstelle alle Factions zuerst
+            foreach (FactionEnum item in Enum.GetValues(typeof(FactionEnum)))
             {
-                foreach(Faction faction in behave.BehaviourMembers)
+                Faction tmpFaction = new Faction(item);
+                factions.Add(tmpFaction);
+            }
+
+            //Bilde in jeder Faction eine Referenz auf jede andere Faction mit einem Zufallswert zwischen 0 und 100
+            foreach (Faction faction in factions)
+            {
+                foreach (Faction faction2 in factions)
                 {
-                    if (faction.Type == item)
-                        return faction;
+                    if (faction == faction2)
+                    {
+                        faction.addItem(new BehaviourItem<Faction>(faction2, 100));
+                    }
+                    else
+                    {
+                        faction.addItem(new BehaviourItem<Faction>(faction2, random.Next(0, 100)));
+                    }
                 }
             }
-            return createFaction(item);
         }
 
-        private Faction createFaction(FactionEnum type)
+        private void createRaces()
         {
-            Faction faction;
-            switch (type)
+            races = new List<Race>();
+            Random random = new Random();
+
+            //Erstelle alle Races zuerst
+            foreach (RaceEnum item in Enum.GetValues(typeof(RaceEnum)))
             {
-                case FactionEnum.Human:
-                    {
-                        faction = new Faction(type);
-                        break;
-                    }
+                Race tmpRace = new Race(item);
+                races.Add(tmpRace);
             }
-            factions.Add(faction);
-            faction.Behaviour = factions;
-            return faction;
+
+            //Bilde in jeder Race eine Referenz auf jede andere Race mit einem Zufallswert zwischen 0 und 100
+            foreach (Race race in races)
+            {
+                foreach (Race race2 in races)
+                {
+                    if (race == race2)
+                    {
+                        race.addItem(new BehaviourItem<Race>(race2, 100));
+                    }
+                    else
+                    {
+                        race.addItem(new BehaviourItem<Race>(race2, random.Next(0, 100)));
+                    }
+                }
+            }
         }
 
-        private Race createRace(RaceEnum type)
+        public Race getRace(RaceEnum type)
         {
-
+            foreach(Race race in races)
+            {
+                if (race.Type == type)
+                    return race;
+            }
+            return null;
         }
+
+        public Faction getFaction(FactionEnum type)
+        {
+            foreach (Faction faction in factions)
+            {
+                if (faction.Type == type)
+                    return faction;
+            }
+            return null;
+        }
+
+        
     }
 }

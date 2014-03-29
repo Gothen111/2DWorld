@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 
 using Server.Model.Behaviour;
+using Server.Factories.FactoryEnums;
 
-namespace Server.Model.Behaviour.Member.Race
+namespace Server.Model.Behaviour.Member
 {
-    class Race
+    class Race : Behaviour<Race, RaceEnum>
     {
-        protected Behaviour<Race> behaviour;
+        public Race(RaceEnum _type) : base(_type)
+        {
+            
+        }
     }
 }

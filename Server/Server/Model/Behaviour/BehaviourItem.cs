@@ -9,18 +9,24 @@ namespace Server.Model.Behaviour
     {
         protected E item;
         public E Item{
-            get {return item;}
+            get { return item; }
         }
 
         protected int value;
         public int Value{
-            get{ return value;}
-            set{ this.value = value;}
+            get{ return value; }
+            set{ this.value = value; }
         }
 
         public void addToValue(int modifier)
         {
             value += modifier;
+        }
+
+        public BehaviourItem(E _item, int _value)
+        {
+            item = _item;
+            value = _value;
         }
     }
 }

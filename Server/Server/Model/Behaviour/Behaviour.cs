@@ -5,45 +5,37 @@ using System.Text;
 
 namespace Server.Model.Behaviour
 {
-    abstract class Behaviour<E>
+    abstract class Behaviour<E, T>
     {
         protected List<BehaviourItem<E>> behaviour;
 
-        public List<BehaviourItem<E>> Behaviour
+        public Behaviour()
+        {
+            behaviour = new List<BehaviourItem<E>>();
+        }
+
+        public Behaviour(T _type) : this()
+        {
+            this.type = _type;
+        }
+
+        public List<BehaviourItem<E>> BehaviourMember
         {
             get { return behaviour; }
             set { behaviour = value; }
         }
 
-        public void updateBehaviour()
+        protected T type;
+
+        public T Type
         {
-            List<E> list = castValues(Enum.GetValues(behaviourMembers.GetType()));
-            foreach(E item in list)
-            {
-                if (!behaviour.Contains(item))
-                {
-                    behaviour.Add(item);
-                }
-            }
+            get { return type; }
+            set { type = value; }
         }
 
-        public List<E> castValues(Array array)
+        public void addItem(BehaviourItem<E> item)
         {
-            List<E> list = new List<E>();
-            foreach (var item in array)
-            {
-                if (item is E)
-                {
-                    list.Add((E)item);
-                }
-                else
-                {
-                    Logger.Logger.LogErr("Fehler bei Behaviour: Übergebenes Enum ist nicht vom richtigen Typ");
-                }
-            }
-
-            return list;
+            behaviour.Add(item);
         }
-
     }
 }
