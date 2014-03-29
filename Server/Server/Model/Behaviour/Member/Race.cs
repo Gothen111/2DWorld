@@ -5,7 +5,7 @@ using System.Text;
 
 using Server.Model.Behaviour;
 
-namespace Server.Model.Race
+namespace Server.Model.Behaviour.Member.Race
 {
     class Race
     {

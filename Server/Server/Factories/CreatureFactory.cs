@@ -5,6 +5,7 @@ using System.Text;
 
 using Server.Model.Object;
 using Server.Factories.FactoryEnums;
+using Microsoft.Xna.Framework;
 
 namespace Server.Factories
 {
@@ -22,9 +23,11 @@ namespace Server.Factories
 
             switch (objectType)
             {
-                case CreatureEnum.HUMAN_FEMALE:
+                case CreatureEnum.Human_Female:
                     {
-                        npcObject.
+                        npcObject.Name = "Frau";
+                        npcObject.Scale = 1;
+                        npcObject.Velocity = new Vector3(0, 0, 0);
                         break;
                     }
             }

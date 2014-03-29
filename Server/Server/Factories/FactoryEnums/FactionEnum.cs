@@ -5,11 +5,12 @@ using System.Text;
 
 namespace Server.Factories.FactoryEnums
 {
-    enum EnvironmentEnum
+    enum FactionEnum
     {
-        Tree_Grey,
-        Tree_Brown,
-        Plant,
+        Human,
+        Orc,
+        Troll,
+        Nothing,
 
     }
 }

@@ -18,7 +18,24 @@ namespace Server.Factories
 
         public EnvironmentObject createEnvironmentObject(EnvironmentEnum objectType)
         {
-            EnvironmentObject environmentObject = new EnvironmentObject();s
+            EnvironmentObject environmentObject = new EnvironmentObject();
+
+            switch(objectType)
+            {
+                case EnvironmentEnum.Plant:
+                    {
+                        break;
+                    }
+                case EnvironmentEnum.Tree_Brown:
+                    {
+                        break;
+                    }
+                case EnvironmentEnum.Tree_Grey:
+                    {
+                        break;
+                    }
+            }
+            return environmentObject;
         }
     }
 }
