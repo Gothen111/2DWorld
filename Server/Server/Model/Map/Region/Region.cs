@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Server.Model.Map
+using Server.Model.Map.Chunk;
+
+namespace Server.Model.Map.Region
 {
     class Region
     {
         private int id;
-        private List<Chunk> chunks;
+        private List<Chunk.Chunk> chunks;
+        private String name;
 
-        public Region(int _Id)
+        public String Name
         {
-            this.id = _Id;
-            chunks = new List<Chunk>();
+            get { return name; }
+            set { name = value; }
         }
 
-        public bool addChunk(Chunk _Chunk)
+        public Region(int _Id, String _Name)
+        {
+            this.id = _Id;
+            this.name = _Name;
+            chunks = new List<Chunk.Chunk>();
+        }
+
+        public bool addChunk(Chunk.Chunk _Chunk)
         {
             if (!containsChunk(_Chunk.Id))
             {
@@ -35,7 +45,7 @@ namespace Server.Model.Map
             return false;
         }
 
-        public bool containsChunk(Chunk _Chunk)
+        public bool containsChunk(Chunk.Chunk _Chunk)
         {
             return false;
         }
@@ -51,7 +61,7 @@ namespace Server.Model.Map
 
         }
 
-        public void saveChunk(Chunk _Chunk)
+        public void saveChunk(Chunk.Chunk _Chunk)
         {
 
         }

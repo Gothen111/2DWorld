@@ -1,6 +1,0 @@
-D:\Projekte\2DWorld\Server\Server\obj\x86\Debug\Server.csprojResolveAssemblyReference.cache
-D:\Projekte\2DWorld\Server\Server\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-D:\Projekte\2DWorld\Server\Server\bin\x86\Debug\Server.exe
-D:\Projekte\2DWorld\Server\Server\bin\x86\Debug\Server.pdb
-D:\Projekte\2DWorld\Server\Server\obj\x86\Debug\Server.exe
-D:\Projekte\2DWorld\Server\Server\obj\x86\Debug\Server.pdb

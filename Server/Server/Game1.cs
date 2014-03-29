@@ -42,6 +42,14 @@ namespace Server
             Race race = BehaviourFactory.behaviourFactory.getRace(RaceEnum.Human);
             Faction faction = BehaviourFactory.behaviourFactory.getFaction(FactionEnum.Wizard);
 
+            System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+
+            RegionFactory.regionFactory.generateRegion(0, "Test", 20, 20, Model.Map.Region.RegionEnum.Grassland);
+
+            watch.Stop();
+            Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
+
             base.Initialize();
         }
 

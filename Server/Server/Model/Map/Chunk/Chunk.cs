@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
 using Server.Logger;
 using Server.Model.Collison;
+using Server.Model.Map.Block;
 
-namespace Server.Model.Map
+namespace Server.Model.Map.Chunk
 {
     class Chunk
     {
@@ -34,9 +36,18 @@ namespace Server.Model.Map
             set { sizeY = value; }
         }
 
-        public Chunk(int _Id, int _SizeX, int _SizeY)
+        private Vector2 position;
+
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
+        public Chunk(int _Id, int _PosX, int _PosY, int _SizeX, int _SizeY)
         {
             this.id = _Id;
+            this.position = new Vector2(_PosX, _PosY);
             this.sizeX = _SizeX;
             this.sizeY = _SizeY;
 
@@ -63,6 +74,15 @@ namespace Server.Model.Map
                 Logger.Logger.LogErr("Chunk->setBlockAtPosition(...) : Platzierung nicht möglich: PosX " + _PosX + " PosY " + _PosY);
                 return false;
             }
+        }
+
+        public void addAnimatedObjectToChunk(Object.AnimatedObject _AnimatedObject)
+        {
+        }
+
+        public BlockEnum getBlockEnumAtCoordinate(float _PosX, float _PosY)
+        {
+            return blocks[(int)(_PosX/Block.Block.BlockSize), ((int)_PosY/Block.Block.BlockSize)];
         }
     }
 }

@@ -3,83 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Server.Model.Map;
+using Server.Model.Map.Region;
+using Server.Model.Map.Chunk;
+using Server.Factories;
 
 namespace Server.Factories
 {
     class RegionFactory
     {
-        
-        private int chunkSizeX = 20;
-        private int chunkSizeY = 20;
+        public static RegionFactory regionFactory = new RegionFactory();
 
-        public Region generateRegion(int _Id, RegionEnum _RegionEnum, int _RegionSizeX, int _RegionSizeY)
+        public Region generateRegion(int _Id, String _Name, int _RegionSizeX, int _RegionSizeY, RegionEnum _RegionEnum)
         {
             switch (_RegionEnum)
             {
                 case RegionEnum.Grassland:
                     {
-                        return generateRegionGrassland(_Id, _RegionSizeX, _RegionSizeY);
+                        return generateRegionGrassland(_Id, _Name, _RegionSizeX, _RegionSizeY);
                     }
             }
             return null;
         }
 
-        public Chunk generateChunk(int _Id, ChunkEnum _ChunkEnum)
-        {
-            switch (_ChunkEnum)
-            {
-                case ChunkEnum.Grassland:
-                    {
-                        return generateChunkGrassland(_Id, chunkSizeX, chunkSizeY);
-                    }
-            }
-            return null;
-        }
-
-        private Region generateRegionGrassland(int _Id, int _SizeX, int _SizeY)
+        private Region generateRegionGrassland(int _Id, String _Name, int _RegionSizeX, int _RegionSizeY)
         {
             Region var_Result;
 
-            var_Result = new Region(_Id);
-            for (int x = 0; x < _SizeX; x++)
+            var_Result = new Region(_Id, _Name);
+
+
+            for (int x = 0; x < _RegionSizeX; x++)
             {
-                for (int y = 0; y < _SizeY; y++)
+                for (int y = 0; y < _RegionSizeY; y++)
                 {
-                    if (!var_Result.addChunk(generateChunkGrassland(var_Result.getLastChunkId(), this.chunkSizeX, this.chunkSizeY)))
-                    {
-                        Logger.Logger.LogErr("RegionFactory->generateRegionGrassland(...) : Chunk existiert schon!");
-                    }
+                    Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(var_Result.getLastChunkId(), x, y, ChunkEnum.Grassland);
+                    this.addChunkToRegion(var_Result, var_Chunk);
                 }
+                Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " +(int)(((float)x / _RegionSizeX) * 100) + "%", true);
             }
+
+            Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
 
             return var_Result;
         }
 
-        private Chunk generateChunkGrassland(int _Id, int _SizeX, int _SizeY)
+        private void addChunkToRegion(Region _Region, Chunk _ChunkToAdd)
         {
-            Chunk var_Result;
-
-            var_Result = new Chunk(_Id, _SizeX, _SizeY);
-            this.fillChunkWithBlock(var_Result, BlockEnum.Gras);
-
-            return var_Result;
-        }
-
-        private Chunk fillChunkWithBlock(Chunk _Chunk, BlockEnum _BlockEnum)
-        {
-            for(int x = 0; x < _Chunk.SizeX; x++)
+            if (_Region.addChunk(_ChunkToAdd))
             {
-                for(int y = 0; y < _Chunk.SizeY; y++)
-                {
-                    if (!_Chunk.setBlockAtPosition(x, y, _BlockEnum))
-                    {
-                        Logger.Logger.LogErr("RegionFactory->fillChunkWithBlock(...) : Platzierung nicht möglich!");
-                    }
-                }
-            }
 
-            return _Chunk;
+            }
+            else
+            {
+                Logger.Logger.LogErr("RegionFactory->generateRegionGrassland(...) : Chunk kann der Region " + _Region.Name + " den Chunk nicht hinzufügen!");
+            }
         }
     }
 }
