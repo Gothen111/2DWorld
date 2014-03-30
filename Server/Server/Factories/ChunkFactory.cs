@@ -39,9 +39,9 @@ namespace Server.Factories
 
         private Chunk fillChunkWithBlock(Chunk _Chunk, BlockEnum _BlockEnum)
         {
-            for(int x = 0; x < _Chunk.SizeX; x++)
+            for(int x = 0; x < _Chunk.Size.X; x++)
             {
-                for(int y = 0; y < _Chunk.SizeY; y++)
+                for(int y = 0; y < _Chunk.Size.Y; y++)
                 {
                     if (!_Chunk.setBlockAtPosition(x, y, _BlockEnum))
                     {

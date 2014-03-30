@@ -10,7 +10,6 @@ namespace Server.Model.Behaviour.Member
 {
     class Race : Behaviour<Race, RaceEnum>
     {
-        public static List<Race> races = new List<Race>();
         public Race(RaceEnum _type) : base(_type)
         {
             

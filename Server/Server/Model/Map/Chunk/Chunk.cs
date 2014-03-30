@@ -8,6 +8,9 @@ using Server.Logger;
 using Server.Model.Collison;
 using Server.Model.Map.Block;
 
+
+using Microsoft.Xna.Framework.Graphics;
+
 namespace Server.Model.Map.Chunk
 {
     class Chunk
@@ -21,19 +24,12 @@ namespace Server.Model.Map.Chunk
         }
         private BlockEnum[,] blocks;
         private QuadTree quadTree;
-        private int sizeX;
+        private Vector2 size;
 
-        public int SizeX
+        public Vector2 Size
         {
-            get { return sizeX; }
-            set { sizeX = value; }
-        }
-        private int sizeY;
-
-        public int SizeY
-        {
-            get { return sizeY; }
-            set { sizeY = value; }
+            get { return size; }
+            set { size = value; }
         }
 
         private Vector2 position;
@@ -48,17 +44,18 @@ namespace Server.Model.Map.Chunk
         {
             this.id = _Id;
             this.position = new Vector2(_PosX, _PosY);
-            this.sizeX = _SizeX;
-            this.sizeY = _SizeY;
+            this.size = new Vector2(_SizeX, _SizeY);
 
-            blocks = new BlockEnum[this.sizeX,this.sizeY];
+            blocks = new BlockEnum[_SizeX, _SizeY];
+
+            quadTree = new QuadTree(0, new Rectangle(0, 0, _SizeX * Block.Block.BlockSize, _SizeY * Block.Block.BlockSize), null);
         }
 
         public bool setBlockAtPosition(int _PosX, int _PosY, BlockEnum _BlockEnum)
         {
-            if (_PosX >= 0 && _PosX < this.sizeX)
+            if (_PosX >= 0 && _PosX < this.size.X)
             {
-                if (_PosY >= 0 && _PosY < this.sizeY)
+                if (_PosY >= 0 && _PosY < this.size.Y)
                 {
                     this.blocks[_PosX, _PosY] = _BlockEnum;
                     return true;
@@ -78,11 +75,17 @@ namespace Server.Model.Map.Chunk
 
         public void addAnimatedObjectToChunk(Object.AnimatedObject _AnimatedObject)
         {
+            quadTree.insert(_AnimatedObject);
         }
 
         public BlockEnum getBlockEnumAtCoordinate(float _PosX, float _PosY)
         {
             return blocks[(int)(_PosX/Block.Block.BlockSize), ((int)_PosY/Block.Block.BlockSize)];
+        }
+
+        public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
         }
     }
 }

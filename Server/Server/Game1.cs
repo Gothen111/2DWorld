@@ -23,6 +23,8 @@ namespace Server
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Server.Model.Map.Region.Region region; 
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -45,7 +47,16 @@ namespace Server
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            RegionFactory.regionFactory.generateRegion(0, "Test", 20, 20, Model.Map.Region.RegionEnum.Grassland);
+            region = RegionFactory.regionFactory.generateRegion(0, "Test", 20, 20, Model.Map.Region.RegionEnum.Grassland);
+
+            for (int i = 0; i < 50; i++)
+            {
+                Model.Object.AnimatedObject var_AnimatedObject = CreatureFactory.creatureFactory.createNpcObject(CreatureEnum.Human_Female);
+                Random Rnd = new Random();
+
+                var_AnimatedObject.Position = new Vector3(Rnd.Next(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Rnd.Next(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);
+                region.Chunks.ElementAt(0).addAnimatedObjectToChunk(var_AnimatedObject);
+            }
 
             watch.Stop();
             Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
@@ -98,7 +109,9 @@ namespace Server
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            region.DrawTest(GraphicsDevice, spriteBatch);
+            spriteBatch.End(); 
 
             base.Draw(gameTime);
         }

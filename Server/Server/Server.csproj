@@ -125,6 +125,7 @@
     <Compile Include="Model\Behaviour\Member\Faction.cs" />
     <Compile Include="Model\Behaviour\Member\Race.cs" />
     <Compile Include="Model\Collison\QuadTree.cs" />
+    <Compile Include="Model\Collison\QuadTree2.cs" />
     <Compile Include="Model\Map\Block\Block.cs" />
     <Compile Include="Model\Map\Block\BlockEnum.cs" />
     <Compile Include="Model\Map\Chunk\Chunk.cs" />

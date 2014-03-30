@@ -5,12 +5,21 @@ using System.Text;
 
 using Server.Model.Map.Chunk;
 
+
+using Microsoft.Xna.Framework.Graphics;
+
 namespace Server.Model.Map.Region
 {
     class Region
     {
         private int id;
         private List<Chunk.Chunk> chunks;
+
+        internal List<Chunk.Chunk> Chunks
+        {
+            get { return chunks; }
+            set { chunks = value; }
+        }
         private String name;
 
         public String Name
@@ -64,6 +73,11 @@ namespace Server.Model.Map.Region
         public void saveChunk(Chunk.Chunk _Chunk)
         {
 
+        }
+
+        public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            this.chunks.ElementAt(0).DrawTest(_GraphicsDevice, _SpriteBatch);
         }
     }
 }
