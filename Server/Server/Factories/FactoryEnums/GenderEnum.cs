@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Server.Factories.FactoryEnums
 {
-    enum FactionEnum
+    enum GenderEnum
     {
-        Beerdrinker,
-        Castle_Test,
-        Castle_Test2
+        Male,
+        Female,
+        Nothing
     }
 }

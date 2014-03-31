@@ -116,6 +116,7 @@
     <Compile Include="Factories\FactoryEnums\CreatureEnum.cs" />
     <Compile Include="Factories\FactoryEnums\EnvironmentEnum.cs" />
     <Compile Include="Factories\FactoryEnums\FactionEnum.cs" />
+    <Compile Include="Factories\FactoryEnums\GenderEnum.cs" />
     <Compile Include="Factories\FactoryEnums\RaceEnum.cs" />
     <Compile Include="Factories\ChunkFactory.cs" />
     <Compile Include="Factories\RegionFactory.cs" />

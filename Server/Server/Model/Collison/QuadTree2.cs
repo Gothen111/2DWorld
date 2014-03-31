@@ -79,7 +79,7 @@ namespace Server.Model.Collison
               bool bottomQuadrant = (_AnimatedObject.Position.Y > horizontalMidpoint);
 
               // Object can completely fit within the left quadrants
-              if (_AnimatedObject.Position.X < verticalMidpoint && _AnimatedObject.Position.X + _AnimatedObject.Size.X < verticalMidpoint)
+              if (_AnimatedObject.Position.X + _AnimatedObject.Size.X < verticalMidpoint)
               {
                   if (topQuadrant)
                   {
@@ -143,6 +143,7 @@ namespace Server.Model.Collison
                           Object.AnimatedObject var_AnimatedObject = objects.ElementAt(i);
                           nodes[index].insert(var_AnimatedObject);
                           objects.Remove(var_AnimatedObject);
+                          i--;
                       }
                       else
                       {

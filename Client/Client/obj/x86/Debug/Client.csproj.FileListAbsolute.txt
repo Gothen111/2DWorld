@@ -1,6 +1,6 @@
 D:\Projekte\2DWorld\Client\Client\bin\x86\Debug\Client.exe
 D:\Projekte\2DWorld\Client\Client\bin\x86\Debug\Client.pdb
-D:\Projekte\2DWorld\Client\Client\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache
 D:\Projekte\2DWorld\Client\Client\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Projekte\2DWorld\Client\Client\obj\x86\Debug\Client.exe
 D:\Projekte\2DWorld\Client\Client\obj\x86\Debug\Client.pdb
+D:\Projekte\2DWorld\Client\Client\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache

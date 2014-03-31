@@ -17,17 +17,20 @@ namespace Server.Factories
         {
         }
 
-        public NpcObject createNpcObject(CreatureEnum objectType)
+        public NpcObject createNpcObject(RaceEnum objectRace, FactionEnum objectFaction, CreatureEnum objectType, GenderEnum objectGender)
         {
             NpcObject npcObject = new NpcObject();
             npcObject.Scale = 1;
             npcObject.Velocity = new Vector3(0, 0, 0);
+            npcObject.Faction = BehaviourFactory.behaviourFactory.getFaction(objectFaction);
+            npcObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
+            npcObject.Gender = objectGender;
 
             switch (objectType)
             {
-                case CreatureEnum.Human_Female:
+                case CreatureEnum.Chieftain:
                     {
-                        npcObject.Name = "Frau";
+                        npcObject.Name = "Anführer"; //TODO NameFactory entwerfen
                         break;
                     }
             }

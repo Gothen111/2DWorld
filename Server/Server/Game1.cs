@@ -42,7 +42,16 @@ namespace Server
             // TODO: Add your initialization logic here
 
             Race race = BehaviourFactory.behaviourFactory.getRace(RaceEnum.Human);
-            Faction faction = BehaviourFactory.behaviourFactory.getFaction(FactionEnum.Wizard);
+            Faction faction = BehaviourFactory.behaviourFactory.getFaction(FactionEnum.Castle_Test2);
+            foreach(Model.Behaviour.BehaviourItem<Race> behaviourItem in race.BehaviourMember)
+            {
+                Logger.Logger.LogInfo("Rasse " + race.Type.ToString() + " hat ein Verhalten zu " + behaviourItem.Item.Type.ToString() + " mit " + behaviourItem.Value.ToString());
+            }
+
+            foreach (Model.Behaviour.BehaviourItem<Faction> behaviourItem in faction.BehaviourMember)
+            {
+                Logger.Logger.LogInfo("Fraktion " + faction.Type.ToString() + " hat ein Verhalten zu " + behaviourItem.Item.Type.ToString() + " mit " + behaviourItem.Value.ToString());
+            }
 
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             watch.Start();
@@ -51,7 +60,8 @@ namespace Server
 
             for (int i = 0; i < 50; i++)
             {
-                Model.Object.AnimatedObject var_AnimatedObject = CreatureFactory.creatureFactory.createNpcObject(CreatureEnum.Human_Female);
+                Model.Object.AnimatedObject var_AnimatedObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
+                Logger.Logger.LogDeb(var_AnimatedObject.ToString());
                 Random Rnd = new Random();
 
                 var_AnimatedObject.Position = new Vector3(Rnd.Next(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Rnd.Next(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);

@@ -7,9 +7,23 @@ namespace Server.Factories.FactoryEnums
 {
     enum CreatureEnum
     {
-        Human_Male,
-        Human_Female,
-        Orc_Male,
-        Orc_Female
+        Archer,
+        Captain,
+        Chieftain,
+        Commandant,
+        Farmer,
+        Peasant,
+        Child,
+        Guard,
+        Hunter,
+        Mage,
+        Priest,
+        Slavehunter,
+        Spearman,
+        Soldier,
+        Sorcerer,
+        Warlock,
+        Warlord,
+        Wizard,
     }
 }

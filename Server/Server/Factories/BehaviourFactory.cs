@@ -13,7 +13,7 @@ namespace Server.Factories
     {
         public static BehaviourFactory behaviourFactory = new BehaviourFactory();
 
-        private BehaviourFactory()
+        public BehaviourFactory()
         {
             createFactions();
             createRaces();

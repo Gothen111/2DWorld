@@ -10,6 +10,6 @@ namespace Server.Factories.FactoryEnums
         Human,
         Orc,
         Troll,
-        Ogre,
+        Ogre
     }
 }
