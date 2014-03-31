@@ -87,5 +87,10 @@ namespace Server.Model.Map.Chunk
         {
             this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
         }
+
+        public void update()
+        {
+            quadTree.update();
+        }
     }
 }

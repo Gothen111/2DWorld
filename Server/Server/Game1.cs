@@ -58,13 +58,11 @@ namespace Server
 
             region = RegionFactory.regionFactory.generateRegion(0, "Test", 20, 20, Model.Map.Region.RegionEnum.Grassland);
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 200; i++)
             {
                 Model.Object.AnimatedObject var_AnimatedObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb(var_AnimatedObject.ToString());
-                Random Rnd = new Random();
-
-                var_AnimatedObject.Position = new Vector3(Rnd.Next(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Rnd.Next(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);
+                var_AnimatedObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);
                 region.Chunks.ElementAt(0).addAnimatedObjectToChunk(var_AnimatedObject);
             }
 
@@ -105,6 +103,8 @@ namespace Server
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            region.Chunks.ElementAt(0).update();
 
             // TODO: Add your update logic here
 

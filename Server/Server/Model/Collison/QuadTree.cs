@@ -41,8 +41,8 @@ namespace Server.Model.Collison
            parent = _Parent;
            nodes = new QuadTree[4];
 
-           Random Rnd = new Random();
-           color = new Color(Rnd.Next(0, 255), Rnd.Next(0, 255), Rnd.Next(0, 255));
+           //Random Rnd = new Random();
+           color = new Color(Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255));
 
           }
 
@@ -118,6 +118,22 @@ namespace Server.Model.Collison
                   }
               }
           }
+
+          /*
+             * Clears the nodes
+             */
+          public void clearNodes()
+          {
+              for (int i = 0; i < nodes.Length; i++)
+              {
+                  if (nodes[i] != null)
+                  {
+                      nodes[i].clear();
+                      nodes[i] = null;
+                  }
+              }
+          }
+
 
           /*
            * Splits the node into 4 subnodes
@@ -263,10 +279,33 @@ namespace Server.Model.Collison
               foreach (AnimatedObject var_AnimatedObject in objects)
               {
                   //var_AnimatedObject.update(); //???
+
+                  /*int movespeed = Server.Util.Random.GenerateGoodRandomNumber(0, 2) - 1;
+                  if (var_AnimatedObject.Position.X + movespeed * 0.1f > 0)
+                  {
+                      if (var_AnimatedObject.Position.Y + movespeed * 0.1f > 0)
+                      {
+                          if (var_AnimatedObject.Position.X + movespeed * 0.1f < 20 * Server.Model.Map.Block.Block.BlockSize)
+                          {
+                              if (var_AnimatedObject.Position.Y + movespeed * 0.1f < 20 * Server.Model.Map.Block.Block.BlockSize)
+                              {
+                                  var_AnimatedObject.Position = new Vector3(var_AnimatedObject.Position.X + movespeed * 0.1f, var_AnimatedObject.Position.Y + movespeed * 0.1f, 0);
+                              }
+                          }
+                      }
+                  }*/
+                  
+                  
                   if (!isObjectStillInBound(var_AnimatedObject))
                   {
                       var_AnimatedObjectsLeftThisTree.Add(var_AnimatedObject);
                   }
+              }
+
+              foreach (AnimatedObject var_AnimatedObject in var_AnimatedObjectsLeftThisTree)
+              {
+                  this.giveAnimatedObjectToParent(var_AnimatedObject);
+                  this.remove(var_AnimatedObject);
               }
 
               foreach (QuadTree var_Node in nodes)
@@ -282,6 +321,35 @@ namespace Server.Model.Collison
           {
               this.objects.Remove(_AnimatedObject);
               // noch viel anderes zeug wie z.b. nodes auflösen //???
+
+              if (this.parent != null)
+              {
+                  if(this.parent.nodes[0] != null)
+                  if (this.parent.nodes[0].objects.Count + this.parent.nodes[1].objects.Count + this.parent.nodes[2].objects.Count + this.parent.nodes[3].objects.Count <= MAX_OBJECTS)
+                  {
+                      if (this.nodes[0] == null)
+                      {
+                          List<AnimatedObject> var_AnimatedObjectsLeftThisTree = new List<AnimatedObject>();
+              
+                          foreach (QuadTree var_Node in this.parent.nodes)
+                          {
+                              foreach (AnimatedObject var_AnimatedObject in var_Node.objects)
+                              {
+                                  var_AnimatedObjectsLeftThisTree.Add(var_AnimatedObject);
+                                  
+                              }
+                          }
+                          this.parent.clearNodes();
+
+                          foreach (AnimatedObject var_AnimatedObject in var_AnimatedObjectsLeftThisTree)
+                          {
+                              this.parent.insert(var_AnimatedObject);
+                          }
+
+                      }
+                  }
+              }
+
           }
 
 
@@ -299,8 +367,6 @@ namespace Server.Model.Collison
                       var_Node.DrawTest(_GraphicsDevice, _SpriteBatch);
                   }
               }
-
-             
           }
     }
 }
