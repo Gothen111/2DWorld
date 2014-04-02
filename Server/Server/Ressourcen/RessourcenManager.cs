@@ -13,7 +13,13 @@ namespace Server.Ressourcen
     class RessourcenManager
     {
         public static RessourcenManager ressourcenManager = new RessourcenManager();
-        Dictionary<String, SpriteFont> fonts;
+        private Dictionary<String, SpriteFont> fonts;
+
+        public Dictionary<String, SpriteFont> Fonts
+        {
+            get { return fonts; }
+            set { fonts = value; }
+        }
 
         public RessourcenManager()
         {
