@@ -116,6 +116,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection\Event.cs" />
+    <Compile Include="Connection\Message\EIGameMessageType.cs" />
+    <Compile Include="Connection\Message\IGameMessage.cs" />
+    <Compile Include="Connection\ServerIGameMessageManager.cs" />
+    <Compile Include="Connection\ServerMessageManager.cs" />
+    <Compile Include="Connection\ServerNetworkManager.cs" />
     <Compile Include="Factories\BehaviourFactory.cs" />
     <Compile Include="Factories\CreatureFactory.cs" />
     <Compile Include="Factories\EnvironmentFactory.cs" />
