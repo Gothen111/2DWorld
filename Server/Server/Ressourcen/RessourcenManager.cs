@@ -13,10 +13,11 @@ namespace Server.Ressourcen
     class RessourcenManager
     {
         public static RessourcenManager ressourcenManager = new RessourcenManager();
-        public static Dictionary<String, SpriteFont> fonts = new Dictionary<String, SpriteFont>();
+        Dictionary<String, SpriteFont> fonts;
 
         public RessourcenManager()
         {
+            fonts = new Dictionary<String, SpriteFont>();
         }
 
         public void loadGeneral(ContentManager _ContentManager)
@@ -28,7 +29,7 @@ namespace Server.Ressourcen
         {
             if(!this.containFont(_Name, _SpiteFont))
             {
-                fonts.Add(_Name, _SpiteFont);
+                this.fonts.Add(_Name, _SpiteFont);
             }
         }
 
