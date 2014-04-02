@@ -12,8 +12,8 @@ namespace Server.Factories
     class ChunkFactory
     {
         public static ChunkFactory chunkFactory = new ChunkFactory();
-        public static int chunkSizeX = 20;
-        public static int chunkSizeY = 20;
+        public static int chunkSizeX = 40;
+        public static int chunkSizeY = 40;
 
         public Chunk generateChunk(int _Id, int _PosX, int PosY, ChunkEnum _ChunkEnum)
         {

@@ -56,7 +56,7 @@ namespace Server
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            region = RegionFactory.regionFactory.generateRegion(0, "Test", 20, 20, Model.Map.Region.RegionEnum.Grassland);
+            region = RegionFactory.regionFactory.generateRegion(0, "Test", 10, 10, Model.Map.Region.RegionEnum.Grassland);
 
             for (int i = 0; i < 200; i++)
             {
