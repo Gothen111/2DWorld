@@ -24,6 +24,6 @@ namespace Server.Factories.FactoryEnums
         Sorcerer,
         Warlock,
         Warlord,
-        Wizard,
+        Wizard
     }
 }

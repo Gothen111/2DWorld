@@ -131,6 +131,7 @@
     <Compile Include="Factories\FactoryEnums\GenderEnum.cs" />
     <Compile Include="Factories\FactoryEnums\RaceEnum.cs" />
     <Compile Include="Factories\ChunkFactory.cs" />
+    <Compile Include="Factories\NameFactory.cs" />
     <Compile Include="Factories\RegionFactory.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Model\Behaviour\Behaviour.cs" />

@@ -58,7 +58,7 @@ namespace Server
 
             region = RegionFactory.regionFactory.generateRegion(0, "Test", 10, 10, Model.Map.Region.RegionEnum.Grassland);
 
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 500; i++)
             {
                 Model.Object.AnimatedObject var_AnimatedObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb(var_AnimatedObject.ToString());
