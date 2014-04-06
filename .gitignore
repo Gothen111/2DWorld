@@ -1,0 +1,16 @@
+*.suo
+*.sln
+2DWorld.suo
+2DWorld.suo
+Client/ClientContent/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Server/Server/bin/x86/Debug/Server.exe
+Server/Server/bin/x86/Debug/Server.pdb
+Server/Server/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Server/Server/obj/x86/Debug/Server.csproj.FileListAbsolute.txt
+Server/Server/obj/x86/Debug/Server.csprojResolveAssemblyReference.cache
+Server/Server/obj/x86/Debug/Server.exe
+Server/Server/obj/x86/Debug/Server.pdb
+Server/ServerContent/obj/x86/Debug/ContentPipeline.xml
+Server/ServerContent/obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+Server/ServerContent/obj/x86/Debug/ServerContent.contentproj.FileListAbsolute.txt
+Server/ServerContent/obj/x86/Debug/ServerContent.contentprojResolveAssemblyReference.cache
