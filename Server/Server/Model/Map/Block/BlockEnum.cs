@@ -13,7 +13,8 @@ namespace Server.Model.Map.Block
         Sand,
         Ice,
         Desert,
-        Forest
+        Forest,
+        Wall
         //Water,
         //Lava,
         //Swamp

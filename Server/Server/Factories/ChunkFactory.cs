@@ -35,6 +35,7 @@ namespace Server.Factories
             this.fillChunkWithBlock(var_Result, BlockEnum.Gras);
 
             generateSecondLayer(var_Result, _Layer);
+            generateWall(var_Result);
 
             return var_Result;
         }
@@ -86,6 +87,42 @@ namespace Server.Factories
                         rekursiveSetBlock(_Chunk, _Enum, _PosX - 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
                         rekursiveSetBlock(_Chunk, _Enum, _PosX, _PosY + 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
                         rekursiveSetBlock(_Chunk, _Enum, _PosX, _PosY - 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
+                    }
+                }
+            }
+        }
+
+        private void generateWall(Chunk _Chunk)
+        {
+            int var_Count = 10;
+            for (int i = 0; i < var_Count; i++)
+            {
+                int var_PosX = Util.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.X);
+                int var_PosY = Util.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.Y);
+                rekursiveSetWall(_Chunk, BlockEnum.Wall, var_PosX, var_PosY, 100, 5);
+            }
+        }
+
+        private void rekursiveSetWall(Chunk _Chunk, Enum _Enum, int _PosX, int _PosY, int _Chance, int _ChanceToDecrease)
+        {
+            int var_Chance = Util.Random.GenerateGoodRandomNumber(0, 100);
+
+            if (var_Chance <= _Chance)
+            {
+                if (_PosX >= 0 && _PosX <= (_Chunk.Size.X - 1))
+                {
+                    if (_PosY >= 0 && _PosY <= (_Chunk.Size.Y - 1))
+                    {
+                        if (_Chance <= 0)
+                        {
+                            return;
+                        }
+
+                        _Chunk.getBlockAtPosition(_PosX, _PosY).setFirstLayer(_Enum);
+                        rekursiveSetWall(_Chunk, _Enum, _PosX + 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetWall(_Chunk, _Enum, _PosX - 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetWall(_Chunk, _Enum, _PosX, _PosY + 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetWall(_Chunk, _Enum, _PosX, _PosY - 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
                     }
                 }
             }

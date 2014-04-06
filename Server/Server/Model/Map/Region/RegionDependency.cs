@@ -15,7 +15,7 @@ namespace Server.Model.Map.Region
             layer = new Dictionary<RegionEnum, List<Enum>>();
             List<Enum> var_Layer_Grassland = new List<Enum>();
 
-            //var_Layer_Grassland.Add(Block.BlockEnum.Gras);
+            var_Layer_Grassland.Add(Block.BlockEnum.Gras);
             var_Layer_Grassland.Add(Block.BlockEnum.Dirt);
             layer.Add(RegionEnum.Grassland, var_Layer_Grassland);
         }

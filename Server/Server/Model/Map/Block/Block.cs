@@ -27,5 +27,16 @@ namespace Server.Model.Map.Block
         {
             this.layer.Add(_Enum);
         }
+
+        public void setLayerAt(Enum _Enum, int _Id)
+        {
+            this.layer[_Id] = _Enum;
+        }
+
+        public void setFirstLayer(Enum _Enum)
+        {
+            this.layer.Clear();
+            this.addLayer(_Enum);
+        }
     }
 }

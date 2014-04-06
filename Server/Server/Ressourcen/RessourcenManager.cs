@@ -39,6 +39,11 @@ namespace Server.Ressourcen
             addFont("Arial", _ContentManager.Load<SpriteFont>("Font/Arial"));
             addTexture("Wall", _ContentManager.Load<Texture2D>("Block/Wall"));
             addTexture("WoodenPlank", _ContentManager.Load<Texture2D>("Block/WoodenPlank"));
+            
+            addTexture("Layer1/Gras", _ContentManager.Load<Texture2D>("Block/Layer1/Gras"));
+            addTexture("Layer1/Wall", _ContentManager.Load<Texture2D>("Block/Layer1/Wall"));
+            addTexture("Layer2/Gras", _ContentManager.Load<Texture2D>("Block/Layer2/Gras"));
+            addTexture("Layer2/Dirt", _ContentManager.Load<Texture2D>("Block/Layer2/Dirt"));
         }
 
         public void addTexture(String _Name, Texture2D _Texture2D)
