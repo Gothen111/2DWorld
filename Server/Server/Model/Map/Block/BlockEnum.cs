@@ -8,6 +8,15 @@ namespace Server.Model.Map.Block
     enum BlockEnum
     {
         Gras,
-        Stone
+        Stone,
+        Dirt,
+        Sand,
+        Ice,
+        Desert,
+        Forest,
+        Wall
+        //Water,
+        //Lava,
+        //Swamp
     }
 }

@@ -14,6 +14,13 @@ namespace Server.Ressourcen
     {
         public static RessourcenManager ressourcenManager = new RessourcenManager();
         private Dictionary<String, SpriteFont> fonts;
+        private Dictionary<String, Texture2D> texture;
+
+        public Dictionary<String, Texture2D> Texture
+        {
+            get { return texture; }
+            set { texture = value; }
+        }
 
         public Dictionary<String, SpriteFont> Fonts
         {
@@ -24,11 +31,32 @@ namespace Server.Ressourcen
         public RessourcenManager()
         {
             fonts = new Dictionary<String, SpriteFont>();
+            texture = new Dictionary<string, Texture2D>();
         }
 
         public void loadGeneral(ContentManager _ContentManager)
         {
             addFont("Arial", _ContentManager.Load<SpriteFont>("Font/Arial"));
+            addTexture("Wall", _ContentManager.Load<Texture2D>("Block/Wall"));
+            addTexture("WoodenPlank", _ContentManager.Load<Texture2D>("Block/WoodenPlank"));
+            
+            addTexture("Layer1/Gras", _ContentManager.Load<Texture2D>("Block/Layer1/Gras"));
+            addTexture("Layer1/Wall", _ContentManager.Load<Texture2D>("Block/Layer1/Wall"));
+            addTexture("Layer2/Gras", _ContentManager.Load<Texture2D>("Block/Layer2/Gras"));
+            addTexture("Layer2/Dirt", _ContentManager.Load<Texture2D>("Block/Layer2/Dirt"));
+        }
+
+        public void addTexture(String _Name, Texture2D _Texture2D)
+        {
+            if (!this.containTextue(_Name, _Texture2D))
+            {
+                this.texture.Add(_Name, _Texture2D);
+            }
+        }
+
+        public bool containTextue(String _Name, Texture2D _Texture2D)
+        {
+            return texture.ContainsKey(_Name) || texture.ContainsValue(_Texture2D);
         }
 
         public void addFont(String _Name, SpriteFont _SpiteFont)

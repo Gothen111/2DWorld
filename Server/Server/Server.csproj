@@ -131,7 +131,6 @@
     <Compile Include="Factories\FactoryEnums\GenderEnum.cs" />
     <Compile Include="Factories\FactoryEnums\RaceEnum.cs" />
     <Compile Include="Factories\ChunkFactory.cs" />
-    <Compile Include="Factories\NameFactory.cs" />
     <Compile Include="Factories\RegionFactory.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Model\Behaviour\Behaviour.cs" />
@@ -145,6 +144,7 @@
     <Compile Include="Model\Map\Chunk\Chunk.cs" />
     <Compile Include="Model\Map\Chunk\ChunkEnum.cs" />
     <Compile Include="Model\Map\Region\Region.cs" />
+    <Compile Include="Model\Map\Region\RegionDependency.cs" />
     <Compile Include="Model\Map\Region\RegionEnum.cs" />
     <Compile Include="Model\Object\AnimatedObject.cs" />
     <Compile Include="Model\Object\CreatureObject.cs" />

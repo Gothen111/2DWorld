@@ -22,7 +22,7 @@ namespace Server.Model.Map.Chunk
             get { return id; }
             set { id = value; }
         }
-        private BlockEnum[,] blocks;
+        private Block.Block[,] blocks;
         private QuadTree quadTree;
         private Vector2 size;
 
@@ -46,18 +46,18 @@ namespace Server.Model.Map.Chunk
             this.position = new Vector2(_PosX, _PosY);
             this.size = new Vector2(_SizeX, _SizeY);
 
-            blocks = new BlockEnum[_SizeX, _SizeY];
+            blocks = new Block.Block[_SizeX, _SizeY];
 
             quadTree = new QuadTree(0, new Rectangle(0, 0, _SizeX * Block.Block.BlockSize, _SizeY * Block.Block.BlockSize), null);
         }
 
-        public bool setBlockAtPosition(int _PosX, int _PosY, BlockEnum _BlockEnum)
+        public bool setBlockAtPosition(int _PosX, int _PosY, Block.Block _Block)
         {
             if (_PosX >= 0 && _PosX < this.size.X)
             {
                 if (_PosY >= 0 && _PosY < this.size.Y)
                 {
-                    this.blocks[_PosX, _PosY] = _BlockEnum;
+                    this.blocks[_PosX, _PosY] = _Block;
                     return true;
                 }
                 else
@@ -78,14 +78,56 @@ namespace Server.Model.Map.Chunk
             quadTree.insert(_AnimatedObject);
         }
 
-        public BlockEnum getBlockEnumAtCoordinate(float _PosX, float _PosY)
+        public Block.Block getBlockAtCoordinate(float _PosX, float _PosY)
         {
             return blocks[(int)(_PosX/Block.Block.BlockSize), ((int)_PosY/Block.Block.BlockSize)];
         }
 
+        public Block.Block getBlockAtPosition(float _PosX, float _PosY)
+        {
+            return blocks[(int)(_PosX), ((int)_PosY)];
+        }
+
         public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
+            //this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
+
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    int var_Layer = 1;
+                    foreach (Enum var_Enum in this.getBlockAtPosition(x, y).Layer)
+                    {
+                        if (var_Enum is BlockEnum)
+                        {
+                            if (var_Layer == 1)
+                            {
+                                if ((BlockEnum)var_Enum == BlockEnum.Gras)
+                                {
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
+                                }
+                                if ((BlockEnum)var_Enum == BlockEnum.Wall)
+                                {
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
+                                }
+                            }
+                            if (var_Layer == 2)
+                            {
+                                if ((BlockEnum)var_Enum == BlockEnum.Gras)
+                                {
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
+                                }
+                                if ((BlockEnum)var_Enum == BlockEnum.Dirt)
+                                {
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
+                                }
+                            }
+                        }
+                        var_Layer += 1;
+                    }
+                }
+            }
         }
 
         public void update()
