@@ -7,5 +7,9 @@ namespace Server.Model.Object
 {
     class PlayerObject : FactionObject
     {
+        public override void update()
+        {
+            base.update();
+        }
     }
 }

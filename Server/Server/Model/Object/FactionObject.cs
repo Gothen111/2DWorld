@@ -16,5 +16,10 @@ namespace Server.Model.Object
             get { return faction; }
             set { faction = value; }
         }
+
+        public override void update()
+        {
+            base.update();
+        }
     }
 }

@@ -7,5 +7,9 @@ namespace Server.Model.Object
 {
     class EnvironmentObject : LivingObject
     {
+        public override void update()
+        {
+            base.update();
+        }
     }
 }

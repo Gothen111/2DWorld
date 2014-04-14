@@ -29,6 +29,8 @@ namespace Server
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 1024; 
         }
 
         /// <summary>
@@ -58,12 +60,21 @@ namespace Server
 
             region = RegionFactory.regionFactory.generateRegion(0, "Test", 10, 10, Model.Map.Region.RegionEnum.Grassland);
 
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 50; i++)
             {
                 Model.Object.AnimatedObject var_AnimatedObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb(var_AnimatedObject.ToString());
                 var_AnimatedObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);
+                var_AnimatedObject.GraphicPath = "Character/Char1_Small";
+                var_AnimatedObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, 20) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(0, 20) * 0.05f, 0);
+                /*if (i <= 50)
+                {
+                    var_AnimatedObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, 20) * 0.1f, Server.Util.Random.GenerateGoodRandomNumber(0, 20) * 0.1f, 0);
+                    var_AnimatedObject.Position = new Vector3(20,20,0);
+                
+                }*/
                 region.Chunks.ElementAt(0).addAnimatedObjectToChunk(var_AnimatedObject);
+                Logger.Logger.LogDeb(var_AnimatedObject.Velocity.X + " : " + var_AnimatedObject.Velocity.Y); 
             }
 
             watch.Stop();
@@ -109,6 +120,8 @@ namespace Server
             region.Chunks.ElementAt(0).update();
 
             // TODO: Add your update logic here
+
+            Logger.Logger.LogDeb(region.Chunks.ElementAt(0).getCountofAllObjects().ToString());
 
             base.Update(gameTime);
         }

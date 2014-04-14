@@ -30,5 +30,10 @@ namespace Server.Model.Object
             get { return velocity; }
             set { velocity = value; }
         }
+
+        public virtual void update()
+        {
+
+        }
     }
 }
