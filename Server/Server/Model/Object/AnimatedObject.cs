@@ -54,7 +54,7 @@ namespace Server.Model.Object
                 {
                     this.animation = 0; // Left
                 }
-                this.animationTime = (int) (this.animationTimeMax/((Math.Abs(this.Velocity.X)+Math.Abs(this.Velocity.Y)+Math.Abs(this.Velocity.Z)))/2.7f);
+                this.animationTime = (int) (this.animationTimeMax/((Math.Abs(this.Velocity.X)+Math.Abs(this.Velocity.Y)+Math.Abs(this.Velocity.Z)))/1.8f);
                 this.updateMovementDirection();
             }
             else

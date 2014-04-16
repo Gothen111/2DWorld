@@ -40,7 +40,9 @@ namespace Server.Model.Map.Chunk
             set { position = value; }
         }
 
-        public Chunk(int _Id, int _PosX, int _PosY, int _SizeX, int _SizeY)
+        private Region.Region parentRegion;
+
+        public Chunk(int _Id, int _PosX, int _PosY, int _SizeX, int _SizeY, Region.Region _ParentRegion)
         {
             this.id = _Id;
             this.position = new Vector2(_PosX, _PosY);
@@ -49,6 +51,8 @@ namespace Server.Model.Map.Chunk
             blocks = new Block.Block[_SizeX, _SizeY];
 
             quadTree = new QuadTree(0, new Rectangle(0, 0, _SizeX * Block.Block.BlockSize, _SizeY * Block.Block.BlockSize), null);
+
+            this.parentRegion = _ParentRegion;
         }
 
         public bool setBlockAtPosition(int _PosX, int _PosY, Block.Block _Block)
