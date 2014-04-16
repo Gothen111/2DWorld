@@ -30,8 +30,10 @@ namespace Server
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 1024; 
+            graphics.PreferredBackBufferWidth = 1200;
+            graphics.PreferredBackBufferHeight = 800;
+
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
