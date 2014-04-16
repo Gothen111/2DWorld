@@ -394,10 +394,10 @@ namespace Server.Model.Collison
 
           public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
           {
-             Texture2D texture = new Texture2D(_GraphicsDevice, 1, 1);
+             /*Texture2D texture = new Texture2D(_GraphicsDevice, 1, 1);
               texture.SetData<Color>(new Color[] { Color.White });
 
-              _SpriteBatch.Draw(texture, this.bounds, color);
+              _SpriteBatch.Draw(texture, this.bounds, color);*/
 
               foreach (AnimatedObject var_AnimatedObject in objects)
               {

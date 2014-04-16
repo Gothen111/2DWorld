@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
-
+using Server.Model.Map.Chunk;
 namespace Server.Model.Object
 {
     class Object
@@ -29,6 +29,14 @@ namespace Server.Model.Object
         {
             get { return velocity; }
             set { velocity = value; }
+        }
+
+        private Chunk currentChunk;
+
+        public Chunk CurrentChunk
+        {
+            get { return currentChunk; }
+            set { currentChunk = value; }
         }
 
         public virtual void update()
