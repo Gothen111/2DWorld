@@ -24,6 +24,15 @@ namespace Server.Model.Map.Chunk
         }
         private Block.Block[,] blocks;
         private QuadTree quadTree;
+        
+        private String name;
+
+        public String Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
         private Vector2 size;
 
         public Vector2 Size
@@ -42,9 +51,10 @@ namespace Server.Model.Map.Chunk
 
         private Region.Region parentRegion;
 
-        public Chunk(int _Id, int _PosX, int _PosY, int _SizeX, int _SizeY, Region.Region _ParentRegion)
+        public Chunk(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, Region.Region _ParentRegion)
         {
             this.id = _Id;
+            this.name = _Name;
             this.position = new Vector2(_PosX, _PosY);
             this.size = new Vector2(_SizeX, _SizeY);
 
@@ -94,7 +104,6 @@ namespace Server.Model.Map.Chunk
 
         public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            
             for (int x = 0; x < this.size.X; x++)
             {
                 for (int y = 0; y < this.size.Y; y++)

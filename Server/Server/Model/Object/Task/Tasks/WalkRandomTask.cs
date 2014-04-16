@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Server.Model.Map.World;
+
 namespace Server.Model.Object.Task.Tasks
 {
     class WalkRandomTask : LivingObjectTask
@@ -15,16 +17,16 @@ namespace Server.Model.Object.Task.Tasks
             this.finishedWalking = true;
         }
 
-        public override bool wantToDoTask()
+        public override bool wantToDoTask(World _World)
         {
             bool var_wantToDoTask = true;
 
-            return var_wantToDoTask || base.wantToDoTask();
+            return var_wantToDoTask || base.wantToDoTask(_World);
         }
 
-        public override void update()
+        public override void update(World _World)
         {
-            base.update();
+            base.update(_World);
         }
 
         private void walkRandom()

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Server.Model.Map.World;
+
 namespace Server.Model.Object.Task
 {
     class LivingObjectTask
@@ -29,12 +31,12 @@ namespace Server.Model.Object.Task
             this.priority = _Priority;
         }
 
-        public virtual bool wantToDoTask()
+        public virtual bool wantToDoTask(World _World)
         {
             return false;
         }
 
-        public virtual void update()
+        public virtual void update(World _World)
         {
         }
     }

@@ -147,6 +147,7 @@
     <Compile Include="Model\Map\Region\Region.cs" />
     <Compile Include="Model\Map\Region\RegionDependency.cs" />
     <Compile Include="Model\Map\Region\RegionEnum.cs" />
+    <Compile Include="Model\Map\World\World.cs" />
     <Compile Include="Model\Object\AnimatedObject.cs" />
     <Compile Include="Model\Object\CreatureObject.cs" />
     <Compile Include="Model\Object\EnvironmentObject.cs" />
