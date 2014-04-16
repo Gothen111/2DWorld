@@ -13,8 +13,8 @@ namespace Server.Factories
     class RegionFactory
     {
         public static RegionFactory regionFactory = new RegionFactory();
-        public static int regionSizeX = 1; // 10
-        public static int regionSizeY = 1; // 10
+        public static int regionSizeX = 2; // 10
+        public static int regionSizeY = 2; // 10
 
         public Region generateRegion(int _Id, String _Name, int _PosX, int _PosY, RegionEnum _RegionEnum, World _ParentWorld)
         {
@@ -40,7 +40,7 @@ namespace Server.Factories
                 for (int y = 0; y < regionSizeY; y++)
                 {
                     Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(var_Result.getLastChunkId(), x, y, ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), var_Result);
-                    this.addChunkToRegion(var_Result, _PosX, _PosY, var_Chunk);
+                    this.addChunkToRegion(var_Result, x, y, var_Chunk);
                 }
                 Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " + (int)(((float)x / regionSizeX) * 100) + "%", true);
             }

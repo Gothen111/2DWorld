@@ -108,6 +108,10 @@ namespace Server.Model.Map.Chunk
             {
                 for (int y = 0; y < this.size.Y; y++)
                 {
+                    int var_DrawPositionX = (int)(this.Position.X * Server.Factories.ChunkFactory.chunkSizeX + x) * Block.Block.BlockSize;
+                    int var_DrawPositionY = (int)(this.Position.Y * Server.Factories.ChunkFactory.chunkSizeY + y) * Block.Block.BlockSize;
+                    Vector2 var_DrawPosition = new Vector2(var_DrawPositionX, var_DrawPositionY);
+
                     BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
                     foreach (BlockEnum var_Enum in this.getBlockAtPosition(x, y).Layer)
                     {
@@ -117,22 +121,22 @@ namespace Server.Model.Map.Chunk
                             {
                                 if (var_Enum == BlockEnum.Gras)
                                 {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], var_DrawPosition, Color.White);
                                 }
                                 if (var_Enum == BlockEnum.Wall)
                                 {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], var_DrawPosition, Color.White);
                                 }
                             }
                             if (var_Layer == BlockLayerEnum.Layer2)
                             {
                                 if (var_Enum == BlockEnum.Gras)
                                 {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], var_DrawPosition, Color.White);
                                 }
                                 if (var_Enum == BlockEnum.Dirt)
                                 {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], var_DrawPosition, Color.White);
                                 }
                             }
                         }
