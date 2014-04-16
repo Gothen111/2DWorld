@@ -90,8 +90,7 @@ namespace Server.Model.Map.Chunk
 
         public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            //this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
-
+            
             for (int x = 0; x < this.size.X; x++)
             {
                 for (int y = 0; y < this.size.Y; y++)
@@ -128,11 +127,19 @@ namespace Server.Model.Map.Chunk
                     }
                 }
             }
+
+            this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
+
         }
 
         public void update()
         {
             quadTree.update();
+        }
+
+        public int getCountofAllObjects()
+        {
+            return this.quadTree.getCountofAllObjects();
         }
     }
 }

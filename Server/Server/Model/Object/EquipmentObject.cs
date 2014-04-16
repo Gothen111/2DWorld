@@ -7,5 +7,9 @@ namespace Server.Model.Object
 {
     class EquipmentObject : AnimatedObject
     {
+        public override void update()
+        {
+            base.update();
+        }
     }
 }

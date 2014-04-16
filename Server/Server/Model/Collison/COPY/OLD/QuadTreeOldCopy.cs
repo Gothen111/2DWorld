@@ -6,9 +6,11 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Server.Model.Object;
 
-namespace Server.Model.Collison
+
+// VERSION 1.0
+namespace Server.Model.Collison.COPY.OLD
 {
-    class QuadTree2
+    class QuadTreeOldCopy
     {
           private int MAX_OBJECTS = 10;
           private int MAX_LEVELS = 5;
@@ -16,17 +18,17 @@ namespace Server.Model.Collison
           private int level;
           private List<Object.AnimatedObject> objects;
           private Rectangle bounds;
-          private QuadTree2[] nodes;
+          private QuadTreeOldCopy[] nodes;
  
          /*
           * Constructor
           */
-          public QuadTree2(int pLevel, Rectangle pBounds)
+          public QuadTreeOldCopy(int pLevel, Rectangle pBounds)
           {
            level = pLevel;
            objects = new List<Object.AnimatedObject>();
            bounds = pBounds;
-           nodes = new QuadTree2[4];
+           nodes = new QuadTreeOldCopy[4];
           }
 
           /*
@@ -56,10 +58,10 @@ namespace Server.Model.Collison
               int x = (int)bounds.X;
               int y = (int)bounds.Y;
 
-              nodes[0] = new QuadTree2(level + 1, new Rectangle(x + subWidth, y, subWidth, subHeight));
-              nodes[1] = new QuadTree2(level + 1, new Rectangle(x, y, subWidth, subHeight));
-              nodes[2] = new QuadTree2(level + 1, new Rectangle(x, y + subHeight, subWidth, subHeight));
-              nodes[3] = new QuadTree2(level + 1, new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
+              nodes[0] = new QuadTreeOldCopy(level + 1, new Rectangle(x + subWidth, y, subWidth, subHeight));
+              nodes[1] = new QuadTreeOldCopy(level + 1, new Rectangle(x, y, subWidth, subHeight));
+              nodes[2] = new QuadTreeOldCopy(level + 1, new Rectangle(x, y + subHeight, subWidth, subHeight));
+              nodes[3] = new QuadTreeOldCopy(level + 1, new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight));
           }
 
           /*

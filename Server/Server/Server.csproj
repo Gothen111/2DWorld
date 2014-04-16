@@ -137,8 +137,9 @@
     <Compile Include="Model\Behaviour\BehaviourItem.cs" />
     <Compile Include="Model\Behaviour\Member\Faction.cs" />
     <Compile Include="Model\Behaviour\Member\Race.cs" />
+    <Compile Include="Model\Collison\COPY\QuadTree.cs" />
     <Compile Include="Model\Collison\QuadTree.cs" />
-    <Compile Include="Model\Collison\QuadTree2.cs" />
+    <Compile Include="Model\Collison\COPY\OLD\QuadTreeOldCopy.cs" />
     <Compile Include="Model\Map\Block\Block.cs" />
     <Compile Include="Model\Map\Block\BlockEnum.cs" />
     <Compile Include="Model\Map\Chunk\Chunk.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Model\Object\LivingObject.cs" />
     <Compile Include="Model\Object\NpcObject.cs" />
     <Compile Include="Model\Object\Object.cs" />
+    <Compile Include="Model\Object\ObjectEnums\DirectionEnum.cs" />
     <Compile Include="Model\Object\PlayerObject.cs" />
     <Compile Include="Model\Object\RaceObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -16,5 +16,10 @@ namespace Server.Model.Object
             get { return race; }
             set { race = value; }
         }
+
+        public override void update()
+        {
+            base.update();
+        }
     }
 }

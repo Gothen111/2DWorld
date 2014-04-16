@@ -10,9 +10,8 @@ using Server.Model.Object;
 using Microsoft.Xna.Framework.Graphics;
 
 
-
-// VERSION 3.0
-namespace Server.Model.Collison
+// VERSION 2.0
+namespace Server.Model.Collison.COPY
 {
     class QuadTree
     {

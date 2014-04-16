@@ -24,5 +24,10 @@ namespace Server.Model.Object
             get { return name; }
             set { name = value; }
         }
+
+        public override void update()
+        {
+            base.update();
+        }
     }
 }
