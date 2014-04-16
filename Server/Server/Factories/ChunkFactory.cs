@@ -15,23 +15,23 @@ namespace Server.Factories
         public static int chunkSizeX = 40; // 40
         public static int chunkSizeY = 40; // 40
 
-        public Chunk generateChunk(int _Id, int _PosX, int PosY, ChunkEnum _ChunkEnum, List<Enum> _Layer)
+        public Chunk generateChunk(int _Id, int _PosX, int PosY, ChunkEnum _ChunkEnum, List<Enum> _Layer, Region _ParentRegion)
         {
             switch (_ChunkEnum)
             {
                 case ChunkEnum.Grassland:
                     {
-                        return generateChunkGrassland(_Id, _PosX, PosY, chunkSizeX, chunkSizeY, _Layer);
+                        return generateChunkGrassland(_Id, _PosX, PosY, chunkSizeX, chunkSizeY, _Layer, _ParentRegion);
                     }
             }
             return null;
         }
 
-        private Chunk generateChunkGrassland(int _Id, int _PosX, int PosY, int _SizeX, int _SizeY, List<Enum> _Layer)
+        private Chunk generateChunkGrassland(int _Id, int _PosX, int PosY, int _SizeX, int _SizeY, List<Enum> _Layer, Region _ParentRegion)
         {
             Chunk var_Result;
 
-            var_Result = new Chunk(_Id, _PosX, PosY, _SizeX, _SizeY);
+            var_Result = new Chunk(_Id, _PosX, PosY, _SizeX, _SizeY, _ParentRegion);
             this.fillChunkWithBlock(var_Result, BlockEnum.Gras);
 
             generateSecondLayer(var_Result, _Layer);
