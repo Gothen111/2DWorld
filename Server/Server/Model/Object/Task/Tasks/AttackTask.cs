@@ -15,9 +15,9 @@ namespace Server.Model.Object.Task.Tasks
 
         public override bool wantToDoTask()
         {
-            base.wantToDoTask();
+            bool var_wantToDoTask = true;
 
-            return true;
+            return var_wantToDoTask || base.wantToDoTask();
         }
 
         public override void update()

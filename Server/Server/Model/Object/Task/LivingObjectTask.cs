@@ -29,7 +29,10 @@ namespace Server.Model.Object.Task
             this.priority = _Priority;
         }
 
-        public abstract virtual bool wantToDoTask();
+        public virtual bool wantToDoTask()
+        {
+            return false;
+        }
 
         public virtual void update()
         {

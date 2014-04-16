@@ -31,14 +31,6 @@ namespace Server.Model.Object
             set { velocity = value; }
         }
 
-        private Chunk currentChunk;
-
-        public Chunk CurrentChunk
-        {
-            get { return currentChunk; }
-            set { currentChunk = value; }
-        }
-
         public virtual void update()
         {
 
