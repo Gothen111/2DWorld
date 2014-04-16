@@ -99,29 +99,29 @@ namespace Server.Model.Map.Chunk
             {
                 for (int y = 0; y < this.size.Y; y++)
                 {
-                    int var_Layer = 1;
-                    foreach (Enum var_Enum in this.getBlockAtPosition(x, y).Layer)
+                    BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
+                    foreach (BlockEnum var_Enum in this.getBlockAtPosition(x, y).Layer)
                     {
-                        if (var_Enum is BlockEnum)
+                        if (var_Enum != BlockEnum.Nothing)
                         {
-                            if (var_Layer == 1)
+                            if (var_Layer == BlockLayerEnum.Layer1)
                             {
-                                if ((BlockEnum)var_Enum == BlockEnum.Gras)
+                                if (var_Enum == BlockEnum.Gras)
                                 {
                                     _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
                                 }
-                                if ((BlockEnum)var_Enum == BlockEnum.Wall)
+                                if (var_Enum == BlockEnum.Wall)
                                 {
                                     _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
                                 }
                             }
-                            if (var_Layer == 2)
+                            if (var_Layer == BlockLayerEnum.Layer2)
                             {
-                                if ((BlockEnum)var_Enum == BlockEnum.Gras)
+                                if (var_Enum == BlockEnum.Gras)
                                 {
                                     _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
                                 }
-                                if ((BlockEnum)var_Enum == BlockEnum.Dirt)
+                                if (var_Enum == BlockEnum.Dirt)
                                 {
                                     _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], new Vector2(x * Block.Block.BlockSize, y * Block.Block.BlockSize), Color.White);
                                 }

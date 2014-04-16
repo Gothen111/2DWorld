@@ -7,6 +7,7 @@ namespace Server.Model.Map.Block
 {
     enum BlockEnum
     {
+        Nothing,
         Gras,
         Stone,
         Dirt,

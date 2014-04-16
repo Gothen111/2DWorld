@@ -142,6 +142,7 @@
     <Compile Include="Model\Collison\COPY\OLD\QuadTreeOldCopy.cs" />
     <Compile Include="Model\Map\Block\Block.cs" />
     <Compile Include="Model\Map\Block\BlockEnum.cs" />
+    <Compile Include="Model\Map\Block\BlockLayerEnum.cs" />
     <Compile Include="Model\Map\Chunk\Chunk.cs" />
     <Compile Include="Model\Map\Chunk\ChunkEnum.cs" />
     <Compile Include="Model\Map\Region\Region.cs" />

@@ -9,9 +9,9 @@ namespace Server.Model.Map.Block
     {
         public static int BlockSize = 32;
 
-        private List<Enum> layer;
+        private BlockEnum[] layer;
 
-        public List<Enum> Layer
+        public BlockEnum[] Layer
         {
             get { return layer; }
             set { layer = value; }
@@ -19,24 +19,19 @@ namespace Server.Model.Map.Block
 
         public Block(BlockEnum _BlockEnum)
         {
-            this.layer = new List<Enum>();
-            this.layer.Add(_BlockEnum);
+            this.layer = new BlockEnum[Enum.GetValues(typeof(BlockLayerEnum)).Length];
+            this.layer[0] = _BlockEnum;
         }
 
-        public void addLayer(Enum _Enum)
+        public void setLayerAt(Enum _Enum, BlockLayerEnum _Id)
         {
-            this.layer.Add(_Enum);
-        }
-
-        public void setLayerAt(Enum _Enum, int _Id)
-        {
-            this.layer[_Id] = _Enum;
+            int x = (int)_Id;
+            this.layer[(int)_Id] = (BlockEnum)_Enum;
         }
 
         public void setFirstLayer(Enum _Enum)
         {
-            this.layer.Clear();
-            this.addLayer(_Enum);
+            this.layer[0] = (BlockEnum)_Enum;
         }
     }
 }

@@ -77,12 +77,17 @@ namespace Server.Factories
                 {
                     if (_PosY >= 0 && _PosY <= (_Chunk.Size.Y - 1))
                     {
-                        if (_Chunk.getBlockAtPosition(_PosX, _PosY).Layer.Count > 1 || _Chance <= 0)
+                        if (_Chunk.getBlockAtPosition(_PosX, _PosY).Layer[(int)BlockLayerEnum.Layer2] != BlockEnum.Nothing || _Chance <= 0)
                         {
                             return;
                         }
 
-                        _Chunk.getBlockAtPosition(_PosX, _PosY).addLayer(_Enum);
+                        if ((BlockEnum)_Enum == BlockEnum.Dirt)
+                        {
+                            Logger.Logger.LogDeb("");
+                        }
+
+                        _Chunk.getBlockAtPosition(_PosX, _PosY).setLayerAt(_Enum, BlockLayerEnum.Layer2);
                         rekursiveSetBlock(_Chunk, _Enum, _PosX + 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
                         rekursiveSetBlock(_Chunk, _Enum, _PosX - 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
                         rekursiveSetBlock(_Chunk, _Enum, _PosX, _PosY + 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
