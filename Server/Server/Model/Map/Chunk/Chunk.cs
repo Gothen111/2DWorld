@@ -51,6 +51,12 @@ namespace Server.Model.Map.Chunk
 
         private Region.Region parentRegion;
 
+        public Region.Region ParentRegion
+        {
+            get { return parentRegion; }
+            set { parentRegion = value; }
+        }
+
         public Chunk(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, Region.Region _ParentRegion)
         {
             this.id = _Id;
@@ -87,9 +93,9 @@ namespace Server.Model.Map.Chunk
             }
         }
 
-        public void addAnimatedObjectToChunk(Object.AnimatedObject _AnimatedObject)
+        public void addLivingObjectToChunk(Object.LivingObject _LivingObject)
         {
-            quadTree.insert(_AnimatedObject);
+            quadTree.insert(_LivingObject);
         }
 
         public Block.Block getBlockAtCoordinate(float _PosX, float _PosY)
@@ -146,7 +152,15 @@ namespace Server.Model.Map.Chunk
             }
 
             this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
+        }
 
+        public List<Object.LivingObject> getAllLivingObjectsinChunk()
+        {
+            List<Object.LivingObject> var_Result = new List<Object.LivingObject>();
+
+            var_Result = this.quadTree.getAllLivingObjects(var_Result);
+
+            return var_Result;
         }
 
         public void update()

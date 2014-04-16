@@ -31,12 +31,12 @@ namespace Server.Model.Object.Task
             this.priority = _Priority;
         }
 
-        public virtual bool wantToDoTask(World _World)
+        public virtual bool wantToDoTask()
         {
             return false;
         }
 
-        public virtual void update(World _World)
+        public virtual void update()
         {
         }
     }

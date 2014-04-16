@@ -69,5 +69,26 @@ namespace Server.Model.Map.World
                 var_Region.DrawTest(_GraphicsDevice, _SpriteBatch);
             }
         }
+
+        public Region.Region getRegionLivingObjectIsIn(Server.Model.Object.LivingObject _LivingObject)
+        {
+            foreach (Region.Region var_Region in this.regions)
+            {
+                if (_LivingObject.Position.X >= var_Region.Position.X * Factories.RegionFactory.regionSizeX * Factories.ChunkFactory.chunkSizeX * Block.Block.BlockSize)
+                {
+                    if (_LivingObject.Position.X <= (var_Region.Position.X + 1) * Factories.RegionFactory.regionSizeX * Factories.ChunkFactory.chunkSizeX * Block.Block.BlockSize)
+                    {
+                        if (_LivingObject.Position.Y >= var_Region.Position.Y * Factories.RegionFactory.regionSizeY * Factories.ChunkFactory.chunkSizeY * Block.Block.BlockSize)
+                        {
+                            if (_LivingObject.Position.Y <= (var_Region.Position.Y + 1) * Factories.RegionFactory.regionSizeY * Factories.ChunkFactory.chunkSizeY * Block.Block.BlockSize)
+                            {
+                                return var_Region;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

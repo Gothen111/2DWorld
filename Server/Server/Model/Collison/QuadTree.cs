@@ -20,7 +20,7 @@ namespace Server.Model.Collison
           private int MAX_LEVELS = 5;
  
           private int level;
-          private List<Object.AnimatedObject> objects;
+          private List<Object.LivingObject> objects;
           private Rectangle bounds;
           private QuadTree[] nodes;
 
@@ -39,7 +39,7 @@ namespace Server.Model.Collison
         public QuadTree(int pLevel, Rectangle pBounds, QuadTree _Parent)
           {
               level = pLevel;
-              objects = new List<Object.AnimatedObject>();
+              objects = new List<Object.LivingObject>();
               bounds = pBounds;
               parent = _Parent;
               nodes = new QuadTree[4];
@@ -47,9 +47,9 @@ namespace Server.Model.Collison
               color = new Color(Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255));
           }
 
-          public QuadTree getQuadTreeAnimatedObjectIsIn(Object.AnimatedObject _AnimatedObject)
+          public QuadTree getQuadTreeLivingObjectIsIn(Object.LivingObject _LivingObject)
           {
-              if (objects.Contains(_AnimatedObject))
+              if (objects.Contains(_LivingObject))
               {
                   return this;
               }
@@ -59,43 +59,43 @@ namespace Server.Model.Collison
                   double horizontalMidpoint = bounds.Y + (bounds.Height / 2);
 
                   // Object can completely fit within the top quadrants
-                  bool topQuadrant = (_AnimatedObject.Position.Y < horizontalMidpoint);
+                  bool topQuadrant = (_LivingObject.Position.Y < horizontalMidpoint);
                   // Object can completely fit within the bottom quadrants
-                  bool bottomQuadrant = (_AnimatedObject.Position.Y > horizontalMidpoint);
+                  bool bottomQuadrant = (_LivingObject.Position.Y > horizontalMidpoint);
 
                   // Object can completely fit within the left quadrants
-                  if (_AnimatedObject.Position.X < verticalMidpoint)
+                  if (_LivingObject.Position.X < verticalMidpoint)
                   {
                       if (topQuadrant)
                       {
                           if(nodes[TopLeft]!=null)
                           {
-                              return nodes[TopLeft].getQuadTreeAnimatedObjectIsIn(_AnimatedObject);
+                              return nodes[TopLeft].getQuadTreeLivingObjectIsIn(_LivingObject);
                           }
                       }
                       else if (bottomQuadrant)
                       {
                           if (nodes[BottomLeft] != null)
                           {
-                              return nodes[BottomLeft].getQuadTreeAnimatedObjectIsIn(_AnimatedObject);
+                              return nodes[BottomLeft].getQuadTreeLivingObjectIsIn(_LivingObject);
                           }
                       }
                   }
                   // Object can completely fit within the right quadrants
-                  else if (_AnimatedObject.Position.X > verticalMidpoint)
+                  else if (_LivingObject.Position.X > verticalMidpoint)
                   {
                       if (topQuadrant)
                       {
                           if (nodes[TopRight] != null)
                           {
-                              return nodes[TopLeft].getQuadTreeAnimatedObjectIsIn(_AnimatedObject);
+                              return nodes[TopLeft].getQuadTreeLivingObjectIsIn(_LivingObject);
                           }
                       }
                       else if (bottomQuadrant)
                       {
                           if (nodes[BottomRight] != null)
                           {
-                              return nodes[BottomRight].getQuadTreeAnimatedObjectIsIn(_AnimatedObject);
+                              return nodes[BottomRight].getQuadTreeLivingObjectIsIn(_LivingObject);
                           }
                       }
                   }
@@ -157,19 +157,19 @@ namespace Server.Model.Collison
              * object cannot completely fit within a child node and is part
              * of the parent node
              */
-          private int getIndex(Object.AnimatedObject _AnimatedObject)
+          private int getIndex(Object.LivingObject _LivingObject)
           {
               int index = -1;
               double verticalMidpoint = bounds.X + (bounds.Width / 2);
               double horizontalMidpoint = bounds.Y + (bounds.Height / 2);
 
               // Object can completely fit within the top quadrants
-              bool topQuadrant = (_AnimatedObject.Position.Y < horizontalMidpoint);
+              bool topQuadrant = (_LivingObject.Position.Y < horizontalMidpoint);
               // Object can completely fit within the bottom quadrants
-              bool bottomQuadrant = (_AnimatedObject.Position.Y > horizontalMidpoint);
+              bool bottomQuadrant = (_LivingObject.Position.Y > horizontalMidpoint);
 
               // Object can completely fit within the left quadrants
-              if (_AnimatedObject.Position.X < verticalMidpoint)
+              if (_LivingObject.Position.X < verticalMidpoint)
               {
                   if (topQuadrant)
                   {
@@ -181,7 +181,7 @@ namespace Server.Model.Collison
                   }
               }
               // Object can completely fit within the right quadrants
-              else if (_AnimatedObject.Position.X > verticalMidpoint)
+              else if (_LivingObject.Position.X > verticalMidpoint)
               {
                   if (topQuadrant)
                   {
@@ -201,21 +201,21 @@ namespace Server.Model.Collison
            * exceeds the capacity, it will split and add all
            * objects to their corresponding nodes.
            */
-          public void insert(Object.AnimatedObject _AnimatedObject) // insert gedöns //???
+          public void insert(Object.LivingObject _LivingObject) // insert gedöns //???
           {
               if (nodes[0] != null)
               {
-                  int index = getIndex(_AnimatedObject);
+                  int index = getIndex(_LivingObject);
 
                   if (index != -1)
                   {
-                      nodes[index].insert(_AnimatedObject);
+                      nodes[index].insert(_LivingObject);
 
                       return;
                   }
               }
 
-              objects.Add(_AnimatedObject);
+              objects.Add(_LivingObject);
 
               if (objects.Count > MAX_OBJECTS && level < MAX_LEVELS)
               {
@@ -230,9 +230,9 @@ namespace Server.Model.Collison
                       int index = getIndex(objects.ElementAt(i));
                       if (index != -1)
                       {
-                          Object.AnimatedObject var_AnimatedObject = objects.ElementAt(i);
-                          nodes[index].insert(var_AnimatedObject);
-                          objects.Remove(var_AnimatedObject);
+                          Object.LivingObject var_LivingObject = objects.ElementAt(i);
+                          nodes[index].insert(var_LivingObject);
+                          objects.Remove(var_LivingObject);
                       }
                       else
                       {
@@ -242,11 +242,11 @@ namespace Server.Model.Collison
               }
           }
 
-          private bool isObjectStillInBound(AnimatedObject _AnimatedObject)
+          private bool isObjectStillInBound(LivingObject _LivingObject)
           {
-              if (_AnimatedObject.Position.X >= this.bounds.X && _AnimatedObject.Position.Y >= this.bounds.Y)
+              if (_LivingObject.Position.X >= this.bounds.X && _LivingObject.Position.Y >= this.bounds.Y)
               {
-                  if (_AnimatedObject.Position.X <= this.bounds.X + this.bounds.Width && _AnimatedObject.Position.Y <= this.bounds.Y + this.bounds.Height)
+                  if (_LivingObject.Position.X <= this.bounds.X + this.bounds.Width && _LivingObject.Position.Y <= this.bounds.Y + this.bounds.Height)
                   {
                       return true;
                   }
@@ -254,7 +254,7 @@ namespace Server.Model.Collison
               return false;
           }
 
-          private bool giveAnimatedObjectToParent(AnimatedObject _AnimatedObject)
+          private bool giveLivingObjectToParent(LivingObject _LivingObject)
           {
               if (this.parent == null)
               {
@@ -262,15 +262,15 @@ namespace Server.Model.Collison
               }
               else
               {
-                  if (this.parent.isObjectStillInBound(_AnimatedObject))
+                  if (this.parent.isObjectStillInBound(_LivingObject))
                   {
-                      this.parent.insert(_AnimatedObject);
-                      //this.remove(_AnimatedObject);
+                      this.parent.insert(_LivingObject);
+                      //this.remove(_LivingObject);
                       return true; // ???
                   }
                   else
                   {
-                      return this.parent.giveAnimatedObjectToParent(_AnimatedObject);
+                      return this.parent.giveLivingObjectToParent(_LivingObject);
                   }
               }
               return false; // ???
@@ -278,42 +278,35 @@ namespace Server.Model.Collison
 
           public void update()
           {
-              List<AnimatedObject> var_AnimatedObjectsLeftThisTree = new List<AnimatedObject>();
-              foreach (AnimatedObject var_AnimatedObject in objects)
+              List<LivingObject> var_LivingObjectsLeftThisTree = new List<LivingObject>();
+              List<LivingObject> var_LivingObjectsToRemove = new List<LivingObject>();
+              foreach (LivingObject var_LivingObject in objects)
               {
-                  var_AnimatedObject.update(); //???
-
-                  /*int movespeed = Server.Util.Random.GenerateGoodRandomNumber(0, 2) - 1;
-                  if (var_AnimatedObject.Position.X + movespeed * 0.1f > 0)
+                  var_LivingObject.update();
+                  if (var_LivingObject.IsDead)
                   {
-                      if (var_AnimatedObject.Position.Y + movespeed * 0.1f > 0)
-                      {
-                          if (var_AnimatedObject.Position.X + movespeed * 0.1f < 20 * Server.Model.Map.Block.Block.BlockSize)
-                          {
-                              if (var_AnimatedObject.Position.Y + movespeed * 0.1f < 20 * Server.Model.Map.Block.Block.BlockSize)
-                              {
-                                  var_AnimatedObject.Position = new Vector3(var_AnimatedObject.Position.X + movespeed * 0.1f, var_AnimatedObject.Position.Y + movespeed * 0.1f, 0);
-                              }
-                          }
-                      }
-                  }*/
-                  
-                  
-                  if (!isObjectStillInBound(var_AnimatedObject))
-                  {
-                      var_AnimatedObjectsLeftThisTree.Add(var_AnimatedObject);
-                      //Logger.Logger.LogDeb("Size : " + var_AnimatedObjectsLeftThisTree.Count);
+                      var_LivingObjectsToRemove.Add(var_LivingObject);
                   }
+                  else
+                  {
+                      if (!isObjectStillInBound(var_LivingObject))
+                      {
+                          var_LivingObjectsLeftThisTree.Add(var_LivingObject);
+                      }
+                  }
+              }
+              foreach (LivingObject var_LivingObject in var_LivingObjectsToRemove)
+              {
+                  this.objects.Remove(var_LivingObject);
               }
 
               
-              foreach (AnimatedObject var_AnimatedObject in var_AnimatedObjectsLeftThisTree)
+              foreach (LivingObject var_LivingObject in var_LivingObjectsLeftThisTree)
               {
-                  if (this.giveAnimatedObjectToParent(var_AnimatedObject))
+                  if (this.giveLivingObjectToParent(var_LivingObject))
                   {
-                      this.objects.Remove(var_AnimatedObject);
+                      this.objects.Remove(var_LivingObject);
                   }
-                  //this.remove(var_AnimatedObject);
               }
 
               checkChildNodes();
@@ -334,29 +327,29 @@ namespace Server.Model.Collison
                   {
                       if (this.nodes[0].nodes[0] == null && this.nodes[1].nodes[0] == null && this.nodes[2].nodes[0] == null && this.nodes[3].nodes[0] == null)
                       {
-                          List<AnimatedObject> var_AnimatedObjectsLeftThisTree = new List<AnimatedObject>();
+                          List<LivingObject> var_LivingObjectsLeftThisTree = new List<LivingObject>();
 
                           foreach (QuadTree var_Node in this.nodes)
                           {
-                              foreach (AnimatedObject var_AnimatedObject in var_Node.objects)
+                              foreach (LivingObject var_LivingObject in var_Node.objects)
                               {
-                                  var_AnimatedObjectsLeftThisTree.Add(var_AnimatedObject);
+                                  var_LivingObjectsLeftThisTree.Add(var_LivingObject);
                               }
                           }
                           //this.parent.clearNodes();
                           this.clearNodes();
-                          foreach (AnimatedObject var_AnimatedObject in var_AnimatedObjectsLeftThisTree)
+                          foreach (LivingObject var_LivingObject in var_LivingObjectsLeftThisTree)
                           {
-                              this.insert(var_AnimatedObject);
+                              this.insert(var_LivingObject);
                           }
                           
                       }
                   }
           }
 
-          public void remove(AnimatedObject _AnimatedObject)
+          public void remove(LivingObject _LivingObject)
           {
-              //this.objects.Remove(_AnimatedObject);
+              //this.objects.Remove(_LivingObject);
               // noch viel anderes zeug wie z.b. nodes auflösen //???
 
               if (this.parent != null)
@@ -366,20 +359,20 @@ namespace Server.Model.Collison
                   {
                       if (this.nodes[0] == null)
                       {
-                          List<AnimatedObject> var_AnimatedObjectsLeftThisTree = new List<AnimatedObject>();
+                          List<LivingObject> var_LivingObjectsLeftThisTree = new List<LivingObject>();
               
                           foreach (QuadTree var_Node in this.parent.nodes)
                           {
-                              foreach (AnimatedObject var_AnimatedObject in var_Node.objects)
+                              foreach (LivingObject var_LivingObject in var_Node.objects)
                               {
-                                  var_AnimatedObjectsLeftThisTree.Add(var_AnimatedObject);
+                                  var_LivingObjectsLeftThisTree.Add(var_LivingObject);
                               }
                           }
                           //this.parent.clearNodes();
 
-                          foreach (AnimatedObject var_AnimatedObject in var_AnimatedObjectsLeftThisTree)
+                          foreach (LivingObject var_LivingObject in var_LivingObjectsLeftThisTree)
                           {
-                              this.parent.insert(var_AnimatedObject);
+                              this.parent.insert(var_LivingObject);
                           }
                           this.parent.clearNodes();
 
@@ -397,10 +390,10 @@ namespace Server.Model.Collison
 
               _SpriteBatch.Draw(texture, this.bounds, color);*/
 
-              foreach (AnimatedObject var_AnimatedObject in objects)
+              foreach (LivingObject var_LivingObject in objects)
               {
-                  var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch);
-                  //_SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[var_AnimatedObject.GraphicPath], new Vector2(var_AnimatedObject.Position.X, var_AnimatedObject.Position.Y), new Rectangle(0,0,32,32), Color.White);
+                  var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0,0,0), Color.White);
+                  //_SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[var_LivingObject.GraphicPath], new Vector2(var_LivingObject.Position.X, var_LivingObject.Position.Y), new Rectangle(0,0,32,32), Color.White);
               }         
 
               foreach (QuadTree var_Node in nodes)
@@ -421,6 +414,19 @@ namespace Server.Model.Collison
                   var_Count += var_Node.getCountofAllObjects();
               }
               return var_Count;
+          }
+
+          public List<Object.LivingObject> getAllLivingObjects(List<Object.LivingObject> var_LivingObjects)
+          {
+              var_LivingObjects.AddRange(this.objects);
+              foreach (QuadTree var_Node in nodes)
+              {
+                  if(var_Node!=null)
+                  {
+                      var_LivingObjects.AddRange(var_Node.getAllLivingObjects(var_LivingObjects));
+                  }
+              }
+              return var_LivingObjects;
           }
     }
 }

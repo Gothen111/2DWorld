@@ -106,7 +106,7 @@ namespace Server.Model.Object
             }
         }
 
-        public void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
         {
             int var_DrawX = 0;
             int var_DrawY = 0;
@@ -137,7 +137,7 @@ namespace Server.Model.Object
                 var_DrawY = 3;
             }
 
-            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath], new Vector2(this.Position.X, this.Position.Y), new Rectangle(var_DrawX * 32, var_DrawY * 32, 32, 32), Color.White);
+            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath], (new Vector2(this.Position.X + _DrawPositionExtra.X, this.Position.Y + _DrawPositionExtra.Y)), new Rectangle(var_DrawX * 32, var_DrawY * 32, 32, 32), _Color);
         }
     }
 }

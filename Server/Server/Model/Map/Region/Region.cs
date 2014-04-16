@@ -52,7 +52,13 @@ namespace Server.Model.Map.Region
             set { position = value; }
         }
 
-        World.World parentWorld;
+        private World.World parentWorld;
+
+        public World.World ParentWorld
+        {
+            get { return parentWorld; }
+            set { parentWorld = value; }
+        }
 
         public Region(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, World.World _ParentWorld)
         {
@@ -111,6 +117,14 @@ namespace Server.Model.Map.Region
         public void saveChunk(Chunk.Chunk _Chunk)
         {
 
+        }
+
+        public Chunk.Chunk getChunkLivingObjectIsIn(Server.Model.Object.LivingObject _LivingObject)
+        {
+            int var_X = (int)(_LivingObject.Position.X / ((this.Position.X + 1) * Factories.ChunkFactory.chunkSizeX * Block.Block.BlockSize));
+            int var_Y = (int)(_LivingObject.Position.Y / ((this.Position.Y + 1) * Factories.ChunkFactory.chunkSizeY * Block.Block.BlockSize));
+
+            return this.chunks[var_X, var_Y];
         }
 
         public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)

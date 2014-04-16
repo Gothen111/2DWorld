@@ -17,16 +17,16 @@ namespace Server.Model.Object.Task.Tasks
             this.finishedWalking = true;
         }
 
-        public override bool wantToDoTask(World _World)
+        public override bool wantToDoTask()
         {
             bool var_wantToDoTask = true;
 
-            return var_wantToDoTask || base.wantToDoTask(_World);
+            return var_wantToDoTask || base.wantToDoTask();
         }
 
-        public override void update(World _World)
+        public override void update()
         {
-            base.update(_World);
+            base.update();
         }
 
         private void walkRandom()

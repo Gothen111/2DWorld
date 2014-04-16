@@ -64,21 +64,17 @@ namespace Server
             world = new Model.Map.World.World("Welt");
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 20; i++)
             {
-                Model.Object.AnimatedObject var_AnimatedObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
-                Logger.Logger.LogDeb(var_AnimatedObject.ToString());
-                var_AnimatedObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);
-                var_AnimatedObject.GraphicPath = "Character/Char1_Small";
-                var_AnimatedObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
-                /*if (i <= 50)
-                {
-                    var_AnimatedObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, 20) * 0.1f, Server.Util.Random.GenerateGoodRandomNumber(0, 20) * 0.1f, 0);
-                    var_AnimatedObject.Position = new Vector3(20,20,0);
-                
-                }*/
-                region.Chunks[0, 0].addAnimatedObjectToChunk(var_AnimatedObject);
-                Logger.Logger.LogDeb(var_AnimatedObject.Velocity.X + " : " + var_AnimatedObject.Velocity.Y); 
+                Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
+                Logger.Logger.LogDeb(var_LivingObject.ToString());
+                var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);
+                //var_LivingObject.Position = new Vector3(200*i, 50, 0);
+                var_LivingObject.GraphicPath = "Character/Char1_Small";
+                var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
+                var_LivingObject.World = world;
+                region.Chunks[0, 0].addLivingObjectToChunk(var_LivingObject);
+                Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
             }
 
             world.addRegion(region);
