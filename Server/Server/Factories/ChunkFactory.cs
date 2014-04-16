@@ -31,7 +31,7 @@ namespace Server.Factories
         {
             Chunk var_Result;
 
-            var_Result = new Chunk(_Id, _PosX, PosY, _SizeX, _SizeY, _ParentRegion);
+            var_Result = new Chunk(_Id, "Name :P", _PosX, PosY, _SizeX, _SizeY, _ParentRegion);
             this.fillChunkWithBlock(var_Result, BlockEnum.Gras);
 
             generateSecondLayer(var_Result, _Layer);

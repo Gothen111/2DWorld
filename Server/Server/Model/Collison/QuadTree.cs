@@ -38,15 +38,13 @@ namespace Server.Model.Collison
           */
         public QuadTree(int pLevel, Rectangle pBounds, QuadTree _Parent)
           {
-           level = pLevel;
-           objects = new List<Object.AnimatedObject>();
-           bounds = pBounds;
-           parent = _Parent;
-           nodes = new QuadTree[4];
+              level = pLevel;
+              objects = new List<Object.AnimatedObject>();
+              bounds = pBounds;
+              parent = _Parent;
+              nodes = new QuadTree[4];
 
-           //Random Rnd = new Random();
-           color = new Color(Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255));
-
+              color = new Color(Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255));
           }
 
           public QuadTree getQuadTreeAnimatedObjectIsIn(Object.AnimatedObject _AnimatedObject)
