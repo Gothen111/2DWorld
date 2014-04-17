@@ -46,6 +46,7 @@ namespace Server.Ressourcen
             addTexture("Layer2/Dirt", _ContentManager.Load<Texture2D>("Block/Layer2/Dirt"));
 
             addTexture("Character/Char1_Small", _ContentManager.Load<Texture2D>("Object/Character/Char1_Small"));
+            addTexture("Character/Shadow", _ContentManager.Load<Texture2D>("Object/Character/Shadow"));
         }
 
         public void addTexture(String _Name, Texture2D _Texture2D)

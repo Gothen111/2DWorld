@@ -136,7 +136,7 @@ namespace Server.Model.Object
             {
                 var_DrawY = 3;
             }
-
+            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], new Vector2(this.Position.X, this.Position.Y), Color.White);
             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath], (new Vector2(this.Position.X + _DrawPositionExtra.X, this.Position.Y + _DrawPositionExtra.Y)), new Rectangle(var_DrawX * 32, var_DrawY * 32, 32, 32), _Color);
         }
     }
