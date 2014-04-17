@@ -423,7 +423,7 @@ namespace Server.Model.Collison
               {
                   if(var_Node!=null)
                   {
-                      var_LivingObjects.AddRange(var_Node.getAllLivingObjects(var_LivingObjects));
+                      var_Node.getAllLivingObjects(var_LivingObjects);
                   }
               }
               return var_LivingObjects;

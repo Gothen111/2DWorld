@@ -25,9 +25,26 @@ namespace Server.Model.Object
             set { name = value; }
         }
 
+        public CreatureObject()
+        {
+            this.equipment = new List<EquipmentObject>();
+            this.Tasks.Add(new Task.Tasks.AttackTask(this, 1));
+            this.addEquipmentObject(Server.Factories.EquipmentFactory.equipmentFactory.createEquipmentObject(Factories.FactoryEnums.WeaponEnum.Sword));
+        }
+
         public override void update()
         {
             base.update();
+        }
+
+        public void addEquipmentObject(EquipmentObject _EquipmentObject)
+        {
+            this.equipment.Add(_EquipmentObject);
+        }
+
+        public void attackWithWeaponInHand()
+        {
+
         }
     }
 }

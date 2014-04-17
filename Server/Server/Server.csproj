@@ -125,12 +125,14 @@
     <Compile Include="Factories\BehaviourFactory.cs" />
     <Compile Include="Factories\CreatureFactory.cs" />
     <Compile Include="Factories\EnvironmentFactory.cs" />
+    <Compile Include="Factories\EquipmentFactory.cs" />
     <Compile Include="Factories\FactoryEnums\CreatureEnum.cs" />
     <Compile Include="Factories\FactoryEnums\EnvironmentEnum.cs" />
     <Compile Include="Factories\FactoryEnums\FactionEnum.cs" />
     <Compile Include="Factories\FactoryEnums\GenderEnum.cs" />
     <Compile Include="Factories\FactoryEnums\RaceEnum.cs" />
     <Compile Include="Factories\ChunkFactory.cs" />
+    <Compile Include="Factories\FactoryEnums\WeaponEnum.cs" />
     <Compile Include="Factories\RegionFactory.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Model\Behaviour\Behaviour.cs" />

@@ -84,7 +84,7 @@ namespace Server.Factories
 
                         if ((BlockEnum)_Enum == BlockEnum.Dirt)
                         {
-                            Logger.Logger.LogDeb("");
+                            //Logger.Logger.LogDeb(""); // ???
                         }
 
                         _Chunk.getBlockAtPosition(_PosX, _PosY).setLayerAt(_Enum, BlockLayerEnum.Layer2);

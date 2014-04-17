@@ -69,8 +69,6 @@ namespace Server.Model.Object
             tasks = new List<LivingObjectTask>();
             path = null; // ???
             currentTask = null;
-
-            tasks.Add(new Task.Tasks.AttackTask(this, 1));
         }
 
         public override void update()
@@ -141,6 +139,48 @@ namespace Server.Model.Object
             }
         }
 
+        public void attackLivingObject(LivingObject _Target)
+        {
+            if (_Target.Position.X < this.Position.X)
+            {
+                this.directionEnum = ObjectEnums.DirectionEnum.Left;
+            }
+            else if(_Target.Position.X > this.Position.X)
+            {
+                this.directionEnum = ObjectEnums.DirectionEnum.Right;
+            }
+            else if (_Target.Position.Y < this.Position.Y)
+            {
+                this.directionEnum = ObjectEnums.DirectionEnum.Top;
+            }
+            else if (_Target.Position.Y > this.Position.Y)
+            {
+                this.directionEnum = ObjectEnums.DirectionEnum.Down;
+            }
+            _Target.onAttacked(this, 2);
+        }
+
+        public virtual void onAttacked(LivingObject _Attacker, int _DamageAmount)
+        {
+            this.damage(_DamageAmount);
+            if (_Attacker.directionEnum == ObjectEnums.DirectionEnum.Down)
+            {
+                this.knockBack(new Vector3(0,20,0));
+            }
+            if (_Attacker.directionEnum == ObjectEnums.DirectionEnum.Left)
+            {
+                this.knockBack(new Vector3(-20, 0, 0));
+            }
+            if (_Attacker.directionEnum == ObjectEnums.DirectionEnum.Right)
+            {
+                this.knockBack(new Vector3(20, 0, 0));
+            }
+            if (_Attacker.directionEnum == ObjectEnums.DirectionEnum.Top)
+            {
+                this.knockBack(new Vector3(0, -20, 0));
+            }
+        }
+
         public void damage(int _DamageAmount)
         {
             this.healthPoints -= _DamageAmount;
@@ -149,6 +189,11 @@ namespace Server.Model.Object
                 this.isDead = true;
             }
             this.damageAnimation = this.damageAnimationMax;
+        }
+
+        public void knockBack(Vector3 _KnockBackAmount)
+        {
+            this.Position += _KnockBackAmount;
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)

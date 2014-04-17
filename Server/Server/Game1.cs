@@ -74,7 +74,7 @@ namespace Server
                 var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
                 var_LivingObject.World = world;
                 region.Chunks[0, 0].addLivingObjectToChunk(var_LivingObject);
-                Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
+                //Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
             }
 
             world.addRegion(region);

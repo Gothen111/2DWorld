@@ -22,7 +22,7 @@ namespace Server.Model.Object
         protected int animationTime = 0;
         protected int animationTimeMax = 20;
         protected int animation = 0;
-        private DirectionEnum directionEnum = DirectionEnum.Down;
+        protected DirectionEnum directionEnum = DirectionEnum.Down;
         private Vector3 size;
 
         public Vector3 Size
