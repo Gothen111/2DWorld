@@ -25,15 +25,7 @@ namespace Server.Factories
             npcObject.Faction = BehaviourFactory.behaviourFactory.getFaction(objectFaction);
             npcObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
             npcObject.Gender = objectGender;
-
-            switch (objectType)
-            {
-                case CreatureEnum.Chieftain:
-                    {
-                        npcObject.Name = "Anführer"; //TODO NameFactory entwerfen
-                        break;
-                    }
-            }
+            npcObject.Name = NameFactory.getName(objectType, objectGender);
 
             return npcObject;
         }

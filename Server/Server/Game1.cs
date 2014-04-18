@@ -118,7 +118,7 @@ namespace Server
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            Commands.Executer.Executer.executer.update(0);
             region.Chunks[0,0].update();
 
             base.Update(gameTime);

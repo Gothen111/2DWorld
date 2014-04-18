@@ -116,6 +116,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandManager\CommandManager.cs" />
+    <Compile Include="Commands\CommandTypes\AttackCommand.cs" />
+    <Compile Include="Commands\CommandTypes\Command.cs" />
+    <Compile Include="Commands\CommandTypes\CommandPriority.cs" />
+    <Compile Include="Commands\Executer\Executer.cs" />
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
@@ -130,6 +135,7 @@
     <Compile Include="Factories\FactoryEnums\EnvironmentEnum.cs" />
     <Compile Include="Factories\FactoryEnums\FactionEnum.cs" />
     <Compile Include="Factories\FactoryEnums\GenderEnum.cs" />
+    <Compile Include="Factories\FactoryEnums\NameFactory.cs" />
     <Compile Include="Factories\FactoryEnums\RaceEnum.cs" />
     <Compile Include="Factories\ChunkFactory.cs" />
     <Compile Include="Factories\FactoryEnums\WeaponEnum.cs" />
