@@ -45,7 +45,7 @@ namespace Server.Model.Object
 
         private List<LivingObjectTask> tasks;
 
-        protected List<LivingObjectTask> Tasks
+        public List<LivingObjectTask> Tasks
         {
             get { return tasks; }
             set { tasks = value; }

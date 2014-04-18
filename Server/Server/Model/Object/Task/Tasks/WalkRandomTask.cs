@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Server.Model.Map.World;
+using Server.Commands.CommandTypes;
 
 namespace Server.Model.Object.Task.Tasks
 {
@@ -11,7 +12,7 @@ namespace Server.Model.Object.Task.Tasks
     {
         private bool finishedWalking;
 
-        public WalkRandomTask(LivingObject _TaskOwner, int _Priority)
+        public WalkRandomTask(LivingObject _TaskOwner, CommandPriority _Priority)
             : base(_TaskOwner, _Priority)
         {
             this.finishedWalking = true;

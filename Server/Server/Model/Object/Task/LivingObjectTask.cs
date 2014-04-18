@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Server.Model.Map.World;
+using Server.Commands.CommandTypes;
 
 namespace Server.Model.Object.Task
 {
@@ -17,15 +18,15 @@ namespace Server.Model.Object.Task
             set { taskOwner = value; }
         }
 
-        private int priority;
+        private CommandPriority priority;
 
-        public int Priority
+        public CommandPriority Priority
         {
             get { return priority; }
             set { priority = value; }
         }
 
-        public LivingObjectTask(LivingObject _TaskOwner, int _Priority)
+        public LivingObjectTask(LivingObject _TaskOwner, CommandPriority _Priority)
         {
             this.taskOwner = _TaskOwner;
             this.priority = _Priority;

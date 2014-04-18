@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Server.Model.Map.World;
 using Server.Model.Map.Chunk;
+using Server.Commands.CommandTypes;
 
 namespace Server.Model.Object.Task.Tasks
 {
@@ -16,7 +17,7 @@ namespace Server.Model.Object.Task.Tasks
         private int attackSpeed = 0;
         private int attackSpeedMax = 50;
 
-        public AttackTask(CreatureObject _TaskOwner, int _Priority)
+        public AttackTask(LivingObject _TaskOwner, CommandPriority _Priority)
             : base(_TaskOwner, _Priority)
         {
             target = null;

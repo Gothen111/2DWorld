@@ -7,9 +7,9 @@ using Server.Model.Object;
 
 namespace Server.Commands.CommandTypes
 {
-    class AttackCommand : Command<CommandManager>
+    class AttackCommand : Command
     {
-        private LivingObject attackTarget, attackActor;
+        private LivingObject attackActor;
 
         internal LivingObject AttackActor
         {
@@ -17,22 +17,16 @@ namespace Server.Commands.CommandTypes
             set { attackActor = value; }
         }
 
-        protected LivingObject AttackTarget
-        {
-            get { return attackTarget; }
-            set { attackTarget = value; }
-        }
 
-
-        public AttackCommand(LivingObject _attackActor,LivingObject _attackTarget) : base(CommandManager.commandManager, CommandPriority.Attack)
+        public AttackCommand(LivingObject _attackActor) : base(CommandPriority.Attack)
         {
+            this.Actor = CommandManager.commandManager;
             this.attackActor = _attackActor;
-            this.attackTarget = _attackTarget;
         }
 
         public override void doCommand()
         {
-            Actor.handleAttackCommand(attackActor, attackTarget);
+            ((CommandManager)Actor).handleAttackCommand(attackActor);
         }
     }
 }

@@ -28,7 +28,6 @@ namespace Server.Model.Object
         public CreatureObject()
         {
             this.equipment = new List<EquipmentObject>();
-            this.Tasks.Add(new Task.Tasks.AttackTask(this, 1));
             this.addEquipmentObject(Server.Factories.EquipmentFactory.equipmentFactory.createEquipmentObject(Factories.FactoryEnums.WeaponEnum.Sword));
         }
 

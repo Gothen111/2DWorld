@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 
 using Server.Model.Object;
+using Server.Model.Object.Task.Tasks;
+using Server.Commands.CommandTypes;
 
 namespace Server.Commands
 {
@@ -13,10 +15,9 @@ namespace Server.Commands
 
         private CommandManager() { }
 
-        public void handleAttackCommand(LivingObject actor, LivingObject target)
+        public void handleAttackCommand(LivingObject actor)
         {
-            //TODO: Überarbeite LivingObject, damit es Attackspeed selber verwaltet
-            //actor.attackLivingObject(target);
+            actor.Tasks.Add(new AttackTask(actor, CommandPriority.Attack));
         }
     }
 }

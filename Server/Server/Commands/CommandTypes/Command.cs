@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Server.Commands.CommandTypes
 {
-    abstract class Command<E>
+    abstract class Command
     {
-        private E actor;
+        private Object actor;
 
-        protected E Actor
+        protected Object Actor
         {
             get { return actor; }
             set { actor = value; }
@@ -23,9 +23,8 @@ namespace Server.Commands.CommandTypes
             set { priority = value; }
         }
 
-        public Command(E _actor, CommandPriority _priority)
+        public Command(CommandPriority _priority)
         {
-            this.actor = _actor;
             this.priority = _priority;
         }
 

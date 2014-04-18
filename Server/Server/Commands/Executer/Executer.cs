@@ -11,9 +11,9 @@ namespace Server.Commands.Executer
     {
         public static Executer executer = new Executer();
 
-        private List<Command<Object>> scheduledCommands;
+        private List<Command> scheduledCommands;
 
-        protected List<Command<Object>> ScheduledCommands
+        protected List<Command> ScheduledCommands
         {
             get { return scheduledCommands; }
             set { scheduledCommands = value; }
@@ -21,25 +21,25 @@ namespace Server.Commands.Executer
 
         private Executer()
         {
-            scheduledCommands = new List<Command<Object>>();
+            scheduledCommands = new List<Command>();
         }
 
         public void update(float delta)
         {
             while (scheduledCommands.Count > 0)
             {
-                Command<Object> command = scheduledCommands.First();
+                Command command = scheduledCommands.First();
                 command.doCommand();
                 scheduledCommands.RemoveAt(0);
             }
         }
 
-        public void addCommand(Command<Object> command)
+        public void addCommand(Command command)
         {
             scheduledCommands.Add(command);
         }
 
-        public void removeCommand(Command<Object> command)
+        public void removeCommand(Command command)
         {
             removeCommand(getCommandIndex(command));
         }
@@ -50,7 +50,7 @@ namespace Server.Commands.Executer
                 scheduledCommands.RemoveAt(index);
         }
 
-        public int getCommandIndex(Command<Object> command)
+        public int getCommandIndex(Command command)
         {
             return scheduledCommands.IndexOf(command);
         }

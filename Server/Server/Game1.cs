@@ -68,6 +68,8 @@ namespace Server
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb(var_LivingObject.ToString());
+                Server.Commands.CommandTypes.AttackCommand command = new Server.Commands.CommandTypes.AttackCommand(var_LivingObject);
+                Server.Commands.Executer.Executer.executer.addCommand(command);
                 var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);
                 //var_LivingObject.Position = new Vector3(200*i, 50, 0);
                 var_LivingObject.GraphicPath = "Character/Char1_Small";
