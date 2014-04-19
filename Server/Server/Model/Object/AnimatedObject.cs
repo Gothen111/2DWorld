@@ -40,6 +40,14 @@ namespace Server.Model.Object
             set { graphicPath = value; }
         }
 
+        private float movementSpeed;
+
+        public float MovementSpeed
+        {
+            get { return movementSpeed; }
+            set { movementSpeed = value; }
+        }
+
         public override void update()
         {
             base.update();

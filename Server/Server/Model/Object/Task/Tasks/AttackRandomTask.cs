@@ -10,14 +10,14 @@ using Server.Commands.CommandTypes;
 
 namespace Server.Model.Object.Task.Tasks
 {
-    class AttackTask : LivingObjectTask
+    class AttackRandomTask : LivingObjectTask
     {
         private LivingObject target;
 
         private int attackSpeed = 0;
         private int attackSpeedMax = 50;
 
-        public AttackTask(LivingObject _TaskOwner, CommandPriority _Priority)
+        public AttackRandomTask(LivingObject _TaskOwner, CommandPriority _Priority)
             : base(_TaskOwner, _Priority)
         {
             target = null;

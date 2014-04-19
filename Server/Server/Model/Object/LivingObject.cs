@@ -67,6 +67,7 @@ namespace Server.Model.Object
             this.healthPoints = 20;
             this.isDead = false;
             tasks = new List<LivingObjectTask>();
+            MovementSpeed = 1f;
             path = null; // ???
             currentTask = null;
         }
@@ -141,23 +142,39 @@ namespace Server.Model.Object
 
         public void attackLivingObject(LivingObject _Target)
         {
-            if (_Target.Position.X < this.Position.X)
+            ChangeDirection(_Target.Position);
+            _Target.onAttacked(this, 2);
+        }
+
+        public void MoveWithoutDirectionChange(Vector3 _TargetPosition)
+        {
+            this.Position = _TargetPosition;
+        }
+
+        public void Move(Vector3 _TargetPosition)
+        {
+            ChangeDirection(_TargetPosition);
+            this.Position = _TargetPosition;
+        }
+
+        public void ChangeDirection(Vector3 _TargetPosition)
+        {
+            if (_TargetPosition.X < this.Position.X)
             {
                 this.directionEnum = ObjectEnums.DirectionEnum.Left;
             }
-            else if(_Target.Position.X > this.Position.X)
+            else if (_TargetPosition.X > this.Position.X)
             {
                 this.directionEnum = ObjectEnums.DirectionEnum.Right;
             }
-            else if (_Target.Position.Y < this.Position.Y)
+            else if (_TargetPosition.Y < this.Position.Y)
             {
                 this.directionEnum = ObjectEnums.DirectionEnum.Top;
             }
-            else if (_Target.Position.Y > this.Position.Y)
+            else if (_TargetPosition.Y > this.Position.Y)
             {
                 this.directionEnum = ObjectEnums.DirectionEnum.Down;
             }
-            _Target.onAttacked(this, 2);
         }
 
         public virtual void onAttacked(LivingObject _Attacker, int _DamageAmount)

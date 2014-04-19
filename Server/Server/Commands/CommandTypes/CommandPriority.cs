@@ -8,7 +8,14 @@ namespace Server.Commands.CommandTypes
     enum CommandPriority
     {
         Stand,
-        Move,
-        Attack,
+        Walk_Random,
+        Attack_Random,
+        Order_Follow,
+        Order_Move,
+        Order_MoveAttack,
+        Order_Attack,
+        Order_UseItem,
+        Order_CastSpell,
+
     }
 }

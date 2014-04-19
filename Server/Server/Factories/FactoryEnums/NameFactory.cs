@@ -228,6 +228,11 @@ namespace Server.Factories.FactoryEnums
                         }
                         break;
                     }
+                default:
+                    {
+                        result = "Unbekannt";
+                        break;
+                    }
             }
             return result;
         }

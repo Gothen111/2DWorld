@@ -117,9 +117,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandManager\CommandManager.cs" />
-    <Compile Include="Commands\CommandTypes\AttackCommand.cs" />
+    <Compile Include="Commands\CommandTypes\AttackRandomCommand.cs" />
     <Compile Include="Commands\CommandTypes\Command.cs" />
     <Compile Include="Commands\CommandTypes\CommandPriority.cs" />
+    <Compile Include="Commands\CommandTypes\WalkRandomCommand.cs" />
+    <Compile Include="Commands\CommandTypes\StandCommand.cs" />
     <Compile Include="Commands\Executer\Executer.cs" />
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
@@ -167,7 +169,8 @@
     <Compile Include="Model\Object\PlayerObject.cs" />
     <Compile Include="Model\Object\RaceObject.cs" />
     <Compile Include="Model\Object\Task\LivingObjectTask.cs" />
-    <Compile Include="Model\Object\Task\Tasks\AttackTask.cs" />
+    <Compile Include="Model\Object\Task\Tasks\AttackRandomTask.cs" />
+    <Compile Include="Model\Object\Task\Tasks\StandTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\WalkRandomTask.cs" />
     <Compile Include="Model\Path\Path.cs" />
     <Compile Include="Model\Path\PathFinder.cs" />
