@@ -93,8 +93,37 @@ namespace Server.Model.Map.Chunk
             }
         }
 
+        public void setAllNeighboursOfBlocks()
+        {
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    Block.Block var_Block = this.getBlockAtPosition(x, y);
+                    if (x > 0)
+                    {
+                        var_Block.LeftNeighbour = this.getBlockAtPosition(x-1, y);
+                    }
+                    if (x < this.size.X-1)
+                    {
+                        var_Block.RightNeighbour = this.getBlockAtPosition(x + 1, y);
+                    }
+                    if (y > 0)
+                    {
+                        var_Block.TopNeighbour = this.getBlockAtPosition(x, y-1);
+                    }
+                    if (y < this.size.Y - 1)
+                    {
+                        var_Block.BottomNeighbour = this.getBlockAtPosition(x, y+1);
+                    }
+                }
+            }
+        }
+
         public void addLivingObjectToChunk(Object.LivingObject _LivingObject)
         {
+            Block.Block var_Block = this.getBlockAtCoordinate(_LivingObject.Position.X, _LivingObject.Position.Y);
+            var_Block.addLivingObject(_LivingObject);
             quadTree.insert(_LivingObject);
         }
 
@@ -114,63 +143,58 @@ namespace Server.Model.Map.Chunk
             {
                 for (int y = 0; y < this.size.Y; y++)
                 {
-                    int var_DrawPositionX = (int)(this.Position.X * Server.Factories.ChunkFactory.chunkSizeX + x) * Block.Block.BlockSize;
-                    int var_DrawPositionY = (int)(this.Position.Y * Server.Factories.ChunkFactory.chunkSizeY + y) * Block.Block.BlockSize;
-                    Vector2 var_DrawPosition = new Vector2(var_DrawPositionX, var_DrawPositionY);
-
-                    BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
-                    foreach (BlockEnum var_Enum in this.getBlockAtPosition(x, y).Layer)
-                    {
-                        if (var_Enum != BlockEnum.Nothing)
-                        {
-                            if (var_Layer == BlockLayerEnum.Layer1)
-                            {
-                                if (var_Enum == BlockEnum.Gras)
-                                {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], var_DrawPosition, Color.White);
-                                }
-                                if (var_Enum == BlockEnum.Wall)
-                                {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], var_DrawPosition, Color.White);
-                                }
-                            }
-                            if (var_Layer == BlockLayerEnum.Layer2)
-                            {
-                                if (var_Enum == BlockEnum.Gras)
-                                {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], var_DrawPosition, Color.White);
-                                }
-                                if (var_Enum == BlockEnum.Dirt)
-                                {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], var_DrawPosition, Color.White);
-                                }
-                            }
-                        }
-                        var_Layer += 1;
-                    }
+                    this.getBlockAtPosition(x, y).DrawTest(_GraphicsDevice, _SpriteBatch);
+                }
+            }
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    this.getBlockAtPosition(x, y).DrawObjects(_GraphicsDevice, _SpriteBatch);
                 }
             }
 
-            this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
+            //this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
         }
 
         public List<Object.LivingObject> getAllLivingObjectsinChunk()
         {
             List<Object.LivingObject> var_Result = new List<Object.LivingObject>();
-
-            var_Result = this.quadTree.getAllLivingObjects(var_Result);
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    var_Result.AddRange(this.getBlockAtPosition(x, y).Objects);
+                }
+            }
+            //var_Result = this.quadTree.getAllLivingObjects(var_Result);
 
             return var_Result;
         }
 
         public void update()
         {
-            quadTree.update();
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    this.getBlockAtPosition(x, y).update();
+                }
+            }
+            //quadTree.update();
         }
 
         public int getCountofAllObjects()
         {
-            return this.quadTree.getCountofAllObjects();
+            int var_Count = 0;
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    var_Count += this.getBlockAtPosition(x, y).getCountofAllObjects();
+                }
+            }
+            return var_Count;
         }
     }
 }

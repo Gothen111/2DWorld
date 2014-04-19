@@ -37,6 +37,8 @@ namespace Server.Factories
             generateSecondLayer(var_Result, _Layer);
             generateWall(var_Result);
 
+            var_Result.setAllNeighboursOfBlocks();
+
             return var_Result;
         }
 
@@ -46,7 +48,7 @@ namespace Server.Factories
             {
                 for(int y = 0; y < _Chunk.Size.Y; y++)
                 {
-                    if (!_Chunk.setBlockAtPosition(x, y, new Block(_BlockEnum)))
+                    if (!_Chunk.setBlockAtPosition(x, y, new Block(x, y, _BlockEnum, _Chunk)))
                     {
                         Logger.Logger.LogErr("RegionFactory->fillChunkWithBlock(...) : Platzierung nicht möglich!");
                     }

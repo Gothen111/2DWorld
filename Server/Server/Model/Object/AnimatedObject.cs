@@ -12,6 +12,8 @@ namespace Server.Model.Object
 {
     class AnimatedObject: Object
     {
+        public event EventHandler ObjectMoves;
+
         private float scale;
 
         public float Scale
@@ -66,6 +68,12 @@ namespace Server.Model.Object
         private void move()
         {
             this.Position += this.Velocity;
+
+            EventHandler handler = this.ObjectMoves;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         private void updateMovementDirection()
