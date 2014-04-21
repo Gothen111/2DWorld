@@ -65,7 +65,7 @@ namespace Server.Model.Object.Task.Tasks
             else
             {
                 float movementSpeed = this.TaskOwner.MovementSpeed;
-                Vector3 var_Pos = this.TaskOwner.Position;
+                Vector3 var_Pos = new Vector3(0, 0, 0);//this.TaskOwner.Position;
                 if (Math.Abs(this.TaskOwner.Position.X - targetPosition.X) > 1)
                 {
                     this.finishedWalking = false;
@@ -127,7 +127,8 @@ namespace Server.Model.Object.Task.Tasks
                 {
                     this.finishedWalking = true;
                 }
-                this.TaskOwner.Move(var_Pos);
+                //this.TaskOwner.Move(var_Pos);
+                this.TaskOwner.Velocity = var_Pos;
             }
         }
     }

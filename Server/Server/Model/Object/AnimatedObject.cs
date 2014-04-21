@@ -23,7 +23,7 @@ namespace Server.Model.Object
         }
         protected int animationTime = 0;
         protected int animationTimeMax = 20;
-        protected int animation = 0;
+        protected int moveAnimation = 0;
         protected DirectionEnum directionEnum = DirectionEnum.Down;
         private Vector3 size;
 
@@ -48,6 +48,14 @@ namespace Server.Model.Object
             set { movementSpeed = value; }
         }
 
+        private Animation.AnimatedObjectAnimation animation;
+
+        public Animation.AnimatedObjectAnimation Animation
+        {
+            get { return animation; }
+            set { animation = value; }
+        }
+
         public override void update()
         {
             base.update();
@@ -56,13 +64,13 @@ namespace Server.Model.Object
 
             if (this.animationTime <= 0)
             {
-                if (this.animation == 0)
+                if (this.moveAnimation == 0)
                 {
-                    this.animation = 2; // Right
+                    this.moveAnimation = 2; // Right
                 }
                 else
                 {
-                    this.animation = 0; // Left
+                    this.moveAnimation = 0; // Left
                 }
                 this.animationTime = (int) (this.animationTimeMax/((Math.Abs(this.Velocity.X)+Math.Abs(this.Velocity.Y)+Math.Abs(this.Velocity.Z)))/1.8f);
                 this.updateMovementDirection();
@@ -70,6 +78,11 @@ namespace Server.Model.Object
             else
             {
                 this.animationTime -= 1;
+            }
+
+            if (this.animation != null)
+            {
+                this.animation.update();
             }
         }
 
@@ -90,7 +103,18 @@ namespace Server.Model.Object
             {
 
             }
-            if (this.Velocity.X < 0)
+            if(this.Velocity.X == 0)
+            {
+                if (this.Velocity.Y < 0)
+                {
+                    this.directionEnum = DirectionEnum.Top;
+                }
+                else
+                {
+                    this.directionEnum = DirectionEnum.Down;
+                }
+            }
+            else if (this.Velocity.X < 0)
             {
                 this.directionEnum = DirectionEnum.Left;
                 if (Math.Abs(this.Velocity.X) < Math.Abs(this.Velocity.Y))
@@ -122,8 +146,34 @@ namespace Server.Model.Object
             }
         }
 
+        public void ChangeDirection(Vector3 _TargetPosition)
+        {
+            if (_TargetPosition.X < this.Position.X)
+            {
+                this.directionEnum = ObjectEnums.DirectionEnum.Left;
+            }
+            else if (_TargetPosition.X > this.Position.X)
+            {
+                this.directionEnum = ObjectEnums.DirectionEnum.Right;
+            }
+            else if (_TargetPosition.Y < this.Position.Y)
+            {
+                this.directionEnum = ObjectEnums.DirectionEnum.Top;
+            }
+            else if (_TargetPosition.Y > this.Position.Y)
+            {
+                this.directionEnum = ObjectEnums.DirectionEnum.Down;
+            }
+        }
+
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
         {
+            if (this.animation != null)
+            {
+                _DrawPositionExtra += this.animation.drawPositionExtra();
+                _Color = this.animation.drawColor();
+            }
+
             int var_DrawX = 0;
             int var_DrawY = 0;
 
@@ -133,7 +183,7 @@ namespace Server.Model.Object
             }
             else
             {
-                var_DrawX = this.animation;
+                var_DrawX = this.moveAnimation;
             }
 
             if (this.directionEnum == DirectionEnum.Down)
@@ -152,8 +202,8 @@ namespace Server.Model.Object
             {
                 var_DrawY = 3;
             }
-            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], new Vector2(this.Position.X, this.Position.Y), Color.White);
-            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath], (new Vector2(this.Position.X + _DrawPositionExtra.X, this.Position.Y + _DrawPositionExtra.Y)), new Rectangle(var_DrawX * 32, var_DrawY * 32, 32, 32), _Color);
+            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], new Vector2(this.Position.X + 16, this.Position.Y + 16), Color.White);
+            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath], (new Vector2(this.Position.X + _DrawPositionExtra.X +16, this.Position.Y + _DrawPositionExtra.Y +16)), new Rectangle(var_DrawX * 32, var_DrawY * 32, 32, 32), _Color);
         }
     }
 }

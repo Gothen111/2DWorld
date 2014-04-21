@@ -30,9 +30,6 @@ namespace Server.Model.Object
             set { isDead = value; }
         }
 
-        private int damageAnimation = 0;
-        private int damageAnimationMax = 10;
-
         protected GenderEnum gender;
 
         public GenderEnum Gender
@@ -76,14 +73,6 @@ namespace Server.Model.Object
         {
             base.update();
             this.doTasks();
-            if (this.damageAnimation <= 0)
-            {
-
-            }
-            else
-            {
-                damageAnimation -= 1;
-            }
         }
 
         private void doTasks()
@@ -157,26 +146,6 @@ namespace Server.Model.Object
             this.Position = _TargetPosition;
         }
 
-        public void ChangeDirection(Vector3 _TargetPosition)
-        {
-            if (_TargetPosition.X < this.Position.X)
-            {
-                this.directionEnum = ObjectEnums.DirectionEnum.Left;
-            }
-            else if (_TargetPosition.X > this.Position.X)
-            {
-                this.directionEnum = ObjectEnums.DirectionEnum.Right;
-            }
-            else if (_TargetPosition.Y < this.Position.Y)
-            {
-                this.directionEnum = ObjectEnums.DirectionEnum.Top;
-            }
-            else if (_TargetPosition.Y > this.Position.Y)
-            {
-                this.directionEnum = ObjectEnums.DirectionEnum.Down;
-            }
-        }
-
         public virtual void onAttacked(LivingObject _Attacker, int _DamageAmount)
         {
             this.damage(_DamageAmount);
@@ -205,7 +174,7 @@ namespace Server.Model.Object
             {
                 this.isDead = true;
             }
-            this.damageAnimation = this.damageAnimationMax;
+            this.Animation = new Server.Model.Object.Animation.Animations.TakeDamageAnimation();
         }
 
         public void knockBack(Vector3 _KnockBackAmount)
@@ -215,12 +184,7 @@ namespace Server.Model.Object
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
         {
-            float var_Y = ((float)this.damageAnimation / (float)(this.damageAnimationMax)) * 6;
-            if (this.damageAnimation > this.damageAnimationMax - 5)
-            {
-                _Color = new Color(255,160,160);
-            }
-            base.draw(_GraphicsDevice, _SpriteBatch, new Vector3(_DrawPositionExtra.X, _DrawPositionExtra.Y - var_Y, _DrawPositionExtra.Z), _Color);
+            base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
         }
     }
 }
