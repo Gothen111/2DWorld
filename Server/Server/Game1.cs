@@ -64,7 +64,7 @@ namespace Server
             world = new Model.Map.World.World("Welt");
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb("LivingObject wurde erstellt");
@@ -79,7 +79,7 @@ namespace Server
                     Server.Commands.Executer.Executer.executer.addCommand(command);
                 }
                 var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);
-                //var_LivingObject.Position = new Vector3(200*i, 50, 0);
+                var_LivingObject.Position = new Vector3(200*i, 50, 0);
                 var_LivingObject.GraphicPath = "Character/Char1_Small";
                 //var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
                 var_LivingObject.World = world;

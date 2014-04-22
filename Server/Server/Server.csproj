@@ -158,6 +158,7 @@
     <Compile Include="Model\Map\Region\RegionEnum.cs" />
     <Compile Include="Model\Map\World\World.cs" />
     <Compile Include="Model\Object\AnimatedObject.cs" />
+    <Compile Include="Model\Object\Animation\Animations\MoveAnimation.cs" />
     <Compile Include="Model\Object\Animation\Animations\TakeDamageAnimation.cs" />
     <Compile Include="Model\Object\Animation\AnimatedObjectAnimation.cs" />
     <Compile Include="Model\Object\CreatureObject.cs" />

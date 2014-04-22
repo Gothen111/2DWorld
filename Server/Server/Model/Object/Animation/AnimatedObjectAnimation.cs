@@ -9,6 +9,14 @@ namespace Server.Model.Object.Animation
 {
     class AnimatedObjectAnimation
     {
+        private AnimatedObject animationOwner;
+
+        internal AnimatedObject AnimationOwner
+        {
+            get { return animationOwner; }
+            set { animationOwner = value; }
+        }
+
         private int animation;
 
         public int Animation
@@ -24,8 +32,9 @@ namespace Server.Model.Object.Animation
             set { animationMax = value; }
         }
 
-        public AnimatedObjectAnimation(int _Animation, int _AnimationMax)
+        public AnimatedObjectAnimation(AnimatedObject _AnimationOwner, int _Animation, int _AnimationMax)
         {
+            this.animationOwner = _AnimationOwner;
             this.animation = _Animation;
             this.animationMax = _AnimationMax;
             this.onStartAnimation();
@@ -38,14 +47,7 @@ namespace Server.Model.Object.Animation
 
         public virtual void update()
         {
-            if (this.animation <= 0)
-            {
-
-            }
-            else
-            {
-                animation -= 1;
-            }
+            this.animation -= 1;
         }
 
         public virtual Vector3 drawPositionExtra()
@@ -56,6 +58,43 @@ namespace Server.Model.Object.Animation
         public virtual Color drawColor()
         {
             return Color.White;
+        }
+
+        public virtual bool finishedAnimation()
+        {
+            return this.animation <= -1;
+        }
+
+        public virtual String graphicPath()
+        {
+            return this.animationOwner.GraphicPath;
+        }
+
+        public int directionDrawY()
+        {
+            if (this.animationOwner.DirectionEnum == ObjectEnums.DirectionEnum.Down)
+            {
+                return 0;
+            }
+            else if (this.animationOwner.DirectionEnum == ObjectEnums.DirectionEnum.Left)
+            {
+                return 1;
+            }
+            else if (this.animationOwner.DirectionEnum == ObjectEnums.DirectionEnum.Right)
+            {
+                return 2;
+            }
+            else if (this.animationOwner.DirectionEnum == ObjectEnums.DirectionEnum.Top)
+            {
+                return 3;
+            }
+
+            return -1;
+        }
+
+        public virtual Rectangle sourceRectangle()
+        {
+            return new Rectangle(0, this.directionDrawY()*32, 32, 32);
         }
     }
 }

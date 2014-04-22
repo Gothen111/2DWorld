@@ -9,19 +9,9 @@ namespace Server.Model.Object.Animation.Animations
 {
     class TakeDamageAnimation : AnimatedObjectAnimation
     {
-        public TakeDamageAnimation()
-            : base(0, 20)
+        public TakeDamageAnimation(AnimatedObject _AnimationOwner)
+            : base(_AnimationOwner, 0, 20)
         {
-        }
-
-        public override void onStartAnimation()
-        {
-            base.onStartAnimation();
-        }
-
-        public override void update()
-        {
-            base.update();
         }
 
         public override Vector3 drawPositionExtra()

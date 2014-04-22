@@ -21,10 +21,14 @@ namespace Server.Model.Object
             get { return scale; }
             set { scale = value; }
         }
-        protected int animationTime = 0;
-        protected int animationTimeMax = 20;
-        protected int moveAnimation = 0;
-        protected DirectionEnum directionEnum = DirectionEnum.Down;
+
+        private DirectionEnum directionEnum = DirectionEnum.Down;
+
+        public DirectionEnum DirectionEnum
+        {
+            get { return directionEnum; }
+            set { directionEnum = value; }
+        }
         private Vector3 size;
 
         public Vector3 Size
@@ -56,29 +60,16 @@ namespace Server.Model.Object
             set { animation = value; }
         }
 
+        public AnimatedObject()
+        {
+            this.animation = new Animation.Animations.MoveAnimation(this);
+        }
+
         public override void update()
         {
             base.update();
 
             this.move();
-
-            if (this.animationTime <= 0)
-            {
-                if (this.moveAnimation == 0)
-                {
-                    this.moveAnimation = 2; // Right
-                }
-                else
-                {
-                    this.moveAnimation = 0; // Left
-                }
-                this.animationTime = (int) (this.animationTimeMax/((Math.Abs(this.Velocity.X)+Math.Abs(this.Velocity.Y)+Math.Abs(this.Velocity.Z)))/1.8f);
-                this.updateMovementDirection();
-            }
-            else
-            {
-                this.animationTime -= 1;
-            }
 
             if (this.animation != null)
             {
@@ -90,59 +81,27 @@ namespace Server.Model.Object
         {
             this.Position += this.Velocity;
 
+            if (this.Velocity.X != 0 && this.Velocity.Y != 0)
+            {
+                if (this.animation is Animation.Animations.MoveAnimation)
+                {
+                }
+                else
+                {
+                    if (this.animation.finishedAnimation())
+                    {
+                        this.animation = new Animation.Animations.MoveAnimation(this);
+                    }
+                }
+            }
+            else
+            {
+            }
+
             EventHandler handler = this.ObjectMoves;
             if (handler != null)
             {
                 handler(this, EventArgs.Empty);
-            }
-        }
-
-        private void updateMovementDirection()
-        {
-            if (this.Velocity.X == 0 && this.Velocity.Y == 0)
-            {
-
-            }
-            if(this.Velocity.X == 0)
-            {
-                if (this.Velocity.Y < 0)
-                {
-                    this.directionEnum = DirectionEnum.Top;
-                }
-                else
-                {
-                    this.directionEnum = DirectionEnum.Down;
-                }
-            }
-            else if (this.Velocity.X < 0)
-            {
-                this.directionEnum = DirectionEnum.Left;
-                if (Math.Abs(this.Velocity.X) < Math.Abs(this.Velocity.Y))
-                {
-                    if(this.Velocity.Y < 0)
-                    {
-                        this.directionEnum = DirectionEnum.Top;
-                    }
-                    else
-                    {
-                        this.directionEnum = DirectionEnum.Down;
-                    }
-                }
-            }
-            else if (this.Velocity.X > 0)
-            {
-                this.directionEnum = DirectionEnum.Right;
-                if (Math.Abs(this.Velocity.X) < Math.Abs(this.Velocity.Y))
-                {
-                    if (this.Velocity.Y < 0)
-                    {
-                        this.directionEnum = DirectionEnum.Top;
-                    }
-                    else
-                    {
-                        this.directionEnum = DirectionEnum.Down;
-                    }
-                }
             }
         }
 
@@ -168,42 +127,11 @@ namespace Server.Model.Object
 
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
         {
-            if (this.animation != null)
-            {
-                _DrawPositionExtra += this.animation.drawPositionExtra();
-                _Color = this.animation.drawColor();
-            }
+            Vector3 var_DrawPositionExtra = this.animation.drawPositionExtra();
+            Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X + 16, this.Position.Y + _DrawPositionExtra.Y + 16) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
 
-            int var_DrawX = 0;
-            int var_DrawY = 0;
-
-            if (this.Velocity.X == 0 && this.Velocity.Y == 0)
-            {
-                var_DrawX = 1;
-            }
-            else
-            {
-                var_DrawX = this.moveAnimation;
-            }
-
-            if (this.directionEnum == DirectionEnum.Down)
-            {
-                var_DrawY = 0;
-            }
-            else if (this.directionEnum == DirectionEnum.Left)
-            {
-                var_DrawY = 1;
-            }
-            else if (this.directionEnum == DirectionEnum.Right)
-            {
-                var_DrawY = 2;
-            }
-            else if (this.directionEnum == DirectionEnum.Top)
-            {
-                var_DrawY = 3;
-            }
             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], new Vector2(this.Position.X + 16, this.Position.Y + 16), Color.White);
-            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath], (new Vector2(this.Position.X + _DrawPositionExtra.X +16, this.Position.Y + _DrawPositionExtra.Y +16)), new Rectangle(var_DrawX * 32, var_DrawY * 32, 32, 32), _Color);
+            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor());
         }
     }
 }

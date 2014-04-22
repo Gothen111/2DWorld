@@ -149,19 +149,19 @@ namespace Server.Model.Object
         public virtual void onAttacked(LivingObject _Attacker, int _DamageAmount)
         {
             this.damage(_DamageAmount);
-            if (_Attacker.directionEnum == ObjectEnums.DirectionEnum.Down)
+            if (_Attacker.DirectionEnum == ObjectEnums.DirectionEnum.Down)
             {
                 this.knockBack(new Vector3(0,20,0));
             }
-            if (_Attacker.directionEnum == ObjectEnums.DirectionEnum.Left)
+            if (_Attacker.DirectionEnum == ObjectEnums.DirectionEnum.Left)
             {
                 this.knockBack(new Vector3(-20, 0, 0));
             }
-            if (_Attacker.directionEnum == ObjectEnums.DirectionEnum.Right)
+            if (_Attacker.DirectionEnum == ObjectEnums.DirectionEnum.Right)
             {
                 this.knockBack(new Vector3(20, 0, 0));
             }
-            if (_Attacker.directionEnum == ObjectEnums.DirectionEnum.Top)
+            if (_Attacker.DirectionEnum == ObjectEnums.DirectionEnum.Top)
             {
                 this.knockBack(new Vector3(0, -20, 0));
             }
@@ -174,7 +174,7 @@ namespace Server.Model.Object
             {
                 this.isDead = true;
             }
-            this.Animation = new Server.Model.Object.Animation.Animations.TakeDamageAnimation();
+            this.Animation = new Server.Model.Object.Animation.Animations.TakeDamageAnimation(this);
         }
 
         public void knockBack(Vector3 _KnockBackAmount)
