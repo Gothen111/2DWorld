@@ -15,17 +15,8 @@ namespace Server.Commands.CommandTypes
             set { actor = value; }
         }
 
-        private CommandPriority priority;
-
-        public CommandPriority Priority
+        public Command()
         {
-            get { return priority; }
-            set { priority = value; }
-        }
-
-        public Command(CommandPriority _priority)
-        {
-            this.priority = _priority;
         }
 
         public abstract void doCommand();

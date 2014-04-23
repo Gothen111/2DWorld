@@ -18,15 +18,15 @@ namespace Server.Model.Object.Task
             set { taskOwner = value; }
         }
 
-        private CommandPriority priority;
+        private Tasks.TaskPriority priority;
 
-        public CommandPriority Priority
+        public Tasks.TaskPriority Priority
         {
             get { return priority; }
             set { priority = value; }
         }
 
-        public LivingObjectTask(LivingObject _TaskOwner, CommandPriority _Priority)
+        public LivingObjectTask(LivingObject _TaskOwner, Tasks.TaskPriority _Priority)
         {
             this.taskOwner = _TaskOwner;
             this.priority = _Priority;

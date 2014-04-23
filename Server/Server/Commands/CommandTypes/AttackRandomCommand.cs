@@ -18,7 +18,7 @@ namespace Server.Commands.CommandTypes
         }
 
 
-        public AttackRandomCommand(LivingObject _attackActor) : base(CommandPriority.Attack_Random)
+        public AttackRandomCommand(LivingObject _attackActor)
         {
             this.Actor = CommandManager.commandManager;
             this.attackActor = _attackActor;
@@ -26,7 +26,7 @@ namespace Server.Commands.CommandTypes
 
         public override void doCommand()
         {
-            ((CommandManager)Actor).handleAttackCommand(attackActor, this.Priority);
+            ((CommandManager)Actor).handleAttackCommand(attackActor);
         }
     }
 }

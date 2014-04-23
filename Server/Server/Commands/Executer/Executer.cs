@@ -46,7 +46,7 @@ namespace Server.Commands.Executer
 
         public void removeCommand(int index)
         {
-            if (index != null && index >= 0)
+            if (index != null && index >= 0 && index < scheduledCommands.Count)
                 scheduledCommands.RemoveAt(index);
         }
 

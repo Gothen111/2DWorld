@@ -17,7 +17,7 @@ namespace Server.Commands.CommandTypes
           set { stopActor = value; }
         }
 
-        public StandCommand(LivingObject _attackActor) : base(CommandPriority.Stand)
+        public StandCommand(LivingObject _attackActor)
         {
             this.Actor = CommandManager.commandManager;
             this.stopActor = _attackActor;
@@ -25,7 +25,7 @@ namespace Server.Commands.CommandTypes
 
         public override void doCommand()
         {
-            ((CommandManager)Actor).handleStandCommand(stopActor, this.Priority);
+            ((CommandManager)Actor).handleStandCommand(stopActor);
         }
     }
 }

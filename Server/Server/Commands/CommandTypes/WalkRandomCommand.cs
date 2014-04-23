@@ -18,7 +18,6 @@ namespace Server.Commands.CommandTypes
         }
 
         public WalkRandomCommand(LivingObject _walkActor)
-            : base(CommandPriority.Stand)
         {
             this.Actor = CommandManager.commandManager;
             this.walkActor = _walkActor;
@@ -26,7 +25,7 @@ namespace Server.Commands.CommandTypes
 
         public override void doCommand()
         {
-            ((CommandManager)Actor).handleWalkRandomCommand(walkActor, this.Priority);
+            ((CommandManager)Actor).handleWalkRandomCommand(walkActor);
         }
     }
 }

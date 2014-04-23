@@ -11,7 +11,7 @@ namespace Server.Model.Object.Task.Tasks
     class StandTask : LivingObjectTask
     {
 
-        public StandTask(LivingObject _TaskOwner, CommandPriority _Priority)
+        public StandTask(LivingObject _TaskOwner, TaskPriority _Priority)
             : base(_TaskOwner, _Priority)
         {
         }

@@ -15,19 +15,19 @@ namespace Server.Commands
 
         private CommandManager() { }
 
-        public void handleAttackCommand(LivingObject actor, CommandPriority priority)
+        public void handleAttackCommand(LivingObject actor)
         {
-            actor.Tasks.Add(new AttackRandomTask(actor, priority));
+            actor.Tasks.Add(new AttackRandomTask(actor, TaskPriority.Attack_Random));
         }
 
-        public void handleStandCommand(LivingObject actor, CommandPriority priority)
+        public void handleStandCommand(LivingObject actor)
         {
-            actor.Tasks.Add(new StandTask(actor, priority));
+            actor.Tasks.Add(new StandTask(actor, TaskPriority.Stand));
         }
 
-        public void handleWalkRandomCommand(LivingObject actor, CommandPriority priority)
+        public void handleWalkRandomCommand(LivingObject actor)
         {
-            actor.Tasks.Add(new WalkRandomTask(actor, priority));
+            actor.Tasks.Add(new WalkRandomTask(actor, TaskPriority.Walk_Random));
         }
     }
 }

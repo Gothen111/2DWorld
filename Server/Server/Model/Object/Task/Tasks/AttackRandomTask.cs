@@ -17,7 +17,7 @@ namespace Server.Model.Object.Task.Tasks
         private int attackSpeed = 0;
         private int attackSpeedMax = 50;
 
-        public AttackRandomTask(LivingObject _TaskOwner, CommandPriority _Priority)
+        public AttackRandomTask(LivingObject _TaskOwner, TaskPriority _Priority)
             : base(_TaskOwner, _Priority)
         {
             target = null;
