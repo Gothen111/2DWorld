@@ -62,7 +62,7 @@ namespace Server.Model.Object
 
         public AnimatedObject()
         {
-            this.animation = new Animation.Animations.MoveAnimation(this);
+            this.animation = new Animation.Animations.StandAnimation(this);
         }
 
         public override void update()
@@ -81,7 +81,7 @@ namespace Server.Model.Object
         {
             this.Position += this.Velocity;
 
-            if (this.Velocity.X != 0 && this.Velocity.Y != 0)
+            if (this.Velocity.X != 0 || this.Velocity.Y != 0)
             {
                 if (this.animation is Animation.Animations.MoveAnimation)
                 {

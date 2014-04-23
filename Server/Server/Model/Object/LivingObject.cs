@@ -132,6 +132,7 @@ namespace Server.Model.Object
         public void attackLivingObject(LivingObject _Target)
         {
             ChangeDirection(_Target.Position);
+            this.Animation = new Animation.Animations.AttackAnimation(this);
             _Target.onAttacked(this, 2);
         }
 
