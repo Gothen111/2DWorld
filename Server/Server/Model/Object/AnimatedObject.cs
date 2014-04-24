@@ -80,6 +80,11 @@ namespace Server.Model.Object
         private void move()
         {
             this.Position += this.Velocity;
+            if (this.Position.X < 0)
+                this.Position += new Vector3(0 - this.Position.X, 0, 0);
+            if (this.Position.Y < 0)
+                this.Position += new Vector3(0, 0 - this.Position.Y, 0);
+
 
             if (this.Velocity.X != 0 || this.Velocity.Y != 0)
             {

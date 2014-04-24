@@ -22,6 +22,14 @@ namespace Server.Model.Object
             set { healthPoints = value; }
         }
 
+        private float maxHealthPoints;
+
+        public float MaxHealthPoints
+        {
+            get { return maxHealthPoints; }
+            set { maxHealthPoints = value; }
+        }
+
         private bool isDead;
 
         public bool IsDead
@@ -36,6 +44,14 @@ namespace Server.Model.Object
         {
             get { return gender; }
             set { gender = value; }
+        }
+
+        private float aggroRange;
+
+        public float AggroRange
+        {
+            get { return aggroRange; }
+            set { aggroRange = value; }
         }
 
         //protected InterAction interAction; //???
@@ -62,6 +78,8 @@ namespace Server.Model.Object
             : base()
         {
             this.healthPoints = 20;
+            this.maxHealthPoints = 20;
+            this.aggroRange = 75;
             this.isDead = false;
             tasks = new List<LivingObjectTask>();
             MovementSpeed = 1f;
@@ -185,6 +203,17 @@ namespace Server.Model.Object
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
         {
+            if (this.healthPoints < this.maxHealthPoints)
+            {
+                Texture2D lifebar = Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Lifebar"];
+                float lifePercentage = this.healthPoints / this.maxHealthPoints;
+                float lifebarWidth = lifebar.Bounds.Width * lifePercentage;
+
+                Rectangle lifebarBounds = new Rectangle((int)(this.Position.X + Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath].Bounds.Width / 2 - lifebarWidth / 2), (int)(this.Position.Y - 5), (int)lifebarWidth / 2, lifebar.Bounds.Height / 2);
+
+                _SpriteBatch.Draw(lifebar, lifebarBounds, Color.White);
+            }
+
             base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
         }
     }

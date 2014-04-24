@@ -25,9 +25,31 @@ namespace Server.Model.Object.Task.Tasks
 
         public override bool wantToDoTask()
         {
-            bool var_wantToDoTask = true;
+            Chunk var_Chunk = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
+            bool var_wantToDoTask = false;
+            if (var_Chunk != null)
+            {
+                var_wantToDoTask = true;
+                List<LivingObject> var_LivingObjects = var_Chunk.getAllLivingObjectsinChunk();
+                for (int x = var_LivingObjects.Count - 1; x >= 0; x--)
+                {
+                    LivingObject var_LivingObject = var_LivingObjects.ElementAt(x);
+                    if (getDistanceToObject(var_LivingObject) > this.TaskOwner.AggroRange)
+                        var_LivingObjects.Remove(var_LivingObject);
+                }
+
+
+                if (var_LivingObjects.Count <= 1)
+                    var_wantToDoTask = false;
+            }
 
             return var_wantToDoTask || base.wantToDoTask();
+        }
+
+        public double getDistanceToObject(LivingObject _Object)
+        {
+            double distance = Math.Sqrt(Math.Pow(this.TaskOwner.Position.X - _Object.Position.X, 2) + Math.Pow(this.TaskOwner.Position.Y - _Object.Position.Y, 2));
+            return distance;
         }
 
         public override void update()
@@ -36,11 +58,19 @@ namespace Server.Model.Object.Task.Tasks
 
             this.attackSpeed -= 1;
 
+            Chunk var_Chunk = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
+            List<LivingObject> var_LivingObjects = var_Chunk.getAllLivingObjectsinChunk();
+            var_LivingObjects.Remove(this.TaskOwner);
+            for (int x = var_LivingObjects.Count - 1; x >= 0; x--)
+            {
+                LivingObject var_LivingObject = var_LivingObjects.ElementAt(x);
+                if (getDistanceToObject(var_LivingObject) > this.TaskOwner.AggroRange)
+                    var_LivingObjects.Remove(var_LivingObject);
+            }
+
             if (target == null)
             {
-                Chunk var_Chunk = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
-                List<LivingObject> var_LivingObjects = var_Chunk.getAllLivingObjectsinChunk();
-                var_LivingObjects.Remove(this.TaskOwner);
+                
                 if (var_LivingObjects.Count > 0)
                 {
                     target = var_LivingObjects.ElementAt(Util.Random.GenerateGoodRandomNumber(0, var_LivingObjects.Count));
@@ -55,9 +85,6 @@ namespace Server.Model.Object.Task.Tasks
             {
                 if (target.IsDead)
                 {
-                    Chunk var_Chunk = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
-                    List<LivingObject> var_LivingObjects = var_Chunk.getAllLivingObjectsinChunk();
-                    var_LivingObjects.Remove(this.TaskOwner);
                     if (var_LivingObjects.Count > 0)
                     {
                         target = var_LivingObjects.ElementAt(Util.Random.GenerateGoodRandomNumber(0, var_LivingObjects.Count));

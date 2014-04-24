@@ -64,22 +64,16 @@ namespace Server
             world = new Model.Map.World.World("Welt");
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 30; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb("LivingObject wurde erstellt");
-                if (Util.Random.GenerateGoodRandomNumber(0, 10) < 5)
-                {
-                    Server.Commands.CommandTypes.WalkRandomCommand command = new Server.Commands.CommandTypes.WalkRandomCommand(var_LivingObject);
-                    Server.Commands.Executer.Executer.executer.addCommand(command);
-                }
-                else
-                {
-                    Server.Commands.CommandTypes.AttackRandomCommand command = new Server.Commands.CommandTypes.AttackRandomCommand(var_LivingObject);
-                    Server.Commands.Executer.Executer.executer.addCommand(command);
-                }
-                var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeX * Model.Map.Block.Block.BlockSize), Server.Util.Random.GenerateGoodRandomNumber(0, ChunkFactory.chunkSizeY * Model.Map.Block.Block.BlockSize), 0);
-                var_LivingObject.Position = new Vector3(200*i, 50, 0);
+                Server.Commands.CommandTypes.WalkRandomCommand command = new Server.Commands.CommandTypes.WalkRandomCommand(var_LivingObject);
+                Server.Commands.Executer.Executer.executer.addCommand(command);
+                Server.Commands.CommandTypes.AttackRandomCommand command2 = new Server.Commands.CommandTypes.AttackRandomCommand(var_LivingObject);
+                Server.Commands.Executer.Executer.executer.addCommand(command2);
+                var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, ChunkFactory.chunkSizeX * (Model.Map.Block.Block.BlockSize-1)), Server.Util.Random.GenerateGoodRandomNumber(1, ChunkFactory.chunkSizeY * (Model.Map.Block.Block.BlockSize-1)), 0);
+                //var_LivingObject.Position = new Vector3(200*i, 50, 0);
                 var_LivingObject.GraphicPath = "Character/Char1_Small";
                 //var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
                 var_LivingObject.World = world;
