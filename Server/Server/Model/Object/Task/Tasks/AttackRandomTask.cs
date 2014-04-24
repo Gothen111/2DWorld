@@ -58,19 +58,11 @@ namespace Server.Model.Object.Task.Tasks
 
             this.attackSpeed -= 1;
 
-            Chunk var_Chunk = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
-            List<LivingObject> var_LivingObjects = var_Chunk.getAllLivingObjectsinChunk();
-            var_LivingObjects.Remove(this.TaskOwner);
-            for (int x = var_LivingObjects.Count - 1; x >= 0; x--)
-            {
-                LivingObject var_LivingObject = var_LivingObjects.ElementAt(x);
-                if (getDistanceToObject(var_LivingObject) > this.TaskOwner.AggroRange)
-                    var_LivingObjects.Remove(var_LivingObject);
-            }
-
             if (target == null)
             {
-                
+
+                List<LivingObject> var_LivingObjects = this.TaskOwner.World.getLivingObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                var_LivingObjects.Remove(this.TaskOwner);
                 if (var_LivingObjects.Count > 0)
                 {
                     target = var_LivingObjects.ElementAt(Util.Random.GenerateGoodRandomNumber(0, var_LivingObjects.Count));
@@ -85,6 +77,14 @@ namespace Server.Model.Object.Task.Tasks
             {
                 if (target.IsDead)
                 {
+                    List<LivingObject> var_LivingObjects = this.TaskOwner.World.getLivingObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                    var_LivingObjects.Remove(this.TaskOwner);
+                    for (int x = var_LivingObjects.Count - 1; x >= 0; x--)
+                    {
+                        LivingObject var_LivingObject = var_LivingObjects.ElementAt(x);
+                        if (getDistanceToObject(var_LivingObject) > this.TaskOwner.AggroRange)
+                            var_LivingObjects.Remove(var_LivingObject);
+                    }
                     if (var_LivingObjects.Count > 0)
                     {
                         target = var_LivingObjects.ElementAt(Util.Random.GenerateGoodRandomNumber(0, var_LivingObjects.Count));

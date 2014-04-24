@@ -57,6 +57,11 @@ namespace Server.Model.Map.Block
             set { position = value; }
         }
 
+        public Rectangle Bounds
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, (int)Block.BlockSize, (int)Block.BlockSize); }
+        }
+
         private List<Object.LivingObject> objects;
 
         public List<Object.LivingObject> Objects

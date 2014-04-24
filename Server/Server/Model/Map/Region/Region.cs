@@ -52,6 +52,11 @@ namespace Server.Model.Map.Region
             set { position = value; }
         }
 
+        public Rectangle Bounds
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y); }
+        }
+
         private World.World parentWorld;
 
         public World.World ParentWorld

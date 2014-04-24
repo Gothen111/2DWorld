@@ -23,6 +23,12 @@ namespace Server.Model.Map.Chunk
             set { id = value; }
         }
         private Block.Block[,] blocks;
+
+        internal Block.Block[,] Blocks
+        {
+            get { return blocks; }
+            set { blocks = value; }
+        }
         private QuadTree quadTree;
         
         private String name;
@@ -47,6 +53,11 @@ namespace Server.Model.Map.Chunk
         {
             get { return position; }
             set { position = value; }
+        }
+
+        public Rectangle Bounds
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y); }
         }
 
         private Region.Region parentRegion;
