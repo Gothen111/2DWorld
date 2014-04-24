@@ -186,6 +186,7 @@
     <Compile Include="Ressourcen\RessourcenManager.cs" />
     <Compile Include="Util\Circle.cs" />
     <Compile Include="Util\Intersection.cs" />
+    <Compile Include="Util\MapHandler.cs" />
     <Compile Include="Util\Random.cs" />
   </ItemGroup>
   <ItemGroup>
