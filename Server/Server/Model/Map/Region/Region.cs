@@ -15,6 +15,9 @@ namespace Server.Model.Map.Region
     {
         private int id;
 
+        public static int regionSizeX = 2; // 10
+        public static int regionSizeY = 2; // 10
+
         public int Id
         {
             get { return id; }
@@ -54,7 +57,7 @@ namespace Server.Model.Map.Region
 
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y); }
+            get { return new Rectangle((int)position.X, (int)position.Y, (int)size.X * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)size.Y * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize); }
         }
 
         private World.World parentWorld;
@@ -126,10 +129,18 @@ namespace Server.Model.Map.Region
 
         public Chunk.Chunk getChunkLivingObjectIsIn(Server.Model.Object.LivingObject _LivingObject)
         {
-            int var_X = (int)(_LivingObject.Position.X / ((this.Position.X + 1) * Factories.ChunkFactory.chunkSizeX * Block.Block.BlockSize));
-            int var_Y = (int)(_LivingObject.Position.Y / ((this.Position.Y + 1) * Factories.ChunkFactory.chunkSizeY * Block.Block.BlockSize));
-
-            return this.chunks[var_X, var_Y];
+            //TODO: Fehlerbehandlungen, falls LivingObject nicht in der Region ist --> Nullpointer da var_X oder var_Y zu klein/groß
+            int var_X = (int)(_LivingObject.Position.X / ((this.Position.X + 1) * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize));
+            int var_Y = (int)(_LivingObject.Position.Y / ((this.Position.Y + 1) * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
+            if (var_X >= Region.regionSizeX || var_Y >= Region.regionSizeY)
+            {
+                Logger.Logger.LogErr("LivingObject befindet sich nicht in Region " + this.id);
+                return null;
+            }
+            else
+            {
+                return this.chunks[var_X, var_Y];
+            }
         }
 
         public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)

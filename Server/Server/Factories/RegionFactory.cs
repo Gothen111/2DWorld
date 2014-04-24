@@ -6,6 +6,7 @@ using System.Text;
 using Server.Model.Map.World;
 using Server.Model.Map.Region;
 using Server.Model.Map.Chunk;
+using Server.Model.Map.Block;
 using Server.Factories;
 
 namespace Server.Factories
@@ -13,8 +14,6 @@ namespace Server.Factories
     class RegionFactory
     {
         public static RegionFactory regionFactory = new RegionFactory();
-        public static int regionSizeX = 2; // 10
-        public static int regionSizeY = 2; // 10
 
         public Region generateRegion(int _Id, String _Name, int _PosX, int _PosY, RegionEnum _RegionEnum, World _ParentWorld)
         {
@@ -32,17 +31,17 @@ namespace Server.Factories
         {
             Region var_Result;
 
-            var_Result = new Region(_Id, _Name, _PosX, _PosY, regionSizeX, regionSizeY, _ParentWorld);
+            var_Result = new Region(_Id, _Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, _ParentWorld);
 
 
-            for (int x = 0; x < regionSizeX; x++)
+            for (int x = 0; x < Region.regionSizeX; x++)
             {
-                for (int y = 0; y < regionSizeY; y++)
+                for (int y = 0; y < Region.regionSizeY; y++)
                 {
-                    Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(var_Result.getLastChunkId(), x, y, ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), var_Result);
+                    Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(var_Result.getLastChunkId(), x * Chunk.chunkSizeX * Block.BlockSize, y * Chunk.chunkSizeY * Block.BlockSize, ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), var_Result);
                     this.addChunkToRegion(var_Result, x, y, var_Chunk);
                 }
-                Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " + (int)(((float)x / regionSizeX) * 100) + "%", true);
+                Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " + (int)(((float)x / Region.regionSizeX) * 100) + "%", true);
             }
 
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");

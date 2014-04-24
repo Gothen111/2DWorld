@@ -5,6 +5,7 @@ using System.Text;
 
 using Server.Model.Map.World;
 using Server.Model.Map.Chunk;
+using Server.Model.Map.Region;
 using Server.Model.Map.Block;
 using Server.Commands.CommandTypes;
 using Microsoft.Xna.Framework;
@@ -37,7 +38,7 @@ namespace Server.Model.Object.Task.Tasks
             this.finishedWalking = false;
             Chunk var_Chunk = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
             Block var_Block = var_Chunk.getBlockAtPosition((float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.X-1), (float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.Y-1));
-            targetPosition = new Vector3(var_Block.Position.X * Block.BlockSize, var_Block.Position.Y * Block.BlockSize, 0);
+            targetPosition = new Vector3(var_Block.Position.X, var_Block.Position.Y, 0);
         }
 
         public override bool wantToDoTask()
@@ -57,10 +58,17 @@ namespace Server.Model.Object.Task.Tasks
         {
             if (this.finishedWalking)
             {
-                Chunk var_Chunk = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
-                Block var_Block = var_Chunk.getBlockAtPosition((float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.X-1), (float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.Y-1));
-                targetPosition = new Vector3(var_Block.Position.X * Block.BlockSize, var_Block.Position.Y * Block.BlockSize, 0);
-                this.finishedWalking = false;
+                Region var_Region = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner);
+                if (var_Region != null)
+                {
+                    Chunk var_Chunk = var_Region.getChunkLivingObjectIsIn(TaskOwner);
+                    if (var_Chunk != null)
+                    {
+                        Block var_Block = var_Chunk.getBlockAtPosition((float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.X - 1), (float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.Y - 1));
+                        targetPosition = new Vector3(var_Block.Position.X, var_Block.Position.Y, 0);
+                        this.finishedWalking = false;
+                    }
+                }
             }
             else
             {

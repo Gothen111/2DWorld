@@ -17,6 +17,9 @@ namespace Server.Model.Map.Chunk
     {
         private int id;
 
+        public static int chunkSizeX = 40; // 40
+        public static int chunkSizeY = 40; // 40
+
         public int Id
         {
             get { return id; }

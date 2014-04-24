@@ -16,6 +16,14 @@ namespace Server.Model.Object
             get { return position; }
             set { position = value; }
         }
+
+        private Map.Block.Block currentBlock;
+
+        internal Map.Block.Block CurrentBlock
+        {
+            get { return currentBlock; }
+            set { currentBlock = value; }
+        }
         private List<Object> objects;
 
         public List<Object> Objects

@@ -61,7 +61,7 @@ namespace Server.Model.Object.Task.Tasks
             if (target == null)
             {
 
-                List<LivingObject> var_LivingObjects = this.TaskOwner.World.getLivingObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                List<LivingObject> var_LivingObjects = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner).getAllLivingObjectsinChunk();
                 var_LivingObjects.Remove(this.TaskOwner);
                 if (var_LivingObjects.Count > 0)
                 {
@@ -77,7 +77,7 @@ namespace Server.Model.Object.Task.Tasks
             {
                 if (target.IsDead)
                 {
-                    List<LivingObject> var_LivingObjects = this.TaskOwner.World.getLivingObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                    List<LivingObject> var_LivingObjects = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner).getAllLivingObjectsinChunk();
                     var_LivingObjects.Remove(this.TaskOwner);
                     for (int x = var_LivingObjects.Count - 1; x >= 0; x--)
                     {

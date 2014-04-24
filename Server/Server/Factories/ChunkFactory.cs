@@ -12,8 +12,6 @@ namespace Server.Factories
     class ChunkFactory
     {
         public static ChunkFactory chunkFactory = new ChunkFactory();
-        public static int chunkSizeX = 40; // 40
-        public static int chunkSizeY = 40; // 40
 
         public Chunk generateChunk(int _Id, int _PosX, int PosY, ChunkEnum _ChunkEnum, List<Enum> _Layer, Region _ParentRegion)
         {
@@ -21,7 +19,7 @@ namespace Server.Factories
             {
                 case ChunkEnum.Grassland:
                     {
-                        return generateChunkGrassland(_Id, _PosX, PosY, chunkSizeX, chunkSizeY, _Layer, _ParentRegion);
+                        return generateChunkGrassland(_Id, _PosX, PosY, Chunk.chunkSizeX, Chunk.chunkSizeY, _Layer, _ParentRegion);
                     }
             }
             return null;
@@ -48,7 +46,7 @@ namespace Server.Factories
             {
                 for(int y = 0; y < _Chunk.Size.Y; y++)
                 {
-                    if (!_Chunk.setBlockAtPosition(x, y, new Block(x, y, _BlockEnum, _Chunk)))
+                    if (!_Chunk.setBlockAtPosition(x, y, new Block((int)_Chunk.Position.X + Block.BlockSize * x, (int)_Chunk.Position.Y + Block.BlockSize * y, _BlockEnum, _Chunk)))
                     {
                         Logger.Logger.LogErr("RegionFactory->fillChunkWithBlock(...) : Platzierung nicht möglich!");
                     }

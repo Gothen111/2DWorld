@@ -79,7 +79,7 @@ namespace Server.Model.Object
         {
             this.healthPoints = 20;
             this.maxHealthPoints = 20;
-            this.aggroRange = 75;
+            this.aggroRange = 20;
             this.isDead = false;
             tasks = new List<LivingObjectTask>();
             MovementSpeed = 1f;

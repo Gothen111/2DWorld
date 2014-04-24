@@ -101,6 +101,7 @@ namespace Server.Model.Map.Block
         public void removeLivingObject(Object.LivingObject _LivingObject)
         {
             _LivingObject.ObjectMoves -= this.HandleEvent;
+            _LivingObject.CurrentBlock = this;
             this.objects.Remove(_LivingObject);
         }
 
@@ -108,8 +109,8 @@ namespace Server.Model.Map.Block
         {
             if (sender is Object.LivingObject)
             {
-                int var_BlockPosX = (int)(parentChunk.ParentRegion.Position.X * Factories.RegionFactory.regionSizeX * Factories.ChunkFactory.chunkSizeX + this.position.X) -1;
-                int var_BlockPosY = (int)(parentChunk.ParentRegion.Position.Y * Factories.RegionFactory.regionSizeY * Factories.ChunkFactory.chunkSizeY + this.position.Y) -1;
+                int var_BlockPosX = (int)(parentChunk.ParentRegion.Position.X * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX + this.position.X) -1;
+                int var_BlockPosY = (int)(parentChunk.ParentRegion.Position.Y * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY + this.position.Y) - 1;
 
                 Object.LivingObject var_LivingObject = (Object.LivingObject)sender;
                 if (var_LivingObject.Position.X < var_BlockPosX * BlockSize)
@@ -170,9 +171,7 @@ namespace Server.Model.Map.Block
 
         public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            int var_DrawPositionX = (int)(this.parentChunk.Position.X * Server.Factories.ChunkFactory.chunkSizeX + this.Position.X) * BlockSize;
-            int var_DrawPositionY = (int)(this.parentChunk.Position.Y * Server.Factories.ChunkFactory.chunkSizeY + this.Position.Y) * BlockSize;
-            Vector2 var_DrawPosition = new Vector2(var_DrawPositionX, var_DrawPositionY);
+            Vector2 var_DrawPosition = this.Position;
 
             Color var_Color = Color.White;
 
@@ -219,6 +218,36 @@ namespace Server.Model.Map.Block
             {
                 var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
             }     
+        }
+
+        public List<Object.LivingObject> getLivingObjectsInRange(Vector3 _Position, float _Range)
+        {
+            List<Object.LivingObject> result = new List<Object.LivingObject>();
+            List<Block> visitedBlocks = new List<Block>();
+            getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
+            return result;
+        }
+
+        public void getLivingObjectsInRange(Vector3 _Position, float _Range, List<Object.LivingObject> result, List<Block> visitedBlocks)
+        {
+            if (!visitedBlocks.Contains(this))
+            {
+                foreach (Object.LivingObject var_LivingObject in this.objects)
+                {
+                    float distance = Vector3.Distance(_Position, var_LivingObject.Position);
+                    if (distance <= _Range)
+                        result.Add(var_LivingObject);
+                }
+                visitedBlocks.Add(this);
+                if (this.leftNeighbour != null && _Position.X - _Range < this.Position.X)
+                    this.leftNeighbour.getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
+                if (this.rightNeighbour != null && _Position.X + _Range > this.Position.X + Block.BlockSize)
+                    this.rightNeighbour.getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
+                if (this.bottomNeighbour != null && _Position.Y + _Range > this.Position.Y + Block.BlockSize)
+                    this.bottomNeighbour.getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
+                if (this.topNeighbour != null && _Position.Y - _Range < this.Position.Y - Block.BlockSize)
+                    this.topNeighbour.getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
+            }
         }
     }
 }
