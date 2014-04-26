@@ -17,6 +17,8 @@ namespace Server.Model.Object.Task.Tasks
         private int attackSpeed = 0;
         private int attackSpeedMax = 50;
 
+        private float updateTarget = 40;
+
         public AttackRandomTask(LivingObject _TaskOwner, TaskPriority _Priority)
             : base(_TaskOwner, _Priority)
         {
@@ -25,31 +27,17 @@ namespace Server.Model.Object.Task.Tasks
 
         public override bool wantToDoTask()
         {
-            Chunk var_Chunk = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
-            bool var_wantToDoTask = false;
+            Chunk var_Chunk = this.TaskOwner.CurrentBlock.ParentChunk;
+            bool var_wantToDoTask = true;
             if (var_Chunk != null)
             {
                 var_wantToDoTask = true;
-                List<LivingObject> var_LivingObjects = var_Chunk.getAllLivingObjectsinChunk();
-                for (int x = var_LivingObjects.Count - 1; x >= 0; x--)
-                {
-                    LivingObject var_LivingObject = var_LivingObjects.ElementAt(x);
-                    if (getDistanceToObject(var_LivingObject) > this.TaskOwner.AggroRange)
-                        var_LivingObjects.Remove(var_LivingObject);
-                }
-
-
+                List<LivingObject> var_LivingObjects = new List<LivingObject>();// this.TaskOwner.CurrentBlock.getLivingObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
                 if (var_LivingObjects.Count <= 1)
                     var_wantToDoTask = false;
             }
 
             return var_wantToDoTask || base.wantToDoTask();
-        }
-
-        public double getDistanceToObject(LivingObject _Object)
-        {
-            double distance = Math.Sqrt(Math.Pow(this.TaskOwner.Position.X - _Object.Position.X, 2) + Math.Pow(this.TaskOwner.Position.Y - _Object.Position.Y, 2));
-            return distance;
         }
 
         public override void update()
@@ -60,17 +48,25 @@ namespace Server.Model.Object.Task.Tasks
 
             if (target == null)
             {
-
-                List<LivingObject> var_LivingObjects = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner).getAllLivingObjectsinChunk();
-                var_LivingObjects.Remove(this.TaskOwner);
-                if (var_LivingObjects.Count > 0)
+                if (updateTarget > 0)
                 {
-                    target = var_LivingObjects.ElementAt(Util.Random.GenerateGoodRandomNumber(0, var_LivingObjects.Count));
-                    if (target == this.TaskOwner)
+                    updateTarget--;
+                }
+                else
+                {
+                    List<LivingObject> var_LivingObjects = this.TaskOwner.CurrentBlock.getLivingObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                    var_LivingObjects.Remove(this.TaskOwner);
+                    if (var_LivingObjects.Count > 0)
                     {
-                        Logger.Logger.LogDeb("AttackTask->update(): Target is TaskOwner: Should not be possible!");
-                        target = null;
+                        target = var_LivingObjects.ElementAt(Util.Random.GenerateGoodRandomNumber(0, var_LivingObjects.Count));
+                        if (target == this.TaskOwner)
+                        {
+                            Logger.Logger.LogDeb("AttackTask->update(): Target is TaskOwner: Should not be possible!");
+                            target = null;
+                        }
                     }
+                    var_LivingObjects.Clear();
+                    updateTarget = 50;
                 }
             }
             else
@@ -79,16 +75,11 @@ namespace Server.Model.Object.Task.Tasks
                 {
                     List<LivingObject> var_LivingObjects = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner).getAllLivingObjectsinChunk();
                     var_LivingObjects.Remove(this.TaskOwner);
-                    for (int x = var_LivingObjects.Count - 1; x >= 0; x--)
-                    {
-                        LivingObject var_LivingObject = var_LivingObjects.ElementAt(x);
-                        if (getDistanceToObject(var_LivingObject) > this.TaskOwner.AggroRange)
-                            var_LivingObjects.Remove(var_LivingObject);
-                    }
                     if (var_LivingObjects.Count > 0)
                     {
                         target = var_LivingObjects.ElementAt(Util.Random.GenerateGoodRandomNumber(0, var_LivingObjects.Count));
                     }
+                    var_LivingObjects.Clear();
                 }
             }
             if(target!=null)

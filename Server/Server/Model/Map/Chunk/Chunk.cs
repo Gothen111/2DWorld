@@ -178,7 +178,7 @@ namespace Server.Model.Map.Chunk
             {
                 for (int y = 0; y < this.size.Y; y++)
                 {
-                    var_Result.AddRange(this.getBlockAtPosition(x, y).Objects);
+                    var_Result.Concat(this.getBlockAtPosition(x, y).Objects);
                 }
             }
             //var_Result = this.quadTree.getAllLivingObjects(var_Result);

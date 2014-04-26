@@ -37,5 +37,15 @@ namespace Server.Model.Behaviour
         {
             behaviour.Add(item);
         }
+
+        public int getValueForItem(E item)
+        {
+            foreach (BehaviourItem<E> var_Item in this.behaviour)
+            {
+                if (var_Item.Item.Equals(item))
+                    return var_Item.Value;
+            }
+            return -1;
+        }
     }
 }

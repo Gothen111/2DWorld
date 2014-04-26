@@ -7,9 +7,11 @@ namespace Server.Util
 {
     class Random
     {
+        public static System.Security.Cryptography.RNGCryptoServiceProvider c = new System.Security.Cryptography.RNGCryptoServiceProvider();
+
         public static int GenerateGoodRandomNumber(int min, int max)
         {
-            System.Security.Cryptography.RNGCryptoServiceProvider c = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            
             // Ein integer benötigt 4 Byte
             byte[] randomNumber = new byte[4];
             // dann füllen wir den Array mit zufälligen Bytes
