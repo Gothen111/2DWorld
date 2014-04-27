@@ -192,6 +192,7 @@ namespace Server.Model.Object
             if (this.healthPoints <= 0)
             {
                 this.isDead = true;
+                this.World.removeObjectFromWorld(this);
             }
             this.Animation = new Server.Model.Object.Animation.Animations.TakeDamageAnimation(this);
         }

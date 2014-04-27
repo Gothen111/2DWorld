@@ -65,7 +65,7 @@ namespace Server
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
             world.addRegion(region);
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb("LivingObject wurde erstellt");
@@ -142,7 +142,8 @@ namespace Server
             spriteBatch.Begin();
 
             world.DrawTest(GraphicsDevice, spriteBatch);
-            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0,0), Color.White);
+            if(gameTime.ElapsedGameTime.Milliseconds > 0)
+                spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0,0), Color.White);
             spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + region.Chunks[0, 0].getCountofAllObjects().ToString(), new Vector2(100, 0), Color.White);
             
             spriteBatch.End(); 
