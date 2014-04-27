@@ -29,13 +29,7 @@ namespace Server.Model.Object
             get { return directionEnum; }
             set { directionEnum = value; }
         }
-        private Vector3 size;
 
-        public Vector3 Size
-        {
-            get { return size; }
-            set { size = value; }
-        }
         private String graphicPath;
 
         public String GraphicPath
@@ -62,6 +56,8 @@ namespace Server.Model.Object
 
         public AnimatedObject()
         {
+            this.scale = 1f;
+            this.Size = new Vector3(32, 32, 0);
             this.animation = new Animation.Animations.StandAnimation(this);
         }
 

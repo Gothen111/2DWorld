@@ -72,6 +72,12 @@ namespace Server.Model.Map.Block
 
         private Chunk.Chunk parentChunk;
 
+        internal Chunk.Chunk ParentChunk
+        {
+            get { return parentChunk; }
+            set { parentChunk = value; }
+        }
+
         public Block(int _PosX, int _PosY, BlockEnum _BlockEnum, Chunk.Chunk _ParentChunk)
         {
             this.layer = new BlockEnum[Enum.GetValues(typeof(BlockLayerEnum)).Length];
@@ -95,6 +101,7 @@ namespace Server.Model.Map.Block
         public void addLivingObject(Object.LivingObject _LivingObject)
         {
             _LivingObject.ObjectMoves += this.HandleEvent;
+            _LivingObject.CurrentBlock = this;
             this.objects.Add(_LivingObject);
         }
 

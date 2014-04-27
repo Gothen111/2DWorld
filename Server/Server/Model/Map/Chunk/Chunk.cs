@@ -32,7 +32,6 @@ namespace Server.Model.Map.Chunk
             get { return blocks; }
             set { blocks = value; }
         }
-        private QuadTree quadTree;
         
         private String name;
 
@@ -79,8 +78,6 @@ namespace Server.Model.Map.Chunk
             this.size = new Vector2(_SizeX, _SizeY);
 
             blocks = new Block.Block[_SizeX, _SizeY];
-
-            quadTree = new QuadTree(0, new Rectangle(0, 0, _SizeX * Block.Block.BlockSize, _SizeY * Block.Block.BlockSize), null);
 
             this.parentRegion = _ParentRegion;
         }
@@ -134,13 +131,6 @@ namespace Server.Model.Map.Chunk
             }
         }
 
-        public void addLivingObjectToChunk(Object.LivingObject _LivingObject)
-        {
-            Block.Block var_Block = this.getBlockAtCoordinate(_LivingObject.Position.X, _LivingObject.Position.Y);
-            var_Block.addLivingObject(_LivingObject);
-            quadTree.insert(_LivingObject);
-        }
-
         public Block.Block getBlockAtCoordinate(float _PosX, float _PosY)
         {
             return blocks[(int)(_PosX/Block.Block.BlockSize), ((int)_PosY/Block.Block.BlockSize)];
@@ -171,20 +161,6 @@ namespace Server.Model.Map.Chunk
             //this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
         }
 
-        public List<Object.LivingObject> getAllLivingObjectsinChunk()
-        {
-            List<Object.LivingObject> var_Result = new List<Object.LivingObject>();
-            for (int x = 0; x < this.size.X; x++)
-            {
-                for (int y = 0; y < this.size.Y; y++)
-                {
-                    var_Result.Concat(this.getBlockAtPosition(x, y).Objects);
-                }
-            }
-            //var_Result = this.quadTree.getAllLivingObjects(var_Result);
-
-            return var_Result;
-        }
 
         public void update()
         {
@@ -195,7 +171,6 @@ namespace Server.Model.Map.Chunk
                     this.getBlockAtPosition(x, y).update();
                 }
             }
-            //quadTree.update();
         }
 
         public int getCountofAllObjects()

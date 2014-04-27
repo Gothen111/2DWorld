@@ -64,24 +64,24 @@ namespace Server
             world = new Model.Map.World.World("Welt");
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
+            world.addRegion(region);
             for (int i = 0; i < 1000; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb("LivingObject wurde erstellt");
                 Server.Commands.CommandTypes.WalkRandomCommand command = new Server.Commands.CommandTypes.WalkRandomCommand(var_LivingObject);
                 Server.Commands.Executer.Executer.executer.addCommand(command);
-                //Server.Commands.CommandTypes.AttackRandomCommand command2 = new Server.Commands.CommandTypes.AttackRandomCommand(var_LivingObject);
-                //Server.Commands.Executer.Executer.executer.addCommand(command2);
+                Server.Commands.CommandTypes.AttackRandomCommand command2 = new Server.Commands.CommandTypes.AttackRandomCommand(var_LivingObject);
+                Server.Commands.Executer.Executer.executer.addCommand(command2);
                 var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
                 //var_LivingObject.Position = new Vector3(200*i, 50, 0);
                 var_LivingObject.GraphicPath = "Character/Char1_Small";
                 //var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
                 var_LivingObject.World = world;
-                region.Chunks[0, 0].addLivingObjectToChunk(var_LivingObject);
+                world.addLivingObject(var_LivingObject);
                 //Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
             }
 
-            world.addRegion(region);
 
             watch.Stop();
             Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
@@ -125,8 +125,8 @@ namespace Server
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            Commands.Executer.Executer.executer.update(0);
-            region.Chunks[0,0].update();
+            Commands.Executer.Executer.executer.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            world.update();
 
             base.Update(gameTime);
         }

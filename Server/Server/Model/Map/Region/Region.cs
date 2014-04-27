@@ -153,5 +153,16 @@ namespace Server.Model.Map.Region
                 }
             }          
         }
+
+        public void update()
+        {
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    this.chunks[x, y].update();
+                }
+            }
+        }
     }
 }
