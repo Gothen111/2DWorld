@@ -94,7 +94,7 @@ namespace Server.Model.Object.Animation
 
         public virtual Rectangle sourceRectangle()
         {
-            return new Rectangle(0, this.directionDrawY()*32, 32, 32);
+            return new Rectangle(this.animationOwner.StandartStandPositionX, this.directionDrawY() * (int)this.animationOwner.Size.Y, (int)this.animationOwner.Size.X, (int)this.animationOwner.Size.Y);
         }
     }
 }

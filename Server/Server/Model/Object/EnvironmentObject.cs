@@ -10,6 +10,7 @@ namespace Server.Model.Object
         public override void update()
         {
             base.update();
+            this.CanBeEffected = false;
         }
     }
 }

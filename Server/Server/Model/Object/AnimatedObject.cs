@@ -54,11 +54,21 @@ namespace Server.Model.Object
             set { animation = value; }
         }
 
+        private int standartStandPositionX;
+
+        public int StandartStandPositionX
+        {
+            get { return standartStandPositionX; }
+            set { standartStandPositionX = value; }
+        }
+
         public AnimatedObject()
         {
             this.scale = 1f;
             this.Size = new Vector3(32, 32, 0);
             this.animation = new Animation.Animations.StandAnimation(this);
+
+            this.standartStandPositionX = 0;
         }
 
         public override void update()
@@ -70,6 +80,10 @@ namespace Server.Model.Object
             if (this.animation != null)
             {
                 this.animation.update();
+                if (this.animation.finishedAnimation() && !(this.animation is Animation.Animations.MoveAnimation))
+                {
+                    this.animation = new Animation.Animations.StandAnimation(this);
+                }
             }
         }
 

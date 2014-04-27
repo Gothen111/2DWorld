@@ -16,6 +16,5 @@ namespace Server.Model.Object.Task.Tasks
         Order_Attack,
         Order_UseItem,
         Order_CastSpell,
-
     }
 }

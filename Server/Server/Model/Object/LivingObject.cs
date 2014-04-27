@@ -74,6 +74,14 @@ namespace Server.Model.Object
             set { path = value; }
         }
 
+        private bool canBeEffected; // Wie vergiften oder knockback usw.....
+
+        public bool CanBeEffected
+        {
+            get { return canBeEffected; }
+            set { canBeEffected = value; }
+        }
+
         public LivingObject()
             : base()
         {
@@ -85,6 +93,7 @@ namespace Server.Model.Object
             MovementSpeed = 1f;
             path = null; // ???
             currentTask = null;
+            this.canBeEffected = true;
         }
 
         public override void update()
@@ -198,7 +207,10 @@ namespace Server.Model.Object
 
         public void knockBack(Vector3 _KnockBackAmount)
         {
-            this.Position += _KnockBackAmount;
+            if (this.canBeEffected)
+            {
+                this.Position += _KnockBackAmount;
+            }
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
