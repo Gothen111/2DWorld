@@ -22,7 +22,7 @@ namespace Server.Util
 
         public static Boolean CircleIsInRectangle(Circle circle, Rectangle rectangle)
         {
-            Boolean circleInRectangle = circle.Position.X >= rectangle.Left && circle.Position.X <= rectangle.Right && circle.Position.Y >= rectangle.Top && circle.Position.Y <= rectangle.Bottom;
+            Boolean circleInRectangle = circle.Position.X - circle.Radius >= rectangle.Left && circle.Position.X + circle.Radius <= rectangle.Right && circle.Position.Y - circle.Radius >= rectangle.Top && circle.Position.Y + circle.Radius <= rectangle.Bottom;
             return circleInRectangle;
         }
 

@@ -123,6 +123,13 @@ namespace Server.Model.Map.World
             quadTree.Insert(livingObject);
         }
 
+        public void removeObjectFromWorld(LivingObject livingObject)
+        {
+            quadTree.Remove(livingObject);
+            livingObject.CurrentBlock.removeLivingObject(livingObject);
+            livingObject.CurrentBlock = null;
+        }
+
         public List<LivingObject> getObjectsInRange(Vector3 _Position, float _Range)
         {
             Util.Circle circle = new Util.Circle(_Position, _Range);

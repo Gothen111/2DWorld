@@ -27,15 +27,10 @@ namespace Server.Model.Object.Task.Tasks
 
         public override bool wantToDoTask()
         {
-            Chunk var_Chunk = this.TaskOwner.CurrentBlock.ParentChunk;
             bool var_wantToDoTask = true;
-            if (var_Chunk != null)
-            {
-                var_wantToDoTask = true;
-                List<LivingObject> var_LivingObjects = this.TaskOwner.CurrentBlock.Objects;// this.TaskOwner.CurrentBlock.getLivingObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
-                if (var_LivingObjects.Count <= 1)
-                    var_wantToDoTask = false;
-            }
+            List<LivingObject> var_LivingObjects = this.TaskOwner.World.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+            if (var_LivingObjects.Count <= 1)
+                var_wantToDoTask = false;
 
             return var_wantToDoTask || base.wantToDoTask();
         }
