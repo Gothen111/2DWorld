@@ -53,7 +53,11 @@ namespace Server.Model.Object.Task.Tasks
                     var_LivingObjects.Remove(this.TaskOwner);
                     if (var_LivingObjects.Count > 0)
                     {
-                        target = var_LivingObjects.ElementAt(Util.Random.GenerateGoodRandomNumber(0, var_LivingObjects.Count));
+                        foreach(LivingObject var_LivingObject in var_LivingObjects)
+                        {
+                            this.TaskOwner.AggroSystem.addAggro(var_LivingObject, this.TaskOwner.AggroRange - Vector3.Distance(this.TaskOwner.Position, var_LivingObject.Position));
+                        }
+                        target = this.TaskOwner.AggroSystem.getTarget();
                         if (target == this.TaskOwner)
                         {
                             Logger.Logger.LogDeb("AttackTask->update(): Target is TaskOwner: Should not be possible!");
@@ -72,13 +76,23 @@ namespace Server.Model.Object.Task.Tasks
                     var_LivingObjects.Remove(this.TaskOwner);
                     if (var_LivingObjects.Count > 0)
                     {
-                        target = var_LivingObjects.ElementAt(Util.Random.GenerateGoodRandomNumber(0, var_LivingObjects.Count));
+                        foreach (LivingObject var_LivingObject in var_LivingObjects)
+                        {
+                            this.TaskOwner.AggroSystem.addAggro(var_LivingObject, this.TaskOwner.AggroRange - Vector3.Distance(this.TaskOwner.Position, var_LivingObject.Position));
+                        }
+                        target = this.TaskOwner.AggroSystem.getTarget();
+                        if (target == this.TaskOwner)
+                        {
+                            Logger.Logger.LogDeb("AttackTask->update(): Target is TaskOwner: Should not be possible!");
+                            target = null;
+                        }
                     }
                     var_LivingObjects.Clear();
                 }
             }
             if(target!=null)
             {
+                target = this.TaskOwner.AggroSystem.getTarget();
                 if (target.IsDead)
                 {
                     target = null;

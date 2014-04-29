@@ -54,6 +54,14 @@ namespace Server.Model.Object
             set { aggroRange = value; }
         }
 
+        private Task.Aggro.AggroSystem<LivingObject> aggroSystem;
+
+        internal Task.Aggro.AggroSystem<LivingObject> AggroSystem
+        {
+            get { return aggroSystem; }
+            set { aggroSystem = value; }
+        }
+
         //protected InterAction interAction; //???
 
         private List<LivingObjectTask> tasks;
@@ -87,9 +95,10 @@ namespace Server.Model.Object
         {
             this.healthPoints = 20;
             this.maxHealthPoints = 20;
-            this.aggroRange = 600;
+            this.aggroRange = 200;
             this.isDead = false;
             tasks = new List<LivingObjectTask>();
+            aggroSystem = new Task.Aggro.AggroSystem<LivingObject>();
             MovementSpeed = 1f;
             path = null; // ???
             currentTask = null;
@@ -99,7 +108,29 @@ namespace Server.Model.Object
         public override void update()
         {
             base.update();
+            this.updateAggroSystem();
             this.doTasks();
+        }
+
+        private void updateAggroSystem()
+        {
+            List<LivingObject> objectsToRemove = new List<LivingObject>();
+            foreach (LivingObject var_LivingObject in this.aggroSystem.AggroItems.Keys.ToList())
+            {
+                if (var_LivingObject.isDead)
+                {
+                    objectsToRemove.Add(var_LivingObject);
+                }else if (Vector3.Distance(this.Position, var_LivingObject.Position) > this.aggroRange)
+                {
+                    this.aggroSystem.addAggro(var_LivingObject, -0.01f);
+                    if (this.aggroSystem.AggroItems[var_LivingObject] <= 0)
+                        objectsToRemove.Add(var_LivingObject);
+                }
+            }
+            foreach (LivingObject var_LivingObject in objectsToRemove)
+            {
+                this.aggroSystem.removeUnit(var_LivingObject);
+            }
         }
 
         private void doTasks()
@@ -177,6 +208,7 @@ namespace Server.Model.Object
         public virtual void onAttacked(LivingObject _Attacker, int _DamageAmount)
         {
             this.damage(_DamageAmount);
+            this.aggroSystem.addAggro(_Attacker, _DamageAmount*100f);
             if (_Attacker.DirectionEnum == ObjectEnums.DirectionEnum.Down)
             {
                 this.knockBack(new Vector3(0,20,0));

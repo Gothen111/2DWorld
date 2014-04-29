@@ -95,16 +95,12 @@ namespace Server.Model.Map.World
             {
                 if (_LivingObject.Position.X >= var_Region.Position.X)
                 {
-                    Logger.Logger.LogDeb("Position des Objekts ist größer als Anfangsbreite der Region " + var_Region.Id);
                     if (_LivingObject.Position.X <= var_Region.Position.X + var_Region.Bounds.Width)
                     {
-                        Logger.Logger.LogDeb("Position des Objekts ist kleiner als Breite der Region " + var_Region.Id);
                         if (_LivingObject.Position.Y >= var_Region.Position.Y)
                         {
-                            Logger.Logger.LogDeb("Position des Objekts ist größer als Anfangshöhe der Region " + var_Region.Id);
                             if (_LivingObject.Position.Y <= var_Region.Position.Y + var_Region.Bounds.Height)
                             {
-                                Logger.Logger.LogDeb("Position des Objekts ist kleiner als Höhe der Region " + var_Region.Id);
                                 return var_Region;
                             }
                         }
@@ -116,11 +112,17 @@ namespace Server.Model.Map.World
 
         public void addLivingObject(Object.LivingObject livingObject)
         {
+            addLivingObject(livingObject, true);
+        }
+
+        public void addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree)
+        {
             Region.Region region = getRegionLivingObjectIsIn(livingObject);
             Chunk.Chunk chunk = region.getChunkLivingObjectIsIn(livingObject);
             Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
             block.addLivingObject(livingObject);
-            quadTree.Insert(livingObject);
+            if(insertInQuadTree)
+                quadTree.Insert(livingObject);
         }
 
         public void removeObjectFromWorld(LivingObject livingObject)
@@ -162,7 +164,12 @@ namespace Server.Model.Map.World
                 if (!circleFitsInSubnode)
                 {
                     addAllObjectsInRange(currentNode, aggroCircle, result);
-                }   
+                }
+                return;
+            }
+            if (currentNode.Equals(quadTree.Root))
+            {
+                addAllObjectsInRange(currentNode, aggroCircle, result);
             }
         }
 
