@@ -184,7 +184,7 @@ namespace Server.Model.Map.Block
 
             if (this.objects.Count > 0)
             {
-                var_Color = Color.Green;
+                //var_Color = Color.Green;
             }
 
             BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
