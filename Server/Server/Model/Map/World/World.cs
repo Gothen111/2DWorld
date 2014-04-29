@@ -81,6 +81,14 @@ namespace Server.Model.Map.World
             }
         }
 
+        public void DrawTest2(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            foreach (Region.Region var_Region in this.regions)
+            {
+                var_Region.DrawTest2(_GraphicsDevice, _SpriteBatch);
+            }
+        }
+
         public void update()
         {
             foreach (Region.Region var_Region in this.regions)

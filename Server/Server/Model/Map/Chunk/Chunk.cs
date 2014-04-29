@@ -157,8 +157,32 @@ namespace Server.Model.Map.Chunk
                     this.getBlockAtPosition(x, y).DrawObjects(_GraphicsDevice, _SpriteBatch);
                 }
             }
+        }
 
-            //this.quadTree.DrawTest(_GraphicsDevice, _SpriteBatch);
+        public void DrawTest2(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    this.getBlockAtPosition(x, y).DrawTest(_GraphicsDevice, _SpriteBatch);
+                }
+            }
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    this.getBlockAtPosition(x, y).DrawObjectsPreEnviornment(_GraphicsDevice, _SpriteBatch);
+                }
+            }
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    this.getBlockAtPosition(x, y).DrawObjects(_GraphicsDevice, _SpriteBatch);
+                    this.getBlockAtPosition(x, y).DrawObjectsLaterEnviornment(_GraphicsDevice, _SpriteBatch);
+                }
+            }
         }
 
 

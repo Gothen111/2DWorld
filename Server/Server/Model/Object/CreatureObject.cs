@@ -28,6 +28,7 @@ namespace Server.Model.Object
 
         public CreatureObject()
         {
+            this.LayerDepth = 0.1f;
             this.equipment = new List<EquipmentObject>();
             this.addEquipmentObject(Server.Factories.EquipmentFactory.equipmentFactory.createEquipmentObject(Factories.FactoryEnums.WeaponEnum.Sword));
         }

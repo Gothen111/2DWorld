@@ -62,6 +62,14 @@ namespace Server.Model.Object
             set { standartStandPositionX = value; }
         }
 
+        private float layerDepth;
+
+        public float LayerDepth
+        {
+            get { return layerDepth; }
+            set { layerDepth = value; }
+        }
+
         public AnimatedObject()
         {
             this.scale = 1f;
@@ -146,6 +154,8 @@ namespace Server.Model.Object
             Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
 
             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor());
+            //_SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), 0, new Vector2(0,0), 1,SpriteEffects.None,this.layerDepth);
+        
         }
     }
 }

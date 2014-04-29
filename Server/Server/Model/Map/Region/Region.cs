@@ -188,6 +188,17 @@ namespace Server.Model.Map.Region
             }          
         }
 
+        public void DrawTest2(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    this.chunks[x, y].DrawTest2(_GraphicsDevice, _SpriteBatch);
+                }
+            }
+        }
+
         public void update()
         {
             for (int x = 0; x < this.size.X; x++)

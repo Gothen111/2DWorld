@@ -90,7 +90,8 @@ namespace Server
 
                 var_EnvironmentObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
                 var_EnvironmentObject.World = world;
-                world.addLivingObject(var_EnvironmentObject, false);
+                region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y).objectsLaterEnviorment.Add(var_EnvironmentObject);
+                //world.addLivingObject(var_EnvironmentObject, false);
             }
 
             for (int i = 0; i < 1000; i++)
@@ -99,7 +100,11 @@ namespace Server
 
                 var_EnvironmentObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
                 var_EnvironmentObject.World = world;
-                world.addLivingObject(var_EnvironmentObject, false);
+
+                region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y).objectsPreEnviorment.Add(var_EnvironmentObject);
+               
+
+                //world.addLivingObject(var_EnvironmentObject, false);
             }
 
 
@@ -159,9 +164,9 @@ namespace Server
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
 
-            world.DrawTest(GraphicsDevice, spriteBatch);
+            world.DrawTest2(GraphicsDevice, spriteBatch);
             spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0,0), Color.White);
             spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + region.Chunks[0, 0].getCountofAllObjects().ToString(), new Vector2(100, 0), Color.White);
             spriteBatch.End(); 

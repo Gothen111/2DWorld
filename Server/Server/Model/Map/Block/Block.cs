@@ -70,6 +70,9 @@ namespace Server.Model.Map.Block
             set { objects = value; }
         }
 
+        public List<Object.LivingObject> objectsPreEnviorment;
+        public List<Object.LivingObject> objectsLaterEnviorment;
+
         private Chunk.Chunk parentChunk;
 
         internal Chunk.Chunk ParentChunk
@@ -85,6 +88,9 @@ namespace Server.Model.Map.Block
             this.objects = new List<Object.LivingObject>();
             this.position = new Vector2(_PosX, _PosY);
             this.parentChunk = _ParentChunk;
+
+            objectsPreEnviorment = new List<Object.LivingObject>();
+            objectsLaterEnviorment = new List<Object.LivingObject>();
         }
 
         public void setLayerAt(Enum _Enum, BlockLayerEnum _Id)
@@ -225,6 +231,22 @@ namespace Server.Model.Map.Block
             {
                 var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
             }     
+        }
+
+        public void DrawObjectsPreEnviornment(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            foreach (Object.LivingObject var_LivingObject in objectsPreEnviorment)
+            {
+                var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
+            }
+        }
+
+        public void DrawObjectsLaterEnviornment(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            foreach (Object.LivingObject var_LivingObject in objectsLaterEnviorment)
+            {
+                var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
+            }
         }
 
         public List<Object.LivingObject> getLivingObjectsInRange(Vector3 _Position, float _Range)
