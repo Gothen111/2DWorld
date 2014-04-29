@@ -116,8 +116,8 @@ namespace Server.Model.Map.Block
         {
             if (sender is Object.LivingObject)
             {
-                int var_BlockPosX = (int)this.position.X / BlockSize - 1;//(int)(parentChunk.ParentRegion.Position.X * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX + this.position.X) -1;
-                int var_BlockPosY = (int)this.position.Y / BlockSize - 1;//(int)(parentChunk.ParentRegion.Position.Y * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY + this.position.Y) - 1;
+                int var_BlockPosX = (int)this.position.X / BlockSize;//(int)(parentChunk.ParentRegion.Position.X * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX + this.position.X) -1;
+                int var_BlockPosY = (int)this.position.Y / BlockSize;//(int)(parentChunk.ParentRegion.Position.Y * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY + this.position.Y) - 1;
 
                 Object.LivingObject var_LivingObject = (Object.LivingObject)sender;
                 if (var_LivingObject.Position.X < var_BlockPosX * BlockSize)
