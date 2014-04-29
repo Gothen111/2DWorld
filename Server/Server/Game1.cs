@@ -65,18 +65,20 @@ namespace Server
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
             world.addRegion(region);
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb("LivingObject wurde erstellt");
                 Server.Commands.CommandTypes.WalkRandomCommand command = new Server.Commands.CommandTypes.WalkRandomCommand(var_LivingObject);
-                Server.Commands.Executer.Executer.executer.addCommand(command);
+                //Server.Commands.Executer.Executer.executer.addCommand(command);
                 Server.Commands.CommandTypes.AttackRandomCommand command2 = new Server.Commands.CommandTypes.AttackRandomCommand(var_LivingObject);
-                Server.Commands.Executer.Executer.executer.addCommand(command2);
+                //Server.Commands.Executer.Executer.executer.addCommand(command2);
                 var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
                 //var_LivingObject.Position = new Vector3(20*i, 50, 0);
                 var_LivingObject.GraphicPath = "Character/Char1_Small";
-                //var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
+                var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
+                //var_LivingObject.Velocity = new Vector3(1,0,0);
+                
                 var_LivingObject.World = world;
                 world.addLivingObject(var_LivingObject);
                 //Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
@@ -95,8 +97,8 @@ namespace Server
             watch.Stop();
             Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
 
-            //Util.MapHandler var_MapHandler = new Util.MapHandler(40,20,35);
-            //var_MapHandler.PrintMap();
+            Util.MapHandler var_MapHandler = new Util.MapHandler(40,20,35);
+            var_MapHandler.PrintMap();
 
             base.Initialize();
         }
@@ -153,7 +155,6 @@ namespace Server
             world.DrawTest(GraphicsDevice, spriteBatch);
             spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0,0), Color.White);
             spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + region.Chunks[0, 0].getCountofAllObjects().ToString(), new Vector2(100, 0), Color.White);
-            
             spriteBatch.End(); 
 
             base.Draw(gameTime);

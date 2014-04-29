@@ -44,6 +44,8 @@ namespace Server.Factories
                 Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " + (int)(((float)x / Region.regionSizeX) * 100) + "%", true);
             }
 
+            var_Result.setAllNeighboursOfChunks();
+
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
 
             return var_Result;

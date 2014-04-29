@@ -117,6 +117,40 @@ namespace Server.Model.Map.Region
             return this.chunks.Length;
         }
 
+        public void setAllNeighboursOfChunks()
+        {
+            for (int x = 0; x < this.size.X; x++)
+            {
+                for (int y = 0; y < this.size.Y; y++)
+                {
+                    Chunk.Chunk var_Chunk = this.getChunkAtPosition(x, y);
+                    if (x > 0)
+                    {
+                        Chunk.Chunk var_ChunkNeighbour = this.getChunkAtPosition(x - 1, y);
+                        for (int blockY = 0; blockY < Chunk.Chunk.chunkSizeY; blockY++)
+                        {
+                            var_Chunk.getBlockAtPosition(0, blockY).LeftNeighbour = var_ChunkNeighbour.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);
+                            var_ChunkNeighbour.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY).RightNeighbour = var_Chunk.getBlockAtPosition(0, blockY);
+                        }
+                    }
+                    if (y > 0)
+                    {
+                        Chunk.Chunk var_ChunkNeighbour = this.getChunkAtPosition(x, y - 1);
+                        for (int blockX = 0; blockX < Chunk.Chunk.chunkSizeX; blockX++)
+                        {
+                            var_Chunk.getBlockAtPosition(blockX, 0).TopNeighbour = var_ChunkNeighbour.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
+                            var_ChunkNeighbour.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1).BottomNeighbour = var_Chunk.getBlockAtPosition(blockX, 0);
+                        }
+                    }
+                }
+            }
+        }
+
+        public Chunk.Chunk getChunkAtPosition(float _PosX, float _PosY)
+        {
+            return chunks[(int)(_PosX), ((int)_PosY)];
+        }
+
         public void loadChunk(int _ID)
         {
 
