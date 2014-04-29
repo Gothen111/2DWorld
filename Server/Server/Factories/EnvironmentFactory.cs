@@ -29,6 +29,13 @@ namespace Server.Factories
                         environmentObject.StandartStandPositionX = 0;
                         break;
                     }
+                case EnvironmentEnum.Flower_1:
+                    {
+                        environmentObject.GraphicPath = "Environment/Flower/Flower1";
+                        environmentObject.Size = new Microsoft.Xna.Framework.Vector3(32, 32, 0);
+                        environmentObject.StandartStandPositionX = Util.Random.GenerateGoodRandomNumber(0,9) * 32;
+                        break;
+                    }
                 case EnvironmentEnum.Plant:
                     {
                         break;

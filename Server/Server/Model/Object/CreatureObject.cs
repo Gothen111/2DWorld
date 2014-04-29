@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
 namespace Server.Model.Object
 {
     class CreatureObject : LivingObject
@@ -44,6 +45,12 @@ namespace Server.Model.Object
         public void attackWithWeaponInHand()
         {
 
+        }
+
+        public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
+        {
+            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], new Vector2(this.Position.X - this.Size.X / 2, this.Position.Y - this.Size.Y), Color.White); 
+            base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
         }
     }
 }

@@ -93,6 +93,15 @@ namespace Server
                 world.addLivingObject(var_EnvironmentObject, false);
             }
 
+            for (int i = 0; i < 1000; i++)
+            {
+                Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Flower_1);
+
+                var_EnvironmentObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
+                var_EnvironmentObject.World = world;
+                world.addLivingObject(var_EnvironmentObject, false);
+            }
+
 
             watch.Stop();
             Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
