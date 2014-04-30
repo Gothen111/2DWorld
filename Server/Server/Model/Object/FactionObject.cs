@@ -11,7 +11,7 @@ namespace Server.Model.Object
     {
         private Faction faction;
 
-        internal Faction Faction
+        public Faction Faction
         {
             get { return faction; }
             set { faction = value; }

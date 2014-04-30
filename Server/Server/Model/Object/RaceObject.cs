@@ -11,7 +11,7 @@ namespace Server.Model.Object
     {
         private Race race;
 
-        internal Race Race
+        public Race Race
         {
             get { return race; }
             set { race = value; }

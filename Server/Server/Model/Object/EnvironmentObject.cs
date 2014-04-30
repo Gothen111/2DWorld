@@ -10,11 +10,11 @@ namespace Server.Model.Object
         public EnvironmentObject()
         {
             this.LayerDepth = 0.0f;
+            this.CanBeEffected = false;
         }
         public override void update()
         {
             base.update();
-            this.CanBeEffected = false;
         }
     }
 }

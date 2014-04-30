@@ -122,7 +122,8 @@ namespace Server.Model.Object
                     objectsToRemove.Add(var_LivingObject);
                 }else if (Vector3.Distance(this.Position, var_LivingObject.Position) > this.aggroRange)
                 {
-                    this.aggroSystem.addAggro(var_LivingObject, -0.01f);
+                    this.aggroSystem.modifyAggro(var_LivingObject, 0.9f);
+                    this.aggroSystem.addAggro(var_LivingObject, -2f);
                     if (this.aggroSystem.AggroItems[var_LivingObject] <= 0)
                         objectsToRemove.Add(var_LivingObject);
                 }

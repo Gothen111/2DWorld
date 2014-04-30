@@ -24,7 +24,7 @@ namespace Server
         SpriteBatch spriteBatch;
 
         Server.Model.Map.World.World world;
-        Server.Model.Map.Region.Region region; 
+        Server.Model.Map.Region.Region region;
 
         public Game1()
         {
@@ -48,7 +48,7 @@ namespace Server
 
             Race race = BehaviourFactory.behaviourFactory.getRace(RaceEnum.Human);
             Faction faction = BehaviourFactory.behaviourFactory.getFaction(FactionEnum.Castle_Test2);
-            foreach(Model.Behaviour.BehaviourItem<Race> behaviourItem in race.BehaviourMember)
+            foreach (Model.Behaviour.BehaviourItem<Race> behaviourItem in race.BehaviourMember)
             {
                 Logger.Logger.LogInfo("Rasse " + race.Type.ToString() + " hat ein Verhalten zu " + behaviourItem.Item.Type.ToString() + " mit " + behaviourItem.Value.ToString());
             }
@@ -65,20 +65,21 @@ namespace Server
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
             world.addRegion(region);
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb("LivingObject wurde erstellt");
                 Server.Commands.CommandTypes.WalkRandomCommand command = new Server.Commands.CommandTypes.WalkRandomCommand(var_LivingObject);
-                //Server.Commands.Executer.Executer.executer.addCommand(command);
+                Server.Commands.Executer.Executer.executer.addCommand(command);
                 Server.Commands.CommandTypes.AttackRandomCommand command2 = new Server.Commands.CommandTypes.AttackRandomCommand(var_LivingObject);
-                //Server.Commands.Executer.Executer.executer.addCommand(command2);
+                Server.Commands.Executer.Executer.executer.addCommand(command2);
                 var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
                 //var_LivingObject.Position = new Vector3(20*i, 50, 0);
                 var_LivingObject.GraphicPath = "Character/Char1_Small";
-                var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
+                var_LivingObject.Scale = 3f;
+                //var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
                 //var_LivingObject.Velocity = new Vector3(1,0,0);
-                
+
                 var_LivingObject.World = world;
                 world.addLivingObject(var_LivingObject);
                 //Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
@@ -102,7 +103,7 @@ namespace Server
                 var_EnvironmentObject.World = world;
 
                 region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y).objectsPreEnviorment.Add(var_EnvironmentObject);
-               
+
 
                 //world.addLivingObject(var_EnvironmentObject, false);
             }
@@ -111,7 +112,7 @@ namespace Server
             watch.Stop();
             Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
 
-            Util.MapHandler var_MapHandler = new Util.MapHandler(40,20,35);
+            Util.MapHandler var_MapHandler = new Util.MapHandler(40, 20, 35);
             var_MapHandler.PrintMap();
 
             base.Initialize();
@@ -167,9 +168,9 @@ namespace Server
             spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
 
             world.DrawTest2(GraphicsDevice, spriteBatch);
-            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0,0), Color.White);
+            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
             spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + region.Chunks[0, 0].getCountofAllObjects().ToString(), new Vector2(100, 0), Color.White);
-            spriteBatch.End(); 
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

@@ -9,6 +9,9 @@ namespace Server.Model.Object
 {
     class Object
     {
+        private static int _id = 0;
+        public readonly int Id = _id++;
+
         private Vector3 position;
 
         public Vector3 Position
@@ -68,6 +71,11 @@ namespace Server.Model.Object
         {
             get { return world; }
             set { world = value; }
+        }
+
+        public Object()
+        {
+            
         }
 
         public virtual void update()
