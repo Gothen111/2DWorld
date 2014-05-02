@@ -181,6 +181,8 @@
     <Compile Include="Model\Object\Task\Tasks\WalkRandomTask.cs" />
     <Compile Include="Model\Path\Path.cs" />
     <Compile Include="Model\Path\PathFinder.cs" />
+    <Compile Include="Model\Player\InputAction.cs" />
+    <Compile Include="Model\Player\PlayerContoller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
