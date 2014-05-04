@@ -32,45 +32,46 @@ namespace Server.Commands
 
         public void handleWalkUpCommand(LivingObject actor)
         {
-            actor.moveUp(true);
+            actor.MoveUp = true;
             //actor.setMoveVelocity(new Microsoft.Xna.Framework.Vector3(0, -1, 0)); // ???
         }
         public void stopWalkUpCommand(LivingObject actor)
         {
-            actor.moveUp(false);
+            actor.MoveUp = false;
             //actor.Velocity = new Microsoft.Xna.Framework.Vector3(actor.Velocity.X, 0, actor.Velocity.Z); // ???
         }
 
         public void handleWalkDownCommand(LivingObject actor)
         {
-            actor.moveDown(true);
+            actor.MoveDown = true;
             //actor.setMoveVelocity(new Microsoft.Xna.Framework.Vector3(0, 1, 0)); // ???
         }
         public void stopWalkDownCommand(LivingObject actor)
         {
-            actor.moveDown(false);
+            actor.MoveDown = false;
             //actor.Velocity = new Microsoft.Xna.Framework.Vector3(actor.Velocity.X, 0, actor.Velocity.Z); // ???
         }
 
         public void handleWalkLeftCommand(LivingObject actor)
         {
-            actor.moveLeft(true);
+            actor.MoveLeft = true;
             //actor.setMoveVelocity(new Microsoft.Xna.Framework.Vector3(-1, 0, 0)); // ???
         }
         public void stopWalkLeftCommand(LivingObject actor)
         {
-            actor.moveLeft(false);
+            actor.MoveLeft = false;
             //actor.Velocity = new Microsoft.Xna.Framework.Vector3(0, actor.Velocity.Y, actor.Velocity.Z); // ???
         }
 
         public void handleWalkRightCommand(LivingObject actor)
         {
-            actor.moveRight(true);
+            actor.MoveRight = true;
             //actor.setMoveVelocity(new Microsoft.Xna.Framework.Vector3(1, 0, 0)); // ???
         }
         public void stopWalkRightCommand(LivingObject actor)
         {
-            actor.moveRight(false);
+            actor.MoveRight = false;
+            //actor.moveRight(false);
             //actor.Velocity = new Microsoft.Xna.Framework.Vector3(0, actor.Velocity.Y, actor.Velocity.Z); // ???
         }
     }

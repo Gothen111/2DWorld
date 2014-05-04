@@ -46,6 +46,35 @@ namespace Server.Model.Object
             set { movementSpeed = value; }
         }
 
+        private bool moveUp;
+
+        public bool MoveUp
+        {
+            get { return moveUp; }
+            set { moveUp = value; }
+        }
+        private bool moveLeft;
+
+        public bool MoveLeft
+        {
+            get { return moveLeft; }
+            set { moveLeft = value; }
+        }
+        private bool moveRight;
+
+        public bool MoveRight
+        {
+            get { return moveRight; }
+            set { moveRight = value; }
+        }
+        private bool moveDown;
+
+        public bool MoveDown
+        {
+            get { return moveDown; }
+            set { moveDown = value; }
+        }
+
         private Animation.AnimatedObjectAnimation animation;
 
         public Animation.AnimatedObjectAnimation Animation
@@ -77,6 +106,7 @@ namespace Server.Model.Object
             this.animation = new Animation.Animations.StandAnimation(this);
 
             this.standartStandPositionX = 0;
+            this.movementSpeed = 1.0f;
         }
 
         public override void update()
@@ -93,10 +123,14 @@ namespace Server.Model.Object
                     this.animation = new Animation.Animations.StandAnimation(this);
                 }
             }
+            //this.Velocity = new Vector3(0, 0, 0);
         }
 
         private void move()
         {
+            float var_X = (-Convert.ToInt32(this.moveLeft) + Convert.ToInt32(this.moveRight)) * this.movementSpeed;
+            float var_Y = (-Convert.ToInt32(this.moveUp) + Convert.ToInt32(this.moveDown)) * this.movementSpeed;
+            this.Velocity = new Vector3(var_X, var_Y, 0);
             this.Position += this.Velocity;
             if (this.Position.X < 0)
                 this.Position += new Vector3(0 - this.Position.X, 0, 0);
@@ -145,80 +179,6 @@ namespace Server.Model.Object
             else if (_TargetPosition.Y > this.Position.Y)
             {
                 this.directionEnum = ObjectEnums.DirectionEnum.Down;
-            }
-        }
-
-        public void moveUp(bool _Move)
-        {
-            int var_MoveSpeed = -1;
-            if (this.Velocity.X >= var_MoveSpeed)
-            {
-                if (!_Move)
-                {
-                    var_MoveSpeed = -var_MoveSpeed;
-                }
-                this.Velocity = new Vector3(this.Velocity.X, this.Velocity.Y + var_MoveSpeed, this.Velocity.Z);
-            }
-        }
-        public void moveDown(bool _Move)
-        {
-            int var_MoveSpeed = 1;
-            if (this.Velocity.X <= var_MoveSpeed)
-            {
-                if (!_Move)
-                {
-                    var_MoveSpeed = -var_MoveSpeed;
-                }
-                this.Velocity = new Vector3(this.Velocity.X, this.Velocity.Y + var_MoveSpeed, this.Velocity.Z);
-            }
-        }
-        public void moveLeft(bool _Move)
-        {
-            int var_MoveSpeed = -1;
-            if (this.Velocity.Y >= var_MoveSpeed)
-            {
-                if (!_Move)
-                {
-                    var_MoveSpeed = -var_MoveSpeed;
-                }
-                this.Velocity = new Vector3(this.Velocity.X + var_MoveSpeed, this.Velocity.Y, this.Velocity.Z);
-            }
-        }
-        public void moveRight(bool _Move)
-        {
-            int var_MoveSpeed = 1;
-            if (this.Velocity.Y <= var_MoveSpeed)
-            {
-                if (!_Move)
-                {
-                    var_MoveSpeed = -var_MoveSpeed;
-                }
-                this.Velocity = new Vector3(this.Velocity.X + var_MoveSpeed, this.Velocity.Y, this.Velocity.Z);
-            }
-        }
-
-        public void setMoveVelocity(Vector3 _MoveVelocity)
-        {
-            if(_MoveVelocity.X==0)
-            {
-            }
-            else
-            {
-                this.Velocity = new Vector3(_MoveVelocity.X, this.Velocity.Y, this.Velocity.Z);
-            }
-            if(_MoveVelocity.Y==0)
-            {
-            }
-            else
-            {
-                this.Velocity = new Vector3(this.Velocity.X, _MoveVelocity.Y, this.Velocity.Z);
-            }
-            if(_MoveVelocity.Z==0)
-            {
-            }
-            else
-            {
-                this.Velocity = new Vector3(this.Velocity.X, _MoveVelocity.Y, this.Velocity.Z);
             }
         }
 
