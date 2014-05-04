@@ -148,6 +148,80 @@ namespace Server.Model.Object
             }
         }
 
+        public void moveUp(bool _Move)
+        {
+            int var_MoveSpeed = -1;
+            if (this.Velocity.X >= var_MoveSpeed)
+            {
+                if (!_Move)
+                {
+                    var_MoveSpeed = -var_MoveSpeed;
+                }
+                this.Velocity = new Vector3(this.Velocity.X, this.Velocity.Y + var_MoveSpeed, this.Velocity.Z);
+            }
+        }
+        public void moveDown(bool _Move)
+        {
+            int var_MoveSpeed = 1;
+            if (this.Velocity.X <= var_MoveSpeed)
+            {
+                if (!_Move)
+                {
+                    var_MoveSpeed = -var_MoveSpeed;
+                }
+                this.Velocity = new Vector3(this.Velocity.X, this.Velocity.Y + var_MoveSpeed, this.Velocity.Z);
+            }
+        }
+        public void moveLeft(bool _Move)
+        {
+            int var_MoveSpeed = -1;
+            if (this.Velocity.Y >= var_MoveSpeed)
+            {
+                if (!_Move)
+                {
+                    var_MoveSpeed = -var_MoveSpeed;
+                }
+                this.Velocity = new Vector3(this.Velocity.X + var_MoveSpeed, this.Velocity.Y, this.Velocity.Z);
+            }
+        }
+        public void moveRight(bool _Move)
+        {
+            int var_MoveSpeed = 1;
+            if (this.Velocity.Y <= var_MoveSpeed)
+            {
+                if (!_Move)
+                {
+                    var_MoveSpeed = -var_MoveSpeed;
+                }
+                this.Velocity = new Vector3(this.Velocity.X + var_MoveSpeed, this.Velocity.Y, this.Velocity.Z);
+            }
+        }
+
+        public void setMoveVelocity(Vector3 _MoveVelocity)
+        {
+            if(_MoveVelocity.X==0)
+            {
+            }
+            else
+            {
+                this.Velocity = new Vector3(_MoveVelocity.X, this.Velocity.Y, this.Velocity.Z);
+            }
+            if(_MoveVelocity.Y==0)
+            {
+            }
+            else
+            {
+                this.Velocity = new Vector3(this.Velocity.X, _MoveVelocity.Y, this.Velocity.Z);
+            }
+            if(_MoveVelocity.Z==0)
+            {
+            }
+            else
+            {
+                this.Velocity = new Vector3(this.Velocity.X, _MoveVelocity.Y, this.Velocity.Z);
+            }
+        }
+
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
         {
             Vector3 var_DrawPositionExtra = this.animation.drawPositionExtra();

@@ -76,7 +76,7 @@ namespace Server
                 var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
                 //var_LivingObject.Position = new Vector3(20*i, 50, 0);
                 var_LivingObject.GraphicPath = "Character/Char1_Small";
-                var_LivingObject.Scale = 3f;
+                var_LivingObject.Scale = 1f;
                 //var_LivingObject.Velocity = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, Server.Util.Random.GenerateGoodRandomNumber(5, 6) * 0.05f, 0);
                 //var_LivingObject.Velocity = new Vector3(1,0,0);
 
@@ -107,6 +107,17 @@ namespace Server
 
                 //world.addLivingObject(var_EnvironmentObject, false);
             }
+
+            Model.Object.PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
+            var_PlayerObject.Position = new Vector3(200, 200, 0);
+            var_PlayerObject.GraphicPath = "Character/Char1_Small";
+            var_PlayerObject.World = world;
+            world.addLivingObject(var_PlayerObject);
+
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.W }, new Commands.CommandTypes.WalkUpCommand(var_PlayerObject)));
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.S }, new Commands.CommandTypes.WalkDownCommand(var_PlayerObject)));
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.A }, new Commands.CommandTypes.WalkLeftCommand(var_PlayerObject)));
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.D }, new Commands.CommandTypes.WalkRightCommand(var_PlayerObject)));
 
 
             watch.Stop();
@@ -152,6 +163,7 @@ namespace Server
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             Commands.Executer.Executer.executer.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            Model.Player.PlayerContoller.playerContoller.update();
             world.update();
 
             base.Update(gameTime);

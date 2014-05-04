@@ -7,7 +7,7 @@ using Server.Model.Object;
 
 namespace Server.Commands.CommandTypes
 {
-    class WalkRandomCommand : Command
+    class WalkRightCommand : Command
     {
         private LivingObject walkActor;
 
@@ -17,7 +17,7 @@ namespace Server.Commands.CommandTypes
             set { walkActor = value; }
         }
 
-        public WalkRandomCommand(LivingObject _walkActor)
+        public WalkRightCommand(LivingObject _walkActor)
         {
             this.Actor = CommandManager.commandManager;
             this.walkActor = _walkActor;
@@ -25,11 +25,12 @@ namespace Server.Commands.CommandTypes
 
         public override void doCommand()
         {
-            ((CommandManager)Actor).handleWalkRandomCommand(walkActor);
+            ((CommandManager)Actor).handleWalkRightCommand(walkActor);
         }
 
         public override void stopCommand()
         {
+            ((CommandManager)Actor).stopWalkRightCommand(walkActor);
         }
     }
 }

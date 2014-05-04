@@ -28,5 +28,9 @@ namespace Server.Commands.CommandTypes
         {
             ((CommandManager)Actor).handleAttackCommand(attackActor);
         }
+
+        public override void stopCommand()
+        {
+        }
     }
 }

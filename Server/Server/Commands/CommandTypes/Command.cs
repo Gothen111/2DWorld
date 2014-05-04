@@ -20,5 +20,6 @@ namespace Server.Commands.CommandTypes
         }
 
         public abstract void doCommand();
+        public abstract void stopCommand();
     }
 }
