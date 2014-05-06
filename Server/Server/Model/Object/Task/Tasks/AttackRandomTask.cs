@@ -130,7 +130,8 @@ namespace Server.Model.Object.Task.Tasks
                 {
                     if (attackSpeed <= 0)
                     {
-                        this.TaskOwner.attackLivingObject(this.target);
+                        this.TaskOwner.attack();
+                        //this.TaskOwner.attackLivingObject(this.target);
                         this.attackSpeed = this.attackSpeedMax;
                     }
                 }

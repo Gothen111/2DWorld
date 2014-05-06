@@ -188,11 +188,15 @@ namespace Server.Model.Object
             }
         }
 
-        public void attackLivingObject(LivingObject _Target)
+        public virtual void attack()
         {
-            ChangeDirection(_Target.Position);
+        }
+
+        public void attackLivingObject(LivingObject _Target, int _Damage)
+        {
+            //ChangeDirection(_Target.Position);
             this.Animation = new Animation.Animations.AttackAnimation(this);
-            _Target.onAttacked(this, 2);
+            _Target.onAttacked(this, _Damage);
         }
 
         public void MoveWithoutDirectionChange(Vector3 _TargetPosition)

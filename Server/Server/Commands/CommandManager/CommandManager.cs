@@ -33,46 +33,42 @@ namespace Server.Commands
         public void handleWalkUpCommand(LivingObject actor)
         {
             actor.MoveUp = true;
-            //actor.setMoveVelocity(new Microsoft.Xna.Framework.Vector3(0, -1, 0)); // ???
         }
         public void stopWalkUpCommand(LivingObject actor)
         {
             actor.MoveUp = false;
-            //actor.Velocity = new Microsoft.Xna.Framework.Vector3(actor.Velocity.X, 0, actor.Velocity.Z); // ???
         }
 
         public void handleWalkDownCommand(LivingObject actor)
         {
             actor.MoveDown = true;
-            //actor.setMoveVelocity(new Microsoft.Xna.Framework.Vector3(0, 1, 0)); // ???
         }
         public void stopWalkDownCommand(LivingObject actor)
         {
             actor.MoveDown = false;
-            //actor.Velocity = new Microsoft.Xna.Framework.Vector3(actor.Velocity.X, 0, actor.Velocity.Z); // ???
         }
 
         public void handleWalkLeftCommand(LivingObject actor)
         {
             actor.MoveLeft = true;
-            //actor.setMoveVelocity(new Microsoft.Xna.Framework.Vector3(-1, 0, 0)); // ???
         }
         public void stopWalkLeftCommand(LivingObject actor)
         {
             actor.MoveLeft = false;
-            //actor.Velocity = new Microsoft.Xna.Framework.Vector3(0, actor.Velocity.Y, actor.Velocity.Z); // ???
         }
 
         public void handleWalkRightCommand(LivingObject actor)
         {
             actor.MoveRight = true;
-            //actor.setMoveVelocity(new Microsoft.Xna.Framework.Vector3(1, 0, 0)); // ???
         }
         public void stopWalkRightCommand(LivingObject actor)
         {
             actor.MoveRight = false;
-            //actor.moveRight(false);
-            //actor.Velocity = new Microsoft.Xna.Framework.Vector3(0, actor.Velocity.Y, actor.Velocity.Z); // ???
+        }
+
+        public void handleAttackWithWeaponCommand(LivingObject actor)
+        {
+            actor.attack();
         }
     }
 }

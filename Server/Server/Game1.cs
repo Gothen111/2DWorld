@@ -65,7 +65,7 @@ namespace Server
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
             world.addRegion(region);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 0; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb("LivingObject wurde erstellt");
@@ -85,24 +85,24 @@ namespace Server
                 //Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
             }
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 0; i++)
             {
                 Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Tree_Normal_1);
 
                 var_EnvironmentObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
                 var_EnvironmentObject.World = world;
-                region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y).objectsLaterEnviorment.Add(var_EnvironmentObject);
+                //region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y).objectsLaterEnviorment.Add(var_EnvironmentObject);
                 //world.addLivingObject(var_EnvironmentObject, false);
             }
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 0; i++)
             {
                 Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Flower_1);
 
                 var_EnvironmentObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
                 var_EnvironmentObject.World = world;
 
-                region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y).objectsPreEnviorment.Add(var_EnvironmentObject);
+                //region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y).objectsPreEnviorment.Add(var_EnvironmentObject);
 
 
                 //world.addLivingObject(var_EnvironmentObject, false);
@@ -114,10 +114,18 @@ namespace Server
             var_PlayerObject.World = world;
             world.addLivingObject(var_PlayerObject);
 
+            Model.Object.EnvironmentObject var_Chest = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Chest);
+
+            var_Chest.Position = new Vector3(250, 200, 0);
+            var_Chest.World = world;
+            world.addLivingObject(var_Chest);
+            //region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_Chest.Position.X, var_Chest.Position.Y).objectsPreEnviorment.Add(var_Chest);
+
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.W }, new Commands.CommandTypes.WalkUpCommand(var_PlayerObject)));
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.S }, new Commands.CommandTypes.WalkDownCommand(var_PlayerObject)));
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.A }, new Commands.CommandTypes.WalkLeftCommand(var_PlayerObject)));
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.D }, new Commands.CommandTypes.WalkRightCommand(var_PlayerObject)));
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.Space }, new Commands.CommandTypes.AttackWithWeaponCommand(var_PlayerObject)));
 
 
             watch.Stop();

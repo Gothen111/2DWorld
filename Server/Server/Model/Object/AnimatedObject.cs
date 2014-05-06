@@ -103,7 +103,10 @@ namespace Server.Model.Object
         {
             this.scale = 1f;
             this.Size = new Vector3(32, 32, 0);
-            this.animation = new Animation.Animations.StandAnimation(this);
+            if (this.animation == null)
+            {
+                this.animation = new Animation.Animations.StandAnimation(this);
+            }
 
             this.standartStandPositionX = 0;
             this.movementSpeed = 1.0f;

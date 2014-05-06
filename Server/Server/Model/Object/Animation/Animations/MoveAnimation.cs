@@ -53,7 +53,7 @@ namespace Server.Model.Object.Animation.Animations
                 {
                     this.AnimationOwner.DirectionEnum = ObjectEnums.DirectionEnum.Top;
                 }
-                else
+                else if(this.AnimationOwner.Velocity.Y > 0)
                 {
                     this.AnimationOwner.DirectionEnum = ObjectEnums.DirectionEnum.Down;
                 }
@@ -67,7 +67,7 @@ namespace Server.Model.Object.Animation.Animations
                     {
                         this.AnimationOwner.DirectionEnum = ObjectEnums.DirectionEnum.Top;
                     }
-                    else
+                    else if (this.AnimationOwner.Velocity.Y > 0)
                     {
                         this.AnimationOwner.DirectionEnum = ObjectEnums.DirectionEnum.Down;
                     }
@@ -82,7 +82,7 @@ namespace Server.Model.Object.Animation.Animations
                     {
                         this.AnimationOwner.DirectionEnum = ObjectEnums.DirectionEnum.Top;
                     }
-                    else
+                    else if (this.AnimationOwner.Velocity.Y > 0)
                     {
                         this.AnimationOwner.DirectionEnum = ObjectEnums.DirectionEnum.Down;
                     }

@@ -17,23 +17,34 @@ namespace Server.Factories
         {
         }
 
-        public EquipmentObject createEquipmentObject(WeaponEnum _WeaponEnum)
+        public EquipmentObject createEquipmentObject()
         {
             EquipmentObject equipmentObject = new EquipmentObject();
             equipmentObject.Scale = 1;
             equipmentObject.Velocity = new Vector3(0, 0, 0);
-            equipmentObject.WeaponEnum = _WeaponEnum;
+
+            return equipmentObject;
+        }
+
+        public Server.Model.Object.Equipment.EquipmentWeapon createEquipmentWeaponObject(WeaponEnum _WeaponEnum)
+        {
+            Server.Model.Object.Equipment.EquipmentWeapon equipmentWeaponObject = new Server.Model.Object.Equipment.EquipmentWeapon();
+            equipmentWeaponObject.Scale = 1;
+            equipmentWeaponObject.Velocity = new Vector3(0, 0, 0);
+
 
             switch (_WeaponEnum)
             {
                 case WeaponEnum.Sword:
                     {
-                        equipmentObject.NormalDamage = 2;
+                        equipmentWeaponObject.NormalDamage = 2;
+                        equipmentWeaponObject.WeaponEnum = _WeaponEnum;
+                        equipmentWeaponObject.Range = 50;
                         break;
                     }
             }
 
-            return equipmentObject;
+            return equipmentWeaponObject;
         }
     }
 }
