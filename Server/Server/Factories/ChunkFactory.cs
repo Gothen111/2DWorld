@@ -13,28 +13,28 @@ namespace Server.Factories
     {
         public static ChunkFactory chunkFactory = new ChunkFactory();
 
-        public Chunk generateChunk(int _Id, int _PosX, int PosY, ChunkEnum _ChunkEnum, List<Enum> _Layer, Region _ParentRegion)
+        public Chunk generateChunk(int _Id, int _PosX, int _PosY, ChunkEnum _ChunkEnum, List<Enum> _Layer, Region _ParentRegion)
         {
             switch (_ChunkEnum)
             {
                 case ChunkEnum.Grassland:
                     {
-                        return generateChunkGrassland(_Id, _PosX, PosY, Chunk.chunkSizeX, Chunk.chunkSizeY, _Layer, _ParentRegion);
+                        return generateChunkGrassland(_Id, _PosX, _PosY, Chunk.chunkSizeX, Chunk.chunkSizeY, _Layer, _ParentRegion);
                     }
             }
             return null;
         }
 
-        private Chunk generateChunkGrassland(int _Id, int _PosX, int PosY, int _SizeX, int _SizeY, List<Enum> _Layer, Region _ParentRegion)
+        private Chunk generateChunkGrassland(int _Id, int _PosX, int _PosY, int _SizeX, int _SizeY, List<Enum> _Layer, Region _ParentRegion)
         {
             Chunk var_Result;
 
-            var_Result = new Chunk(_Id, "Name :P", _PosX, PosY, _SizeX, _SizeY, _ParentRegion);
+            var_Result = new Chunk(_Id, "Name :P", _PosX, _PosY, _SizeX, _SizeY, _ParentRegion);
             this.fillChunkWithBlock(var_Result, BlockEnum.Gras);
 
-            generateSecondLayer(var_Result, _Layer);
-            generateWall(var_Result);
-
+            //generateSecondLayer(var_Result, _Layer);
+            //generateWall(var_Result);
+            generateWall(var_Result, 20, 20);
             var_Result.setAllNeighboursOfBlocks();
 
             return var_Result;
@@ -97,7 +97,79 @@ namespace Server.Factories
             }
         }
 
-        private void generateWall(Chunk _Chunk)
+        private void generateWall(Chunk _Chunk, int _PosX, int _PosY)
+        {
+            int var_Steps = 112;
+            int var_StepsUp = var_Steps/4;
+            int var_StepsLeft = var_Steps/4;
+            int var_StepsRight = var_Steps/4;
+            int var_StepsDown = var_Steps/4;
+
+            int var_ComeFrom = -1; //0=Up,1=Left,2=Right,3=Down
+            _Chunk.getBlockAtPosition(_PosX, _PosY).setFirstLayer(BlockEnum.Wall);
+            while (var_StepsUp + var_StepsLeft + var_StepsRight + var_StepsDown > 0)
+            {
+                List<int> var_GoTo = new List<int>();
+                var_GoTo.AddRange(new List<int>() { 0, 1, 2, 3 });
+                var_GoTo.Remove(var_ComeFrom);
+                if (var_StepsUp == 0)
+                {
+                    var_GoTo.Remove(0);
+                }
+                if (var_StepsLeft == 0)
+                {
+                    var_GoTo.Remove(1);
+                }
+                if (var_StepsRight == 0)
+                {
+                    var_GoTo.Remove(2);
+                }
+                if (var_StepsDown == 0)
+                {
+                    var_GoTo.Remove(3);
+                }
+                if (var_GoTo.Count == 0)
+                {
+                    var_GoTo.Add(var_ComeFrom);
+                }
+                int var_Rand = Util.Random.GenerateGoodRandomNumber(0, var_GoTo.Count);
+
+                int var_Choice = var_GoTo.ElementAt(var_Rand);
+
+                if (var_Choice == 0 && var_StepsUp>0)
+                {
+                    _PosX += 0;
+                    _PosY -= 1;
+                    var_ComeFrom = 3;
+                    var_StepsUp -= 1;
+                }
+                else if (var_Choice == 1 && var_StepsLeft > 0)
+                {
+                    _PosX -= 1;
+                    _PosY += 0;
+                    var_ComeFrom = 2;
+                    var_StepsLeft -= 1;
+                }
+                else if (var_Choice == 2 && var_StepsRight > 0)
+                {
+                    _PosX += 1;
+                    _PosY += 0;
+                    var_ComeFrom = 1;
+                    var_StepsRight -= 1;
+                }
+                else if (var_Choice == 3 && var_StepsDown > 0)
+                {
+                    _PosX += 0;
+                    _PosY += 1;
+                    var_ComeFrom = 0;
+                    var_StepsDown -= 1;
+                }
+                _Chunk.getBlockAtPosition(_PosX, _PosY).setFirstLayer(BlockEnum.Wall);
+            }
+        }
+
+
+        /*private void generateWall(Chunk _Chunk)
         {
             int var_Count = 10;
             for (int i = 0; i < var_Count; i++)
@@ -131,6 +203,6 @@ namespace Server.Factories
                     }
                 }
             }
-        }
+        }*/
     }
 }
