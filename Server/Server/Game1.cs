@@ -65,7 +65,7 @@ namespace Server
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
             world.addRegion(region);
-            for (int i = 0; i < 0; i++)
+            for (int i = 0; i < 50; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 Logger.Logger.LogDeb("LivingObject wurde erstellt");
@@ -81,11 +81,11 @@ namespace Server
                 //var_LivingObject.Velocity = new Vector3(1,0,0);
 
                 var_LivingObject.World = world;
-                world.addLivingObject(var_LivingObject);
+                //world.addLivingObject(var_LivingObject);
                 //Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
             }
 
-            for (int i = 0; i < 0; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Tree_Normal_1);
 
@@ -95,7 +95,7 @@ namespace Server
                 //world.addLivingObject(var_EnvironmentObject, false);
             }
 
-            for (int i = 0; i < 0; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Flower_1);
 
@@ -126,6 +126,7 @@ namespace Server
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.A }, new Commands.CommandTypes.WalkLeftCommand(var_PlayerObject)));
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.D }, new Commands.CommandTypes.WalkRightCommand(var_PlayerObject)));
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.Space }, new Commands.CommandTypes.AttackWithWeaponCommand(var_PlayerObject)));
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.E }, new Commands.CommandTypes.InteractCommand(var_PlayerObject)));
 
 
             watch.Stop();

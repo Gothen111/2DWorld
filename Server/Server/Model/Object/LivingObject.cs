@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Server.Factories.FactoryEnums;
 using Server.Model.Object.Task;
+using Server.Model.Object.Interaction;
 //using Server.Model.Object.Task.Tasks;
 
 namespace Server.Model.Object
@@ -62,7 +63,13 @@ namespace Server.Model.Object
             set { aggroSystem = value; }
         }
 
-        //protected InterAction interAction; //???
+        private List<LivingObjectInteraction> interactions;
+
+        internal List<LivingObjectInteraction> Interactions
+        {
+            get { return interactions; }
+            set { interactions = value; }
+        }
 
         private List<LivingObjectTask> tasks;
 
@@ -103,6 +110,7 @@ namespace Server.Model.Object
             path = null; // ???
             currentTask = null;
             this.canBeEffected = true;
+            this.interactions = new List<LivingObjectInteraction>();
         }
 
         public override void update()
@@ -185,6 +193,24 @@ namespace Server.Model.Object
             if (this.currentTask != null)
             {
                 this.currentTask.update();
+            }
+        }
+
+        public void getInteracted(LivingObject _Interactor)
+        {
+            foreach (LivingObjectInteraction var_Interaction in this.interactions)
+            {
+                var_Interaction.doInteraction(_Interactor);
+            }
+        }
+
+        public void interact()
+        {
+            List<LivingObject> var_LivingObjects = this.World.getObjectsInRange(this.Position, this.Size.X+ 5);
+            var_LivingObjects.Remove(this);
+            foreach (LivingObject var_LivingObject in var_LivingObjects)
+            {
+                var_LivingObject.getInteracted(this);
             }
         }
 

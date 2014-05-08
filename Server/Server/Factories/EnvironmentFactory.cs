@@ -50,10 +50,10 @@ namespace Server.Factories
                     }
                 case EnvironmentEnum.Chest:
                     {
-                        environmentObject = new Server.Model.Object.Special.ChestObject();
                         environmentObject.GraphicPath = "Environment/Chest/Chest";
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(32, 48, 0);
                         environmentObject.StandartStandPositionX = 1*32;
+                        environmentObject.Interactions.Add(new Model.Object.Interaction.Interactions.ChestInteraction(environmentObject));
                         break;
                     }
             }

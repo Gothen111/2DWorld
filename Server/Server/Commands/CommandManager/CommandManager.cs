@@ -70,5 +70,9 @@ namespace Server.Commands
         {
             actor.attack();
         }
+        public void handleInteractCommand(LivingObject actor)
+        {
+            actor.interact();
+        }
     }
 }

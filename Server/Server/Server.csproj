@@ -120,6 +120,7 @@
     <Compile Include="Commands\CommandTypes\AttackRandomCommand.cs" />
     <Compile Include="Commands\CommandTypes\Command.cs" />
     <Compile Include="Commands\CommandTypes\AttackWithWeaponCommand.cs" />
+    <Compile Include="Commands\CommandTypes\InteractCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkRightCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkLeftCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
@@ -127,7 +128,8 @@
     <Compile Include="Model\Collison\QuadTree2.cs" />
     <Compile Include="Model\Object\Animation\Animations\OpenChestAnimation.cs" />
     <Compile Include="Model\Object\Equipment\EquipmentWeapon.cs" />
-    <Compile Include="Model\Object\Special\ChestObject.cs" />
+    <Compile Include="Model\Object\Interaction\Interactions\ChestInteraction.cs" />
+    <Compile Include="Model\Object\Interaction\LivingObjectInteraction.cs" />
     <Compile Include="Model\Object\Task\Aggro\AggroSystem.cs" />
     <Compile Include="Model\Object\Task\Tasks\TaskPriority.cs" />
     <Compile Include="Commands\CommandTypes\WalkRandomCommand.cs" />
