@@ -126,6 +126,7 @@
     <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkUpCommand.cs" />
     <Compile Include="Model\Collison\QuadTree2.cs" />
+    <Compile Include="Model\Map\Box.cs" />
     <Compile Include="Model\Object\Animation\Animations\OpenChestAnimation.cs" />
     <Compile Include="Model\Object\Equipment\EquipmentWeapon.cs" />
     <Compile Include="Model\Object\Interaction\Interactions\ChestInteraction.cs" />
