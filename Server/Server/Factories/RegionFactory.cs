@@ -38,13 +38,11 @@ namespace Server.Factories
             {
                 for (int y = 0; y < Region.regionSizeY; y++)
                 {
-                    Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(var_Result.getLastChunkId(), x * Chunk.chunkSizeX * Block.BlockSize, y * Chunk.chunkSizeY * Block.BlockSize, ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), var_Result);
+                    Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(0, x, y, ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), var_Result);
                     this.addChunkToRegion(var_Result, x, y, var_Chunk);
                 }
                 Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " + (int)(((float)x / Region.regionSizeX) * 100) + "%", true);
             }
-
-            var_Result.setAllNeighboursOfChunks();
 
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
 

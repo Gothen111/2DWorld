@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Server.Model.Map.Block
 {
-    class Block
+    class Block : Box
     {
         public static int BlockSize = 32;
 
@@ -20,46 +20,9 @@ namespace Server.Model.Map.Block
             set { layer = value; }
         }
 
-        private Block bottomNeighbour;
-
-        public Block BottomNeighbour
-        {
-            get { return bottomNeighbour; }
-            set { bottomNeighbour = value; }
-        }
-        private Block leftNeighbour;
-
-        public Block LeftNeighbour
-        {
-            get { return leftNeighbour; }
-            set { leftNeighbour = value; }
-        }
-        private Block rightNeighbour;
-
-        public Block RightNeighbour
-        {
-            get { return rightNeighbour; }
-            set { rightNeighbour = value; }
-        }
-        private Block topNeighbour;
-
-        public Block TopNeighbour
-        {
-            get { return topNeighbour; }
-            set { topNeighbour = value; }
-        }
-
-        private Vector2 position;
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, (int)Block.BlockSize, (int)Block.BlockSize); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Block.BlockSize, (int)Block.BlockSize); }
         }
 
         private List<Object.LivingObject> objects;
@@ -75,22 +38,28 @@ namespace Server.Model.Map.Block
 
         private Chunk.Chunk parentChunk;
 
-        internal Chunk.Chunk ParentChunk
+        public Chunk.Chunk ParentChunk
         {
             get { return parentChunk; }
             set { parentChunk = value; }
         }
+
+        private List<Object.LivingObject> spawnAbleObjects;
+
+        private Object.LivingObject spawnedObject;
 
         public Block(int _PosX, int _PosY, BlockEnum _BlockEnum, Chunk.Chunk _ParentChunk)
         {
             this.layer = new BlockEnum[Enum.GetValues(typeof(BlockLayerEnum)).Length];
             this.layer[0] = _BlockEnum;
             this.objects = new List<Object.LivingObject>();
-            this.position = new Vector2(_PosX, _PosY);
+            this.Position = new Vector2(_PosX, _PosY);
             this.parentChunk = _ParentChunk;
 
             objectsPreEnviorment = new List<Object.LivingObject>();
             objectsLaterEnviorment = new List<Object.LivingObject>();
+
+            spawnAbleObjects = new List<Object.LivingObject>();
         }
 
         public void setLayerAt(Enum _Enum, BlockLayerEnum _Id)
@@ -102,6 +71,11 @@ namespace Server.Model.Map.Block
         public void setFirstLayer(Enum _Enum)
         {
             this.layer[0] = (BlockEnum)_Enum;
+        }
+
+        public void addSpawnAbleObject(Object.LivingObject _LivingObject)
+        {
+            this.spawnAbleObjects.Add(_LivingObject);
         }
 
         public void addLivingObject(Object.LivingObject _LivingObject)
@@ -122,46 +96,46 @@ namespace Server.Model.Map.Block
         {
             if (sender is Object.LivingObject)
             {
-                int var_BlockPosX = (int)this.position.X / BlockSize;//(int)(parentChunk.ParentRegion.Position.X * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX + this.position.X) -1;
-                int var_BlockPosY = (int)this.position.Y / BlockSize;//(int)(parentChunk.ParentRegion.Position.Y * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY + this.position.Y) - 1;
+                int var_BlockPosX = (int)this.Position.X / BlockSize;//(int)(parentChunk.ParentRegion.Position.X * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX + this.position.X) -1;
+                int var_BlockPosY = (int)this.Position.Y / BlockSize;//(int)(parentChunk.ParentRegion.Position.Y * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY + this.position.Y) - 1;
 
                 Object.LivingObject var_LivingObject = (Object.LivingObject)sender;
                 if (var_LivingObject.Position.X < var_BlockPosX * BlockSize)
                 {
                     this.removeLivingObject(var_LivingObject);
-                    if (this.leftNeighbour != null)
+                    if (this.LeftNeighbour != null)
                     {
-                        this.leftNeighbour.addLivingObject(var_LivingObject);
+                        ((Block)this.LeftNeighbour).addLivingObject(var_LivingObject);
                     }
                 }
                 else if (var_LivingObject.Position.X > (var_BlockPosX+1) * BlockSize)
                 {
                     this.removeLivingObject(var_LivingObject);
-                    if (this.rightNeighbour != null)
+                    if (this.RightNeighbour != null)
                     {
-                        this.rightNeighbour.addLivingObject(var_LivingObject);
+                        ((Block)this.RightNeighbour).addLivingObject(var_LivingObject);
                     }
                 }
                 else if (var_LivingObject.Position.Y < var_BlockPosY * BlockSize)
                 {
                     this.removeLivingObject(var_LivingObject);
-                    if (this.topNeighbour != null)
+                    if (this.TopNeighbour != null)
                     {
-                        this.topNeighbour.addLivingObject(var_LivingObject);
+                        ((Block)this.TopNeighbour).addLivingObject(var_LivingObject);
                     }
                 }
                 else if (var_LivingObject.Position.Y > (var_BlockPosY + 1) * BlockSize)
                 {
                     this.removeLivingObject(var_LivingObject);
-                    if (this.bottomNeighbour != null)
-                    {                   
-                        this.bottomNeighbour.addLivingObject(var_LivingObject);
+                    if (this.BottomNeighbour != null)
+                    {
+                        ((Block)this.BottomNeighbour).addLivingObject(var_LivingObject);
                     }
                 }
             }
         }
 
-        public void update()
+        public override void update()
         {
             foreach (Object.LivingObject var_LivingObject in objects.Reverse<Object.LivingObject>())
             {
@@ -172,6 +146,16 @@ namespace Server.Model.Map.Block
                 else
                 {
                     var_LivingObject.update();
+                }
+            }
+            if (this.spawnedObject == null)
+            {
+                if (this.spawnAbleObjects.Count > 0)
+                {
+                    //int var_Rand = Util.Random.GenerateGoodRandomNumber(0, this.spawnAbleObjects.Count);
+                    //Object.LivingObject var_LivingObject = this.spawnAbleObjects.ElementAt(var_Rand);
+                    //var_LivingObject = Factories.CreatureFactory.creatureFactory.createNpcObject();
+
                 }
             }
         }
@@ -268,14 +252,14 @@ namespace Server.Model.Map.Block
                         result.Add(var_LivingObject);
                 }
                 visitedBlocks.Add(this);
-                if (this.leftNeighbour != null && _Position.X - _Range < this.Position.X)
-                    this.leftNeighbour.getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
-                if (this.rightNeighbour != null && _Position.X + _Range > this.Position.X + Block.BlockSize)
-                    this.rightNeighbour.getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
-                if (this.bottomNeighbour != null && _Position.Y + _Range > this.Position.Y + Block.BlockSize)
-                    this.bottomNeighbour.getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
-                if (this.topNeighbour != null && _Position.Y - _Range < this.Position.Y - Block.BlockSize)
-                    this.topNeighbour.getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
+                if (this.LeftNeighbour != null && _Position.X - _Range < this.Position.X)
+                    ((Block)this.LeftNeighbour).getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
+                if (this.RightNeighbour != null && _Position.X + _Range > this.Position.X + Block.BlockSize)
+                    ((Block)this.RightNeighbour).getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
+                if (this.BottomNeighbour != null && _Position.Y + _Range > this.Position.Y + Block.BlockSize)
+                    ((Block)this.BottomNeighbour).getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
+                if (this.TopNeighbour != null && _Position.Y - _Range < this.Position.Y - Block.BlockSize)
+                    ((Block)this.TopNeighbour).getLivingObjectsInRange(_Position, _Range, result, visitedBlocks);
             }
         }
     }

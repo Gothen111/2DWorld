@@ -13,53 +13,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Server.Model.Map.Chunk
 {
-    class Chunk
+    class Chunk : Box
     {
-        private int id;
-
         public static int chunkSizeX = 40; // 40
         public static int chunkSizeY = 40; // 40
 
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
         private Block.Block[,] blocks;
 
-        internal Block.Block[,] Blocks
+        public Block.Block[,] Blocks
         {
             get { return blocks; }
             set { blocks = value; }
         }
-        
-        private String name;
-
-        public String Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        private Vector2 size;
-
-        public Vector2 Size
-        {
-            get { return size; }
-            set { size = value; }
-        }
-
-        private Vector2 position;
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
 
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y); }
         }
 
         private Region.Region parentRegion;
@@ -72,10 +41,10 @@ namespace Server.Model.Map.Chunk
 
         public Chunk(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, Region.Region _ParentRegion)
         {
-            this.id = _Id;
-            this.name = _Name;
-            this.position = new Vector2(_PosX, _PosY);
-            this.size = new Vector2(_SizeX, _SizeY);
+            this.Id = _Id;
+            this.Name = _Name;
+            this.Position = new Vector2(_PosX, _PosY);
+            this.Size = new Vector2(_SizeX, _SizeY);
 
             blocks = new Block.Block[_SizeX, _SizeY];
 
@@ -84,9 +53,9 @@ namespace Server.Model.Map.Chunk
 
         public bool setBlockAtPosition(int _PosX, int _PosY, Block.Block _Block)
         {
-            if (_PosX >= 0 && _PosX < this.size.X)
+            if (_PosX >= 0 && _PosX < this.Size.X)
             {
-                if (_PosY >= 0 && _PosY < this.size.Y)
+                if (_PosY >= 0 && _PosY < this.Size.Y)
                 {
                     this.blocks[_PosX, _PosY] = _Block;
                     return true;
@@ -106,16 +75,16 @@ namespace Server.Model.Map.Chunk
 
         public void setAllNeighboursOfBlocks()
         {
-            for (int x = 0; x < this.size.X; x++)
+            for (int x = 0; x < this.Size.X; x++)
             {
-                for (int y = 0; y < this.size.Y; y++)
+                for (int y = 0; y < this.Size.Y; y++)
                 {
                     Block.Block var_Block = this.getBlockAtPosition(x, y);
                     if (x > 0)
                     {
                         var_Block.LeftNeighbour = this.getBlockAtPosition(x-1, y);
                     }
-                    if (x < this.size.X-1)
+                    if (x < this.Size.X-1)
                     {
                         var_Block.RightNeighbour = this.getBlockAtPosition(x + 1, y);
                     }
@@ -123,7 +92,7 @@ namespace Server.Model.Map.Chunk
                     {
                         var_Block.TopNeighbour = this.getBlockAtPosition(x, y-1);
                     }
-                    if (y < this.size.Y - 1)
+                    if (y < this.Size.Y - 1)
                     {
                         var_Block.BottomNeighbour = this.getBlockAtPosition(x, y+1);
                     }
@@ -143,16 +112,16 @@ namespace Server.Model.Map.Chunk
 
         public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            for (int x = 0; x < this.size.X; x++)
+            for (int x = 0; x < this.Size.X; x++)
             {
-                for (int y = 0; y < this.size.Y; y++)
+                for (int y = 0; y < this.Size.Y; y++)
                 {
                     this.getBlockAtPosition(x, y).DrawTest(_GraphicsDevice, _SpriteBatch);
                 }
             }
-            for (int x = 0; x < this.size.X; x++)
+            for (int x = 0; x < this.Size.X; x++)
             {
-                for (int y = 0; y < this.size.Y; y++)
+                for (int y = 0; y < this.Size.Y; y++)
                 {
                     this.getBlockAtPosition(x, y).DrawObjects(_GraphicsDevice, _SpriteBatch);
                 }
@@ -161,23 +130,23 @@ namespace Server.Model.Map.Chunk
 
         public void DrawTest2(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            for (int x = 0; x < this.size.X; x++)
+            for (int x = 0; x < this.Size.X; x++)
             {
-                for (int y = 0; y < this.size.Y; y++)
+                for (int y = 0; y < this.Size.Y; y++)
                 {
                     this.getBlockAtPosition(x, y).DrawTest(_GraphicsDevice, _SpriteBatch);
                 }
             }
-            for (int x = 0; x < this.size.X; x++)
+            for (int x = 0; x < this.Size.X; x++)
             {
-                for (int y = 0; y < this.size.Y; y++)
+                for (int y = 0; y < this.Size.Y; y++)
                 {
                     this.getBlockAtPosition(x, y).DrawObjectsPreEnviornment(_GraphicsDevice, _SpriteBatch);
                 }
             }
-            for (int x = 0; x < this.size.X; x++)
+            for (int x = 0; x < this.Size.X; x++)
             {
-                for (int y = 0; y < this.size.Y; y++)
+                for (int y = 0; y < this.Size.Y; y++)
                 {
                     this.getBlockAtPosition(x, y).DrawObjects(_GraphicsDevice, _SpriteBatch);
                     this.getBlockAtPosition(x, y).DrawObjectsLaterEnviornment(_GraphicsDevice, _SpriteBatch);
@@ -186,11 +155,12 @@ namespace Server.Model.Map.Chunk
         }
 
 
-        public void update()
+        public override void update()
         {
-            for (int x = 0; x < this.size.X; x++)
+            base.update();
+            for (int x = 0; x < this.Size.X; x++)
             {
-                for (int y = 0; y < this.size.Y; y++)
+                for (int y = 0; y < this.Size.Y; y++)
                 {
                     this.getBlockAtPosition(x, y).update();
                 }
@@ -200,9 +170,9 @@ namespace Server.Model.Map.Chunk
         public int getCountofAllObjects()
         {
             int var_Count = 0;
-            for (int x = 0; x < this.size.X; x++)
+            for (int x = 0; x < this.Size.X; x++)
             {
-                for (int y = 0; y < this.size.Y; y++)
+                for (int y = 0; y < this.Size.Y; y++)
                 {
                     var_Count += this.getBlockAtPosition(x, y).getCountofAllObjects();
                 }

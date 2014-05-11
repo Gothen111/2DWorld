@@ -11,53 +11,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Server.Model.Map.Region
 {
-    class Region
+    class Region : Box
     {
-        private int id;
-
-        public static int regionSizeX = 2; // 10
-        public static int regionSizeY = 2; // 10
-
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-        private Chunk.Chunk[,] chunks;
-
-        public Chunk.Chunk[,] Chunks
-        {
-            get { return chunks; }
-            set { chunks = value; }
-        }
-
-        private String name;
-
-        public String Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        private Vector2 size;
-
-        public Vector2 Size
-        {
-            get { return size; }
-            set { size = value; }
-        }
-
-        private Vector2 position;
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
+        public static int regionSizeX = 2;
+        public static int regionSizeY = 2;
+        private List<Chunk.Chunk> chunks;
 
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, (int)size.X * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)size.Y * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)Size.Y * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize); }
         }
 
         private World.World parentWorld;
@@ -70,12 +32,12 @@ namespace Server.Model.Map.Region
 
         public Region(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, World.World _ParentWorld)
         {
-            this.id = _Id;
-            this.name = _Name;
-            this.position = new Vector2(_PosX, _PosY);
-            this.size = new Vector2(_SizeX, _SizeY);
+            this.Id = _Id;
+            this.Name = _Name;
+            this.Position = new Vector2(_PosX, _PosY);
+            this.Size = new Vector2(_SizeX, _SizeY);
 
-            chunks = new Chunk.Chunk[_SizeX, _SizeY];
+            chunks = new List<Chunk.Chunk>();
 
             parentWorld = _ParentWorld;
         }
@@ -84,11 +46,12 @@ namespace Server.Model.Map.Region
         {
             if (!containsChunk(_Chunk.Id))
             {
-                if (_PosX >= 0 && _PosX < this.size.X)
+                if (_PosX >= 0 && _PosX < this.Size.X)
                 {
-                    if (_PosY >= 0 && _PosY < this.size.Y)
+                    if (_PosY >= 0 && _PosY < this.Size.Y)
                     {
-                        this.chunks[_PosX, _PosY] = _Chunk;
+                        this.chunks.Add(_Chunk);
+                        this.setAllNeighboursOfChunk(_Chunk);
                         return true;
                     }
                 }
@@ -112,35 +75,29 @@ namespace Server.Model.Map.Region
             return false;
         }
 
-        public int getLastChunkId()
+        public void setAllNeighboursOfChunk(Chunk.Chunk _Chunk)
         {
-            return this.chunks.Length;
-        }
-
-        public void setAllNeighboursOfChunks()
-        {
-            for (int x = 0; x < this.size.X; x++)
+            if (_Chunk.Position.X > 0)
             {
-                for (int y = 0; y < this.size.Y; y++)
+                Chunk.Chunk var_ChunkNeighbour = this.getChunkAtPosition(_Chunk.Position.X - 1, _Chunk.Position.Y);
+                if (var_ChunkNeighbour != null)
                 {
-                    Chunk.Chunk var_Chunk = this.getChunkAtPosition(x, y);
-                    if (x > 0)
+                    for (int blockY = 0; blockY < Chunk.Chunk.chunkSizeY; blockY++)
                     {
-                        Chunk.Chunk var_ChunkNeighbour = this.getChunkAtPosition(x - 1, y);
-                        for (int blockY = 0; blockY < Chunk.Chunk.chunkSizeY; blockY++)
-                        {
-                            var_Chunk.getBlockAtPosition(0, blockY).LeftNeighbour = var_ChunkNeighbour.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);
-                            var_ChunkNeighbour.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY).RightNeighbour = var_Chunk.getBlockAtPosition(0, blockY);
-                        }
+                        _Chunk.getBlockAtPosition(0, blockY).LeftNeighbour = var_ChunkNeighbour.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);
+                        var_ChunkNeighbour.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY).RightNeighbour = _Chunk.getBlockAtPosition(0, blockY);
                     }
-                    if (y > 0)
+                }
+            }
+            if (_Chunk.Position.Y > 0)
+            {
+                Chunk.Chunk var_ChunkNeighbour = this.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y - 1);
+                if (var_ChunkNeighbour != null)
+                {
+                    for (int blockX = 0; blockX < Chunk.Chunk.chunkSizeX; blockX++)
                     {
-                        Chunk.Chunk var_ChunkNeighbour = this.getChunkAtPosition(x, y - 1);
-                        for (int blockX = 0; blockX < Chunk.Chunk.chunkSizeX; blockX++)
-                        {
-                            var_Chunk.getBlockAtPosition(blockX, 0).TopNeighbour = var_ChunkNeighbour.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
-                            var_ChunkNeighbour.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1).BottomNeighbour = var_Chunk.getBlockAtPosition(blockX, 0);
-                        }
+                        _Chunk.getBlockAtPosition(blockX, 0).TopNeighbour = var_ChunkNeighbour.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
+                        var_ChunkNeighbour.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1).BottomNeighbour = _Chunk.getBlockAtPosition(blockX, 0);
                     }
                 }
             }
@@ -148,7 +105,17 @@ namespace Server.Model.Map.Region
 
         public Chunk.Chunk getChunkAtPosition(float _PosX, float _PosY)
         {
-            return chunks[(int)(_PosX), ((int)_PosY)];
+            foreach (Chunk.Chunk var_Chunk in this.chunks)
+            {
+                if (var_Chunk.Position.X == _PosX)
+                {
+                    if (var_Chunk.Position.Y == _PosY)
+                    {
+                        return var_Chunk;
+                    }
+                }
+            }
+            return null;
         }
 
         public void loadChunk(int _ID)
@@ -168,45 +135,37 @@ namespace Server.Model.Map.Region
             int var_Y = (int)(_LivingObject.Position.Y / ((this.Position.Y + 1) * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
             if (var_X >= Region.regionSizeX || var_Y >= Region.regionSizeY)
             {
-                Logger.Logger.LogErr("LivingObject befindet sich nicht in Region " + this.id);
+                Logger.Logger.LogErr("LivingObject befindet sich nicht in Region " + this.Id);
                 return null;
             }
             else
             {
-                return this.chunks[var_X, var_Y];
+                return this.getChunkAtPosition(var_X, var_Y);
             }
         }
 
         public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            for (int x = 0; x < this.size.X; x++)
+            foreach (Chunk.Chunk var_Chunk in this.chunks)
             {
-                for (int y = 0; y < this.size.Y; y++)
-                {
-                    this.chunks[x, y].DrawTest(_GraphicsDevice, _SpriteBatch);
-                }
-            }          
+                var_Chunk.DrawTest(_GraphicsDevice, _SpriteBatch);
+            }       
         }
 
         public void DrawTest2(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            for (int x = 0; x < this.size.X; x++)
+            foreach (Chunk.Chunk var_Chunk in this.chunks)
             {
-                for (int y = 0; y < this.size.Y; y++)
-                {
-                    this.chunks[x, y].DrawTest2(_GraphicsDevice, _SpriteBatch);
-                }
+                var_Chunk.DrawTest2(_GraphicsDevice, _SpriteBatch);
             }
         }
 
-        public void update()
+        public override void update()
         {
-            for (int x = 0; x < this.size.X; x++)
+            base.update();
+            foreach (Chunk.Chunk var_Chunk in this.chunks)
             {
-                for (int y = 0; y < this.size.Y; y++)
-                {
-                    this.chunks[x, y].update();
-                }
+                var_Chunk.update();
             }
         }
     }
