@@ -44,9 +44,13 @@ namespace Server.Model.Map.Block
             set { parentChunk = value; }
         }
 
-        private List<Object.LivingObject> spawnAbleObjects;
+        private bool isWalkAble;
 
-        private Object.LivingObject spawnedObject;
+        public bool IsWalkAble
+        {
+            get { return isWalkAble; }
+            set { isWalkAble = value; }
+        }
 
         public Block(int _PosX, int _PosY, BlockEnum _BlockEnum, Chunk.Chunk _ParentChunk)
         {
@@ -59,7 +63,7 @@ namespace Server.Model.Map.Block
             objectsPreEnviorment = new List<Object.LivingObject>();
             objectsLaterEnviorment = new List<Object.LivingObject>();
 
-            spawnAbleObjects = new List<Object.LivingObject>();
+            this.isWalkAble = true;
         }
 
         public void setLayerAt(Enum _Enum, BlockLayerEnum _Id)
@@ -71,11 +75,13 @@ namespace Server.Model.Map.Block
         public void setFirstLayer(Enum _Enum)
         {
             this.layer[0] = (BlockEnum)_Enum;
-        }
-
-        public void addSpawnAbleObject(Object.LivingObject _LivingObject)
-        {
-            this.spawnAbleObjects.Add(_LivingObject);
+            if (_Enum is BlockEnum)
+            {
+                if ((BlockEnum)_Enum == BlockEnum.Wall)
+                {
+                    this.isWalkAble = false;
+                }
+            }
         }
 
         public void addLivingObject(Object.LivingObject _LivingObject)
@@ -88,7 +94,6 @@ namespace Server.Model.Map.Block
         public void removeLivingObject(Object.LivingObject _LivingObject)
         {
             _LivingObject.ObjectMoves -= this.HandleEvent;
-            _LivingObject.CurrentBlock = this;
             this.objects.Remove(_LivingObject);
         }
 
@@ -100,7 +105,10 @@ namespace Server.Model.Map.Block
                 int var_BlockPosY = (int)this.Position.Y / BlockSize;//(int)(parentChunk.ParentRegion.Position.Y * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY + this.position.Y) - 1;
 
                 Object.LivingObject var_LivingObject = (Object.LivingObject)sender;
-                if (var_LivingObject.Position.X < var_BlockPosX * BlockSize)
+
+                Vector3 var_Position = var_LivingObject.Position;// +var_LivingObject.Size / 2;
+
+                if (var_Position.X < var_BlockPosX * BlockSize)
                 {
                     this.removeLivingObject(var_LivingObject);
                     if (this.LeftNeighbour != null)
@@ -108,7 +116,7 @@ namespace Server.Model.Map.Block
                         ((Block)this.LeftNeighbour).addLivingObject(var_LivingObject);
                     }
                 }
-                else if (var_LivingObject.Position.X > (var_BlockPosX+1) * BlockSize)
+                else if (var_Position.X > (var_BlockPosX + 1) * BlockSize)
                 {
                     this.removeLivingObject(var_LivingObject);
                     if (this.RightNeighbour != null)
@@ -116,7 +124,7 @@ namespace Server.Model.Map.Block
                         ((Block)this.RightNeighbour).addLivingObject(var_LivingObject);
                     }
                 }
-                else if (var_LivingObject.Position.Y < var_BlockPosY * BlockSize)
+                else if (var_Position.Y < var_BlockPosY * BlockSize)
                 {
                     this.removeLivingObject(var_LivingObject);
                     if (this.TopNeighbour != null)
@@ -124,7 +132,7 @@ namespace Server.Model.Map.Block
                         ((Block)this.TopNeighbour).addLivingObject(var_LivingObject);
                     }
                 }
-                else if (var_LivingObject.Position.Y > (var_BlockPosY + 1) * BlockSize)
+                else if (var_Position.Y > (var_BlockPosY + 1) * BlockSize)
                 {
                     this.removeLivingObject(var_LivingObject);
                     if (this.BottomNeighbour != null)
@@ -146,16 +154,6 @@ namespace Server.Model.Map.Block
                 else
                 {
                     var_LivingObject.update();
-                }
-            }
-            if (this.spawnedObject == null)
-            {
-                if (this.spawnAbleObjects.Count > 0)
-                {
-                    //int var_Rand = Util.Random.GenerateGoodRandomNumber(0, this.spawnAbleObjects.Count);
-                    //Object.LivingObject var_LivingObject = this.spawnAbleObjects.ElementAt(var_Rand);
-                    //var_LivingObject = Factories.CreatureFactory.creatureFactory.createNpcObject();
-
                 }
             }
         }

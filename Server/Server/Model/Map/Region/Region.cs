@@ -77,7 +77,6 @@ namespace Server.Model.Map.Region
 
         public void setAllNeighboursOfChunk(Chunk.Chunk _Chunk)
         {
-
             Chunk.Chunk var_ChunkNeighbour = this.getChunkAtPosition(_Chunk.Position.X - Chunk.Chunk.chunkSizeX*Block.Block.BlockSize, _Chunk.Position.Y);
             if (var_ChunkNeighbour != null)
             {

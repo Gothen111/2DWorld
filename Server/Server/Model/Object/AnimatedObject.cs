@@ -133,8 +133,49 @@ namespace Server.Model.Object
         {
             float var_X = (-Convert.ToInt32(this.moveLeft) + Convert.ToInt32(this.moveRight)) * this.movementSpeed;
             float var_Y = (-Convert.ToInt32(this.moveUp) + Convert.ToInt32(this.moveDown)) * this.movementSpeed;
+
+            Vector2 var_PositionBlockSizeOld = new Vector2((this.Position.X) / Map.Block.Block.BlockSize, (this.Position.Y) / Map.Block.Block.BlockSize);
+            Vector2 var_PositionBlockSizeNew = new Vector2((this.Position.X + var_X) / Map.Block.Block.BlockSize, (this.Position.Y + var_Y) / Map.Block.Block.BlockSize);
+            
+            Map.Block.Block var_Block = this.CurrentBlock;
+
+            if ((int)var_PositionBlockSizeOld.X < (int)var_PositionBlockSizeNew.X)
+            {
+                Console.WriteLine((int)var_PositionBlockSizeOld.X);
+                var_Block = (Map.Block.Block)this.CurrentBlock.RightNeighbour;
+                if (!var_Block.IsWalkAble)
+                {
+                    var_X = 0;
+                }
+            }
+            else if ((int)var_PositionBlockSizeOld.X > (int)var_PositionBlockSizeNew.X)
+            {
+                var_Block = (Map.Block.Block)this.CurrentBlock.LeftNeighbour;
+                if (!var_Block.IsWalkAble)
+                {
+                    var_X = 0;
+                }
+            }
+            if ((int)var_PositionBlockSizeOld.Y < (int)var_PositionBlockSizeNew.Y)
+            {
+                var_Block = (Map.Block.Block)this.CurrentBlock.BottomNeighbour;
+                if (!var_Block.IsWalkAble)
+                {
+                    var_Y = 0;
+                }
+            }
+            else if ((int)var_PositionBlockSizeOld.Y > (int)var_PositionBlockSizeNew.Y)
+            {
+                var_Block = (Map.Block.Block)this.CurrentBlock.TopNeighbour;
+                if (!var_Block.IsWalkAble)
+                {
+                    var_Y = 0;
+                }
+            }
+
             this.Velocity = new Vector3(var_X, var_Y, 0);
             this.Position += this.Velocity;
+           
             if (this.Position.X < 0)
                 this.Position += new Vector3(0 - this.Position.X, 0, 0);
             if (this.Position.Y < 0)

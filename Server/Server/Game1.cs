@@ -81,31 +81,8 @@ namespace Server
                 //var_LivingObject.Velocity = new Vector3(1,0,0);
 
                 var_LivingObject.World = world;
-                world.addLivingObject(var_LivingObject);
+                //world.addLivingObject(var_LivingObject);
                 //Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
-            }
-
-            for (int i = 0; i < 20; i++)
-            {
-                Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Tree_Normal_1);
-
-                var_EnvironmentObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
-                var_EnvironmentObject.World = world;
-                //region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y).objectsLaterEnviorment.Add(var_EnvironmentObject);
-                //world.addLivingObject(var_EnvironmentObject, false);
-            }
-
-            for (int i = 0; i < 1000; i++)
-            {
-                Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Flower_1);
-
-                var_EnvironmentObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
-                var_EnvironmentObject.World = world;
-
-                //region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y).objectsPreEnviorment.Add(var_EnvironmentObject);
-
-
-                //world.addLivingObject(var_EnvironmentObject, false);
             }
 
             Model.Object.PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
@@ -132,8 +109,8 @@ namespace Server
             watch.Stop();
             Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
 
-            Util.MapHandler var_MapHandler = new Util.MapHandler(40, 20, 35);
-            var_MapHandler.PrintMap();
+            //Util.MapHandler var_MapHandler = new Util.MapHandler(40, 20, 35);
+            //var_MapHandler.PrintMap();
 
             base.Initialize();
         }

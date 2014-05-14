@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
+
 using Server.Model.Map.Chunk;
 using Server.Model.Map.Region;
 using Server.Model.Map.Block;
+using Server.Factories.FactoryEnums;
 
 namespace Server.Factories
 {
@@ -29,13 +32,15 @@ namespace Server.Factories
         {
             Chunk var_Result;
 
-            var_Result = new Chunk(_Id, "Name :P", _PosX, _PosY, _SizeX, _SizeY, _ParentRegion);
+            var_Result = new Chunk(_Id, "Chunk", _PosX, _PosY, _SizeX, _SizeY, _ParentRegion);
             this.fillChunkWithBlock(var_Result, BlockEnum.Gras);
 
-            //generateSecondLayer(var_Result, _Layer);
-            //generateWall(var_Result);
             var_Result.setAllNeighboursOfBlocks();
             generateWall(var_Result, 18, 18);
+            generateSecondLayer(var_Result, _Layer);
+            generateFlowers(var_Result);
+            generateTrees(var_Result);
+            //generateWall(var_Result);
 
             return var_Result;
         }
@@ -77,14 +82,14 @@ namespace Server.Factories
                 {
                     if (_PosY >= 0 && _PosY <= (_Chunk.Size.Y - 1))
                     {
-                        if (_Chunk.getBlockAtPosition(_PosX, _PosY).Layer[(int)BlockLayerEnum.Layer2] != BlockEnum.Nothing || _Chance <= 0)
+                        Block var_Block = _Chunk.getBlockAtPosition(_PosX, _PosY);
+                        if (var_Block.Layer[(int)BlockLayerEnum.Layer2] != BlockEnum.Nothing || _Chance <= 0)
                         {
                             return;
                         }
-
-                        if ((BlockEnum)_Enum == BlockEnum.Dirt)
+                        if (var_Block.Layer[0]  == BlockEnum.Wall)
                         {
-                            //Logger.Logger.LogDeb(""); // ???
+                            return;
                         }
 
                         _Chunk.getBlockAtPosition(_PosX, _PosY).setLayerAt(_Enum, BlockLayerEnum.Layer2);
@@ -239,6 +244,46 @@ namespace Server.Factories
                         Logger.Logger.LogErr("Wallgenerierung hat Chunkgrenzen übersprungen und kann somit nicht ausgefüllt werden");
                         return;
                     }
+                }
+            }
+        }
+
+        private void generateFlowers(Chunk _Chunk)
+        {
+            for (int i = 0; i < 2000; i++)
+            {
+                Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Flower_1);
+
+                int var_X = Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize) - 1);
+
+                var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
+                var_EnvironmentObject.World = _Chunk.ParentRegion.ParentWorld;
+                
+                Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
+                if (var_Block.IsWalkAble && var_Block.Layer[1] == BlockEnum.Nothing)
+                {
+                    var_Block.objectsPreEnviorment.Add(var_EnvironmentObject);
+                }
+            }
+        }
+
+        private void generateTrees(Chunk _Chunk)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Tree_Normal_1);
+
+                int var_X = Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize) - 1);
+
+                var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
+                var_EnvironmentObject.World = _Chunk.ParentRegion.ParentWorld;
+
+                Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
+                if (var_Block.IsWalkAble)
+                {
+                    var_Block.objectsLaterEnviorment.Add(var_EnvironmentObject);
                 }
             }
         }
