@@ -38,8 +38,8 @@ namespace Server.Factories
             {
                 for (int y = 0; y < Region.regionSizeY; y++)
                 {
-                    Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(0, x, y, ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), var_Result);
-                    this.addChunkToRegion(var_Result, x, y, var_Chunk);
+                    Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(0, x * Chunk.chunkSizeX * Block.BlockSize + _PosX, y * Chunk.chunkSizeX * Block.BlockSize + _PosY, ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), var_Result);
+                    this.addChunkToRegion(var_Result, x * Chunk.chunkSizeX * Block.BlockSize + _PosX, y * Chunk.chunkSizeX * Block.BlockSize + _PosY, var_Chunk);
                 }
                 Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " + (int)(((float)x / Region.regionSizeX) * 100) + "%", true);
             }
