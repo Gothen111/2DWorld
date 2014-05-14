@@ -34,8 +34,8 @@ namespace Server.Factories
 
             //generateSecondLayer(var_Result, _Layer);
             //generateWall(var_Result);
-            generateWall(var_Result, 20, 20);
             var_Result.setAllNeighboursOfBlocks();
+            generateWall(var_Result, 18, 18);
 
             return var_Result;
         }
@@ -107,6 +107,8 @@ namespace Server.Factories
 
             int var_ComeFrom = -1; //0=Up,1=Left,2=Right,3=Down
             _Chunk.getBlockAtPosition(_PosX, _PosY).setFirstLayer(BlockEnum.Wall);
+
+            List<Block> blocksWithWall = new List<Block>();
             while (var_StepsUp + var_StepsLeft + var_StepsRight + var_StepsDown > 0)
             {
                 List<int> var_GoTo = new List<int>();
@@ -164,7 +166,80 @@ namespace Server.Factories
                     var_ComeFrom = 0;
                     var_StepsDown -= 1;
                 }
-                _Chunk.getBlockAtPosition(_PosX, _PosY).setFirstLayer(BlockEnum.Wall);
+                Block var_Block = _Chunk.getBlockAtPosition(_PosX, _PosY);
+                var_Block.setFirstLayer(BlockEnum.Wall);
+                blocksWithWall.Add(var_Block);
+            }
+
+            for (int x = 0; x < blocksWithWall.Count / 2; x++)
+            {
+                Block var_Block1 = blocksWithWall.ElementAt(x);
+                Block var_Block2 = blocksWithWall.ElementAt(blocksWithWall.Count - x - 1);
+                while (!var_Block1.Equals(var_Block2))
+                {
+                    int moveHorizontal = 0;
+                    int moveVertical = 0;
+                    if (var_Block1.Position.X < var_Block2.Position.X)
+                    {
+                        moveHorizontal = 1;
+                    }
+                    else if (var_Block1.Position.X > var_Block2.Position.X)
+                    {
+                        moveHorizontal = -1;
+                    }
+                    if (var_Block1.Position.Y < var_Block2.Position.Y)
+                    {
+                        moveVertical = 1;
+                    }
+                    else if (var_Block1.Position.Y > var_Block2.Position.Y)
+                    {
+                        moveVertical = -1;
+                    }
+
+                    if (moveHorizontal == 1 && moveVertical == 1)
+                    {
+                        var_Block1 = var_Block1.RightNeighbour.BottomNeighbour as Block;
+                    }
+                    else if (moveHorizontal == 1 && moveVertical == 0)
+                    {
+                        var_Block1 = var_Block1.RightNeighbour as Block;
+                    }
+                    else if (moveHorizontal == 1 && moveVertical == -1)
+                    {
+                        var_Block1 = var_Block1.RightNeighbour.TopNeighbour as Block;
+                    }
+                    else if (moveHorizontal == 0 && moveVertical == 1)
+                    {
+                        var_Block1 = var_Block1.BottomNeighbour as Block;
+                    }
+                    else if (moveHorizontal == 0 && moveVertical == -1)
+                    {
+                        var_Block1 = var_Block1.TopNeighbour as Block;
+                    }
+                    else if (moveHorizontal == -1 && moveVertical == 1)
+                    {
+                        var_Block1 = var_Block1.LeftNeighbour.BottomNeighbour as Block;
+                    }
+                    else if (moveHorizontal == -1 && moveVertical == 0)
+                    {
+                        var_Block1 = var_Block1.LeftNeighbour as Block;
+                    }
+                    else if (moveHorizontal == -1 && moveVertical == -1)
+                    {
+                        var_Block1 = var_Block1.LeftNeighbour.TopNeighbour as Block;
+                    }
+
+
+                    if (var_Block1 != null)
+                    {
+                        var_Block1.setFirstLayer(BlockEnum.Wall);
+                    }
+                    else
+                    {
+                        Logger.Logger.LogErr("Wallgenerierung hat Chunkgrenzen übersprungen und kann somit nicht ausgefüllt werden");
+                        return;
+                    }
+                }
             }
         }
 
