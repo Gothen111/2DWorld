@@ -46,7 +46,7 @@ namespace Server.Factories
             {
                 for(int y = 0; y < _Chunk.Size.Y; y++)
                 {
-                    if (!_Chunk.setBlockAtPosition(x, y, new Block((int)(_Chunk.Position.X * Chunk.chunkSizeX + x) * Block.BlockSize, (int)(_Chunk.Position.Y * Chunk.chunkSizeX + y) * Block.BlockSize, _BlockEnum, _Chunk)))
+                    if (!_Chunk.setBlockAtPosition(x, y, new Block((int)_Chunk.Position.X + x * Block.BlockSize, (int)_Chunk.Position.Y + y * Block.BlockSize, _BlockEnum, _Chunk)))
                     {
                         Logger.Logger.LogErr("RegionFactory->fillChunkWithBlock(...) : Platzierung nicht möglich!");
                     }
