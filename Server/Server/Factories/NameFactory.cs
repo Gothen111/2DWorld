@@ -9,322 +9,235 @@ namespace Server.Factories
 {
     class NameFactory
     {
-
-        public static String getNameOfCreature(CreatureEnum creatureEnum, GenderEnum genderEnum)
+        public static String getName(CreatureEnum type, GenderEnum gender)
         {
-            switch (creatureEnum)
+            String result = "";
+            switch (type)
             {
                 case CreatureEnum.Archer:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Bogenschütze";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Bogenschützin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Bogenschütze";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Bogenschützin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Captain:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Kapitän";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Kapitän";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Kapitän";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Kapitän";
+                        }
+                        break;
                     }
                 case CreatureEnum.Chieftain:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Häuptling";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Weise";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Anführer";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Anführerin";
+                        }
+                        break;
+                    }
+                case CreatureEnum.Child:
+                    {
+                        if (gender == GenderEnum.Male)
+                        {
+                            result = "Junge";
+                        }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Mädchen";
+                        }
+                        break;
                     }
                 case CreatureEnum.Commandant:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Kommandant";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Kommandantin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Kommandant";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Kommandantin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Farmer:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Bauer";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Bäuerin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Bauer";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Bäuerin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Guard:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Wächter";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Wächterin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Wächter";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Wächterin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Hunter:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Jäger";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Jägerin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Jäger";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Jägerin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Mage:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Magier";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Magierin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Magier";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Magierin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Peasant:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Bürger";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Bürgerin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Bürger";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Bürgerin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Priest:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Priester";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Priesterin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Priester";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Priesterin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Slavehunter:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Sklavenjäger";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Sklavenjägerin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Sklavenjäger";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Sklavenjägerin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Soldier:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Soldat";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Soldatin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Soldat";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Soldatin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Sorcerer:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Beschwörer";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Beschwörerin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Illusionist";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Illusionistin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Spearman:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Speerwerfer";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Speerwerferin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Lanzenträger";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Lanzenträgerin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Warlock:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Hexenmeister";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Hexenmeisterin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Hexenmeister";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Hexenmeisterin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Warlord:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Kriegsmeister";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Kriegsmeisterin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Kriegsherr";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Kriegsherrin";
+                        }
+                        break;
                     }
                 case CreatureEnum.Wizard:
                     {
-                        switch (genderEnum)
+                        if (gender == GenderEnum.Male)
                         {
-                            case GenderEnum.Male:
-                                {
-                                    return "Zauberer";
-                                }
-                            case GenderEnum.Female:
-                                {
-                                    return "Zauberin";
-                                }
-                            default:
-                                {
-                                    return "Unbekannt";
-                                }
+                            result = "Zauberer";
                         }
+                        if (gender == GenderEnum.Female)
+                        {
+                            result = "Zauberin";
+                        }
+                        break;
                     }
                 default:
                     {
-                        return "Unbekannt";
+                        result = "Unbekannt";
+                        break;
                     }
             }
+            return result;
         }
+
     }
 }

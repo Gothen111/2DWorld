@@ -112,19 +112,19 @@ namespace Server.Factories
                 List<int> var_GoTo = new List<int>();
                 var_GoTo.AddRange(new List<int>() { 0, 1, 2, 3 });
                 var_GoTo.Remove(var_ComeFrom);
-                if (var_StepsUp == 0)
+                if (var_StepsUp == 0 || _PosY < 0)
                 {
                     var_GoTo.Remove(0);
                 }
-                if (var_StepsLeft == 0)
+                if (var_StepsLeft == 0 || _PosX < 0)
                 {
                     var_GoTo.Remove(1);
                 }
-                if (var_StepsRight == 0)
+                if (var_StepsRight == 0 || _PosX >= Chunk.chunkSizeX)
                 {
                     var_GoTo.Remove(2);
                 }
-                if (var_StepsDown == 0)
+                if (var_StepsDown == 0 || _PosY >= Chunk.chunkSizeY)
                 {
                     var_GoTo.Remove(3);
                 }
