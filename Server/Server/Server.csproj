@@ -116,6 +116,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera\Camera.cs" />
     <Compile Include="Commands\CommandManager\CommandManager.cs" />
     <Compile Include="Commands\CommandTypes\AttackRandomCommand.cs" />
     <Compile Include="Commands\CommandTypes\Command.cs" />

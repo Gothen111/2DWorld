@@ -13,6 +13,8 @@ using Server.Factories;
 using Server.Factories.FactoryEnums;
 using Server.Model.Behaviour.Member;
 
+using Server.Camera;
+
 namespace Server
 {
     /// <summary>
@@ -25,6 +27,8 @@ namespace Server
 
         Server.Model.Map.World.World world;
         Server.Model.Map.Region.Region region;
+
+        Camera.Camera camera;
 
         public Game1()
         {
@@ -45,6 +49,8 @@ namespace Server
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            camera = new Camera.Camera(GraphicsDevice.Viewport);
 
             Race race = BehaviourFactory.behaviourFactory.getRace(RaceEnum.Human);
             Faction faction = BehaviourFactory.behaviourFactory.getFaction(FactionEnum.Castle_Test2);
@@ -90,6 +96,8 @@ namespace Server
             var_PlayerObject.GraphicPath = "Character/Char1_Small";
             var_PlayerObject.World = world;
             world.addLivingObject(var_PlayerObject);
+
+            camera.setTarget(var_PlayerObject);
 
             Model.Object.EnvironmentObject var_Chest = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Chest);
 
@@ -151,7 +159,7 @@ namespace Server
             Commands.Executer.Executer.executer.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             Model.Player.PlayerContoller.playerContoller.update();
             world.update();
-
+            camera.update(gameTime);
             base.Update(gameTime);
         }
 
@@ -163,10 +171,12 @@ namespace Server
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
+            spriteBatch.Begin(SpriteSortMode.Deferred,
+                    BlendState.AlphaBlend, null, null, null, null,
+                    camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
 
             world.DrawTest2(GraphicsDevice, spriteBatch);
-            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
+            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(camera.Position.X, camera.Position.Y), Color.White);
             //spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + world.QuadTree.Root.quadObjects.ToString(), new Vector2(100, 0), Color.White);
             spriteBatch.End();
 
