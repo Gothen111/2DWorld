@@ -95,14 +95,14 @@ namespace Server
             var_PlayerObject.Position = new Vector3(400, 400, 0);
             var_PlayerObject.GraphicPath = "Character/Char1_Small";
             var_PlayerObject.World = world;
-            var_PlayerObject.Scale = 2f;
+            //var_PlayerObject.Scale = 2f;
             world.addLivingObject(var_PlayerObject);
 
             camera.setTarget(var_PlayerObject);
 
             Model.Object.EnvironmentObject var_Chest = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Chest);
 
-            var_Chest.Position = new Vector3(250, 200, 0);
+            var_Chest.Position = new Vector3(650, 200, 0);
             var_Chest.World = world;
             world.addLivingObject(var_Chest);
             //region.getChunkAtPosition(0, 0).getBlockAtCoordinate(var_Chest.Position.X, var_Chest.Position.Y).objectsPreEnviorment.Add(var_Chest);

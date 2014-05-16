@@ -126,11 +126,7 @@ namespace Server.Model.Map.World
         public void addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree)
         {
             Region.Region region = getRegionLivingObjectIsIn(livingObject);
-            Chunk.Chunk chunk = region.getChunkLivingObjectIsIn(livingObject);
-            Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
-            block.addLivingObject(livingObject);
-            if(insertInQuadTree)
-                quadTree.Insert(livingObject);
+            addLivingObject(livingObject, insertInQuadTree, region);
         }
 
         public void addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree, Region.Region _Region)
