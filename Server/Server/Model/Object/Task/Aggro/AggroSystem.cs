@@ -79,7 +79,7 @@ namespace Server.Model.Object.Task.Aggro
         {
             if (this.aggroItems.Count > 0)
             {
-                return aggroItems.First().Key;
+                return aggroItems.Last().Key;
             }
             return default(E);
         }
