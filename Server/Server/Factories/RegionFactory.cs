@@ -33,7 +33,6 @@ namespace Server.Factories
 
             var_Result = new Region(_Id, _Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, _ParentWorld);
 
-
             for (int x = 0; x < Region.regionSizeX; x++)
             {
                 for (int y = 0; y < Region.regionSizeY; y++)
@@ -43,6 +42,8 @@ namespace Server.Factories
                 }
                 Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " + (int)(((float)x / Region.regionSizeX) * 100) + "%", true);
             }
+
+            FarmFactory.farmFactory.generateFarms(var_Result, 1, 0);
 
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
 

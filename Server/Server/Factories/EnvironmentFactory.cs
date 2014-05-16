@@ -19,6 +19,7 @@ namespace Server.Factories
         public EnvironmentObject createEnvironmentObject(EnvironmentEnum objectType)
         {
             EnvironmentObject environmentObject = new EnvironmentObject();
+            environmentObject.StandartStandPositionX = 0;
 
             switch(objectType)
             {
@@ -26,7 +27,6 @@ namespace Server.Factories
                     {
                         environmentObject.GraphicPath = "Environment/Tree/Tree1";
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(64, 64, 0);
-                        environmentObject.StandartStandPositionX = 0;
                         break;
                     }
                 case EnvironmentEnum.Flower_1:
@@ -54,6 +54,12 @@ namespace Server.Factories
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(32, 48, 0);
                         environmentObject.StandartStandPositionX = 1*32;
                         environmentObject.Interactions.Add(new Model.Object.Interaction.Interactions.ChestInteraction(environmentObject));
+                        break;
+                    }
+                case EnvironmentEnum.FarmHouse1:
+                    {
+                        environmentObject.GraphicPath = "Environment/Farm/FarmHouse1";
+                        environmentObject.Size = new Microsoft.Xna.Framework.Vector3(370, 355, 0);
                         break;
                     }
             }

@@ -12,6 +12,7 @@ namespace Server.Factories.FactoryEnums
         Tree_Grey,
         Tree_Brown,
         Plant,
-        Chest
+        Chest,
+        FarmHouse1
     }
 }
