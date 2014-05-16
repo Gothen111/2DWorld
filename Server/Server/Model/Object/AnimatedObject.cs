@@ -174,7 +174,7 @@ namespace Server.Model.Object
             }
 
             this.Velocity = new Vector3(var_X, var_Y, 0);
-            List<LivingObject> objectsColliding = World.getObjectsInRange(this.Position + this.Velocity, 20);
+            List<LivingObject> objectsColliding = World.getObjectsInRange(this.Position + this.Velocity, 25);
             objectsColliding.Remove(this as LivingObject);
             if(objectsColliding.Count < 1)
                 this.Position += this.Velocity;

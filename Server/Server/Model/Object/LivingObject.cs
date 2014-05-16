@@ -264,9 +264,20 @@ namespace Server.Model.Object
             if (this.healthPoints <= 0)
             {
                 this.isDead = true;
-                this.World.removeObjectFromWorld(this);
+                try
+                {
+                    Texture2D texture = Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath + "_Dead"];
+                    this.GraphicPath = this.GraphicPath + "_Dead";
+                }
+                catch (KeyNotFoundException e)
+                {
+                    this.World.removeObjectFromWorld(this);
+                }
             }
-            this.Animation = new Server.Model.Object.Animation.Animations.TakeDamageAnimation(this);
+            else
+            {
+                this.Animation = new Server.Model.Object.Animation.Animations.TakeDamageAnimation(this);
+            }
         }
 
         public void knockBack(Vector3 _KnockBackAmount)
