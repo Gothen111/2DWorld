@@ -285,6 +285,7 @@ namespace Server.Factories
                 {
                     var_Block.objectsLaterEnviorment.Add(var_EnvironmentObject);
                 }
+                _Chunk.ParentRegion.ParentWorld.QuadTree.Insert(var_EnvironmentObject);
             }
         }
 

@@ -77,7 +77,11 @@ namespace Server.Model.Object.Task.Aggro
 
         public E getTarget()
         {
-            return aggroItems.First().Key;
+            if (this.aggroItems.Count > 0)
+            {
+                return aggroItems.First().Key;
+            }
+            return default(E);
         }
     }
 }

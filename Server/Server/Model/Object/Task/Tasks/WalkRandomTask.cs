@@ -64,7 +64,7 @@ namespace Server.Model.Object.Task.Tasks
                     Chunk var_Chunk = var_Region.getChunkLivingObjectIsIn(TaskOwner);
                     if (var_Chunk != null)
                     {
-                        Block var_Block = var_Chunk.getBlockAtPosition((float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.X - 1), (float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.Y - 1));
+                        Block var_Block = var_Chunk.getBlockAtPosition((float)Util.Random.GenerateGoodRandomNumber((int)var_Chunk.Position.X, (int)(var_Chunk.Position.X + var_Chunk.Size.X - 1)), (float)Util.Random.GenerateGoodRandomNumber((int)var_Chunk.Position.Y, (int)(var_Chunk.Position.Y + var_Chunk.Size.Y - 1)));
                         targetPosition = new Vector3(var_Block.Position.X, var_Block.Position.Y, 0);
                         this.finishedWalking = false;
                     }

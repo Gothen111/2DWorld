@@ -19,6 +19,9 @@ namespace Server.Model.Object.Task.Tasks
 
         private float updateTarget = 40;
 
+        private bool wantToDoTaskCheck = true;
+        private float updateWantToDo = 20;
+
         public AttackRandomTask(LivingObject _TaskOwner, TaskPriority _Priority)
             : base(_TaskOwner, _Priority)
         {
@@ -27,12 +30,20 @@ namespace Server.Model.Object.Task.Tasks
 
         public override bool wantToDoTask()
         {
-            bool var_wantToDoTask = true;
-            List<LivingObject> var_LivingObjects = this.TaskOwner.World.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
-            if (var_LivingObjects.Count <= 1)
-                var_wantToDoTask = false;
+            if (updateWantToDo <= 0)
+            {
+                wantToDoTaskCheck = true;
+                List<LivingObject> var_LivingObjects = this.TaskOwner.World.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                if (var_LivingObjects.Count <= 1)
+                    wantToDoTaskCheck = false;
+                updateWantToDo = 20;
+            }
+            else
+            {
+                updateWantToDo--;
+            }
 
-            return var_wantToDoTask || base.wantToDoTask();
+            return wantToDoTaskCheck || base.wantToDoTask();
         }
 
         public override void update()
@@ -93,7 +104,7 @@ namespace Server.Model.Object.Task.Tasks
             if(target!=null)
             {
                 target = this.TaskOwner.AggroSystem.getTarget();
-                if (target.IsDead)
+                if (target == null || target.IsDead)
                 {
                     target = null;
                     return;
