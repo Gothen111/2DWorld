@@ -107,7 +107,9 @@ namespace Server.Model.Map.Chunk
 
         public Block.Block getBlockAtPosition(float _PosX, float _PosY)
         {
-            return blocks[(int)(_PosX), ((int)_PosY)];
+            if(_PosX >= 0 && _PosX < Chunk.chunkSizeX && _PosY >= 0 && _PosY < Chunk.chunkSizeY)
+                return blocks[(int)(_PosX), ((int)_PosY)];
+            return null;
         }
 
         public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)

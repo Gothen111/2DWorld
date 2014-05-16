@@ -92,9 +92,10 @@ namespace Server
             }
 
             Model.Object.PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
-            var_PlayerObject.Position = new Vector3(200, 200, 0);
+            var_PlayerObject.Position = new Vector3(400, 400, 0);
             var_PlayerObject.GraphicPath = "Character/Char1_Small";
             var_PlayerObject.World = world;
+            var_PlayerObject.Scale = 2f;
             world.addLivingObject(var_PlayerObject);
 
             camera.setTarget(var_PlayerObject);

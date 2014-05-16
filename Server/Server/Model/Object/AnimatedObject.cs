@@ -19,7 +19,7 @@ namespace Server.Model.Object
         public float Scale
         {
             get { return scale; }
-            set { scale = value; }
+            set { this.Size /= scale; scale = value; this.Size *= scale; }
         }
 
         private DirectionEnum directionEnum = DirectionEnum.Down;

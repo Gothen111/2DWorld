@@ -145,8 +145,11 @@ namespace Server.Model.Map.World
         public void removeObjectFromWorld(LivingObject livingObject)
         {
             quadTree.Remove(livingObject);
-            livingObject.CurrentBlock.removeLivingObject(livingObject);
-            livingObject.CurrentBlock = null;
+            if (livingObject.CurrentBlock != null)
+            {
+                livingObject.CurrentBlock.removeLivingObject(livingObject);
+                livingObject.CurrentBlock = null;
+            }
         }
 
         public List<LivingObject> getObjectsInRange(Vector3 _Position, float _Range)

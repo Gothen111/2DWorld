@@ -172,8 +172,11 @@ namespace Server.Factories
                     var_StepsDown -= 1;
                 }
                 Block var_Block = _Chunk.getBlockAtPosition(_PosX, _PosY);
-                var_Block.setFirstLayer(BlockEnum.Wall);
-                blocksWithWall.Add(var_Block);
+                if (var_Block != null)
+                {
+                    var_Block.setFirstLayer(BlockEnum.Wall);
+                    blocksWithWall.Add(var_Block);
+                }
             }
 
             for (int x = 0; x < blocksWithWall.Count / 2; x++)
