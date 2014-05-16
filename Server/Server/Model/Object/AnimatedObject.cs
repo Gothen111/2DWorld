@@ -143,7 +143,7 @@ namespace Server.Model.Object
             {
                 Console.WriteLine((int)var_PositionBlockSizeOld.X);
                 var_Block = (Map.Block.Block)this.CurrentBlock.RightNeighbour;
-                if (!var_Block.IsWalkAble)
+                if (var_Block == null || !var_Block.IsWalkAble)
                 {
                     var_X = 0;
                 }
@@ -151,7 +151,7 @@ namespace Server.Model.Object
             else if ((int)var_PositionBlockSizeOld.X > (int)var_PositionBlockSizeNew.X)
             {
                 var_Block = (Map.Block.Block)this.CurrentBlock.LeftNeighbour;
-                if (!var_Block.IsWalkAble)
+                if (var_Block == null || !var_Block.IsWalkAble)
                 {
                     var_X = 0;
                 }
@@ -159,7 +159,7 @@ namespace Server.Model.Object
             if ((int)var_PositionBlockSizeOld.Y < (int)var_PositionBlockSizeNew.Y)
             {
                 var_Block = (Map.Block.Block)this.CurrentBlock.BottomNeighbour;
-                if (!var_Block.IsWalkAble)
+                if (var_Block == null || !var_Block.IsWalkAble)
                 {
                     var_Y = 0;
                 }
@@ -167,7 +167,7 @@ namespace Server.Model.Object
             else if ((int)var_PositionBlockSizeOld.Y > (int)var_PositionBlockSizeNew.Y)
             {
                 var_Block = (Map.Block.Block)this.CurrentBlock.TopNeighbour;
-                if (!var_Block.IsWalkAble)
+                if (var_Block == null || !var_Block.IsWalkAble)
                 {
                     var_Y = 0;
                 }

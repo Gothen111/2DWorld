@@ -87,7 +87,7 @@ namespace Server
                 //var_LivingObject.Velocity = new Vector3(1,0,0);
 
                 var_LivingObject.World = world;
-                //world.addLivingObject(var_LivingObject);
+                world.addLivingObject(var_LivingObject);
                 //Logger.Logger.LogDeb(var_LivingObject.Velocity.X + " : " + var_LivingObject.Velocity.Y); 
             }
 
