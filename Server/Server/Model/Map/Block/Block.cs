@@ -175,8 +175,38 @@ namespace Server.Model.Map.Block
                 //var_Color = Color.Green;
             }
 
-            BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
-            foreach (BlockEnum var_Enum in this.Layer)
+            BlockLayerEnum var_Layer = BlockLayerEnum.Layer6;
+            while (var_Layer >= 0)
+            {
+                BlockEnum var_Enum = this.layer[(int)var_Layer];
+                if (var_Enum != BlockEnum.Nothing)
+                {
+                    if (var_Layer == BlockLayerEnum.Layer1)
+                    {
+                        if (var_Enum == BlockEnum.Gras)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.97f);
+                        }
+                        if (var_Enum == BlockEnum.Wall)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.97f);
+                        }
+                    }
+                    if (var_Layer == BlockLayerEnum.Layer2)
+                    {
+                        if (var_Enum == BlockEnum.Gras)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.96f);
+                        }
+                        if (var_Enum == BlockEnum.Dirt)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.96f);
+                        }
+                    }
+                }
+                var_Layer -= 1;
+            }
+            /*foreach (BlockEnum var_Enum in this.Layer)
             {
                 if (var_Enum != BlockEnum.Nothing)
                 {
@@ -203,8 +233,8 @@ namespace Server.Model.Map.Block
                         }
                     }
                 }
-                var_Layer += 1;
-            }
+                var_Layer -= 1;
+            }*/
         }
 
         public void DrawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)

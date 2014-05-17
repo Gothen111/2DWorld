@@ -261,7 +261,7 @@ namespace Server.Model.Object
         public void damage(int _DamageAmount)
         {
             this.healthPoints -= _DamageAmount;
-            if (this.healthPoints <= 0)
+            if (this.healthPoints <= 0 && !this.isDead)
             {
                 this.isDead = true;
                 try
@@ -274,9 +274,16 @@ namespace Server.Model.Object
                     this.World.removeObjectFromWorld(this);
                 }
             }
+            else if (this.healthPoints <= 0)
+            {
+                //this.World.removeObjectFromWorld(this);
+            }
             else
             {
-                this.Animation = new Server.Model.Object.Animation.Animations.TakeDamageAnimation(this);
+                if (this.canBeEffected)
+                {
+                    this.Animation = new Server.Model.Object.Animation.Animations.TakeDamageAnimation(this);
+                }
             }
         }
 
