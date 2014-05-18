@@ -208,14 +208,14 @@ namespace Server.Model.Map.Block
             int var_i = 0;
             foreach (Object.LivingObject var_LivingObject in this.objects)
             {
-                var_LivingObject.LayerDepth = _LayerDepth - (this.Position.Y - var_LivingObject.Position.Y) * 0.0001f - var_i * 0.0001f; // ??? VLL abs noch dran?
+                var_LivingObject.LayerDepth = _LayerDepth - (this.Position.Y - var_LivingObject.Position.Y) * 0.0001f - var_i * 0.00001f; // ??? VLL abs noch dran?
                 var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
                 var_i += 1;
             }
             var_i = 0;
             foreach (Object.LivingObject var_LivingObject in this.objectsPreEnviorment)
             {
-                var_LivingObject.LayerDepth = _LayerDepth + 0.1f - (this.Position.Y - var_LivingObject.Position.Y) * 0.0001f - var_i * 0.0001f; // ??? VLL abs noch dran?
+                var_LivingObject.LayerDepth = _LayerDepth + 0.1f - (this.Position.Y - var_LivingObject.Position.Y) * 0.0001f - var_i * 0.00001f; // ??? VLL abs noch dran?
                 var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
                 var_i += 1;
             }

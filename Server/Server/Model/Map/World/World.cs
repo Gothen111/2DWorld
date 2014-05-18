@@ -73,22 +73,6 @@ namespace Server.Model.Map.World
             return false;
         }
 
-        /*public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
-        {
-            foreach (Region.Region var_Region in this.regions)
-            {
-                var_Region.DrawTest(_GraphicsDevice, _SpriteBatch);
-            }
-        }
-
-        public void DrawTest2(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
-        {
-            foreach (Region.Region var_Region in this.regions)
-            {
-                var_Region.DrawTest2(_GraphicsDevice, _SpriteBatch);
-            }
-        }*/
-
         public void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, LivingObject _Target)
         {
             float var_LayerDepth = 0.79f;

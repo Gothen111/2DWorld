@@ -268,7 +268,6 @@ namespace Server.Model.Object
                 {
                     Texture2D texture = Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath + "_Dead"];
                     this.GraphicPath = this.GraphicPath + "_Dead";
-                    this.CurrentBlock.objectsLaterEnviorment.Remove(this);
                     this.CurrentBlock.objectsPreEnviorment.Add(this);
                     this.CurrentBlock.removeLivingObject(this);
                 }
