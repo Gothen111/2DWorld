@@ -78,8 +78,11 @@ namespace Server.Model.Map.Region
         public void setAllNeighboursOfChunk(Chunk.Chunk _Chunk)
         {
             Chunk.Chunk var_ChunkNeighbour = this.getChunkAtPosition(_Chunk.Position.X - Chunk.Chunk.chunkSizeX*Block.Block.BlockSize, _Chunk.Position.Y);
+            
             if (var_ChunkNeighbour != null)
             {
+                _Chunk.LeftNeighbour = var_ChunkNeighbour;
+                var_ChunkNeighbour.RightNeighbour = _Chunk;
                 for (int blockY = 0; blockY < Chunk.Chunk.chunkSizeY; blockY++)
                 {
                     _Chunk.getBlockAtPosition(0, blockY).LeftNeighbour = var_ChunkNeighbour.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);
@@ -88,8 +91,11 @@ namespace Server.Model.Map.Region
             }
 
             var_ChunkNeighbour = this.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y - Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+            
             if (var_ChunkNeighbour != null)
             {
+                _Chunk.TopNeighbour = var_ChunkNeighbour;
+                var_ChunkNeighbour.BottomNeighbour = _Chunk;
                 for (int blockX = 0; blockX < Chunk.Chunk.chunkSizeX; blockX++)
                 {
                     _Chunk.getBlockAtPosition(blockX, 0).TopNeighbour = var_ChunkNeighbour.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
@@ -136,22 +142,6 @@ namespace Server.Model.Map.Region
             else
             {
                 return this.getChunkAtPosition(var_X, var_Y);
-            }
-        }
-
-        public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
-        {
-            foreach (Chunk.Chunk var_Chunk in this.chunks)
-            {
-                var_Chunk.DrawTest(_GraphicsDevice, _SpriteBatch);
-            }       
-        }
-
-        public void DrawTest2(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
-        {
-            foreach (Chunk.Chunk var_Chunk in this.chunks)
-            {
-                var_Chunk.DrawTest2(_GraphicsDevice, _SpriteBatch);
             }
         }
 

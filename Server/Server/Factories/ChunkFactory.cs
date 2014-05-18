@@ -286,7 +286,7 @@ namespace Server.Factories
                 Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
                 if (var_Block.IsWalkAble)
                 {
-                    var_Block.objectsLaterEnviorment.Add(var_EnvironmentObject);
+                    var_Block.Objects.Add(var_EnvironmentObject);
                 }
                 _Chunk.ParentRegion.ParentWorld.QuadTree.Insert(var_EnvironmentObject);
             }

@@ -276,7 +276,7 @@ namespace Server.Model.Object
             }
             else if (this.healthPoints <= 0)
             {
-                //this.World.removeObjectFromWorld(this);
+                this.World.removeObjectFromWorld(this);
             }
             else
             {

@@ -30,6 +30,8 @@ namespace Server
 
         Camera.Camera camera;
 
+        Model.Object.PlayerObject playerObject;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -98,7 +100,9 @@ namespace Server
             //var_PlayerObject.Scale = 2f;
             world.addLivingObject(var_PlayerObject);
 
-            camera.setTarget(var_PlayerObject);
+            playerObject = var_PlayerObject;
+
+            camera.setTarget(playerObject);
 
             Model.Object.EnvironmentObject var_Chest = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Chest);
 
@@ -176,7 +180,7 @@ namespace Server
                     BlendState.AlphaBlend, null, null, null, null,
                     camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
 
-            world.DrawTest2(GraphicsDevice, spriteBatch);
+            world.draw(GraphicsDevice, spriteBatch, playerObject);
             spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(camera.Position.X, camera.Position.Y), Color.White);
             //spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + world.QuadTree.Root.quadObjects.ToString(), new Vector2(100, 0), Color.White);
             spriteBatch.End();
