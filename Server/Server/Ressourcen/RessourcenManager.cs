@@ -54,6 +54,8 @@ namespace Server.Ressourcen
             
             addTexture("Environment/Farm/FarmHouse1", _ContentManager.Load<Texture2D>("Block/Environment/Farm/FarmHouse1"));
 
+            addTexture("Character/HumanFemale1", _ContentManager.Load<Texture2D>("Object/Character/HumanFemale1"));
+
             addTexture("Character/Char1_Small", _ContentManager.Load<Texture2D>("Object/Character/Char1_Small"));
             addTexture("Character/Char1_Small_Attack", _ContentManager.Load<Texture2D>("Object/Character/Char1_Small_Attack"));
             addTexture("Character/Lifebar", _ContentManager.Load<Texture2D>("Object/Character/Lifebar"));

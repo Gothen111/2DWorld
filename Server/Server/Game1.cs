@@ -93,6 +93,7 @@ namespace Server
             var_PlayerObject.Position = new Vector3(400, 400, 0);
             var_PlayerObject.GraphicPath = "Character/Char1_Small";
             var_PlayerObject.World = world;
+            //var_PlayerObject.Size = new Vector3(32, 48, 0);
             //var_PlayerObject.Scale = 2f;
             world.addLivingObject(var_PlayerObject);
 

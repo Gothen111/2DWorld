@@ -102,7 +102,7 @@ namespace Server.Model.Object.Animation.Animations
             {
                 var_DrawX = this.currentFrame;
             }
-            return new Rectangle(var_DrawX*32,this.directionDrawY()*32,32,32);
+            return new Rectangle(var_DrawX * (int)this.AnimationOwner.Size.X, this.directionDrawY() * (int)this.AnimationOwner.Size.Y, (int)this.AnimationOwner.Size.X, (int)this.AnimationOwner.Size.Y);
         }
     }
 }
