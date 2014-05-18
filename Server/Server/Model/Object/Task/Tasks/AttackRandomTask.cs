@@ -110,44 +110,36 @@ namespace Server.Model.Object.Task.Tasks
                     target = null;
                     return;
                 }
-                float var_X = 0;
-                float var_Y = 0;
+
                 this.TaskOwner.MoveRight = false;
                 this.TaskOwner.MoveLeft = false;
                 this.TaskOwner.MoveDown = false;
                 this.TaskOwner.MoveUp = false;
                 if (this.target.Position.X > this.TaskOwner.Position.X + Map.Block.Block.BlockSize)
                 {
-                    //var_X += 0.9f;
                     this.TaskOwner.MoveRight = true;
                 }
                 else if (this.target.Position.X < this.TaskOwner.Position.X - Map.Block.Block.BlockSize)
                 {
-                    //var_X -= 0.9f;
                     this.TaskOwner.MoveLeft = true;
                 }
                 if (this.target.Position.Y > this.TaskOwner.Position.Y + Map.Block.Block.BlockSize)
                 {
-                    //var_Y += 0.9f;
                     this.TaskOwner.MoveDown = true;
                 }
                 else if (this.target.Position.Y < this.TaskOwner.Position.Y - Map.Block.Block.BlockSize)
                 {
-                    //var_Y -= 0.9f;
                     this.TaskOwner.MoveUp = true;
                 }
 
-                //if (var_X == 0 && var_Y == 0)
                 if (!this.TaskOwner.MoveRight && !this.TaskOwner.MoveLeft && !this.TaskOwner.MoveDown && !this.TaskOwner.MoveUp)
                 {
                     if (attackSpeed <= 0)
                     {
                         this.TaskOwner.attack();
-                        //this.TaskOwner.attackLivingObject(this.target);
                         this.attackSpeed = this.attackSpeedMax;
                     }
                 }
-                //this.TaskOwner.Velocity = new Vector3(var_X, var_Y, 0);
             }
         }
     }

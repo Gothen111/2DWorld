@@ -78,49 +78,52 @@ namespace Server.Model.Map.World
             float var_LayerDepth = 0.79f;
             float var_AmountToRemove = 0.001f;
 
-            Chunk.Chunk var_ChunkMid = _Target.CurrentBlock.ParentChunk;
-            var_ChunkMid.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+            if (_Target.CurrentBlock != null)
+            {
+                Chunk.Chunk var_ChunkMid = _Target.CurrentBlock.ParentChunk;
+                var_ChunkMid.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                
+                Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
+                if (var_ChunkTop != null)
+                {
+                    Chunk.Chunk var_ChunkTopLeft = (Chunk.Chunk)var_ChunkTop.LeftNeighbour;
+                    if (var_ChunkTopLeft != null)
+                    {
+                        var_ChunkTopLeft.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth, var_AmountToRemove);
+                    }
+                    Chunk.Chunk var_ChunkTopRight = (Chunk.Chunk)var_ChunkTop.RightNeighbour;
+                    if (var_ChunkTopRight != null)
+                    {
+                        var_ChunkTopRight.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth, var_AmountToRemove);
+                    }
+                    var_ChunkTop.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth, var_AmountToRemove);
+                }
+                Chunk.Chunk var_ChunkLeft = (Chunk.Chunk)var_ChunkMid.LeftNeighbour;
+                if (var_ChunkLeft != null)
+                {
+                    var_ChunkLeft.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                }
+                Chunk.Chunk var_ChunkRight = (Chunk.Chunk)var_ChunkMid.RightNeighbour;
+                if (var_ChunkRight != null)
+                {
+                    var_ChunkRight.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                }
 
-            Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
-            if (var_ChunkTop != null)
-            {
-                Chunk.Chunk var_ChunkTopLeft = (Chunk.Chunk)var_ChunkTop.LeftNeighbour;
-                if (var_ChunkTopLeft != null)
+                Chunk.Chunk var_ChunkBottom = (Chunk.Chunk)var_ChunkMid.BottomNeighbour;
+                if (var_ChunkBottom != null)
                 {
-                    var_ChunkTopLeft.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth, var_AmountToRemove);
+                    Chunk.Chunk var_ChunkBottomLeft = (Chunk.Chunk)var_ChunkBottom.LeftNeighbour;
+                    if (var_ChunkBottomLeft != null)
+                    {
+                        var_ChunkBottomLeft.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                    }
+                    Chunk.Chunk var_ChunkBottomRight = (Chunk.Chunk)var_ChunkBottom.RightNeighbour;
+                    if (var_ChunkBottomRight != null)
+                    {
+                        var_ChunkBottomRight.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                    }
+                    var_ChunkBottom.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
                 }
-                Chunk.Chunk var_ChunkTopRight = (Chunk.Chunk)var_ChunkTop.RightNeighbour;
-                if (var_ChunkTopRight != null)
-                {
-                    var_ChunkTopRight.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth, var_AmountToRemove);
-                }
-                var_ChunkTop.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth, var_AmountToRemove);
-            }
-            Chunk.Chunk var_ChunkLeft = (Chunk.Chunk)var_ChunkMid.LeftNeighbour;
-            if (var_ChunkLeft != null)
-            {
-                var_ChunkLeft.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-            }
-            Chunk.Chunk var_ChunkRight = (Chunk.Chunk)var_ChunkMid.RightNeighbour;
-            if (var_ChunkRight != null)
-            {
-                var_ChunkRight.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-            }
-
-            Chunk.Chunk var_ChunkBottom = (Chunk.Chunk)var_ChunkMid.BottomNeighbour;
-            if (var_ChunkBottom != null)
-            {
-                Chunk.Chunk var_ChunkBottomLeft = (Chunk.Chunk)var_ChunkBottom.LeftNeighbour;
-                if (var_ChunkBottomLeft != null)
-                {
-                    var_ChunkBottomLeft.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-                }
-                Chunk.Chunk var_ChunkBottomRight = (Chunk.Chunk)var_ChunkBottom.RightNeighbour;
-                if (var_ChunkBottomRight != null)
-                {
-                    var_ChunkBottomRight.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-                }
-                var_ChunkBottom.draw(_GraphicsDevice, _SpriteBatch, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
             }
         }
 

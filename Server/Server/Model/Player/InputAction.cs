@@ -10,7 +10,6 @@ namespace Server.Model.Player
 {
     class InputAction
     {
-        //private Keys key;
         //private MouseState mouseState;
       
         private List<Keys> keysToWatchOn;

@@ -11,12 +11,10 @@ namespace Server.Model.Player
     {
         public static PlayerContoller playerContoller = new PlayerContoller();
 
-        //private PlayerObject playerObject;
         private List<InputAction> inputActions;
 
-        public PlayerContoller()//PlayerObject _PlayerObject)
+        public PlayerContoller()
         {
-            //this.playerObject = _PlayerObject;
             this.inputActions = new List<InputAction>();
         }
 
