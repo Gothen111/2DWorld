@@ -287,6 +287,7 @@ namespace Server.Factories
                 if (var_Block.IsWalkAble)
                 {
                     var_Block.Objects.Add(var_EnvironmentObject);
+                    var_EnvironmentObject.CurrentBlock = var_Block;
                 }
                 _Chunk.ParentRegion.ParentWorld.QuadTree.Insert(var_EnvironmentObject);
             }

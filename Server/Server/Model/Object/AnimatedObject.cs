@@ -174,15 +174,18 @@ namespace Server.Model.Object
             }
 
             this.Velocity = new Vector3(var_X, var_Y, 0);
-            List<LivingObject> objectsColliding = World.getObjectsInRange(this.Position + this.Velocity, 25);
-            objectsColliding.Remove(this as LivingObject);
-            if(objectsColliding.Count < 1)
-                this.Position += this.Velocity;
-           
-            if (this.Position.X < 0)
-                this.Position += new Vector3(0 - this.Position.X, 0, 0);
-            if (this.Position.Y < 0)
-                this.Position += new Vector3(0, 0 - this.Position.Y, 0);
+            if (var_X != 0 || var_Y != 0)
+            {
+                List<LivingObject> objectsColliding = World.getObjectsInRange(this.Position + this.Velocity, 25);
+                objectsColliding.Remove(this as LivingObject);
+                if (objectsColliding.Count < 1)
+                    this.Position += this.Velocity;
+
+                if (this.Position.X < 0)
+                    this.Position += new Vector3(0 - this.Position.X, 0, 0);
+                if (this.Position.Y < 0)
+                    this.Position += new Vector3(0, 0 - this.Position.Y, 0);
+            }
 
 
             if (this.Velocity.X != 0 || this.Velocity.Y != 0)

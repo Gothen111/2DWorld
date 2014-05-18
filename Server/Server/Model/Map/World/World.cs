@@ -244,9 +244,12 @@ namespace Server.Model.Map.World
         {
             foreach(LivingObject livingObject in currentNode.Objects)
             {
-                if(Vector3.Distance(livingObject.Position, circle.Position) < circle.Radius)
+                if (!result.Contains(livingObject))
                 {
-                    result.Add(livingObject);
+                    if (Vector3.Distance(livingObject.Position, circle.Position) < circle.Radius)
+                    {
+                        result.Add(livingObject);
+                    }
                 }
             }
             foreach (QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
