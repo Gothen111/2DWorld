@@ -196,7 +196,45 @@ namespace Server.Model.Map.World
             return result;
         }
 
-        private void getObjectsInRange(Util.Circle aggroCircle , QuadTree<LivingObject>.QuadNode currentNode, List<LivingObject> result)
+        public List<LivingObject> getObjectsColliding(Rectangle bounds)
+        {
+            List<LivingObject> result = new List<LivingObject>();
+            getObjectsCollidiong(bounds, this.QuadTree.Root, result);
+            return result;
+        }
+
+        private void getObjectsCollidiong(Rectangle bounds, QuadTree<LivingObject>.QuadNode currentNode, List<LivingObject> result)
+        {
+            if (Util.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
+            {
+                //Circle fits in node, so search in subnodes
+                Boolean circleFitsInSubnode = false;
+                foreach(QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
+                {
+                    if (node != null)
+                    {
+                        if (Util.Intersection.RectangleIsInRectangle(bounds, node.Bounds))
+                        {
+                            circleFitsInSubnode = true;
+                            getObjectsInRange(bounds, node, result);
+                        }
+                    }
+                }
+
+                //Aggrocircle fit into a subnode? then
+                if (!circleFitsInSubnode)
+                {
+                    addAllObjectsInRange(currentNode, bounds, result);
+                }
+                return;
+            }
+            if (currentNode.Equals(quadTree.Root))
+            {
+                addAllObjectsInRange(currentNode, bounds, result);
+            }
+        }
+
+        private void getObjectsInRange(Util.Circle aggroCircle, QuadTree<LivingObject>.QuadNode currentNode, List<LivingObject> result)
         {
             if (Util.Intersection.CircleIsInRectangle(aggroCircle, currentNode.Bounds))
             {
@@ -227,13 +265,44 @@ namespace Server.Model.Map.World
             }
         }
 
+        private void getObjectsInRange(Rectangle bounds, QuadTree<LivingObject>.QuadNode currentNode, List<LivingObject> result)
+        {
+            if (Util.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
+            {
+                //Circle fits in node, so search in subnodes
+                Boolean circleFitsInSubnode = false;
+                foreach (QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
+                {
+                    if (node != null)
+                    {
+                        if (Util.Intersection.RectangleIsInRectangle(bounds, node.Bounds))
+                        {
+                            circleFitsInSubnode = true;
+                            getObjectsInRange(bounds, node, result);
+                        }
+                    }
+                }
+
+                //Aggrocircle fit into a subnode? then
+                if (!circleFitsInSubnode)
+                {
+                    addAllObjectsInRange(currentNode, bounds, result);
+                }
+                return;
+            }
+            if (currentNode.Equals(quadTree.Root))
+            {
+                addAllObjectsInRange(currentNode, bounds, result);
+            }
+        }
+
         private void addAllObjectsInRange(QuadTree<LivingObject>.QuadNode currentNode, Util.Circle circle, List<LivingObject> result)
         {
             foreach(LivingObject livingObject in currentNode.Objects)
             {
                 if (!result.Contains(livingObject))
                 {
-                    if (Vector3.Distance(livingObject.Position, circle.Position) < circle.Radius)
+                    if (Util.Intersection.CircleIntersectsRectangle(circle, livingObject.Bounds))
                     {
                         result.Add(livingObject);
                     }
@@ -243,6 +312,25 @@ namespace Server.Model.Map.World
             {
                 if (node != null)
                     addAllObjectsInRange(node, circle, result);
+            }
+        }
+
+        private void addAllObjectsInRange(QuadTree<LivingObject>.QuadNode currentNode, Rectangle bounds, List<LivingObject> result)
+        {
+            foreach (LivingObject livingObject in currentNode.Objects)
+            {
+                if (!result.Contains(livingObject))
+                {
+                    if (Util.Intersection.RectangleIntersectsRectangle(bounds, livingObject.Bounds))
+                    {
+                        result.Add(livingObject);
+                    }
+                }
+            }
+            foreach (QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
+            {
+                if (node != null)
+                    addAllObjectsInRange(node, bounds, result);
             }
         }
     }

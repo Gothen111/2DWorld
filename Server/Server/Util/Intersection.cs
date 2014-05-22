@@ -10,6 +10,13 @@ namespace Server.Util
 {
     class Intersection
     {
+
+        public static Boolean RectangleIntersectsRectangle(Rectangle r1, Rectangle r2)
+        {
+            Boolean result = r1.Intersects(r2);
+            return result;
+        }
+
         public static Boolean CircleIntersectsRectangle(Circle circle, Rectangle rectangle)
         {
             //Berechne, ob der Kreis das Rechteck schneidet, also entweder liegt das Rechteck im Kreis, oder eine Seite des Rechtecks schneidet den Kreis
@@ -26,6 +33,11 @@ namespace Server.Util
             return circleInRectangle;
         }
 
+        public static Boolean RectangleIsInRectangle(Rectangle smallerOne, Rectangle biggerOne)
+        {
+            return biggerOne.Left <= smallerOne.Left && biggerOne.Right >= smallerOne.Right && biggerOne.Top <= smallerOne.Top && biggerOne.Bottom >= smallerOne.Bottom;
+        }
+
         public static Boolean LineIntersectsCircle(Vector2 point1, Vector2 point2, Circle circle)
         {
             //Steigung der Linie berechnen
@@ -38,16 +50,15 @@ namespace Server.Util
             //Punkt auf dem Kreis berechnen, welcher am nähesten an der Linie liegt
             Vector2 radiusPoint = new Vector2((float)(circle.Position.X + deltaDistance / circle.Radius * 1), (float)(circle.Position.Y + deltaDistance / circle.Radius * deltaDistance));
             //Berechne Schnittpunkt zwischen Kreis und Linie
-            Vector2 intersectionPoint = LineIntersectionPoint(point1, point2, new Vector2(circle.Position.X, circle.Position.Y), radiusPoint);
-            //Falls Schnittpunktkoordinate >= 0, dann ist ein Schnittpunkt vorhanden
-            if (intersectionPoint.X >= 0)
+            try
             {
-                return true;
+                Vector2 intersectionPoint = LineIntersectionPoint(point1, point2, new Vector2(circle.Position.X, circle.Position.Y), radiusPoint);
             }
-            else
+            catch (Exception e)
             {
                 return false;
             }
+            return true;
         }
 
         private static double distanceDelta(float delta)
@@ -70,7 +81,7 @@ namespace Server.Util
             // Get delta and check if the lines are parallel
             float delta = A1 * B2 - A2 * B1;
             if (delta == 0)
-                return new Vector2(-1, -1);
+                throw new Exception();
 
             // now return the Vector2 intersection point
             return new Vector2(
