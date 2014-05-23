@@ -38,6 +38,11 @@ namespace Server.Model.Object
             set { graphicPath = value; }
         }
 
+        public Rectangle DrawBounds
+        {
+            get { return new Rectangle((int)(this.Position.X + this.animation.drawPositionExtra().X - this.Size.X / 2), (int)(this.Position.Y + this.animation.drawPositionExtra().Y - this.Size.Y), (int)this.Size.X, (int)this.Size.Y); }
+        }
+
         private float movementSpeed;
 
         public float MovementSpeed
@@ -176,7 +181,7 @@ namespace Server.Model.Object
             this.Velocity = new Vector3(var_X, var_Y, 0);
             if (var_X != 0 || var_Y != 0)
             {
-                Rectangle nextBounds = new Rectangle((int)(this.Bounds.Left + this.Velocity.X), (int)(this.Bounds.Top + this.Velocity.Y), this.Bounds.Width, this.Bounds.Height);
+                Rectangle nextBounds = new Rectangle((int)(this.DrawBounds.Left + this.Velocity.X), (int)(this.DrawBounds.Top + this.Velocity.Y), this.DrawBounds.Width, this.DrawBounds.Height);
                 List<LivingObject> objectsColliding = World.getObjectsColliding(nextBounds);
                 objectsColliding.Remove(this as LivingObject);
                 if (objectsColliding.Count < 1)

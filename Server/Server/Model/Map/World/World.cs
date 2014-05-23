@@ -284,10 +284,7 @@ namespace Server.Model.Map.World
                 }
 
                 //Aggrocircle fit into a subnode? then
-                if (!circleFitsInSubnode)
-                {
-                    addAllObjectsInRange(currentNode, bounds, result);
-                }
+                addAllObjectsInRange(currentNode, bounds, result);
                 return;
             }
             if (currentNode.Equals(quadTree.Root))
@@ -321,7 +318,7 @@ namespace Server.Model.Map.World
             {
                 if (!result.Contains(livingObject))
                 {
-                    if (Util.Intersection.RectangleIntersectsRectangle(bounds, livingObject.Bounds))
+                    if (Util.Intersection.RectangleIntersectsRectangle(bounds, livingObject.DrawBounds))
                     {
                         result.Add(livingObject);
                     }
