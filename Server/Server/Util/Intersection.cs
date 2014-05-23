@@ -20,11 +20,23 @@ namespace Server.Util
         public static Boolean CircleIntersectsRectangle(Circle circle, Rectangle rectangle)
         {
             //Berechne, ob der Kreis das Rechteck schneidet, also entweder liegt das Rechteck im Kreis, oder eine Seite des Rechtecks schneidet den Kreis
-            Boolean intersectTop = LineIntersectsCircle(new Vector2(rectangle.X, rectangle.Y), new Vector2(rectangle.X + rectangle.Width, rectangle.Y), circle);
+            /*Boolean intersectTop = LineIntersectsCircle(new Vector2(rectangle.X, rectangle.Y), new Vector2(rectangle.X + rectangle.Width, rectangle.Y), circle);
             Boolean intersectLeft = LineIntersectsCircle(new Vector2(rectangle.X, rectangle.Y), new Vector2(rectangle.X, rectangle.Y + rectangle.Height), circle);
             Boolean intersectRight = LineIntersectsCircle(new Vector2(rectangle.X + rectangle.Width, rectangle.Y), new Vector2(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), circle);
             Boolean intersectBottom = LineIntersectsCircle(new Vector2(rectangle.X, rectangle.Y + rectangle.Height), new Vector2(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height), circle);
-            return CircleIsInRectangle(circle, rectangle) || intersectTop || intersectLeft || intersectRight || intersectBottom;
+            return CircleIsInRectangle(circle, rectangle) || intersectTop || intersectLeft || intersectRight || intersectBottom;*/
+
+            return intersects(circle.Position.X, circle.Position.Y, circle.Radius, rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
+        }
+
+        public static Boolean intersects(float cx, float cy, float radius, float left, float top, float right, float bottom)
+        {
+            float closestX = (cx < left ? left : (cx > right ? right : cx));
+            float closestY = (cy < top ? top : (cy > bottom ? bottom : cy));
+            float dx = closestX - cx;
+            float dy = closestY - cy;
+
+            return (dx * dx + dy * dy) <= radius * radius;
         }
 
         public static Boolean CircleIsInRectangle(Circle circle, Rectangle rectangle)
@@ -40,59 +52,6 @@ namespace Server.Util
 
         public static Boolean LineIntersectsCircle(Vector2 a, Vector2 b, Circle circle)
         {
-            /*//Steigung der Linie berechnen
-            float delta = (point2.Y - point1.Y) / (point2.X - point1.X);
-            //Steigung der Normalen berechnen
-            float deltaNorm = -1 / delta;
-
-            //Distanz der Steigung berechnen( welche Distanz wird für 1 X-Wert nach rechts zurückgelegt)
-            double deltaDistance = distanceDelta(deltaNorm);
-            //Punkt auf dem Kreis berechnen, welcher am nähesten an der Linie liegt
-            Vector2 radiusPoint = new Vector2((float)(circle.Position.X + deltaDistance / circle.Radius * 1), (float)(circle.Position.Y + deltaDistance / circle.Radius * deltaDistance));
-            //Berechne Schnittpunkt zwischen Kreis und Linie
-            try
-            {
-                Vector2 intersectionPoint = LineIntersectionPoint(point1, point2, new Vector2(circle.Position.X, circle.Position.Y), radiusPoint);
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-            return true;
-            //Steigung der Linie berechnen
-
-            float delta = (point2.Y - point1.Y) / (point2.X - point1.X);
-
-            //Steigung der Normalen berechnen
-
-            float deltaNorm = -1 / delta;
-
-
-
-            //Distanz der Steigung berechnen( welche Distanz wird für 1 X-Wert nach rechts zurückgelegt)
-
-            double deltaDistance = distanceDelta(deltaNorm);
-
-            //Punkt auf dem Kreis berechnen, welcher am nähesten an der Linie liegt
-
-            Vector2 radiusPoint = new Vector2((float)(circle.Position.X + deltaDistance / circle.Radius * 1), (float)(circle.Position.Y + deltaDistance / circle.Radius * deltaDistance));
-
-            //Berechne Schnittpunkt zwischen Kreis und Linie
-
-            Vector2 intersectionPoint = Vector2.Zero;
-            if (deltaNorm == 0)
-            {
-                intersectionPoint = new Vector2(point1.X, circle.Position.Y);
-            }
-            else
-            {
-                intersectionPoint = LineIntersectionPoint(point1, point2, new Vector2(circle.Position.X, circle.Position.Y), radiusPoint);
-            }
-
-            //Falls Schnittpunktkoordinate >= 0, dann ist ein Schnittpunkt vorhanden
-
-            return Vector2.Distance(intersectionPoint, new Vector2(circle.Position.X, circle.Position.Y)) <= circle.Radius;*/
-
             // First up, let's normalise our vectors so the circle is on the origin
             Vector2 c = new Vector2(circle.Position.X, circle.Position.Y);
             float rad = circle.Radius;
@@ -140,11 +99,6 @@ namespace Server.Util
             }
             else
                 return false;
-        }
-
-        private static double distanceDelta(float delta)
-        {
-            return Math.Sqrt(1 + Math.Pow(delta, 2));
         }
 
         public static Vector2 LineIntersectionPoint(Vector2 ps1, Vector2 pe1, Vector2 ps2, Vector2 pe2)
