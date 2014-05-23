@@ -42,6 +42,7 @@ namespace Server.Factories
                         equipmentWeaponObject.Range = 50;
                         equipmentWeaponObject.AttackSpeed = 0;
                         equipmentWeaponObject.AttackSpeedMax = 60;
+                        equipmentWeaponObject.SearchFlags.Add(new Server.Model.Map.World.SearchFlags.NpcObjectFlag());
                         break;
                     }
             }

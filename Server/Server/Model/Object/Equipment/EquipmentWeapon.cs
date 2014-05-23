@@ -25,6 +25,14 @@ namespace Server.Model.Object.Equipment
             set { normalDamage = value; }
         }
 
+        private List<Map.World.SearchFlags.Searchflag> searchFlags;
+
+        public List<Map.World.SearchFlags.Searchflag> SearchFlags
+        {
+            get { return searchFlags; }
+            set { searchFlags = value; }
+        }
+
         private int range;
 
         public int Range
@@ -47,6 +55,11 @@ namespace Server.Model.Object.Equipment
         {
             get { return attackSpeedMax; }
             set { attackSpeedMax = value; }
+        }
+
+        public EquipmentWeapon()
+        {
+            searchFlags = new List<Map.World.SearchFlags.Searchflag>();
         }
 
         public void update()

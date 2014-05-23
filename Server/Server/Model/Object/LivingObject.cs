@@ -240,22 +240,11 @@ namespace Server.Model.Object
         {
             this.damage(_DamageAmount);
             this.aggroSystem.addAggro(_Attacker, _DamageAmount*100f);
-            if (_Attacker.DirectionEnum == ObjectEnums.DirectionEnum.Down)
-            {
-                this.knockBack(new Vector3(0,20,0));
-            }
-            if (_Attacker.DirectionEnum == ObjectEnums.DirectionEnum.Left)
-            {
-                this.knockBack(new Vector3(-20, 0, 0));
-            }
-            if (_Attacker.DirectionEnum == ObjectEnums.DirectionEnum.Right)
-            {
-                this.knockBack(new Vector3(20, 0, 0));
-            }
-            if (_Attacker.DirectionEnum == ObjectEnums.DirectionEnum.Top)
-            {
-                this.knockBack(new Vector3(0, -20, 0));
-            }
+            Vector3 knockBackVector = this.Position - _Attacker.Position;
+            knockBackVector.X = knockBackVector.X / knockBackVector.Length() * 20;
+            knockBackVector.Y = knockBackVector.Y / knockBackVector.Length() * 20;
+            knockBackVector.Z = knockBackVector.Z / knockBackVector.Length() * 20;
+            this.knockBack(knockBackVector);
         }
 
         public void damage(int _DamageAmount)
