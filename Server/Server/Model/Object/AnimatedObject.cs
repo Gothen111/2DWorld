@@ -195,7 +195,6 @@ namespace Server.Model.Object
                 objectsColliding.Remove(this as LivingObject);
                 if (objectsColliding.Count < 1)
                     this.Position += this.Velocity;
-
                 if (this.Position.X < 0)
                     this.Position += new Vector3(0 - this.Position.X, 0, 0);
                 if (this.Position.Y < 0)

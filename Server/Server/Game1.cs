@@ -73,25 +73,25 @@ namespace Server
             region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
 
             world.addRegion(region);
-            /*for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 50; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
                 //Logger.Logger.LogDeb("LivingObject wurde erstellt");
                 Server.Commands.CommandTypes.WalkRandomCommand command = new Server.Commands.CommandTypes.WalkRandomCommand(var_LivingObject);
                 Server.Commands.Executer.Executer.executer.addCommand(command);
-                Server.Commands.CommandTypes.AttackRandomCommand command2 = new Server.Commands.CommandTypes.AttackRandomCommand(var_LivingObject);
-                Server.Commands.Executer.Executer.executer.addCommand(command2);
+                //Server.Commands.CommandTypes.AttackRandomCommand command2 = new Server.Commands.CommandTypes.AttackRandomCommand(var_LivingObject);
+                //Server.Commands.Executer.Executer.executer.addCommand(command2);
                 var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
                 var_LivingObject.GraphicPath = "Character/Char1_Small";
                 var_LivingObject.Scale = 1f;
 
                 var_LivingObject.World = world;
                 world.addLivingObject(var_LivingObject);
-            }*/
+            }
 
             Model.Object.PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
             var_PlayerObject.Position = new Vector3(0, 0, 0);
-            var_PlayerObject.CollisionBounds.Add(new Rectangle(var_PlayerObject.DrawBounds.Left + 5, var_PlayerObject.DrawBounds.Bottom - 15, var_PlayerObject.DrawBounds.Width - 10, 15));
+            //var_PlayerObject.CollisionBounds.Add(new Rectangle(var_PlayerObject.DrawBounds.Left + 5, var_PlayerObject.DrawBounds.Bottom - 15, var_PlayerObject.DrawBounds.Width - 10, 15));
             var_PlayerObject.GraphicPath = "Character/Char1_Small";
             var_PlayerObject.World = world;
             //var_PlayerObject.Size = new Vector3(32, 48, 0);

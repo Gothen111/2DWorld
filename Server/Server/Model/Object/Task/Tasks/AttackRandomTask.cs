@@ -60,7 +60,7 @@ namespace Server.Model.Object.Task.Tasks
                 }
                 else
                 {
-                    /*List<LivingObject> var_LivingObjects = this.TaskOwner.World.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                    List<LivingObject> var_LivingObjects = this.TaskOwner.World.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
                     var_LivingObjects.Remove(this.TaskOwner);
                     if (var_LivingObjects.Count > 0)
                     {
@@ -75,7 +75,7 @@ namespace Server.Model.Object.Task.Tasks
                             target = null;
                         }
                     }
-                    var_LivingObjects.Clear();*/
+                    var_LivingObjects.Clear();
                     target = this.TaskOwner.AggroSystem.getTarget();
                     updateTarget = 50;
                 }
