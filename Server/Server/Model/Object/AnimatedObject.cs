@@ -43,6 +43,14 @@ namespace Server.Model.Object
             get { return new Rectangle((int)(this.Position.X + this.animation.drawPositionExtra().X - this.Size.X / 2), (int)(this.Position.Y + this.animation.drawPositionExtra().Y - this.Size.Y), (int)this.Size.X, (int)this.Size.Y); }
         }
 
+        private List<Rectangle> collisionBounds;
+
+        public List<Rectangle> CollisionBounds
+        {
+            get { return collisionBounds; }
+            set { collisionBounds = value; }
+        }
+
         private float movementSpeed;
 
         public float MovementSpeed
@@ -115,6 +123,7 @@ namespace Server.Model.Object
 
             this.standartStandPositionX = 0;
             this.movementSpeed = 1.0f;
+            this.collisionBounds = new List<Rectangle>();
         }
 
         public override void update()

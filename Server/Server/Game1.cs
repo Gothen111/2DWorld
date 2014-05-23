@@ -90,7 +90,8 @@ namespace Server
             }*/
 
             Model.Object.PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
-            var_PlayerObject.Position = new Vector3(100, 100, 0);
+            var_PlayerObject.Position = new Vector3(0, 0, 0);
+            var_PlayerObject.CollisionBounds.Add(new Rectangle(var_PlayerObject.DrawBounds.Left + 5, var_PlayerObject.DrawBounds.Bottom - 15, var_PlayerObject.DrawBounds.Width - 10, 15));
             var_PlayerObject.GraphicPath = "Character/Char1_Small";
             var_PlayerObject.World = world;
             //var_PlayerObject.Size = new Vector3(32, 48, 0);

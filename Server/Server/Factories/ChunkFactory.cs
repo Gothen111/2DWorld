@@ -39,7 +39,7 @@ namespace Server.Factories
             //generateWall(var_Result, 18, 18);
             generateSecondLayer(var_Result, _Layer);
             //generateFlowers(var_Result);
-            //generateTrees(var_Result);
+            generateTrees(var_Result);
             //generateWall(var_Result);
 
             return var_Result;
@@ -281,6 +281,7 @@ namespace Server.Factories
                 int var_Y = Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize) - 1);
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
+                var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left + 15, var_EnvironmentObject.DrawBounds.Bottom - 30, var_EnvironmentObject.DrawBounds.Width - 30, 20));
                 var_EnvironmentObject.World = _Chunk.ParentRegion.ParentWorld;
 
                 Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);

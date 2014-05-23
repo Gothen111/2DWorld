@@ -269,15 +269,12 @@ namespace Server.Model.Map.World
         {
             if (Util.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
             {
-                //Circle fits in node, so search in subnodes
-                Boolean circleFitsInSubnode = false;
                 foreach (QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
                 {
                     if (node != null)
                     {
                         if (Util.Intersection.RectangleIsInRectangle(bounds, node.Bounds))
                         {
-                            circleFitsInSubnode = true;
                             getObjectsInRange(bounds, node, result);
                         }
                     }
@@ -299,9 +296,23 @@ namespace Server.Model.Map.World
             {
                 if (!result.Contains(livingObject))
                 {
-                    if (Util.Intersection.CircleIntersectsRectangle(circle, livingObject.Bounds))
+                    if (Util.Intersection.CircleIntersectsRectangle(circle, livingObject.DrawBounds))
                     {
-                        result.Add(livingObject);
+                        if (livingObject.CollisionBounds.Count > 0)
+                        {
+                            foreach(Rectangle collisionBound in livingObject.CollisionBounds)
+                            {
+                                if(Util.Intersection.CircleIntersectsRectangle(circle, collisionBound))
+                                {
+                                    result.Add(livingObject);
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            result.Add(livingObject);
+                        }
                     }
                 }
             }
@@ -320,7 +331,21 @@ namespace Server.Model.Map.World
                 {
                     if (Util.Intersection.RectangleIntersectsRectangle(bounds, livingObject.DrawBounds))
                     {
-                        result.Add(livingObject);
+                        if (livingObject.CollisionBounds.Count > 0)
+                        {
+                            foreach (Rectangle collisionBound in livingObject.CollisionBounds)
+                            {
+                                if (Util.Intersection.RectangleIntersectsRectangle(bounds, collisionBound))
+                                {
+                                    result.Add(livingObject);
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            result.Add(livingObject);
+                        }
                     }
                 }
             }

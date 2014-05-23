@@ -30,6 +30,7 @@ namespace Server.Factories
                 EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(FactoryEnums.EnvironmentEnum.FarmHouse1);
                 var_EnvironmentObject.Position = new Microsoft.Xna.Framework.Vector3(500, 500, 0);
                 var_EnvironmentObject.World = _Region.ParentWorld;
+                var_EnvironmentObject.CollisionBounds.Add(new Microsoft.Xna.Framework.Rectangle(var_EnvironmentObject.DrawBounds.Left + 40, var_EnvironmentObject.DrawBounds.Bottom - 105, 280, 65)); 
                 _Region.ParentWorld.addLivingObject(var_EnvironmentObject,true, _Region); // Region wird erst world zugewiesen. dannach könne erst objetek hin :(
             }
         }
