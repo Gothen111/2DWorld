@@ -32,5 +32,39 @@ namespace Server.Model.Object.Equipment
             get { return range; }
             set { range = value; }
         }
+
+        private float attackSpeed;
+
+        public float AttackSpeed
+        {
+            get { return attackSpeed; }
+            set { attackSpeed = value; }
+        }
+
+        private float attackSpeedMax;
+
+        public float AttackSpeedMax
+        {
+            get { return attackSpeedMax; }
+            set { attackSpeedMax = value; }
+        }
+
+        public void update()
+        {
+            if (attackSpeed < attackSpeedMax)
+            {
+                attackSpeed++;
+            }
+        }
+
+        public Boolean isAttackReady()
+        {
+            return attackSpeed >= attackSpeedMax;
+        }
+
+        public void attack()
+        {
+            attackSpeed = 0;
+        }
     }
 }

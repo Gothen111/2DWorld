@@ -296,7 +296,7 @@ namespace Server.Model.Map.World
             {
                 if (!result.Contains(livingObject))
                 {
-                    if (Util.Intersection.CircleIntersectsRectangle(circle, livingObject.DrawBounds))
+                    if (Util.Intersection.CircleIntersectsRectangle(circle, livingObject.Bounds))
                     {
                         if (livingObject.CollisionBounds.Count > 0)
                         {
@@ -327,7 +327,7 @@ namespace Server.Model.Map.World
         {
             foreach (LivingObject livingObject in currentNode.Objects)
             {
-                if (!result.Contains(livingObject))
+                if (!result.Contains(livingObject) && !livingObject.IsDead)
                 {
                     if (Util.Intersection.RectangleIntersectsRectangle(bounds, livingObject.DrawBounds))
                     {

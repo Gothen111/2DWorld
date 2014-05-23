@@ -36,9 +36,9 @@ namespace Server.Factories
             this.fillChunkWithBlock(var_Result, BlockEnum.Gras);
 
             var_Result.setAllNeighboursOfBlocks();
-            //generateWall(var_Result, 18, 18);
+            generateWall(var_Result, 18, 18);
             generateSecondLayer(var_Result, _Layer);
-            //generateFlowers(var_Result);
+            generateFlowers(var_Result);
             generateTrees(var_Result);
             //generateWall(var_Result);
 

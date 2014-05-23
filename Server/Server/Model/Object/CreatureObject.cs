@@ -36,6 +36,21 @@ namespace Server.Model.Object
         public override void update()
         {
             base.update();
+            updateEquippment();
+        }
+
+        public void updateEquippment()
+        {
+            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            {
+                if (var_EquipmentObject is Server.Model.Object.Equipment.EquipmentWeapon)
+                {
+                    if (((Server.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).WeaponEnum != null)
+                    {
+                        ((Server.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).update();
+                    }
+                }
+            }
         }
 
         public void addEquipmentObject(EquipmentObject _EquipmentObject)
@@ -65,13 +80,17 @@ namespace Server.Model.Object
                     }
                 }
             }
-            if (var_EquipmentWeaponForAttack != null)
+            if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady())
             {
                 List<LivingObject> var_LivingObjects = this.World.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.Range);
                 var_LivingObjects.Remove(this);
                 foreach (LivingObject var_LivingObject in var_LivingObjects)
                 {
                     this.attackLivingObject(var_LivingObject, var_EquipmentWeaponForAttack.NormalDamage);
+                }
+                if (var_LivingObjects.Count > 0)
+                {
+                    var_EquipmentWeaponForAttack.attack();
                 }
             }
         }

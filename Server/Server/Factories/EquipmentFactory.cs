@@ -40,6 +40,8 @@ namespace Server.Factories
                         equipmentWeaponObject.NormalDamage = 2;
                         equipmentWeaponObject.WeaponEnum = _WeaponEnum;
                         equipmentWeaponObject.Range = 50;
+                        equipmentWeaponObject.AttackSpeed = 0;
+                        equipmentWeaponObject.AttackSpeedMax = 60;
                         break;
                     }
             }

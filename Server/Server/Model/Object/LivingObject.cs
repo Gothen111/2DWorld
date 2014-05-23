@@ -271,7 +271,7 @@ namespace Server.Model.Object
                     this.CurrentBlock.objectsPreEnviorment.Add(this);
                     this.CurrentBlock.removeLivingObject(this);
                 }
-                catch (KeyNotFoundException e)
+                catch (Exception e)
                 {
                     this.World.removeObjectFromWorld(this);
                 }
