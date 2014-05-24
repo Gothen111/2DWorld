@@ -32,6 +32,8 @@ namespace Server.Model.Map.Region
             set { parentWorld = value; }
         }
 
+        private RegionEnum regionEnum;
+
         public Region(SerializationInfo info, StreamingContext ctxt)
         {
             this.chunks = (List<Chunk.Chunk>)info.GetValue("chunks", typeof(List<Chunk.Chunk>));
@@ -43,7 +45,7 @@ namespace Server.Model.Map.Region
             info.AddValue("chunks", this.chunks, typeof(List<Chunk.Chunk>));
         }
 
-        public Region(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, World.World _ParentWorld)
+        public Region(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, RegionEnum _RegionEnum, World.World _ParentWorld)
         {
             this.Id = _Id;
             this.Name = _Name;
@@ -52,6 +54,8 @@ namespace Server.Model.Map.Region
 
             chunks = new List<Chunk.Chunk>();
 
+            this.regionEnum = _RegionEnum;
+
             parentWorld = _ParentWorld;
         }
 
@@ -59,15 +63,15 @@ namespace Server.Model.Map.Region
         {
             if (!containsChunk(_Chunk.Id))
             {
-                if (_PosX >= Bounds.Left && _PosX <= Bounds.Right)
+                /*if (_PosX >= Bounds.Left && _PosX <= Bounds.Right)
                 {
                     if (_PosY >= Bounds.Top && _PosY <= Bounds.Bottom)
-                    {
+                    {*/
                         this.chunks.Add(_Chunk);
                         this.setAllNeighboursOfChunk(_Chunk);
                         return true;
-                    }
-                }
+                /*    }
+                }*/
                 Logger.Logger.LogErr("Region->setChunkAtPosition(...) : Platzierung nicht möglich: PosX " + _PosX + " PosY " + _PosY);
                 return false;
             }
@@ -165,6 +169,11 @@ namespace Server.Model.Map.Region
             {
                 var_Chunk.update();
             }
+        }
+
+        public void createChunkAt(int _PosX, int _PosY)
+        {
+            Factories.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
         }
     }
 }

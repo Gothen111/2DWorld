@@ -88,8 +88,8 @@ namespace Server
             var_PlayerObject.World = world;
             //var_PlayerObject.Size = new Vector3(32, 48, 0);
             //var_PlayerObject.Scale = 2f;
-            world.addLivingObject(var_PlayerObject);
-
+            //world.addLivingObject(var_PlayerObject);
+            world.addPlayerObject(var_PlayerObject);
             playerObject = var_PlayerObject;
 
             camera.setTarget(playerObject);
