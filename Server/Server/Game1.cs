@@ -1,6 +1,10 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+
 using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -54,18 +58,6 @@ namespace Server
 
             camera = new Camera.Camera(GraphicsDevice.Viewport);
 
-            Race race = BehaviourFactory.behaviourFactory.getRace(RaceEnum.Human);
-            Faction faction = BehaviourFactory.behaviourFactory.getFaction(FactionEnum.Castle_Test2);
-            foreach (Model.Behaviour.BehaviourItem<Race> behaviourItem in race.BehaviourMember)
-            {
-                Logger.Logger.LogInfo("Rasse " + race.Type.ToString() + " hat ein Verhalten zu " + behaviourItem.Item.Type.ToString() + " mit " + behaviourItem.Value.ToString());
-            }
-
-            foreach (Model.Behaviour.BehaviourItem<Faction> behaviourItem in faction.BehaviourMember)
-            {
-                Logger.Logger.LogInfo("Fraktion " + faction.Type.ToString() + " hat ein Verhalten zu " + behaviourItem.Item.Type.ToString() + " mit " + behaviourItem.Value.ToString());
-            }
-
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
@@ -117,7 +109,10 @@ namespace Server
 
 
             watch.Stop();
-            Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
+            Util.Serializer.SerializeObject("world.obj", world);
+            Logger.Logger.LogInfo("Größe der World: " + new System.IO.FileInfo("world.obj").Length / 1000 + "KB");
+            //Model.Map.World.World world2 = (Model.Map.World.World)Util.Serializer.DeSerializeObject("world.gz");
+            //Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
 
             //Util.MapHandler var_MapHandler = new Util.MapHandler(40, 20, 35);
             //var_MapHandler.PrintMap();

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Server.Model.Object.Task.Aggro
 {
+    [Serializable()]
     class AggroSystem<E>
     {
         Dictionary<E, float> aggroItems;
@@ -18,6 +20,17 @@ namespace Server.Model.Object.Task.Aggro
         public AggroSystem()
         {
             aggroItems = new Dictionary<E, float>();
+        }
+
+        public AggroSystem(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.aggroItems = (Dictionary<E, float>)info.GetValue("aggroItems", typeof(Dictionary<E, float>));
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+
+            info.AddValue("aggroItems", this.aggroItems, typeof(Dictionary<E, float>));
         }
 
         public Boolean ContainsUnit(E unit)

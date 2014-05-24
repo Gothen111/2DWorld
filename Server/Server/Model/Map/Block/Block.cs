@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Server.Model.Map.Block
 {
+    [Serializable()]
     class Block : Box
     {
         public static int BlockSize = 32;
@@ -62,6 +64,22 @@ namespace Server.Model.Map.Block
             objectsPreEnviorment = new List<Object.LivingObject>();
 
             this.isWalkAble = true;
+        }
+
+        public Block(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.layer = (BlockEnum[])info.GetValue("layer", typeof(BlockEnum[]));
+            //TODO: Alle Objekttypen müssen serialisierbar gemacht werden
+            //this.objects = (List<Object.LivingObject>)info.GetValue("objects", typeof(List<Object.LivingObject>));
+            //this.objectsPreEnviorment = (List<Object.LivingObject>)info.GetValue("objectsPreEnviorment", typeof(List<Object.LivingObject>));
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
+            info.AddValue("layer", this.layer, typeof(BlockEnum[]));
+            //info.AddValue("objects", this.objects, typeof(List<Object.LivingObject>));
+            //info.AddValue("objectsPreEnviorment", this.objectsPreEnviorment, typeof(List<Object.LivingObject>));
         }
 
         public void setLayerAt(Enum _Enum, BlockLayerEnum _Id)

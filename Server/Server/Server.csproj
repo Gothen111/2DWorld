@@ -129,7 +129,12 @@
     <Compile Include="Factories\FarmFactory.cs" />
     <Compile Include="Model\Collison\QuadTree2.cs" />
     <Compile Include="Model\Map\Box.cs" />
+    <Compile Include="Model\Map\World\SearchFlags\DeadFlag.cs" />
+    <Compile Include="Model\Map\World\SearchFlags\IsDamagedFlag.cs" />
+    <Compile Include="Model\Map\World\SearchFlags\FactionFlag.cs" />
     <Compile Include="Model\Map\World\SearchFlags\NpcObjectFlag.cs" />
+    <Compile Include="Model\Map\World\SearchFlags\PlayerObjectFlag.cs" />
+    <Compile Include="Model\Map\World\SearchFlags\RaceFlag.cs" />
     <Compile Include="Model\Map\World\SearchFlags\Searchflag.cs" />
     <Compile Include="Model\Object\Animation\Animations\OpenChestAnimation.cs" />
     <Compile Include="Model\Object\Equipment\EquipmentWeapon.cs" />
@@ -207,6 +212,7 @@
     <Compile Include="Util\Intersection.cs" />
     <Compile Include="Util\MapHandler.cs" />
     <Compile Include="Util\Random.cs" />
+    <Compile Include="Util\Serializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

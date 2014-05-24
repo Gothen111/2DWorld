@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,6 +14,7 @@ using Server.Model.Object.Interaction;
 
 namespace Server.Model.Object
 {
+    [Serializable()]
     class LivingObject : AnimatedObject
     {
         private float healthPoints;
@@ -111,6 +113,45 @@ namespace Server.Model.Object
             currentTask = null;
             this.canBeEffected = true;
             this.interactions = new List<LivingObjectInteraction>();
+        }
+
+        public LivingObject(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
+        {
+            this.healthPoints = (float)info.GetValue("healthPoints", typeof(float));
+            this.maxHealthPoints = (float)info.GetValue("maxHealthPoints", typeof(float));
+            this.aggroRange = (float)info.GetValue("aggroRange", typeof(float));
+
+            this.isDead = (bool)info.GetValue("isDead", typeof(bool));
+            this.canBeEffected = (bool)info.GetValue("canBeEffected", typeof(bool));
+
+            this.gender = (GenderEnum)info.GetValue("gender", typeof(GenderEnum));
+
+            this.aggroSystem = (Task.Aggro.AggroSystem<LivingObject>)info.GetValue("aggroSystem", typeof(Task.Aggro.AggroSystem<LivingObject>));
+
+            //TODO: Verändere Methoden, sodass Interaction und Tasks nicht mehr den Owner speichern, sonst gibt es eine Kettenspeicherung bei Serialisierung
+            //this.interactions = (List<LivingObjectInteraction>)info.GetValue("interactions", typeof(List<LivingObjectInteraction>));
+
+            //this.tasks = (List<LivingObjectTask>)info.GetValue("tasks", typeof(List<LivingObjectTask>));
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
+
+            info.AddValue("healthPoints", this.healthPoints, typeof(float));
+            info.AddValue("maxHealthPoints", this.maxHealthPoints, typeof(float));
+            info.AddValue("aggroRange", this.aggroRange, typeof(float));
+
+            info.AddValue("isDead", this.isDead, typeof(bool));
+            info.AddValue("canBeEffected", this.canBeEffected, typeof(bool));
+
+            info.AddValue("gender", this.gender, typeof(GenderEnum));
+
+            info.AddValue("aggroSystem", this.aggroSystem, typeof(Task.Aggro.AggroSystem<LivingObject>));
+
+            //info.AddValue("interactions", this.interactions, typeof(List<LivingObjectInteraction>));
+
+            //info.AddValue("tasks", this.tasks, typeof(List<LivingObjectTask>));
         }
 
         public override void update()
@@ -234,6 +275,11 @@ namespace Server.Model.Object
         {
             ChangeDirection(_TargetPosition);
             this.Position = _TargetPosition;
+        }
+
+        public Boolean isInfight()
+        {
+            return aggroSystem.AggroItems.Count > 0;
         }
 
         public virtual void onAttacked(LivingObject _Attacker, int _DamageAmount)

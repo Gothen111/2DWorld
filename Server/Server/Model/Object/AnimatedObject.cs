@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,6 +11,7 @@ using Server.Model.Object.ObjectEnums;
 
 namespace Server.Model.Object
 {
+    [Serializable()]
     class AnimatedObject: Object
     {
         public event EventHandler ObjectMoves;
@@ -124,6 +126,34 @@ namespace Server.Model.Object
             this.standartStandPositionX = 0;
             this.movementSpeed = 1.0f;
             this.collisionBounds = new List<Rectangle>();
+        }
+
+        public AnimatedObject(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
+        {
+            this.scale = (float)info.GetValue("scale", typeof(float));
+            this.layerDepth = (float)info.GetValue("layerDepth", typeof(float));
+            this.movementSpeed = (float)info.GetValue("movementSpeed", typeof(float));
+
+            this.directionEnum = (DirectionEnum)info.GetValue("directionEnum", typeof(DirectionEnum));
+
+            this.graphicPath = (String)info.GetValue("graphicPath", typeof(String));
+
+            this.standartStandPositionX = (int)info.GetValue("standartStandPositionX", typeof(int));
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
+
+            info.AddValue("scale", this.scale, typeof(float));
+            info.AddValue("layerDepth", this.layerDepth, typeof(float));
+            info.AddValue("movementSpeed", this.movementSpeed, typeof(float));
+
+            info.AddValue("directionEnum", this.directionEnum, typeof(DirectionEnum));
+
+            info.AddValue("grapicPath", this.graphicPath, typeof(String));
+
+            info.AddValue("standartStandPositionX", this.standartStandPositionX, typeof(int));
         }
 
         public override void update()

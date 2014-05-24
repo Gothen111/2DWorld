@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using Server.Model.Map.Chunk;
 namespace Server.Model.Object
 {
+    [Serializable()]
     class Object
     {
         private static int _id = 0;
@@ -76,6 +78,32 @@ namespace Server.Model.Object
         public Object()
         {
             
+        }
+
+        public Object(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.Id = (int)info.GetValue("Id", typeof(int));
+
+            this.position = (Vector3)info.GetValue("position", typeof(Vector3));
+            this.size = (Vector3)info.GetValue("size", typeof(Vector3));
+            this.velocity = (Vector3)info.GetValue("velocity", typeof(Vector3));
+
+            this.bounds = (Rectangle)info.GetValue("bounds", typeof(Rectangle));
+
+            this.objects = (List<Object>)info.GetValue("objects", typeof(List<Object>));
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            info.AddValue("Id", this.Id, typeof(int));
+
+            info.AddValue("position", this.position, typeof(Vector3));
+            info.AddValue("size", this.size, typeof(Vector3));
+            info.AddValue("velocity", this.velocity, typeof(Vector3));
+
+            info.AddValue("bounds", this.bounds, typeof(Rectangle));
+
+            info.AddValue("objects", this.objects, typeof(List<Object>));
         }
 
         public virtual void update()

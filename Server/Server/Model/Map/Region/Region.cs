@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using Server.Model.Map.Chunk;
@@ -11,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Server.Model.Map.Region
 {
+    [Serializable()]
     class Region : Box
     {
         public static int regionSizeX = 2;
@@ -28,6 +30,17 @@ namespace Server.Model.Map.Region
         {
             get { return parentWorld; }
             set { parentWorld = value; }
+        }
+
+        public Region(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.chunks = (List<Chunk.Chunk>)info.GetValue("chunks", typeof(List<Chunk.Chunk>));
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
+            info.AddValue("chunks", this.chunks, typeof(List<Chunk.Chunk>));
         }
 
         public Region(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, World.World _ParentWorld)

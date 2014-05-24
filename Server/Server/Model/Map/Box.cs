@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 namespace Server.Model.Map
 {
-    class Box
+    [Serializable()]
+    class Box : ISerializable
     {
         private int id;
 
@@ -75,6 +77,27 @@ namespace Server.Model.Map
         {
             get { return parent; }
             set { parent = value; }
+        }
+
+        public Box()
+        {
+
+        }
+
+        public Box(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.id = (int)info.GetValue("id", typeof(int));
+            this.size = (Vector2)info.GetValue("size", typeof(Vector2));
+            this.position = (Vector2)info.GetValue("position", typeof(Vector2));
+            this.name = (String)info.GetValue("name", typeof(String));
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            info.AddValue("id", this.id);
+            info.AddValue("size", this.size, typeof(Vector2));
+            info.AddValue("position", this.position, typeof(Vector2));
+            info.AddValue("name", this.name);
         }
 
         public virtual void update()

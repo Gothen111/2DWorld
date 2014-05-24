@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using Server.Logger;
@@ -13,6 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Server.Model.Map.Chunk
 {
+    [Serializable()]
     class Chunk : Box
     {
         public static int chunkSizeX = 40; // 40
@@ -49,6 +51,17 @@ namespace Server.Model.Map.Chunk
             blocks = new Block.Block[_SizeX, _SizeY];
 
             this.parentRegion = _ParentRegion;
+        }
+
+        public Chunk(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.blocks = (Block.Block[,])info.GetValue("blocks", typeof(Block.Block[,]));
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
+            info.AddValue("blocks", this.blocks, typeof(Block.Block[,]));
         }
 
         public bool setBlockAtPosition(int _PosX, int _PosY, Block.Block _Block)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using Server.Model.Map.Region;
@@ -12,7 +13,8 @@ using Server.Model.Collison;
 
 namespace Server.Model.Map.World
 {
-    class World
+    [Serializable()]
+    class World : ISerializable
     {
         private List<Region.Region> regions;
 
@@ -38,6 +40,16 @@ namespace Server.Model.Map.World
         {
             get { return size; }
             set { size = value; }
+        }
+
+        public World(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.regions = (List<Region.Region>)info.GetValue("regions", typeof(List<Region.Region>));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            info.AddValue("regions", this.regions, typeof(List<Region.Region>));
         }
 
         public World(String _Name)
