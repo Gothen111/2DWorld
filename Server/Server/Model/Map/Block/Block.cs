@@ -180,7 +180,7 @@ namespace Server.Model.Map.Block
             return var_Count;
         }
 
-        public void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, float _LayerDepth)
+        /*public void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, float _LayerDepth)
         {
             Vector2 var_DrawPosition = this.Position;
 
@@ -234,6 +234,73 @@ namespace Server.Model.Map.Block
             foreach (Object.LivingObject var_LivingObject in this.objectsPreEnviorment)
             {
                 var_LivingObject.LayerDepth = _LayerDepth + 0.1f - (this.Position.Y - var_LivingObject.Position.Y) * 0.0001f - var_i * 0.00001f; // ??? VLL abs noch dran?
+                var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
+                var_i += 1;
+            }
+        }*/
+
+        public void drawBlock(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            Vector2 var_DrawPosition = this.Position;
+
+            Color var_Color = Color.White;
+
+            if (this.objects.Count > 0)
+            {
+                var_Color = Color.Green;
+            }
+
+            BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
+            while ((int)var_Layer < 6)
+            {
+                BlockEnum var_Enum = this.layer[(int)var_Layer];
+                if (var_Enum != BlockEnum.Nothing)
+                {
+                    if (var_Layer == BlockLayerEnum.Layer1)
+                    {
+                        if (var_Enum == BlockEnum.Gras)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.97f);
+                        }
+                        if (var_Enum == BlockEnum.Wall)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.97f);
+                        }
+                    }
+                    if (var_Layer == BlockLayerEnum.Layer2)
+                    {
+                        if (var_Enum == BlockEnum.Gras)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.96f);
+                        }
+                        if (var_Enum == BlockEnum.Dirt)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.96f);
+                        }
+                    }
+                }
+                var_Layer += 1;
+            }
+        }
+
+        public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            
+
+            //int var_ChunkY = (int)(this.parentChunk.Position.Y / Chunk.Chunk.chunkSizeY*Block.BlockSize);
+            float var_LayerDepth = 0.79f;
+
+            int var_i = 0;
+            foreach (Object.LivingObject var_LivingObject in this.objects)
+            {
+                var_LivingObject.LayerDepth = var_LayerDepth - (this.Position.Y - var_LivingObject.Position.Y) * 0.0001f - var_i * 0.00001f; // ??? VLL abs noch dran?
+                var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
+                var_i += 1;
+            }
+            var_i = 0;
+            foreach (Object.LivingObject var_LivingObject in this.objectsPreEnviorment)
+            {
+                var_LivingObject.LayerDepth = var_LayerDepth + 0.1f - (this.Position.Y - var_LivingObject.Position.Y) * 0.0001f - var_i * 0.00001f; // ??? VLL abs noch dran?
                 var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
                 var_i += 1;
             }

@@ -125,13 +125,35 @@ namespace Server.Model.Map.Chunk
             return null;
         }
 
-        public void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, float _LayerDepth, float _AmountToRemove)
+        /*public void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, float _LayerDepth, float _AmountToRemove)
         {
             for (int x = 0; x < this.Size.X; x++)
             {
                 for (int y = 0; y < this.Size.Y; y++)
                 {
                     this.getBlockAtPosition(x, y).draw(_GraphicsDevice, _SpriteBatch, _LayerDepth - _AmountToRemove * y);
+                }
+            }
+        }*/
+
+        public void drawBlocks(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            for (int x = 0; x < this.Size.X; x++)
+            {
+                for (int y = 0; y < this.Size.Y; y++)
+                {
+                    this.getBlockAtPosition(x, y).drawBlock(_GraphicsDevice, _SpriteBatch);
+                }
+            }
+        }
+
+        public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            for (int x = 0; x < this.Size.X; x++)
+            {
+                for (int y = 0; y < this.Size.Y; y++)
+                {
+                    this.getBlockAtPosition(x, y).drawObjects(_GraphicsDevice, _SpriteBatch);
                 }
             }
         }

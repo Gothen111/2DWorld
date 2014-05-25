@@ -157,6 +157,19 @@ namespace Server
             Model.Player.PlayerContoller.playerContoller.update();
             world.update();
             camera.update(gameTime);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Z))
+            {
+                if (camera.Zoom == 1f)
+                {
+                    camera.Zoom = 0.1f;
+                }
+                else
+                {
+                    camera.Zoom = 1f;
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -168,12 +181,24 @@ namespace Server
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin(SpriteSortMode.Deferred,
+                    BlendState.AlphaBlend, null, null, null, null,
+                    camera.getMatrix());
+
+            world.drawBlocks(GraphicsDevice, spriteBatch, playerObject);
+
+            spriteBatch.End();
+
             spriteBatch.Begin(SpriteSortMode.BackToFront,
                     BlendState.AlphaBlend, null, null, null, null,
                     camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
 
-            world.draw(GraphicsDevice, spriteBatch, playerObject);
-            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(camera.Position.X, camera.Position.Y), Color.White);
+            world.drawObjects(GraphicsDevice, spriteBatch, playerObject);
+
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0,0), Color.White);
             //spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + world.QuadTree.Root.quadObjects.ToString(), new Vector2(100, 0), Color.White);
             spriteBatch.End();
 

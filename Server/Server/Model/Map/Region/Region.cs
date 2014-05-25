@@ -94,29 +94,55 @@ namespace Server.Model.Map.Region
 
         public void setAllNeighboursOfChunk(Chunk.Chunk _Chunk)
         {
-            Chunk.Chunk var_ChunkNeighbour = this.getChunkAtPosition(_Chunk.Position.X - Chunk.Chunk.chunkSizeX*Block.Block.BlockSize, _Chunk.Position.Y);
-            
-            if (var_ChunkNeighbour != null)
+            Chunk.Chunk var_ChunkNeighbourLeft = this.getChunkAtPosition(_Chunk.Position.X - Chunk.Chunk.chunkSizeX*Block.Block.BlockSize, _Chunk.Position.Y);
+
+            if (var_ChunkNeighbourLeft != null)
             {
-                _Chunk.LeftNeighbour = var_ChunkNeighbour;
-                var_ChunkNeighbour.RightNeighbour = _Chunk;
+                _Chunk.LeftNeighbour = var_ChunkNeighbourLeft;
+                var_ChunkNeighbourLeft.RightNeighbour = _Chunk;
                 for (int blockY = 0; blockY < Chunk.Chunk.chunkSizeY; blockY++)
                 {
-                    _Chunk.getBlockAtPosition(0, blockY).LeftNeighbour = var_ChunkNeighbour.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);
-                    var_ChunkNeighbour.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY).RightNeighbour = _Chunk.getBlockAtPosition(0, blockY);
+                    _Chunk.getBlockAtPosition(0, blockY).LeftNeighbour = var_ChunkNeighbourLeft.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);
+                    var_ChunkNeighbourLeft.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY).RightNeighbour = _Chunk.getBlockAtPosition(0, blockY);
                 }
             }
 
-            var_ChunkNeighbour = this.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y - Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
-            
-            if (var_ChunkNeighbour != null)
+            Chunk.Chunk var_ChunkNeighbourRight = this.getChunkAtPosition(_Chunk.Position.X + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, _Chunk.Position.Y);
+
+            if (var_ChunkNeighbourRight != null)
             {
-                _Chunk.TopNeighbour = var_ChunkNeighbour;
-                var_ChunkNeighbour.BottomNeighbour = _Chunk;
+                _Chunk.RightNeighbour = var_ChunkNeighbourRight;
+                var_ChunkNeighbourRight.LeftNeighbour = _Chunk;
+                for (int blockY = 0; blockY < Chunk.Chunk.chunkSizeY; blockY++)
+                {
+                    _Chunk.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY).RightNeighbour = var_ChunkNeighbourRight.getBlockAtPosition(0, blockY);
+                    var_ChunkNeighbourRight.getBlockAtPosition(0, blockY).LeftNeighbour = _Chunk.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);                  
+                }
+            }
+
+            Chunk.Chunk var_ChunkNeighbourTop = this.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y - Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+
+            if (var_ChunkNeighbourTop != null)
+            {
+                _Chunk.TopNeighbour = var_ChunkNeighbourTop;
+                var_ChunkNeighbourTop.BottomNeighbour = _Chunk;
                 for (int blockX = 0; blockX < Chunk.Chunk.chunkSizeX; blockX++)
                 {
-                    _Chunk.getBlockAtPosition(blockX, 0).TopNeighbour = var_ChunkNeighbour.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
-                    var_ChunkNeighbour.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1).BottomNeighbour = _Chunk.getBlockAtPosition(blockX, 0);
+                    _Chunk.getBlockAtPosition(blockX, 0).TopNeighbour = var_ChunkNeighbourTop.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
+                    var_ChunkNeighbourTop.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1).BottomNeighbour = _Chunk.getBlockAtPosition(blockX, 0);
+                }
+            }
+
+            Chunk.Chunk var_ChunkNeighbourBottom = this.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+
+            if (var_ChunkNeighbourBottom != null)
+            {
+                _Chunk.BottomNeighbour = var_ChunkNeighbourBottom;
+                var_ChunkNeighbourBottom.TopNeighbour = _Chunk;
+                for (int blockX = 0; blockX < Chunk.Chunk.chunkSizeX; blockX++)
+                {
+                    _Chunk.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1).BottomNeighbour = var_ChunkNeighbourBottom.getBlockAtPosition(blockX, 0);
+                    var_ChunkNeighbourBottom.getBlockAtPosition(blockX, 0).TopNeighbour = _Chunk.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
                 }
             }
         }
@@ -165,10 +191,10 @@ namespace Server.Model.Map.Region
         public override void update()
         {
             base.update();
-            foreach (Chunk.Chunk var_Chunk in this.chunks)
+            /*foreach (Chunk.Chunk var_Chunk in this.chunks)
             {
                 var_Chunk.update();
-            }
+            }*/
         }
 
         public void createChunkAt(int _PosX, int _PosY)
