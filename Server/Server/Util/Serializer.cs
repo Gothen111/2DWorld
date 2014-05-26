@@ -11,8 +11,9 @@ namespace Server.Util
         {
             Stream stream = File.Open(filename, FileMode.Create);
             var gZipStream = new GZipStream(stream, CompressionMode.Compress);
+            
             BinaryFormatter bFormatter = new BinaryFormatter();
-            bFormatter.Serialize(gZipStream, objectToSerialize);
+            bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
             stream.Close();
         }
 
@@ -22,7 +23,7 @@ namespace Server.Util
             Stream stream = File.Open(filename, FileMode.Open);
             var gZipStream = new GZipStream(stream, CompressionMode.Decompress);
             BinaryFormatter bFormatter = new BinaryFormatter();
-            objectToSerialize = (ISerializable)bFormatter.Deserialize(gZipStream);
+            objectToSerialize = (ISerializable)bFormatter.Deserialize(gZipStream.BaseStream);
             stream.Close();
             return objectToSerialize;
         }

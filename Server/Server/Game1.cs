@@ -111,7 +111,7 @@ namespace Server
             watch.Stop();
             Util.Serializer.SerializeObject("world.obj", world);
             Logger.Logger.LogInfo("Größe der World: " + new System.IO.FileInfo("world.obj").Length / 1000 + "KB");
-            //Model.Map.World.World world2 = (Model.Map.World.World)Util.Serializer.DeSerializeObject("world.gz");
+            Model.Map.World.World world2 = (Model.Map.World.World)Util.Serializer.DeSerializeObject("world.obj");
             //Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
 
             //Util.MapHandler var_MapHandler = new Util.MapHandler(40, 20, 35);
