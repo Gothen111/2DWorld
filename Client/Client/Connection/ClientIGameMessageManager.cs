@@ -6,11 +6,11 @@ using System.Text;
 using System.Net;
 using Lidgren.Network;
 
-using Server.Connection.Message;
+using Client.Connection.Message;
 
-namespace Server.Connection
+namespace Client.Connection
 {
-    class ServerIGameMessageManager
+    class ClientIGameMessageManager
     {
         public static void OnClientSendIGameMessage(EIGameMessageType _EIGameMessageType, NetIncomingMessage _NetIncomingMessage)
         {

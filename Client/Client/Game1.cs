@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using Client.Connection;
+
 namespace Client
 {
     /// <summary>
@@ -36,6 +38,8 @@ namespace Client
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            ClientNetworkManager.clientNetworkManager.Start("127.0.0.1", "14242");
 
             base.Initialize();
         }
@@ -71,6 +75,8 @@ namespace Client
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            ClientNetworkManager.clientNetworkManager.update();
 
             // TODO: Add your update logic here
 

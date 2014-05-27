@@ -6,27 +6,19 @@ using System.Text;
 using System.Net;
 using Lidgren.Network;
 
-using Server.Connection.Message;
+using Client.Connection.Message;
 
-namespace Server.Connection
+namespace Client.Connection
 {
-    class ServerMessageManager
+    class ClientMessageManager
     {
-        /// <summary>
-        /// Update für jeden Tick
-        /// </summary>
-        public void Update()
-        {
-            ProcessNetworkMessages();
-        }
-
         /// <summary>
         /// Bearbeitet Netzwerk Messages
         /// </summary>
         public static void ProcessNetworkMessages()
         {
             NetIncomingMessage im;
-            while ((im = ServerNetworkManager.serverNetworkManager.ReadMessage()) != null)
+            while ((im = ClientNetworkManager.clientNetworkManager.ReadMessage()) != null)
             {
                 switch (im.MessageType)
                 {
@@ -59,11 +51,11 @@ namespace Server.Connection
                     case NetIncomingMessageType.Data:
                         var gameMessageType = (EIGameMessageType)im.ReadByte();
 
-                        ServerIGameMessageManager.OnClientSendIGameMessage(gameMessageType, im);
+                        ClientIGameMessageManager.OnClientSendIGameMessage(gameMessageType, im);
 
                         break;
                 }
-                ServerNetworkManager.serverNetworkManager.Recycle(im);
+                ClientNetworkManager.clientNetworkManager.Recycle(im);
             }
         }
 

@@ -30,8 +30,6 @@ namespace Server.Connection
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             netServer = new NetServer(config);
             netServer.Start();
-
-            ServerMessageManager.serverMessageManager = new ServerMessageManager();
         }
 
         public void Disconnect()
@@ -102,7 +100,7 @@ namespace Server.Connection
         {
         }
 
-        public void UpdateEvents()
+        public void UpdateSendingEvents()
         {
             for (int i = 0; i < Event.EventList.Count; i++)
             {
@@ -114,6 +112,12 @@ namespace Server.Connection
                 Event.EventList.Remove(Event.EventList[i]);
                 i -= 1;
             }
+        }
+
+        public void update()
+        {
+            UpdateSendingEvents();
+            ServerMessageManager.ProcessNetworkMessages();
         }
     }
 }

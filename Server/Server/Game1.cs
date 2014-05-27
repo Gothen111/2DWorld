@@ -18,6 +18,7 @@ using Server.Factories.FactoryEnums;
 using Server.Model.Behaviour.Member;
 
 using Server.Camera;
+using Server.Connection;
 
 namespace Server
 {
@@ -42,6 +43,8 @@ namespace Server
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1500;
             graphics.PreferredBackBufferHeight = 800;
+
+            ServerNetworkManager.serverNetworkManager.Connect(14242);
 
             this.IsMouseVisible = true;
         }
@@ -110,7 +113,7 @@ namespace Server
 
             watch.Stop();
             Util.Serializer.SerializeObject("world.obj", world);
-            Logger.Logger.LogInfo("Größe der World: " + new System.IO.FileInfo("world.obj").Length / 1000 + "KB");
+            Logger.Logger.LogInfo("Größe der World: " + new System.IO.FileInfo("world.obj").Length / 1024 + "KB");
             Model.Map.World.World world2 = (Model.Map.World.World)Util.Serializer.DeSerializeObject("world.obj");
             //Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
 
@@ -169,6 +172,8 @@ namespace Server
                     camera.Zoom = 1f;
                 }
             }
+
+            ServerNetworkManager.serverNetworkManager.update();
 
             base.Update(gameTime);
         }
