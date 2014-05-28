@@ -7,5 +7,6 @@ namespace Server.Connection.Message
 {
     public enum EIGameMessageType
     {
+        UpdateChunkMessage
     }
 }

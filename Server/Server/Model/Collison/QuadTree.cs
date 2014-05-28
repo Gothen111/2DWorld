@@ -1,437 +1,543 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
-using Server.Model.Object;
 
-
-using Microsoft.Xna.Framework.Graphics;
-
-
-
-// VERSION 3.0
 namespace Server.Model.Collison
 {
-    //class QuadTree
-    //{
-    //      private int MAX_OBJECTS = 10;
- 
-    //      private int level;
-    //      private List<Object.LivingObject> objects;
-    //      private Rectangle bounds;
+    class QuadTree<T> where T : Server.Model.Object.Object
+    {
+        private readonly bool sort;
+        private readonly Vector3  minLeafSize;
+        private readonly int maxObjectsPerLeaf;
+        private QuadNode root = null;
+        private Dictionary<T, QuadNode> objectToNodeLookup = new Dictionary<T, QuadNode>();
+        private Dictionary<T, int> objectSortOrder = new Dictionary<T, int>();
+        public QuadNode Root { get { return root; } }
+        private object syncLock = new object();
+        private int objectSortId = 0;
 
-    //      public Rectangle Bounds
-    //      {
-    //          get { return bounds; }
-    //          set { bounds = value; }
-    //      }
-    //      private QuadTree[] nodes;
+        public QuadTree(Vector3 minLeafSize, int maxObjectsPerLeaf)
+        {
+            this.minLeafSize = minLeafSize;
+            this.maxObjectsPerLeaf = maxObjectsPerLeaf;
+        }
 
-    //    private const int TopRight = 0;
-    //    private const int TopLeft = 1;
-    //    private const int BottomLeft = 2;
-    //    private const int BottomRight = 3;
+        public int GetSortOrder(T quadObject)
+        {
+            lock (objectSortOrder)
+            {
+                if (!objectSortOrder.ContainsKey(quadObject))
+                    return -1;
+                else
+                {
+                    return objectSortOrder[quadObject];
+                }
+            }
+        }
 
-    //    private QuadTree parent;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minLeafSize">The smallest size a leaf will split into</param>
+        /// <param name="maxObjectsPerLeaf">Maximum number of objects per leaf before it forces a split into sub quadrants</param>
+        /// <param name="sort">Whether or not queries will return objects in the order in which they were added</param>
+        public QuadTree(Vector3 minLeafSize, int maxObjectsPerLeaf, bool sort)
+            : this(minLeafSize, maxObjectsPerLeaf)
+        {
+            this.sort = sort;
+        }
 
-    //    private Color color;
-        
-    //    /*
-    //      * Constructor
-    //      */
-    //    public QuadTree(int pLevel, Rectangle pBounds, QuadTree _Parent)
-    //      {
-    //          level = pLevel;
-    //          objects = new List<Object.LivingObject>();
-    //          bounds = pBounds;
-    //          parent = _Parent;
-    //          nodes = new QuadTree[4];
+        public void Insert(T quadObject)
+        {
+            lock (syncLock)
+            {
+                if (sort & !objectSortOrder.ContainsKey(quadObject))
+                {
+                    objectSortOrder.Add(quadObject, objectSortId++);
+                }
 
-    //          color = new Color(Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255), Server.Util.Random.GenerateGoodRandomNumber(0, 255));
-    //      }
+                Rectangle bounds = new Rectangle((int)quadObject.Position.X, (int)quadObject.Position.Y, (int)quadObject.Size.X, (int)quadObject.Size.Y);
+                if (root == null)
+                {
+                    var rootSize = new Vector3((float)Math.Ceiling(bounds.Width / minLeafSize.X),
+                                            (float)Math.Ceiling(bounds.Height / minLeafSize.Y), 0);
+                    double multiplier = Math.Max(rootSize.X, rootSize.Y);
+                    rootSize = new Vector3((float)(minLeafSize.X * multiplier), (float)(minLeafSize.Y * multiplier), 0);
+                    var center = new Point(bounds.X + bounds.Width / 2, bounds.Y + bounds.Height / 2);
+                    var rootOrigin = new Point((int)(center.X - rootSize.X / 2), (int)(center.Y - rootSize.Y / 2));
+                    root = new QuadNode(new Rectangle(rootOrigin.X, rootOrigin.Y,(int)rootSize.X, (int)rootSize.Y));
+                }
 
-    //      public QuadTree getQuadTreeLivingObjectIsIn(Object.LivingObject _LivingObject)
-    //      {
-    //          if (objects.Contains(_LivingObject))
-    //          {
-    //              return this;
-    //          }
-    //          else
-    //          {
-    //              double verticalMidpoint = bounds.X + (bounds.Width / 2);
-    //              double horizontalMidpoint = bounds.Y + (bounds.Height / 2);
+                while (!root.Bounds.Contains(bounds))
+                {
+                    ExpandRoot(bounds);
+                }
 
-    //              // Object can completely fit within the top quadrants
-    //              bool topQuadrant = (_LivingObject.Position.Y < horizontalMidpoint);
-    //              // Object can completely fit within the bottom quadrants
-    //              bool bottomQuadrant = (_LivingObject.Position.Y > horizontalMidpoint);
+                InsertNodeObject(root, quadObject);
+            }
+        }
 
-    //              // Object can completely fit within the left quadrants
-    //              if (_LivingObject.Position.X < verticalMidpoint)
-    //              {
-    //                  if (topQuadrant)
-    //                  {
-    //                      if(nodes[TopLeft]!=null)
-    //                      {
-    //                          return nodes[TopLeft].getQuadTreeLivingObjectIsIn(_LivingObject);
-    //                      }
-    //                  }
-    //                  else if (bottomQuadrant)
-    //                  {
-    //                      if (nodes[BottomLeft] != null)
-    //                      {
-    //                          return nodes[BottomLeft].getQuadTreeLivingObjectIsIn(_LivingObject);
-    //                      }
-    //                  }
-    //              }
-    //              // Object can completely fit within the right quadrants
-    //              else if (_LivingObject.Position.X > verticalMidpoint)
-    //              {
-    //                  if (topQuadrant)
-    //                  {
-    //                      if (nodes[TopRight] != null)
-    //                      {
-    //                          return nodes[TopLeft].getQuadTreeLivingObjectIsIn(_LivingObject);
-    //                      }
-    //                  }
-    //                  else if (bottomQuadrant)
-    //                  {
-    //                      if (nodes[BottomRight] != null)
-    //                      {
-    //                          return nodes[BottomRight].getQuadTreeLivingObjectIsIn(_LivingObject);
-    //                      }
-    //                  }
-    //              }
-    //          }
-    //          return null;
-    //      }
+        public List<T> Query(Rectangle bounds)
+        {
+            lock (syncLock)
+            {
+                List<T> results = new List<T>();
+                if (root != null)
+                    Query(bounds, root, results);
+                if (sort)
+                    results.Sort((a, b) => { return objectSortOrder[a].CompareTo(objectSortOrder[b]); });
+                return results;
+            }
+        }
 
-    //      /*
-    //       * Clears the quadtree
-    //       */
-    //      public void clear()
-    //      {
-    //          objects.Clear();
+        private void Query(Rectangle bounds, QuadNode node, List<T> results)
+        {
+            lock (syncLock)
+            {
+                if (node == null) return;
 
-    //          for (int i = 0; i < nodes.Length; i++)
-    //          {
-    //              if (nodes[i] != null)
-    //              {
-    //                  nodes[i].clear();
-    //                  nodes[i] = null;
-    //              }
-    //          }
-    //      }
+                if (bounds.Intersects(node.Bounds))
+                {
+                    foreach (T quadObject in node.Objects)
+                    {
+                        if (bounds.Intersects(quadObject.Bounds))
+                            results.Add(quadObject);
+                    }
 
-    //      /*
-    //         * Clears the nodes
-    //         */
-    //      public void clearNodes()
-    //      {
-    //          for (int i = 0; i < nodes.Length; i++)
-    //          {
-    //              if (nodes[i] != null)
-    //              {
-    //                  nodes[i].clear();
-    //                  nodes[i] = null;
-    //              }
-    //          }
-    //      }
+                    foreach (QuadNode childNode in node.Nodes)
+                    {
+                        Query(bounds, childNode, results);
+                    }
+                }
+            }
+        }
 
+        private void ExpandRoot(Rectangle newChildBounds)
+        {
+            lock (syncLock)
+            {
+                bool isNorth = root.Bounds.Y < newChildBounds.Y;
+                bool isWest = root.Bounds.X < newChildBounds.X;
 
-    //      /*
-    //       * Splits the node into 4 subnodes
-    //       */
-    //      private void split()
-    //      {
-    //          int subWidth = (int)(bounds.Width / 2);
-    //          int subHeight = (int)(bounds.Height / 2);
-    //          int x = (int)bounds.X;
-    //          int y = (int)bounds.Y;
+                Direction rootDirection;
+                if (isNorth)
+                {
+                    rootDirection = isWest ? Direction.NW : Direction.NE;
+                }
+                else
+                {
+                    rootDirection = isWest ? Direction.SW : Direction.SE;
+                }
 
-    //          nodes[TopRight] = new QuadTree(level + 1, new Rectangle(x + subWidth, y, subWidth, subHeight), this);
-    //          nodes[TopLeft] = new QuadTree(level + 1, new Rectangle(x, y, subWidth, subHeight), this);
-    //          nodes[BottomLeft] = new QuadTree(level + 1, new Rectangle(x, y + subHeight, subWidth, subHeight), this);
-    //          nodes[BottomRight] = new QuadTree(level + 1, new Rectangle(x + subWidth, y + subHeight, subWidth, subHeight), this);
-    //      }
+                double newX = (rootDirection == Direction.NW || rootDirection == Direction.SW)
+                                  ? root.Bounds.X
+                                  : root.Bounds.X - root.Bounds.Width;
+                double newY = (rootDirection == Direction.NW || rootDirection == Direction.NE)
+                                  ? root.Bounds.Y
+                                  : root.Bounds.Y - root.Bounds.Height;
+                Rectangle newRootBounds = new Rectangle((int)newX, (int)newY, root.Bounds.Width * 2, root.Bounds.Height * 2);
+                QuadNode newRoot = new QuadNode(newRootBounds);
+                SetupChildNodes(newRoot);
+                newRoot[rootDirection] = root;
+                root = newRoot;
+            }
+        }
 
-    //      /*
-    //         * Determine which node the object belongs to. -1 means
-    //         * object cannot completely fit within a child node and is part
-    //         * of the parent node
-    //         */
-    //      private int getIndex(Object.LivingObject _LivingObject)
-    //      {
-    //          int index = -1;
-    //          double verticalMidpoint = bounds.X + (bounds.Width / 2);
-    //          double horizontalMidpoint = bounds.Y + (bounds.Height / 2);
+        private void InsertNodeObject(QuadNode node, T quadObject)
+        {
+            lock (syncLock)
+            {
+                if (!node.Bounds.Contains(quadObject.Bounds))
+                    throw new Exception("This should not happen, child does not fit within node bounds");
 
-    //          // Object can completely fit within the top quadrants
-    //          bool topQuadrant = (_LivingObject.Position.Y < horizontalMidpoint);
-    //          // Object can completely fit within the bottom quadrants
-    //          bool bottomQuadrant = (_LivingObject.Position.Y > horizontalMidpoint);
+                if (!node.HasChildNodes() && node.Objects.Count + 1 > maxObjectsPerLeaf)
+                {
+                    SetupChildNodes(node);
 
-    //          // Object can completely fit within the left quadrants
-    //          if (_LivingObject.Position.X < verticalMidpoint)
-    //          {
-    //              if (topQuadrant)
-    //              {
-    //                  index = 1;
-    //              }
-    //              else if (bottomQuadrant)
-    //              {
-    //                  index = 2;
-    //              }
-    //          }
-    //          // Object can completely fit within the right quadrants
-    //          else if (_LivingObject.Position.X > verticalMidpoint)
-    //          {
-    //              if (topQuadrant)
-    //              {
-    //                  index = 0;
-    //              }
-    //              else if (bottomQuadrant)
-    //              {
-    //                  index = 3;
-    //              }
-    //          }
+                    List<T> childObjects = new List<T>(node.Objects);
+                    List<T> childrenToRelocate = new List<T>();
 
-    //          return index;
-    //      }
+                    foreach (T childObject in childObjects)
+                    {
+                        foreach (QuadNode childNode in node.Nodes)
+                        {
+                            if (childNode == null)
+                                continue;
 
-    //      /*
-    //       * Insert the object into the quadtree. If the node
-    //       * exceeds the capacity, it will split and add all
-    //       * objects to their corresponding nodes.
-    //       */
-    //      public void insert(Object.LivingObject _LivingObject) // insert gedöns //???
-    //      {
-    //          if (nodes[0] != null)
-    //          {
-    //              int index = getIndex(_LivingObject);
+                            if (childNode.Bounds.Contains(childObject.Bounds))
+                            {
+                                childrenToRelocate.Add(childObject);
+                            }
+                        }
+                    }
 
-    //              if (index != -1)
-    //              {
-    //                  nodes[index].insert(_LivingObject);
+                    foreach (T childObject in childrenToRelocate)
+                    {
+                        RemoveQuadObjectFromNode(childObject);
+                        InsertNodeObject(node, childObject);
+                    }
+                }
 
-    //                  return;
-    //              }
-    //          }
+                foreach (QuadNode childNode in node.Nodes)
+                {
+                    if (childNode != null)
+                    {
+                        if (childNode.Bounds.Contains(quadObject.Bounds))
+                        {
+                            InsertNodeObject(childNode, quadObject);
+                            return;
+                        }
+                    }
+                }
 
-    //          objects.Add(_LivingObject);
+                AddQuadObjectToNode(node, quadObject);
+            }
+        }
 
-    //          if (objects.Count > MAX_OBJECTS)
-    //          {
-    //              if (nodes[0] == null)
-    //              {
-    //                  split();
-    //              }
+        private void ClearQuadObjectsFromNode(QuadNode node)
+        {
+            lock (syncLock)
+            {
+                List<T> quadObjects = new List<T>(node.Objects);
+                foreach (T quadObject in quadObjects)
+                {
+                    RemoveQuadObjectFromNode(quadObject);
+                }
+            }
+        }
 
-    //              int i = 0;
-    //              while (i < objects.Count)
-    //              {
-    //                  int index = getIndex(objects.ElementAt(i));
-    //                  if (index != -1)
-    //                  {
-    //                      Object.LivingObject var_LivingObject = objects.ElementAt(i);
-    //                      nodes[index].insert(var_LivingObject);
-    //                      objects.Remove(var_LivingObject);
-    //                  }
-    //                  else
-    //                  {
-    //                      i++;
-    //                  }
-    //              }
-    //          }
-    //      }
+        private void RemoveQuadObjectFromNode(T quadObject)
+        {
+            lock (syncLock)
+            {
+                QuadNode node = objectToNodeLookup[quadObject];
+                node.quadObjects.Remove(quadObject);
+                objectToNodeLookup.Remove(quadObject);
+                quadObject.positionChanged -= new EventHandler(quadObject_BoundsChanged);
+            }
+        }
 
-    //      private bool isObjectStillInBound(LivingObject _LivingObject)
-    //      {
-    //          if (_LivingObject.Position.X >= this.bounds.X && _LivingObject.Position.Y >= this.bounds.Y)
-    //          {
-    //              if (_LivingObject.Position.X <= this.bounds.X + this.bounds.Width && _LivingObject.Position.Y <= this.bounds.Y + this.bounds.Height)
-    //              {
-    //                  return true;
-    //              }
-    //          }
-    //          return false;
-    //      }
+        private void AddQuadObjectToNode(QuadNode node, T quadObject)
+        {
+            lock (syncLock)
+            {
+                node.quadObjects.Add(quadObject);
+                objectToNodeLookup.Add(quadObject, node);
+                quadObject.positionChanged += new EventHandler(quadObject_BoundsChanged);
+            }
+        }
 
-    //      private bool giveLivingObjectToParent(LivingObject _LivingObject)
-    //      {
-    //          if (this.parent == null)
-    //          {
-    //              // OBJECT VERLÄSST CHUNK!! //???
-    //          }
-    //          else
-    //          {
-    //              if (this.parent.isObjectStillInBound(_LivingObject))
-    //              {
-    //                  this.parent.insert(_LivingObject);
-    //                  //this.remove(_LivingObject);
-    //                  return true; // ???
-    //              }
-    //              else
-    //              {
-    //                  return this.parent.giveLivingObjectToParent(_LivingObject);
-    //              }
-    //          }
-    //          return false; // ???
-    //      }
+        void quadObject_BoundsChanged(object sender, EventArgs e)
+        {
+            lock (syncLock)
+            {
+                T quadObject = sender as T;
+                if (quadObject != null)
+                {
+                    QuadNode node = objectToNodeLookup[quadObject];
+                    if (!node.Bounds.Contains(quadObject.Bounds) || node.HasChildNodes())
+                    {
+                        RemoveQuadObjectFromNode(quadObject);
+                        Insert(quadObject);
+                        if (node.Parent != null)
+                        {
+                            CheckChildNodes(node.Parent);
+                        }
+                    }
+                }
+            }
+        }
 
-    //      public void update()
-    //      {
-    //          List<LivingObject> var_LivingObjectsLeftThisTree = new List<LivingObject>();
-    //          List<LivingObject> var_LivingObjectsToRemove = new List<LivingObject>();
-    //          foreach (LivingObject var_LivingObject in objects)
-    //          {
-    //              var_LivingObject.update();
-    //              if (var_LivingObject.IsDead)
-    //              {
-    //                  var_LivingObjectsToRemove.Add(var_LivingObject);
-    //              }
-    //              else
-    //              {
-    //                  if (!isObjectStillInBound(var_LivingObject))
-    //                  {
-    //                      var_LivingObjectsLeftThisTree.Add(var_LivingObject);
-    //                  }
-    //              }
-    //          }
-    //          foreach (LivingObject var_LivingObject in var_LivingObjectsToRemove)
-    //          {
-    //              this.objects.Remove(var_LivingObject);
-    //          }
+        private void SetupChildNodes(QuadNode node)
+        {
+            lock (syncLock)
+            {
+                if (minLeafSize.X <= node.Bounds.Width / 2 && minLeafSize.Y <= node.Bounds.Height / 2)
+                {
+                    node[Direction.NW] = new QuadNode(node.Bounds.X, node.Bounds.Y, node.Bounds.Width / 2,
+                                                      node.Bounds.Height / 2);
+                    node[Direction.NE] = new QuadNode(node.Bounds.X + node.Bounds.Width / 2, node.Bounds.Y,
+                                                      node.Bounds.Width / 2,
+                                                      node.Bounds.Height / 2);
+                    node[Direction.SW] = new QuadNode(node.Bounds.X, node.Bounds.Y + node.Bounds.Height / 2,
+                                                      node.Bounds.Width / 2,
+                                                      node.Bounds.Height / 2);
+                    node[Direction.SE] = new QuadNode(node.Bounds.X + node.Bounds.Width / 2,
+                                                      node.Bounds.Y + node.Bounds.Height / 2,
+                                                      node.Bounds.Width / 2, node.Bounds.Height / 2);
 
-              
-    //          foreach (LivingObject var_LivingObject in var_LivingObjectsLeftThisTree)
-    //          {
-    //              if (this.giveLivingObjectToParent(var_LivingObject))
-    //              {
-    //                  this.objects.Remove(var_LivingObject);
-    //              }
-    //          }
+                }
+            }
+        }
 
-    //          checkChildNodes();
+        public void Remove(T quadObject)
+        {
+            lock (syncLock)
+            {
+                if (sort && objectSortOrder.ContainsKey(quadObject))
+                {
+                    objectSortOrder.Remove(quadObject);
+                }
 
-    //          foreach (QuadTree var_Node in nodes)
-    //          {
-    //              if (var_Node != null)
-    //              {
-    //                  var_Node.update();
-    //              }
-    //          }
-    //      }
+                if (!objectToNodeLookup.ContainsKey(quadObject))
+                    throw new KeyNotFoundException("QuadObject not found in dictionary for removal");
 
-    //      public void checkChildNodes()
-    //      {
-    //          if (this.nodes[0] != null)
-    //              if (this.nodes[0].objects.Count + this.nodes[1].objects.Count + this.nodes[2].objects.Count + this.nodes[3].objects.Count <= MAX_OBJECTS)
-    //              {
-    //                  if (this.nodes[0].nodes[0] == null && this.nodes[1].nodes[0] == null && this.nodes[2].nodes[0] == null && this.nodes[3].nodes[0] == null)
-    //                  {
-    //                      List<LivingObject> var_LivingObjectsLeftThisTree = new List<LivingObject>();
+                QuadNode containingNode = objectToNodeLookup[quadObject];
+                RemoveQuadObjectFromNode(quadObject);
 
-    //                      foreach (QuadTree var_Node in this.nodes)
-    //                      {
-    //                          foreach (LivingObject var_LivingObject in var_Node.objects)
-    //                          {
-    //                              var_LivingObjectsLeftThisTree.Add(var_LivingObject);
-    //                          }
-    //                      }
-    //                      //this.parent.clearNodes();
-    //                      this.clearNodes();
-    //                      foreach (LivingObject var_LivingObject in var_LivingObjectsLeftThisTree)
-    //                      {
-    //                          this.insert(var_LivingObject);
-    //                      }
-                          
-    //                  }
-    //              }
-    //      }
-
-    //      public void remove(LivingObject _LivingObject)
-    //      {
-    //          //this.objects.Remove(_LivingObject);
-    //          // noch viel anderes zeug wie z.b. nodes auflösen //???
-
-    //          if (this.parent != null)
-    //          {
-    //              if(this.parent.nodes[0] != null)
-    //              if (this.parent.nodes[0].objects.Count + this.parent.nodes[1].objects.Count + this.parent.nodes[2].objects.Count + this.parent.nodes[3].objects.Count <= MAX_OBJECTS)
-    //              {
-    //                  if (this.nodes[0] == null)
-    //                  {
-    //                      List<LivingObject> var_LivingObjectsLeftThisTree = new List<LivingObject>();
-              
-    //                      foreach (QuadTree var_Node in this.parent.nodes)
-    //                      {
-    //                          foreach (LivingObject var_LivingObject in var_Node.objects)
-    //                          {
-    //                              var_LivingObjectsLeftThisTree.Add(var_LivingObject);
-    //                          }
-    //                      }
-    //                      //this.parent.clearNodes();
-
-    //                      foreach (LivingObject var_LivingObject in var_LivingObjectsLeftThisTree)
-    //                      {
-    //                          this.parent.insert(var_LivingObject);
-    //                      }
-    //                      this.parent.clearNodes();
-
-    //                  }
-    //              }
-    //          }
-
-    //      }
+                if (containingNode.Parent != null)
+                    CheckChildNodes(containingNode.Parent);
+            }
+        }
 
 
-    //      public void DrawTest(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
-    //      {
-    //         /*Texture2D texture = new Texture2D(_GraphicsDevice, 1, 1);
-    //          texture.SetData<Color>(new Color[] { Color.White });
 
-    //          _SpriteBatch.Draw(texture, this.bounds, color);*/
+        private void CheckChildNodes(QuadNode node)
+        {
+            lock (syncLock)
+            {
+                if (GetQuadObjectCount(node) <= maxObjectsPerLeaf)
+                {
+                    // Move child objects into this node, and delete sub nodes
+                    List<T> subChildObjects = GetChildObjects(node);
+                    foreach (T childObject in subChildObjects)
+                    {
+                        if (!node.Objects.Contains(childObject))
+                        {
+                            RemoveQuadObjectFromNode(childObject);
+                            AddQuadObjectToNode(node, childObject);
+                        }
+                    }
+                    if (node[Direction.NW] != null)
+                    {
+                        node[Direction.NW].Parent = null;
+                        node[Direction.NW] = null;
+                    }
+                    if (node[Direction.NE] != null)
+                    {
+                        node[Direction.NE].Parent = null;
+                        node[Direction.NE] = null;
+                    }
+                    if (node[Direction.SW] != null)
+                    {
+                        node[Direction.SW].Parent = null;
+                        node[Direction.SW] = null;
+                    }
+                    if (node[Direction.SE] != null)
+                    {
+                        node[Direction.SE].Parent = null;
+                        node[Direction.SE] = null;
+                    }
 
-    //          foreach (LivingObject var_LivingObject in objects)
-    //          {
-    //              var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0,0,0), Color.White);
-    //              //_SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[var_LivingObject.GraphicPath], new Vector2(var_LivingObject.Position.X, var_LivingObject.Position.Y), new Rectangle(0,0,32,32), Color.White);
-    //          }         
+                    if (node.Parent != null)
+                        CheckChildNodes(node.Parent);
+                    else
+                    {
+                        // Its the root node, see if we're down to one quadrant, with none in local storage - if so, ditch the other three
+                        int numQuadrantsWithObjects = 0;
+                        QuadNode nodeWithObjects = null;
+                        foreach (QuadNode childNode in node.Nodes)
+                        {
+                            if (childNode != null && GetQuadObjectCount(childNode) > 0)
+                            {
+                                numQuadrantsWithObjects++;
+                                nodeWithObjects = childNode;
+                                if (numQuadrantsWithObjects > 1) break;
+                            }
+                        }
+                        if (numQuadrantsWithObjects == 1)
+                        {
+                            foreach (QuadNode childNode in node.Nodes)
+                            {
+                                if (childNode != nodeWithObjects)
+                                    childNode.Parent = null;
+                            }
+                            root = nodeWithObjects;
+                        }
+                    }
+                }
+            }
+        }
 
-    //          foreach (QuadTree var_Node in nodes)
-    //          {
-    //              if (var_Node != null)
-    //              {
-    //                  var_Node.DrawTest(_GraphicsDevice, _SpriteBatch);
-    //              }
-    //          }
-    //      }
 
-    //      public int getCountofAllObjects()
-    //      {
-    //          int var_Count = this.objects.Count;
-    //          foreach (QuadTree var_Node in nodes)
-    //          {
-    //              if(var_Node!=null)
-    //              var_Count += var_Node.getCountofAllObjects();
-    //          }
-    //          return var_Count;
-    //      }
+        private List<T> GetChildObjects(QuadNode node)
+        {
+            lock (syncLock)
+            {
+                List<T> results = new List<T>();
+                results.AddRange(node.quadObjects);
+                foreach (QuadNode childNode in node.Nodes)
+                {
+                    if (childNode != null)
+                        results.AddRange(GetChildObjects(childNode));
+                }
+                return results;
+            }
+        }
 
-    //      public List<Object.LivingObject> getAllLivingObjects(List<Object.LivingObject> var_LivingObjects)
-    //      {
-    //          var_LivingObjects.AddRange(this.objects);
-    //          foreach (QuadTree var_Node in nodes)
-    //          {
-    //              if(var_Node!=null)
-    //              {
-    //                  var_Node.getAllLivingObjects(var_LivingObjects);
-    //              }
-    //          }
-    //          return var_LivingObjects;
-    //      }
-    //}
+        public int GetQuadObjectCount()
+        {
+            lock (syncLock)
+            {
+                if (root == null)
+                    return 0;
+                int count = GetQuadObjectCount(root);
+                return count;
+            }
+        }
+
+        private int GetQuadObjectCount(QuadNode node)
+        {
+            lock (syncLock)
+            {
+                int count = node.Objects.Count;
+                foreach (QuadNode childNode in node.Nodes)
+                {
+                    if (childNode != null)
+                    {
+                        count += GetQuadObjectCount(childNode);
+                    }
+                }
+                return count;
+            }
+        }
+
+        public int GetQuadNodeCount()
+        {
+            lock (syncLock)
+            {
+                if (root == null)
+                    return 0;
+                int count = GetQuadNodeCount(root, 1);
+                return count;
+            }
+        }
+
+        private int GetQuadNodeCount(QuadNode node, int count)
+        {
+            lock (syncLock)
+            {
+                if (node == null) return count;
+
+                foreach (QuadNode childNode in node.Nodes)
+                {
+                    if (childNode != null)
+                        count++;
+                }
+                return count;
+            }
+        }
+
+        public List<QuadNode> GetAllNodes()
+        {
+            lock (syncLock)
+            {
+                List<QuadNode> results = new List<QuadNode>();
+                if (root != null)
+                {
+                    results.Add(root);
+                    GetChildNodes(root, results);
+                }
+                return results;
+            }
+        }
+
+        private void GetChildNodes(QuadNode node, ICollection<QuadNode> results)
+        {
+            lock (syncLock)
+            {
+                foreach (QuadNode childNode in node.Nodes)
+                {
+                    if (childNode != null)
+                    {
+                        results.Add(childNode);
+                        GetChildNodes(childNode, results);
+                    }
+                }
+            }
+        }
+
+        public class QuadNode
+        {
+            private static int _id = 0;
+            public readonly int ID = _id++;
+
+            public QuadNode Parent { get; internal set; }
+
+            private QuadNode[] _nodes = new QuadNode[4];
+            public QuadNode this[Direction direction]
+            {
+                get
+                {
+                    switch (direction)
+                    {
+                        case Direction.NW:
+                            return _nodes[0];
+                        case Direction.NE:
+                            return _nodes[1];
+                        case Direction.SW:
+                            return _nodes[2];
+                        case Direction.SE:
+                            return _nodes[3];
+                        default:
+                            return null;
+                    }
+                }
+                set
+                {
+                    switch (direction)
+                    {
+                        case Direction.NW:
+                            _nodes[0] = value;
+                            break;
+                        case Direction.NE:
+                            _nodes[1] = value;
+                            break;
+                        case Direction.SW:
+                            _nodes[2] = value;
+                            break;
+                        case Direction.SE:
+                            _nodes[3] = value;
+                            break;
+                    }
+                    if (value != null)
+                        value.Parent = this;
+                }
+            }
+
+            public ReadOnlyCollection<QuadNode> Nodes;
+
+            internal List<T> quadObjects = new List<T>();
+            public ReadOnlyCollection<T> Objects;
+
+            public Rectangle Bounds { get; internal set; }
+
+            public bool HasChildNodes()
+            {
+                return _nodes[0] != null;
+            }
+
+            public QuadNode(Rectangle bounds)
+            {
+                Bounds = bounds;
+                Nodes = new ReadOnlyCollection<QuadNode>(_nodes);
+                Objects = new ReadOnlyCollection<T>(quadObjects);
+            }
+
+            public QuadNode(double x, double y, double width, double height)
+                : this(new Rectangle((int)x, (int)y, (int)width, (int)height))
+            {
+
+            }
+        }
+    }
+
+    public enum Direction : int
+    {
+        NW = 0,
+        NE = 1,
+        SW = 2,
+        SE = 3
+    }
 }

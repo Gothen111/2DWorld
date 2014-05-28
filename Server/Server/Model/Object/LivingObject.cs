@@ -247,7 +247,7 @@ namespace Server.Model.Object
 
         public void interact()
         {
-            List<LivingObject> var_LivingObjects = this.World.getObjectsInRange(this.Position, this.Size.X+ 5);
+            List<LivingObject> var_LivingObjects = Model.Map.World.World.world.getObjectsInRange(this.Position, this.Size.X + 5);
             var_LivingObjects.Remove(this);
             foreach (LivingObject var_LivingObject in var_LivingObjects)
             {
@@ -308,12 +308,12 @@ namespace Server.Model.Object
                 }
                 catch (Exception e)
                 {
-                    this.World.removeObjectFromWorld(this);
+                    Model.Map.World.World.world.removeObjectFromWorld(this);
                 }
             }
             else if (this.healthPoints <= 0)
             {
-                this.World.removeObjectFromWorld(this);
+                Model.Map.World.World.world.removeObjectFromWorld(this);
             }
             else
             {

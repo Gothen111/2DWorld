@@ -201,5 +201,17 @@ namespace Server.Model.Map.Region
         {
             Factories.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
         }
+
+        public Chunk.Chunk getChunk(int _Id)
+        {
+            foreach (Chunk.Chunk var_Chunk in chunks)
+            {
+                if (var_Chunk.Id == _Id)
+                {
+                    return var_Chunk;
+                }
+            }
+            return null;
+        }
     }
 }

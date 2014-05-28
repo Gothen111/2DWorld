@@ -126,8 +126,9 @@
     <Compile Include="Commands\CommandTypes\WalkLeftCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkUpCommand.cs" />
+    <Compile Include="Connection\Message\UpdateChunkMessage.cs" />
     <Compile Include="Factories\FarmFactory.cs" />
-    <Compile Include="Model\Collison\QuadTree2.cs" />
+    <Compile Include="Model\Collison\QuadTree.cs" />
     <Compile Include="Model\Map\Box.cs" />
     <Compile Include="Model\Map\World\SearchFlags\DeadFlag.cs" />
     <Compile Include="Model\Map\World\SearchFlags\IsDamagedFlag.cs" />
@@ -169,7 +170,6 @@
     <Compile Include="Model\Behaviour\BehaviourItem.cs" />
     <Compile Include="Model\Behaviour\Member\Faction.cs" />
     <Compile Include="Model\Behaviour\Member\Race.cs" />
-    <Compile Include="Model\Collison\QuadTree.cs" />
     <Compile Include="Model\Map\Block\Block.cs" />
     <Compile Include="Model\Map\Block\BlockEnum.cs" />
     <Compile Include="Model\Map\Block\BlockLayerEnum.cs" />

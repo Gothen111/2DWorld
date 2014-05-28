@@ -33,7 +33,7 @@ namespace Server.Model.Object.Task.Tasks
             if (updateWantToDo <= 0)
             {
                 wantToDoTaskCheck = true;
-                List<LivingObject> var_LivingObjects = this.TaskOwner.World.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                List<LivingObject> var_LivingObjects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
                 if (var_LivingObjects.Count <= 1)
                     wantToDoTaskCheck = false;
                 updateWantToDo = 20;
@@ -60,7 +60,7 @@ namespace Server.Model.Object.Task.Tasks
                 }
                 else
                 {
-                    List<LivingObject> var_LivingObjects = this.TaskOwner.World.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                    List<LivingObject> var_LivingObjects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
                     var_LivingObjects.Remove(this.TaskOwner);
                     if (var_LivingObjects.Count > 0)
                     {
@@ -84,7 +84,7 @@ namespace Server.Model.Object.Task.Tasks
             {
                 if (target.IsDead)
                 {
-                    List<LivingObject> var_LivingObjects = this.TaskOwner.World.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                    List<LivingObject> var_LivingObjects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
                     var_LivingObjects.Remove(this.TaskOwner);
                     if (var_LivingObjects.Count > 0)
                     {

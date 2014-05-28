@@ -82,7 +82,7 @@ namespace Server.Model.Object
             }
             if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady())
             {
-                List<LivingObject> var_LivingObjects = this.World.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.Range, var_EquipmentWeaponForAttack.SearchFlags);
+                List<LivingObject> var_LivingObjects = Model.Map.World.World.world.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.Range, var_EquipmentWeaponForAttack.SearchFlags);
                 var_LivingObjects.Remove(this);
                 foreach (LivingObject var_LivingObject in var_LivingObjects)
                 {

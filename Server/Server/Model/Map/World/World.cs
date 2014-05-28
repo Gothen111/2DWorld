@@ -16,6 +16,8 @@ namespace Server.Model.Map.World
     [Serializable()]
     class World : ISerializable
     {
+        public static World world;
+
         private List<Region.Region> regions;
 
         private String name;
@@ -538,6 +540,18 @@ namespace Server.Model.Map.World
                     var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
                 }
             }
+        }
+
+        public Region.Region getRegion(int _Id)
+        {
+            foreach (Region.Region var_Region in regions)
+            {
+                if (var_Region.Id == _Id)
+                {
+                    return var_Region;
+                }
+            }
+            return null;
         }
     }
 }

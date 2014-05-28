@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.Xna.Framework;
 
-namespace Server.Model.Collison
+namespace Client.Model.Collison
 {
-    class QuadTree<T> where T : Server.Model.Object.Object
+    class QuadTree<T> where T : Model.Object.Object
     {
         private readonly bool sort;
         private readonly Vector3  minLeafSize;

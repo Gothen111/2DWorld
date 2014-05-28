@@ -30,7 +30,6 @@ namespace Server
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Server.Model.Map.World.World world;
         Server.Model.Map.Region.Region region;
 
         Camera.Camera camera;
@@ -64,10 +63,10 @@ namespace Server
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            world = new Model.Map.World.World("Welt");
-            region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, world);
+            Model.Map.World.World.world = new Model.Map.World.World("Welt");
+            region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, Model.Map.World.World.world);
 
-            world.addRegion(region);
+            Model.Map.World.World.world.addRegion(region);
             for (int i = 0; i < 50; i++)
             {
                 Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
@@ -80,19 +79,19 @@ namespace Server
                 var_LivingObject.GraphicPath = "Character/Char1_Small";
                 var_LivingObject.Scale = 1f;
 
-                var_LivingObject.World = world;
-                world.addLivingObject(var_LivingObject);
+
+                Model.Map.World.World.world.addLivingObject(var_LivingObject);
             }
 
             Model.Object.PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
             var_PlayerObject.Position = new Vector3(0, 0, 0);
             //var_PlayerObject.CollisionBounds.Add(new Rectangle(var_PlayerObject.DrawBounds.Left + 5, var_PlayerObject.DrawBounds.Bottom - 15, var_PlayerObject.DrawBounds.Width - 10, 15));
             var_PlayerObject.GraphicPath = "Character/Char1_Small";
-            var_PlayerObject.World = world;
+
             //var_PlayerObject.Size = new Vector3(32, 48, 0);
             //var_PlayerObject.Scale = 2f;
             //world.addLivingObject(var_PlayerObject);
-            world.addPlayerObject(var_PlayerObject);
+            Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
             playerObject = var_PlayerObject;
 
             camera.setTarget(playerObject);
@@ -100,8 +99,8 @@ namespace Server
             Model.Object.EnvironmentObject var_Chest = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Chest);
 
             var_Chest.Position = new Vector3(650, 200, 0);
-            var_Chest.World = world;
-            world.addLivingObject(var_Chest);
+
+            Model.Map.World.World.world.addLivingObject(var_Chest);
 
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.W }, new Commands.CommandTypes.WalkUpCommand(var_PlayerObject)));
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.S }, new Commands.CommandTypes.WalkDownCommand(var_PlayerObject)));
@@ -112,7 +111,7 @@ namespace Server
 
 
             watch.Stop();
-            Util.Serializer.SerializeObject("world.obj", world);
+            Util.Serializer.SerializeObject("world.obj", Model.Map.World.World.world);
             Logger.Logger.LogInfo("Größe der World: " + new System.IO.FileInfo("world.obj").Length / 1024 + "KB");
             Model.Map.World.World world2 = (Model.Map.World.World)Util.Serializer.DeSerializeObject("world.obj");
             //Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
@@ -158,7 +157,7 @@ namespace Server
                 this.Exit();
             Commands.Executer.Executer.executer.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             Model.Player.PlayerContoller.playerContoller.update();
-            world.update();
+            Model.Map.World.World.world.update();
             camera.update(gameTime);
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
@@ -190,7 +189,7 @@ namespace Server
                     BlendState.AlphaBlend, null, null, null, null,
                     camera.getMatrix());
 
-            world.drawBlocks(GraphicsDevice, spriteBatch, playerObject);
+            Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, playerObject);
 
             spriteBatch.End();
 
@@ -198,7 +197,7 @@ namespace Server
                     BlendState.AlphaBlend, null, null, null, null,
                     camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
 
-            world.drawObjects(GraphicsDevice, spriteBatch, playerObject);
+            Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, playerObject);
 
             spriteBatch.End();
 

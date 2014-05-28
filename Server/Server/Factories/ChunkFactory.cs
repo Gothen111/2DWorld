@@ -261,7 +261,7 @@ namespace Server.Factories
                 int var_Y = Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize) - 1);
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
-                var_EnvironmentObject.World = _Chunk.ParentRegion.ParentWorld;
+
                 
                 Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
                 if (var_Block.IsWalkAble && var_Block.Layer[1] == BlockEnum.Nothing)
@@ -282,7 +282,7 @@ namespace Server.Factories
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
                 var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left + 15, var_EnvironmentObject.DrawBounds.Bottom - 30, var_EnvironmentObject.DrawBounds.Width - 30, 20));
-                var_EnvironmentObject.World = _Chunk.ParentRegion.ParentWorld;
+
 
                 Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
                 if (var_Block.IsWalkAble)

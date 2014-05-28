@@ -72,6 +72,7 @@ namespace Server.Connection
         /// </summary>
         public static void OnClientConnectToServer(IPEndPoint _IPEndPoint)
         {
+            Connection.Event.EventList.Add(new Connection.Event(new UpdateChunkMessage(Model.Map.World.World.world.getRegion(0).getChunk(0)), GameMessageImportance.VeryImportant));
         }
 
         /// <summary>

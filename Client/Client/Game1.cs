@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using Client.Camera;
 using Client.Connection;
 
 namespace Client
@@ -20,6 +21,8 @@ namespace Client
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        Camera.Camera camera;
 
         public Game1()
         {
@@ -39,6 +42,14 @@ namespace Client
         {
             // TODO: Add your initialization logic here
 
+            camera = new Camera.Camera(GraphicsDevice.Viewport);
+            camera.Position = new Vector3(0, 0, 0);
+
+            Model.Map.World.World.world = new Model.Map.World.World("Welt");
+            Model.Map.Region.Region region = Factories.RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, Model.Map.World.World.world);
+
+            Model.Map.World.World.world.addRegion(region);
+
             ClientNetworkManager.clientNetworkManager.Start("127.0.0.1", "14242");
 
             base.Initialize();
@@ -52,6 +63,8 @@ namespace Client
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            Ressourcen.RessourcenManager.ressourcenManager.loadGeneral(Content);
 
             // TODO: use this.Content to load your game content here
         }
@@ -91,7 +104,26 @@ namespace Client
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin(SpriteSortMode.Deferred,
+                    BlendState.AlphaBlend, null, null, null, null,
+                    camera.getMatrix());
+
+            Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, Model.Object.PlayerObject.playerObject);
+
+            spriteBatch.End();
+
+            spriteBatch.Begin(SpriteSortMode.BackToFront,
+                    BlendState.AlphaBlend, null, null, null, null,
+                    camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
+
+            Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, Model.Object.PlayerObject.playerObject);
+
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
+            //spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + world.QuadTree.Root.quadObjects.ToString(), new Vector2(100, 0), Color.White);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

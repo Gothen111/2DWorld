@@ -67,14 +67,6 @@ namespace Server.Model.Object
             set { velocity = value; }
         }
 
-        private Map.World.World world;
-
-        public Map.World.World World
-        {
-            get { return world; }
-            set { world = value; }
-        }
-
         public Object()
         {
             

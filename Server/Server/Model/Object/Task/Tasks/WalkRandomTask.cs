@@ -36,7 +36,7 @@ namespace Server.Model.Object.Task.Tasks
             : base(_TaskOwner, _Priority)
         {
             this.finishedWalking = false;
-            Chunk var_Chunk = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
+            Chunk var_Chunk = Model.Map.World.World.world.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
             Block var_Block = var_Chunk.getBlockAtPosition((float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.X-1), (float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.Y-1));
             targetPosition = new Vector3(var_Block.Position.X, var_Block.Position.Y, 0);
         }
@@ -58,7 +58,7 @@ namespace Server.Model.Object.Task.Tasks
         {
             if (this.finishedWalking)
             {
-                Region var_Region = this.TaskOwner.World.getRegionLivingObjectIsIn(this.TaskOwner);
+                Region var_Region = Model.Map.World.World.world.getRegionLivingObjectIsIn(this.TaskOwner);
                 if (var_Region != null)
                 {
                     Chunk var_Chunk = var_Region.getChunkLivingObjectIsIn(TaskOwner);

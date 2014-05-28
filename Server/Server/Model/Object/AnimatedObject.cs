@@ -221,7 +221,7 @@ namespace Server.Model.Object
             if (var_X != 0 || var_Y != 0)
             {
                 Rectangle nextBounds = new Rectangle((int)(this.DrawBounds.Left + this.Velocity.X), (int)(this.DrawBounds.Top + this.Velocity.Y), this.DrawBounds.Width, this.DrawBounds.Height);
-                List<LivingObject> objectsColliding = World.getObjectsColliding(nextBounds);
+                List<LivingObject> objectsColliding = Model.Map.World.World.world.getObjectsColliding(nextBounds);
                 objectsColliding.Remove(this as LivingObject);
                 if (objectsColliding.Count < 1)
                 {
