@@ -6,11 +6,6 @@ using System.Text;
 using System.Net;
 using Lidgren.Network;
 
-using Client.Connection.Message;
-
-
-
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -18,6 +13,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
+using Client.Connection.Message;
 
 using Client.Factories;
 using Client.Factories.FactoryEnums;
@@ -36,6 +33,9 @@ namespace Client.Connection
                 case EIGameMessageType.UpdateChunkMessage:
                     handleUpdateChunkMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.UpdatePlayerMessage:
+                    handleUpdatePlayerMessage(_NetIncomingMessage);
+                    break;
 
             }
         }
@@ -46,6 +46,13 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
             Model.Map.World.World.world.getRegion(message.RegionId).setChunkAtPosition(0, 0, message.Chunk);
+        }
+
+        private static void handleUpdatePlayerMessage(NetIncomingMessage _Im)
+        {
+            var message = new UpdatePlayerMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
             Model.Object.PlayerObject.playerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
             Model.Object.PlayerObject.playerObject.Position = new Vector3(0, 0, 0);

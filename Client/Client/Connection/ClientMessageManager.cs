@@ -64,6 +64,7 @@ namespace Client.Connection
         /// </summary>
         public static void OnClientConnectToServer(IPEndPoint _IPEndPoint)
         {
+            Connection.Event.EventList.Add(new Connection.Event(new RequestPlayerMessage("Fred"), GameMessageImportance.VeryImportant));
         }
 
         /// <summary>

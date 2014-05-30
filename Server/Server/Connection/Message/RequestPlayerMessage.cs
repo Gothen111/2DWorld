@@ -6,7 +6,7 @@ using System.Text;
 using Lidgren.Network;
 using Lidgren.Network.Xna;
 
-namespace Client.Connection.Message
+namespace Server.Connection.Message
 {
     class RequestPlayerMessage : IGameMessage
     {

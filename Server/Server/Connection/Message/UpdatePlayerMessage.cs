@@ -6,20 +6,20 @@ using System.Text;
 using Lidgren.Network;
 using Lidgren.Network.Xna;
 
-namespace Client.Connection.Message
+namespace Server.Connection.Message
 {
-    class RequestPlayerMessage : IGameMessage
+    class UpdatePlayerMessage : IGameMessage
     {
         #region Constructors and Destructors
 
-        public RequestPlayerMessage(NetIncomingMessage im)
+        public UpdatePlayerMessage(NetIncomingMessage im)
         {
             this.Decode(im);
         }
 
-        public RequestPlayerMessage(String _PlayerName)
+        public UpdatePlayerMessage(Model.Object.PlayerObject _PlayerObject)
         {
-            this.Name = _PlayerName;
+            this.Id = _PlayerObject.Id;
             this.MessageTime = NetTime.Now;
         }
 
@@ -27,7 +27,7 @@ namespace Client.Connection.Message
 
         #region Properties
 
-        public String Name { get; set; }
+        public int Id { get; set; }
 
         public double MessageTime { get; set; }
 
@@ -38,18 +38,18 @@ namespace Client.Connection.Message
 
         public EIGameMessageType MessageType
         {
-            get { return EIGameMessageType.RequestPlayerMessage; }
+            get { return EIGameMessageType.UpdatePlayerMessage; }
         }
 
         public void Decode(NetIncomingMessage im)
         {
-            this.Name = im.ReadString();
+            this.Id = im.ReadInt32();
             this.MessageTime = im.ReadDouble();
         }
 
         public void Encode(NetOutgoingMessage om)
         {
-            om.Write(this.Name);
+            om.Write(this.Id);
             om.Write(this.MessageTime);
         }
 

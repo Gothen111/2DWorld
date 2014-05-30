@@ -38,7 +38,7 @@ namespace Client.Connection.Message
 
         public EIGameMessageType MessageType
         {
-            get { return EIGameMessageType.UpdateChunkMessage; }
+            get { return EIGameMessageType.UpdatePlayerMessage; }
         }
 
         public void Decode(NetIncomingMessage im)

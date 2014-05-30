@@ -126,7 +126,9 @@
     <Compile Include="Commands\CommandTypes\WalkLeftCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkUpCommand.cs" />
+    <Compile Include="Connection\Message\RequestPlayerMessage.cs" />
     <Compile Include="Connection\Message\UpdateChunkMessage.cs" />
+    <Compile Include="Connection\Message\UpdatePlayerMessage.cs" />
     <Compile Include="Factories\FarmFactory.cs" />
     <Compile Include="Model\Collison\QuadTree.cs" />
     <Compile Include="Model\Map\Box.cs" />
