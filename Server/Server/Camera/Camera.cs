@@ -9,6 +9,7 @@ namespace Server.Camera
 {
     class Camera
     {
+        public static Camera camera;
         private Vector3 position;
 
         public Vector3 Position

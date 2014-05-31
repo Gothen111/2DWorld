@@ -553,5 +553,17 @@ namespace Server.Model.Map.World
             }
             return null;
         }
+
+        public PlayerObject getPlayerObject(int _Id)
+        {
+            foreach (PlayerObject var_PlayerObject in playerObjects)
+            {
+                //if (var_PlayerObject.Id == _Id)
+                //{
+                    return var_PlayerObject;
+                //}
+            }
+            return null;
+        }
     }
 }

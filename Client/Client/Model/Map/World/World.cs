@@ -203,6 +203,7 @@ namespace Client.Model.Map.World
 
         public void update()
         {
+            this.updatePlayerObjectsNeighborhood();
         }
 
         public Region.Region getRegionLivingObjectIsIn(Model.Object.LivingObject _LivingObject)
@@ -458,6 +459,90 @@ namespace Client.Model.Map.World
         {
             this.playerObjects.Add(_PlayerObject);
             this.addLivingObject(_PlayerObject);
+        }
+
+        private void updatePlayerObjectsNeighborhood()
+        {
+            foreach (Object.PlayerObject var_PlayerObject in this.playerObjects)
+            {
+                this.updatePlayerObjectNeighborhood(var_PlayerObject);
+            }
+        }
+
+        private void updatePlayerObjectNeighborhood(Object.PlayerObject _PlayerObject)
+        {
+            if (_PlayerObject.CurrentBlock != null)
+            {
+                Region.Region var_PlayerObjectRegion = _PlayerObject.CurrentBlock.ParentChunk.ParentRegion;
+
+                var_PlayerObjectRegion.update();
+
+                Chunk.Chunk var_ChunkMid = _PlayerObject.CurrentBlock.ParentChunk;
+
+                var_ChunkMid.update();
+
+                Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
+                if (var_ChunkTop != null)
+                {
+                    Chunk.Chunk var_ChunkTopLeft = (Chunk.Chunk)var_ChunkTop.LeftNeighbour;
+                    if (var_ChunkTopLeft != null)
+                    {
+                    }
+                    else
+                    {
+                    }
+                    Chunk.Chunk var_ChunkTopRight = (Chunk.Chunk)var_ChunkTop.RightNeighbour;
+                    if (var_ChunkTopRight != null)
+                    {
+                    }
+                    else
+                    {
+                    }
+                }
+                else
+                {
+                    //var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize);
+                }
+                Chunk.Chunk var_ChunkLeft = (Chunk.Chunk)var_ChunkMid.LeftNeighbour;
+                if (var_ChunkLeft != null)
+                {
+                }
+                else
+                {
+                    //var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y);
+                }
+                Chunk.Chunk var_ChunkRight = (Chunk.Chunk)var_ChunkMid.RightNeighbour;
+                if (var_ChunkRight != null)
+                {
+                }
+                else
+                {
+                    //var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y);
+                }
+
+                Chunk.Chunk var_ChunkBottom = (Chunk.Chunk)var_ChunkMid.BottomNeighbour;
+                if (var_ChunkBottom != null)
+                {
+                    Chunk.Chunk var_ChunkBottomLeft = (Chunk.Chunk)var_ChunkBottom.LeftNeighbour;
+                    if (var_ChunkBottomLeft != null)
+                    {
+                    }
+                    else
+                    {
+                    }
+                    Chunk.Chunk var_ChunkBottomRight = (Chunk.Chunk)var_ChunkBottom.RightNeighbour;
+                    if (var_ChunkBottomRight != null)
+                    {
+                    }
+                    else
+                    {
+                    }
+                }
+                else
+                {
+                    //var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+                }
+            }
         }
 
         public Region.Region getRegion(int _Id)

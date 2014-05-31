@@ -9,6 +9,7 @@ namespace Server.Connection.Message
     {
         UpdateChunkMessage,
         RequestPlayerMessage,
-        UpdatePlayerMessage
+        UpdatePlayerMessage,
+        PlayerCommandMessage
     }
 }

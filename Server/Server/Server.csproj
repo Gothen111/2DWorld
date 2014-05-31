@@ -126,6 +126,8 @@
     <Compile Include="Commands\CommandTypes\WalkLeftCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkUpCommand.cs" />
+    <Compile Include="Commands\ECommandType.cs" />
+    <Compile Include="Connection\Message\PlayerCommandMessage.cs" />
     <Compile Include="Connection\Message\RequestPlayerMessage.cs" />
     <Compile Include="Connection\Message\UpdateChunkMessage.cs" />
     <Compile Include="Connection\Message\UpdatePlayerMessage.cs" />

@@ -117,12 +117,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera\Camera.cs" />
+    <Compile Include="Commands\CommandManager\CommandManager.cs" />
+    <Compile Include="Commands\CommandTypes\Command.cs" />
+    <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
+    <Compile Include="Commands\CommandTypes\WalkLeftCommand.cs" />
+    <Compile Include="Commands\CommandTypes\WalkRightCommand.cs" />
+    <Compile Include="Commands\CommandTypes\WalkUpCommand.cs" />
+    <Compile Include="Commands\ECommandType.cs" />
+    <Compile Include="Commands\Executer\Executer.cs" />
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
     <Compile Include="Connection\ClientIGameMessageManager.cs" />
     <Compile Include="Connection\ClientMessageManager.cs" />
     <Compile Include="Connection\ClientNetworkManager.cs" />
+    <Compile Include="Connection\Message\PlayerCommandMessage.cs" />
     <Compile Include="Connection\Message\UpdatePlayerMessage.cs" />
     <Compile Include="Connection\Message\RequestPlayerMessage.cs" />
     <Compile Include="Connection\Message\UpdateChunkMessage.cs" />
@@ -183,6 +192,8 @@
     <Compile Include="Model\Object\ObjectEnums\DirectionEnum.cs" />
     <Compile Include="Model\Object\PlayerObject.cs" />
     <Compile Include="Model\Object\RaceObject.cs" />
+    <Compile Include="Model\Player\InputAction.cs" />
+    <Compile Include="Model\Player\PlayerContoller.cs" />
     <Compile Include="Path\Path.cs" />
     <Compile Include="Path\PathFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

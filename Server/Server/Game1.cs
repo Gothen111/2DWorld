@@ -32,8 +32,6 @@ namespace Server
 
         Server.Model.Map.Region.Region region;
 
-        Camera.Camera camera;
-
         Model.Object.PlayerObject playerObject;
 
         public Game1()
@@ -58,7 +56,7 @@ namespace Server
         {
             // TODO: Add your initialization logic here
 
-            camera = new Camera.Camera(GraphicsDevice.Viewport);
+            Camera.Camera.camera = new Camera.Camera(GraphicsDevice.Viewport);
 
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             watch.Start();
@@ -91,10 +89,12 @@ namespace Server
             //var_PlayerObject.Size = new Vector3(32, 48, 0);
             //var_PlayerObject.Scale = 2f;
             //world.addLivingObject(var_PlayerObject);
-            Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
+
+            //Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
+
             playerObject = var_PlayerObject;
 
-            camera.setTarget(playerObject);
+            //camera.setTarget(playerObject);
 
             Model.Object.EnvironmentObject var_Chest = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Chest);
 
@@ -158,17 +158,17 @@ namespace Server
             Commands.Executer.Executer.executer.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             Model.Player.PlayerContoller.playerContoller.update();
             Model.Map.World.World.world.update();
-            camera.update(gameTime);
+            Camera.Camera.camera.update(gameTime);
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                if (camera.Zoom == 1f)
+                if (Camera.Camera.camera.Zoom == 1f)
                 {
-                    camera.Zoom = 0.1f;
+                    Camera.Camera.camera.Zoom = 0.1f;
                 }
                 else
                 {
-                    camera.Zoom = 1f;
+                    Camera.Camera.camera.Zoom = 1f;
                 }
             }
 
@@ -187,18 +187,21 @@ namespace Server
 
             spriteBatch.Begin(SpriteSortMode.Deferred,
                     BlendState.AlphaBlend, null, null, null, null,
-                    camera.getMatrix());
-
-            Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, playerObject);
+                    Camera.Camera.camera.getMatrix());
+            if (Camera.Camera.camera.Target != null)
+            {
+                Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, Camera.Camera.camera.Target);
+            }
 
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront,
                     BlendState.AlphaBlend, null, null, null, null,
-                    camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
-
-            Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, playerObject);
-
+                    Camera.Camera.camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
+            if (Camera.Camera.camera.Target != null)
+            {
+                Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, Camera.Camera.camera.Target);
+            }
             spriteBatch.End();
 
             spriteBatch.Begin();

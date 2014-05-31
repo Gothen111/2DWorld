@@ -58,6 +58,14 @@ namespace Client.Connection
             Model.Object.PlayerObject.playerObject.Position = new Vector3(0, 0, 0);
             Model.Object.PlayerObject.playerObject.GraphicPath = "Character/Char1_Small";
             Model.Map.World.World.world.addPlayerObject(Model.Object.PlayerObject.playerObject);
+
+
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.W }, new Commands.CommandTypes.WalkUpCommand(Model.Object.PlayerObject.playerObject)));
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.S }, new Commands.CommandTypes.WalkDownCommand(Model.Object.PlayerObject.playerObject)));
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.A }, new Commands.CommandTypes.WalkLeftCommand(Model.Object.PlayerObject.playerObject)));
+            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.D }, new Commands.CommandTypes.WalkRightCommand(Model.Object.PlayerObject.playerObject)));
+
+            Camera.Camera.camera.setTarget(Model.Object.PlayerObject.playerObject);
         }
     }
 }

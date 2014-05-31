@@ -66,6 +66,7 @@ namespace Server.Connection.Message
                     }
                 }
             }
+            this.Chunk.setAllNeighboursOfBlocks();
         }
 
         public void Encode(NetOutgoingMessage om)

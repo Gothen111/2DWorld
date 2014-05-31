@@ -32,6 +32,9 @@ namespace Server.Connection
                 case EIGameMessageType.RequestPlayerMessage:
                     handleRequestPlayerMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.PlayerCommandMessage:
+                    handlePlayerCommandMessage(_NetIncomingMessage);
+                    break;
             }
         }
 
@@ -48,6 +51,33 @@ namespace Server.Connection
             Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
 
             Event.EventList.Add(new Event(new UpdatePlayerMessage(var_PlayerObject), GameMessageImportance.VeryImportant));
+
+            Camera.Camera.camera.setTarget(var_PlayerObject);
+        }
+
+        private static void handlePlayerCommandMessage(NetIncomingMessage _Im)
+        {
+            var message = new PlayerCommandMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            Model.Object.PlayerObject var_PlayerObject = Model.Map.World.World.world.getPlayerObject(message.Id);
+
+            switch(message.ECommandType)
+            {
+                case Commands.ECommandType.WalkDownCommand:
+                    Commands.CommandManager.commandManager.handleWalkDownCommand(var_PlayerObject);
+                    break;
+                case Commands.ECommandType.WalkTopCommand:
+                    Commands.CommandManager.commandManager.handleWalkUpCommand(var_PlayerObject);
+                    break;
+                case Commands.ECommandType.WalkLeftCommand:
+                    Commands.CommandManager.commandManager.handleWalkLeftCommand(var_PlayerObject);
+                    break;
+                case Commands.ECommandType.WalkRightCommand:
+                    Commands.CommandManager.commandManager.handleWalkRightCommand(var_PlayerObject);
+                    break;
+            }
         }
     }
 }

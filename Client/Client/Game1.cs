@@ -22,8 +22,6 @@ namespace Client
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Camera.Camera camera;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -42,8 +40,7 @@ namespace Client
         {
             // TODO: Add your initialization logic here
 
-            camera = new Camera.Camera(GraphicsDevice.Viewport);
-            camera.Position = new Vector3(0, 0, 0);
+            Camera.Camera.camera = new Camera.Camera(GraphicsDevice.Viewport);
 
             Model.Map.World.World.world = new Model.Map.World.World("Welt");
             Model.Map.Region.Region region = Factories.RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, Model.Map.World.World.world);
@@ -88,9 +85,10 @@ namespace Client
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            Model.Player.PlayerContoller.playerContoller.update();
+            Model.Map.World.World.world.update();
             ClientNetworkManager.clientNetworkManager.update();
-
+            Camera.Camera.camera.update(gameTime);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -106,17 +104,23 @@ namespace Client
 
             spriteBatch.Begin(SpriteSortMode.Deferred,
                     BlendState.AlphaBlend, null, null, null, null,
-                    camera.getMatrix());
+                    Camera.Camera.camera.getMatrix());
 
-            Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, Model.Object.PlayerObject.playerObject);
+            if (Camera.Camera.camera.Target != null)
+            {
+                Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, Camera.Camera.camera.Target);
+            }
 
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront,
                     BlendState.AlphaBlend, null, null, null, null,
-                    camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
+                    Camera.Camera.camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
 
-            Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, Model.Object.PlayerObject.playerObject);
+            if (Camera.Camera.camera.Target != null)
+            {
+                Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, Camera.Camera.camera.Target);
+            }
 
             spriteBatch.End();
 
