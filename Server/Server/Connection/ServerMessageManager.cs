@@ -74,6 +74,13 @@ namespace Server.Connection
         public static void OnClientConnectToServer(IPEndPoint _IPEndPoint)
         {
             GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new UpdateChunkMessage(GameLibrary.Model.Map.World.World.world.getRegion(0).getChunk(0)), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+            foreach (GameLibrary.Model.Collison.QuadTree<GameLibrary.Model.Object.LivingObject>.QuadNode var_QuadNode in GameLibrary.Model.Map.World.World.world.QuadTree.GetAllNodes())
+            {
+                foreach (GameLibrary.Model.Object.LivingObject var_LivingObject in var_QuadNode.Objects)
+                {
+                    GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateLivingObjectMessage(var_LivingObject), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+                }
+            }
         }
 
         /// <summary>

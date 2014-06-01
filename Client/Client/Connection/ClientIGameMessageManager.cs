@@ -78,6 +78,7 @@ namespace Client.Connection
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
             GameLibrary.Model.Object.LivingObject var_LivingObject = GameLibrary.Model.Map.World.World.world.getLivingObject(message.Id) ?? GameLibrary.Model.Map.World.World.world.addLivingObject(CreatureFactory.creatureFactory.createNpcObject(message.Id, RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male));
+            var_LivingObject.Position = var_LivingObject.Position;
             var_LivingObject.MoveUp = message.MoveUp;
             var_LivingObject.MoveDown = message.MoveDown;
             var_LivingObject.MoveLeft = message.MoveLeft;

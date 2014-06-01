@@ -29,7 +29,7 @@ namespace GameLibrary.Model.Map.World
 
         private QuadTree<LivingObject> quadTree;
 
-        internal QuadTree<LivingObject> QuadTree
+        public QuadTree<LivingObject> QuadTree
         {
             get { return quadTree; }
             set { quadTree = value; }

@@ -28,6 +28,7 @@ namespace GameLibrary.Connection.Message
             this.MoveDown = _LivingObject.MoveDown;
             this.MoveLeft = _LivingObject.MoveLeft;
             this.MoveRight = _LivingObject.MoveRight;
+            //this.Content = GameLibrary.Util.Serializer.SerializeObjectToString(_LivingObject);
         }
 
         #endregion
@@ -47,6 +48,8 @@ namespace GameLibrary.Connection.Message
         public bool MoveLeft { get; set; }
 
         public bool MoveRight { get; set; }
+
+        public String Content { get; set; }
 
         #endregion
 
