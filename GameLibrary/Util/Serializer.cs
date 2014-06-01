@@ -31,13 +31,16 @@ namespace GameLibrary.Util
         public static string SerializeObjectToString(ISerializable objectToSerialize)
         {
             string result = "";
-            using (StreamReader streamReader = new StreamReader())
+            using (MemoryStream memoryStream = new MemoryStream())
             {
-                using (GZipStream gZipStream = new GZipStream(streamReader.BaseStream, CompressionMode.Compress))
+                using (StreamReader streamReader = new StreamReader(memoryStream))
                 {
-                    BinaryFormatter bFormatter = new BinaryFormatter();
-                    bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
-                    result = gZipStream.ToString();
+                    using (GZipStream gZipStream = new GZipStream(streamReader.BaseStream, CompressionMode.Compress))
+                    {
+                        BinaryFormatter bFormatter = new BinaryFormatter();
+                        bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
+                        result = gZipStream.ToString();
+                    }
                 }
             }
 
@@ -47,13 +50,16 @@ namespace GameLibrary.Util
         public static ISerializable DeserializeObjectFromString(string objectToDeserialize)
         {
             ISerializable objectToSerialize;
-            using (StreamWriter stream = new StreamWriter())
+            using (MemoryStream memoryStream = new MemoryStream())
             {
-                stream.Write(objectToDeserialize);
-                using (var gZipStream = new GZipStream(stream.BaseStream, CompressionMode.Decompress))
+                using (StreamWriter stream = new StreamWriter(memoryStream))
                 {
-                    BinaryFormatter bFormatter = new BinaryFormatter();
-                    objectToSerialize = (ISerializable)bFormatter.Deserialize(gZipStream.BaseStream);
+                    stream.Write(objectToDeserialize);
+                    using (var gZipStream = new GZipStream(stream.BaseStream, CompressionMode.Decompress))
+                    {
+                        BinaryFormatter bFormatter = new BinaryFormatter();
+                        objectToSerialize = (ISerializable)bFormatter.Deserialize(gZipStream.BaseStream);
+                    }
                 }
             }
             return objectToSerialize;
