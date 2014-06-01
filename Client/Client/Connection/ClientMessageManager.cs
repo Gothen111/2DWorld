@@ -6,7 +6,8 @@ using System.Text;
 using System.Net;
 using Lidgren.Network;
 
-using Client.Connection.Message;
+using GameLibrary.Connection.Message;
+using GameLibrary.Connection;
 
 namespace Client.Connection
 {
@@ -64,7 +65,7 @@ namespace Client.Connection
         /// </summary>
         public static void OnClientConnectToServer(IPEndPoint _IPEndPoint)
         {
-            Connection.Event.EventList.Add(new Connection.Event(new RequestPlayerMessage("Fred"), GameMessageImportance.VeryImportant));
+            Event.EventList.Add(new Event(new RequestPlayerMessage("Fred"), GameMessageImportance.VeryImportant));
         }
 
         /// <summary>

@@ -14,11 +14,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using Client.Connection.Message;
+using GameLibrary.Connection.Message;
 
-using Client.Factories;
-using Client.Factories.FactoryEnums;
-using Client.Model.Behaviour.Member;
+using GameLibrary.Factory;
+using GameLibrary.Factory.FactoryEnums;
+using GameLibrary.Model.Behaviour.Member;
 
 
 namespace Client.Connection
@@ -48,7 +48,7 @@ namespace Client.Connection
             var message = new UpdateChunkMessage(_Im);
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
-            Model.Map.World.World.world.getRegion(message.RegionId).setChunkAtPosition(0, 0, message.Chunk);
+            GameLibrary.Model.Map.World.World.world.getRegion(message.RegionId).setChunkAtPosition(0, 0, message.Chunk);
         }
 
         private static void handleUpdatePlayerMessage(NetIncomingMessage _Im)
@@ -57,18 +57,18 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            Model.Object.PlayerObject.playerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
-            Model.Object.PlayerObject.playerObject.Id = message.Id;
-            Model.Object.PlayerObject.playerObject.Position = new Vector3(0, 0, 0);  
-            Model.Object.PlayerObject.playerObject.GraphicPath = "Character/Char1_Small";
-            Model.Map.World.World.world.addPlayerObject(Model.Object.PlayerObject.playerObject);
+            GameLibrary.Model.Object.PlayerObject.playerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
+            GameLibrary.Model.Object.PlayerObject.playerObject.Id = message.Id;
+            GameLibrary.Model.Object.PlayerObject.playerObject.Position = new Vector3(0, 0, 0);  
+            GameLibrary.Model.Object.PlayerObject.playerObject.GraphicPath = "Character/Char1_Small";
+            GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Model.Object.PlayerObject.playerObject);
 
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.W }, new Commands.CommandTypes.WalkUpCommand(Model.Object.PlayerObject.playerObject)));
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.S }, new Commands.CommandTypes.WalkDownCommand(Model.Object.PlayerObject.playerObject)));
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.A }, new Commands.CommandTypes.WalkLeftCommand(Model.Object.PlayerObject.playerObject)));
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.D }, new Commands.CommandTypes.WalkRightCommand(Model.Object.PlayerObject.playerObject)));
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.W }, new GameLibrary.Commands.CommandTypes.WalkUpCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.S }, new GameLibrary.Commands.CommandTypes.WalkDownCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.A }, new GameLibrary.Commands.CommandTypes.WalkLeftCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.D }, new GameLibrary.Commands.CommandTypes.WalkRightCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
 
-            Camera.Camera.camera.setTarget(Model.Object.PlayerObject.playerObject);
+            GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Model.Object.PlayerObject.playerObject);
         }
 
         private static void handleUpdateLivingObjectMessage(NetIncomingMessage _Im)
@@ -77,7 +77,7 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            Model.Object.LivingObject var_LivingObject = Model.Map.World.World.world.getLivingObject(message.Id) ?? Model.Map.World.World.world.addLivingObject(CreatureFactory.creatureFactory.createNpcObject(message.Id, RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male));
+            GameLibrary.Model.Object.LivingObject var_LivingObject = GameLibrary.Model.Map.World.World.world.getLivingObject(message.Id) ?? GameLibrary.Model.Map.World.World.world.addLivingObject(CreatureFactory.creatureFactory.createNpcObject(message.Id, RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male));
             var_LivingObject.MoveUp = message.MoveUp;
             var_LivingObject.MoveDown = message.MoveDown;
             var_LivingObject.MoveLeft = message.MoveLeft;

@@ -6,7 +6,8 @@ using System.Text;
 using System.Net;
 using Lidgren.Network;
 
-using Client.Connection.Message;
+using GameLibrary.Connection.Message;
+using GameLibrary.Connection;
 
 namespace Client.Connection
 {

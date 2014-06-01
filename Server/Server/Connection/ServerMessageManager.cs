@@ -6,7 +6,8 @@ using System.Text;
 using System.Net;
 using Lidgren.Network;
 
-using Server.Connection.Message;
+using Server.Connection;
+using GameLibrary.Connection.Message;
 
 namespace Server.Connection
 {
@@ -72,7 +73,7 @@ namespace Server.Connection
         /// </summary>
         public static void OnClientConnectToServer(IPEndPoint _IPEndPoint)
         {
-            Connection.Event.EventList.Add(new Connection.Event(new UpdateChunkMessage(Model.Map.World.World.world.getRegion(0).getChunk(0)), GameMessageImportance.VeryImportant));
+            GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new UpdateChunkMessage(GameLibrary.Model.Map.World.World.world.getRegion(0).getChunk(0)), GameLibrary.Connection.GameMessageImportance.VeryImportant));
         }
 
         /// <summary>

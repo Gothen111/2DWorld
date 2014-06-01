@@ -13,12 +13,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using Server.Factories;
-using Server.Factories.FactoryEnums;
-using Server.Model.Behaviour.Member;
-
-using Server.Camera;
 using Server.Connection;
+
+using GameLibrary.Model;
+using GameLibrary.Model.Map;
+using GameLibrary.Factory;
+using GameLibrary.Model.Object;
+using GameLibrary.Ressourcen;
 
 namespace Server
 {
@@ -30,9 +31,9 @@ namespace Server
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Server.Model.Map.Region.Region region;
+        GameLibrary.Model.Map.Region.Region region;
 
-        Model.Object.PlayerObject playerObject;
+        GameLibrary.Model.Object.PlayerObject playerObject;
 
         public Game1()
         {
@@ -42,6 +43,9 @@ namespace Server
             graphics.PreferredBackBufferHeight = 800;
 
             ServerNetworkManager.serverNetworkManager.Connect(14242);
+
+            GameLibrary.Configuration.Configuration.isHost = true;
+            GameLibrary.Configuration.Configuration.commandManager = new Commands.ServerCommandManager();
 
             this.IsMouseVisible = true;
         }
@@ -56,68 +60,17 @@ namespace Server
         {
             // TODO: Add your initialization logic here
 
-            Camera.Camera.camera = new Camera.Camera(GraphicsDevice.Viewport);
+            GameLibrary.Camera.Camera.camera = new GameLibrary.Camera.Camera(GraphicsDevice.Viewport);
 
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
-            Model.Map.World.World.world = new Model.Map.World.World("Welt");
-            region = RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, Model.Map.World.World.world);
+            GameLibrary.Model.Map.World.World.world = new GameLibrary.Model.Map.World.World("Welt");
+            region = GameLibrary.Factory.RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, GameLibrary.Model.Map.Region.RegionEnum.Grassland, GameLibrary.Model.Map.World.World.world);
 
-            Model.Map.World.World.world.addRegion(region);
-            for (int i = 0; i < 50; i++)
-            {
-                Model.Object.LivingObject var_LivingObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
-                //Logger.Logger.LogDeb("LivingObject wurde erstellt");
-                Server.Commands.CommandTypes.WalkRandomCommand command = new Server.Commands.CommandTypes.WalkRandomCommand(var_LivingObject);
-                Server.Commands.Executer.Executer.executer.addCommand(command);
-                //Server.Commands.CommandTypes.AttackRandomCommand command2 = new Server.Commands.CommandTypes.AttackRandomCommand(var_LivingObject);
-                //Server.Commands.Executer.Executer.executer.addCommand(command2);
-                var_LivingObject.Position = new Vector3(Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeX * (Model.Map.Block.Block.BlockSize - 1)), Server.Util.Random.GenerateGoodRandomNumber(1, Model.Map.Chunk.Chunk.chunkSizeY * (Model.Map.Block.Block.BlockSize - 1)), 0);
-                var_LivingObject.GraphicPath = "Character/Char1_Small";
-                var_LivingObject.Scale = 1f;
-
-
-                Model.Map.World.World.world.addLivingObject(var_LivingObject);
-            }
-
-            Model.Object.PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
-            var_PlayerObject.Position = new Vector3(0, 0, 0);
-            //var_PlayerObject.CollisionBounds.Add(new Rectangle(var_PlayerObject.DrawBounds.Left + 5, var_PlayerObject.DrawBounds.Bottom - 15, var_PlayerObject.DrawBounds.Width - 10, 15));
-            var_PlayerObject.GraphicPath = "Character/Char1_Small";
-
-            //var_PlayerObject.Size = new Vector3(32, 48, 0);
-            //var_PlayerObject.Scale = 2f;
-            //world.addLivingObject(var_PlayerObject);
-
-            //Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
-
-            playerObject = var_PlayerObject;
-
-            //camera.setTarget(playerObject);
-
-            Model.Object.EnvironmentObject var_Chest = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Chest);
-
-            var_Chest.Position = new Vector3(650, 200, 0);
-
-            Model.Map.World.World.world.addLivingObject(var_Chest);
-
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.W }, new Commands.CommandTypes.WalkUpCommand(var_PlayerObject)));
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.S }, new Commands.CommandTypes.WalkDownCommand(var_PlayerObject)));
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.A }, new Commands.CommandTypes.WalkLeftCommand(var_PlayerObject)));
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.D }, new Commands.CommandTypes.WalkRightCommand(var_PlayerObject)));
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.Space }, new Commands.CommandTypes.AttackWithWeaponCommand(var_PlayerObject)));
-            Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.E }, new Commands.CommandTypes.InteractCommand(var_PlayerObject)));
-
+            GameLibrary.Model.Map.World.World.world.addRegion(region);
 
             watch.Stop();
-            Util.Serializer.SerializeObject("world.obj", Model.Map.World.World.world);
-            Logger.Logger.LogInfo("Größe der World: " + new System.IO.FileInfo("world.obj").Length / 1024 + "KB");
-            Model.Map.World.World world2 = (Model.Map.World.World)Util.Serializer.DeSerializeObject("world.obj");
-            //Logger.Logger.LogDeb("Time spent: " + watch.Elapsed);
-
-            //Util.MapHandler var_MapHandler = new Util.MapHandler(40, 20, 35);
-            //var_MapHandler.PrintMap();
 
             base.Initialize();
         }
@@ -131,7 +84,7 @@ namespace Server
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Ressourcen.RessourcenManager.ressourcenManager.loadGeneral(Content);
+            GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.loadGeneral(Content);
 
             // TODO: use this.Content to load your game content here
         }
@@ -155,20 +108,20 @@ namespace Server
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            Commands.Executer.Executer.executer.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
-            Model.Player.PlayerContoller.playerContoller.update();
-            Model.Map.World.World.world.update();
-            Camera.Camera.camera.update(gameTime);
+            GameLibrary.Commands.Executer.Executer.executer.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.update();
+            GameLibrary.Model.Map.World.World.world.update();
+            GameLibrary.Camera.Camera.camera.update(gameTime);
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                if (Camera.Camera.camera.Zoom == 1f)
+                if (GameLibrary.Camera.Camera.camera.Zoom == 1f)
                 {
-                    Camera.Camera.camera.Zoom = 0.1f;
+                    GameLibrary.Camera.Camera.camera.Zoom = 0.1f;
                 }
                 else
                 {
-                    Camera.Camera.camera.Zoom = 1f;
+                    GameLibrary.Camera.Camera.camera.Zoom = 1f;
                 }
             }
 
@@ -187,25 +140,25 @@ namespace Server
 
             spriteBatch.Begin(SpriteSortMode.Deferred,
                     BlendState.AlphaBlend, null, null, null, null,
-                    Camera.Camera.camera.getMatrix());
-            if (Camera.Camera.camera.Target != null)
+                    GameLibrary.Camera.Camera.camera.getMatrix());
+            if (GameLibrary.Camera.Camera.camera.Target != null)
             {
-                Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, Camera.Camera.camera.Target);
+                GameLibrary.Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
             }
 
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront,
                     BlendState.AlphaBlend, null, null, null, null,
-                    Camera.Camera.camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
-            if (Camera.Camera.camera.Target != null)
+                    GameLibrary.Camera.Camera.camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
+            if (GameLibrary.Camera.Camera.camera.Target != null)
             {
-                Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, Camera.Camera.camera.Target);
+                GameLibrary.Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
             }
             spriteBatch.End();
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0,0), Color.White);
+            spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
             //spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + world.QuadTree.Root.quadObjects.ToString(), new Vector2(100, 0), Color.White);
             spriteBatch.End();
 

@@ -29,3 +29,5 @@ D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Obj
 D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Lifebar.xnb
 D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Shadow.xnb
 D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb
+D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\GameLibrary.dll
+D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\GameLibrary.pdb

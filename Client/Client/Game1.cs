@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using Client.Camera;
 using Client.Connection;
 
 namespace Client
@@ -28,6 +27,9 @@ namespace Client
             Content.RootDirectory = "Content";
 
             this.IsMouseVisible = true;
+
+            GameLibrary.Configuration.Configuration.isHost = false;
+            GameLibrary.Configuration.Configuration.commandManager = new Commands.ClientCommandManager();
         }
 
         /// <summary>
@@ -40,12 +42,12 @@ namespace Client
         {
             // TODO: Add your initialization logic here
 
-            Camera.Camera.camera = new Camera.Camera(GraphicsDevice.Viewport);
+            GameLibrary.Camera.Camera.camera = new GameLibrary.Camera.Camera(GraphicsDevice.Viewport);
 
-            Model.Map.World.World.world = new Model.Map.World.World("Welt");
-            Model.Map.Region.Region region = Factories.RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, Model.Map.Region.RegionEnum.Grassland, Model.Map.World.World.world);
+            GameLibrary.Model.Map.World.World.world = new GameLibrary.Model.Map.World.World("Welt");
+            GameLibrary.Model.Map.Region.Region region = GameLibrary.Factory.RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, GameLibrary.Model.Map.Region.RegionEnum.Grassland, GameLibrary.Model.Map.World.World.world);
 
-            Model.Map.World.World.world.addRegion(region);
+            GameLibrary.Model.Map.World.World.world.addRegion(region);
 
             ClientNetworkManager.clientNetworkManager.Start("127.0.0.1", "14242");
 
@@ -61,7 +63,7 @@ namespace Client
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Ressourcen.RessourcenManager.ressourcenManager.loadGeneral(Content);
+            GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.loadGeneral(Content);
 
             // TODO: use this.Content to load your game content here
         }
@@ -85,10 +87,10 @@ namespace Client
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            Model.Player.PlayerContoller.playerContoller.update();
-            Model.Map.World.World.world.update();
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.update();
+            GameLibrary.Model.Map.World.World.world.update();
             ClientNetworkManager.clientNetworkManager.update();
-            Camera.Camera.camera.update(gameTime);
+            GameLibrary.Camera.Camera.camera.update(gameTime);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -104,28 +106,28 @@ namespace Client
 
             spriteBatch.Begin(SpriteSortMode.Deferred,
                     BlendState.AlphaBlend, null, null, null, null,
-                    Camera.Camera.camera.getMatrix());
+                    GameLibrary.Camera.Camera.camera.getMatrix());
 
-            if (Camera.Camera.camera.Target != null)
+            if (GameLibrary.Camera.Camera.camera.Target != null)
             {
-                Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, Camera.Camera.camera.Target);
+                GameLibrary.Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
             }
 
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.BackToFront,
                     BlendState.AlphaBlend, null, null, null, null,
-                    Camera.Camera.camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
+                    GameLibrary.Camera.Camera.camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
 
-            if (Camera.Camera.camera.Target != null)
+            if (GameLibrary.Camera.Camera.camera.Target != null)
             {
-                Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, Camera.Camera.camera.Target);
+                GameLibrary.Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
             }
 
             spriteBatch.End();
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
+            spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
             //spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + world.QuadTree.Root.quadObjects.ToString(), new Vector2(100, 0), Color.White);
             spriteBatch.End();
 

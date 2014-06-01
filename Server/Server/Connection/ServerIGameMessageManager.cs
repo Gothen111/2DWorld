@@ -14,11 +14,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using Server.Connection.Message;
+using GameLibrary.Connection;
+using GameLibrary.Connection.Message;
 
-using Server.Factories;
-using Server.Factories.FactoryEnums;
-using Server.Model.Behaviour.Member;
+using GameLibrary.Model.Map;
+using GameLibrary.Model.Object;
+using GameLibrary.Factory;
+using GameLibrary.Factory.FactoryEnums;
+using GameLibrary.Model.Behaviour.Member;
 
 namespace Server.Connection
 {
@@ -44,15 +47,15 @@ namespace Server.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            Model.Object.PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
+            PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
             var_PlayerObject.Position = new Vector3(0, 0, 0);
             var_PlayerObject.GraphicPath = "Character/Char1_Small";
 
-            Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
+            GameLibrary.Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
 
             Event.EventList.Add(new Event(new UpdatePlayerMessage(var_PlayerObject), GameMessageImportance.VeryImportant));
 
-            Camera.Camera.camera.setTarget(var_PlayerObject);
+            GameLibrary.Camera.Camera.camera.setTarget(var_PlayerObject);
         }
 
         private static void handlePlayerCommandMessage(NetIncomingMessage _Im)
@@ -61,15 +64,15 @@ namespace Server.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            Model.Object.PlayerObject var_PlayerObject = Model.Map.World.World.world.getPlayerObject(message.Id);
+            GameLibrary.Model.Object.PlayerObject var_PlayerObject = GameLibrary.Model.Map.World.World.world.getPlayerObject(message.Id);
 
             switch(message.ECommandType)
             {
-                case Commands.ECommandType.WalkDownCommand:
-                    Commands.CommandManager.commandManager.handleWalkDownCommand(var_PlayerObject);
+                /*case GameLibrary.Commands.ECommandType.WalkDownCommand:
+                    GameLibrary.Commands.CommandManager.commandManager.handleWalkDownCommand(var_PlayerObject);
                     break;
                 case Commands.ECommandType.WalkTopCommand:
-                    Commands.CommandManager.commandManager.handleWalkUpCommand(var_PlayerObject);
+                    GameLibrary.Commands.CommandManager.commandManager.handleWalkUpCommand(var_PlayerObject);
                     break;
                 case Commands.ECommandType.WalkLeftCommand:
                     Commands.CommandManager.commandManager.handleWalkLeftCommand(var_PlayerObject);
@@ -88,7 +91,7 @@ namespace Server.Connection
                     break;
                 case Commands.ECommandType.StopWalkRightCommand:
                     Commands.CommandManager.commandManager.stopWalkRightCommand(var_PlayerObject);
-                    break;
+                    break;*/
             }
         }
     }
