@@ -27,5 +27,36 @@ namespace GameLibrary.Util
             stream.Close();
             return objectToSerialize;
         }
+
+        public static string SerializeObjectToString(ISerializable objectToSerialize)
+        {
+            string result = "";
+            using (StreamReader streamReader = new StreamReader())
+            {
+                using (GZipStream gZipStream = new GZipStream(streamReader.BaseStream, CompressionMode.Compress))
+                {
+                    BinaryFormatter bFormatter = new BinaryFormatter();
+                    bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
+                    result = gZipStream.ToString();
+                }
+            }
+
+            return result;
+        }
+
+        public static ISerializable DeserializeObjectFromString(string objectToDeserialize)
+        {
+            ISerializable objectToSerialize;
+            using (StreamWriter stream = new StreamWriter())
+            {
+                stream.Write(objectToDeserialize);
+                using (var gZipStream = new GZipStream(stream.BaseStream, CompressionMode.Decompress))
+                {
+                    BinaryFormatter bFormatter = new BinaryFormatter();
+                    objectToSerialize = (ISerializable)bFormatter.Deserialize(gZipStream.BaseStream);
+                }
+            }
+            return objectToSerialize;
+        }
     }
 }
