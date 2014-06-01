@@ -11,8 +11,13 @@ namespace Client.Model.Object
     [Serializable()]
     class Object
     {
-        private static int _id = 0;
-        public readonly int Id = _id++;
+        private int id = 0;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         private Vector3 position;
 

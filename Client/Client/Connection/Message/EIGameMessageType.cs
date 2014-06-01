@@ -10,6 +10,7 @@ namespace Client.Connection.Message
         UpdateChunkMessage,
         RequestPlayerMessage,
         UpdatePlayerMessage,
-        PlayerCommandMessage
+        PlayerCommandMessage,
+        UpdateLivingObjectMessage
     }
 }

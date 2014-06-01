@@ -190,6 +190,8 @@ namespace Server.Model.Object
                 if (var_Block == null || !var_Block.IsWalkAble)
                 {
                     var_X = 0;
+                    this.MoveLeft = false;
+                    this.MoveRight = false;
                 }
             }
             else if ((int)var_PositionBlockSizeOld.X > (int)var_PositionBlockSizeNew.X)
@@ -198,6 +200,8 @@ namespace Server.Model.Object
                 if (var_Block == null || !var_Block.IsWalkAble)
                 {
                     var_X = 0;
+                    this.MoveLeft = false;
+                    this.MoveRight = false;
                 }
             }
             if ((int)var_PositionBlockSizeOld.Y < (int)var_PositionBlockSizeNew.Y)
@@ -206,6 +210,8 @@ namespace Server.Model.Object
                 if (var_Block == null || !var_Block.IsWalkAble)
                 {
                     var_Y = 0;
+                    this.MoveUp = false;
+                    this.MoveDown = false;
                 }
             }
             else if ((int)var_PositionBlockSizeOld.Y > (int)var_PositionBlockSizeNew.Y)
@@ -214,6 +220,8 @@ namespace Server.Model.Object
                 if (var_Block == null || !var_Block.IsWalkAble)
                 {
                     var_Y = 0;
+                    this.MoveUp = false;
+                    this.MoveDown = false;
                 }
             }
 
@@ -232,10 +240,17 @@ namespace Server.Model.Object
                         handler(this, EventArgs.Empty);
                     }
                 }
-                if (this.Position.X < 0)
+                else
+                {
+                    this.MoveUp = false;
+                    this.MoveDown = false;
+                    this.MoveLeft = false;
+                    this.MoveRight = false;
+                }
+                /*if (this.Position.X < 0)
                     this.Position += new Vector3(0 - this.Position.X, 0, 0);
                 if (this.Position.Y < 0)
-                    this.Position += new Vector3(0, 0 - this.Position.Y, 0);
+                    this.Position += new Vector3(0, 0 - this.Position.Y, 0);*/
             }
 
 

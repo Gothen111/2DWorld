@@ -130,6 +130,7 @@
     <Compile Include="Connection\Message\PlayerCommandMessage.cs" />
     <Compile Include="Connection\Message\RequestPlayerMessage.cs" />
     <Compile Include="Connection\Message\UpdateChunkMessage.cs" />
+    <Compile Include="Connection\Message\UpdateLivingObjectMessage.cs" />
     <Compile Include="Connection\Message\UpdatePlayerMessage.cs" />
     <Compile Include="Factories\FarmFactory.cs" />
     <Compile Include="Model\Collison\QuadTree.cs" />

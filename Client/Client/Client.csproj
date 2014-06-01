@@ -131,6 +131,7 @@
     <Compile Include="Connection\ClientIGameMessageManager.cs" />
     <Compile Include="Connection\ClientMessageManager.cs" />
     <Compile Include="Connection\ClientNetworkManager.cs" />
+    <Compile Include="Connection\Message\UpdateLivingObjectMessage.cs" />
     <Compile Include="Connection\Message\PlayerCommandMessage.cs" />
     <Compile Include="Connection\Message\UpdatePlayerMessage.cs" />
     <Compile Include="Connection\Message\RequestPlayerMessage.cs" />

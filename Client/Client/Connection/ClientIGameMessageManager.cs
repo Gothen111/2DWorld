@@ -36,6 +36,9 @@ namespace Client.Connection
                 case EIGameMessageType.UpdatePlayerMessage:
                     handleUpdatePlayerMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.UpdateLivingObjectMessage:
+                    handleUpdateLivingObjectMessage(_NetIncomingMessage);
+                    break;
 
             }
         }
@@ -55,10 +58,10 @@ namespace Client.Connection
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
             Model.Object.PlayerObject.playerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
-            Model.Object.PlayerObject.playerObject.Position = new Vector3(0, 0, 0);
+            Model.Object.PlayerObject.playerObject.Id = message.Id;
+            Model.Object.PlayerObject.playerObject.Position = new Vector3(0, 0, 0);  
             Model.Object.PlayerObject.playerObject.GraphicPath = "Character/Char1_Small";
             Model.Map.World.World.world.addPlayerObject(Model.Object.PlayerObject.playerObject);
-
 
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.W }, new Commands.CommandTypes.WalkUpCommand(Model.Object.PlayerObject.playerObject)));
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.S }, new Commands.CommandTypes.WalkDownCommand(Model.Object.PlayerObject.playerObject)));
@@ -66,6 +69,19 @@ namespace Client.Connection
             Model.Player.PlayerContoller.playerContoller.addInputAction(new Model.Player.InputAction(new List<Keys>() { Keys.D }, new Commands.CommandTypes.WalkRightCommand(Model.Object.PlayerObject.playerObject)));
 
             Camera.Camera.camera.setTarget(Model.Object.PlayerObject.playerObject);
+        }
+
+        private static void handleUpdateLivingObjectMessage(NetIncomingMessage _Im)
+        {
+            var message = new UpdateLivingObjectMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            Model.Object.LivingObject var_LivingObject = Model.Map.World.World.world.getLivingObject(message.Id) ?? Model.Map.World.World.world.addLivingObject(CreatureFactory.creatureFactory.createNpcObject(message.Id, RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male));
+            var_LivingObject.MoveUp = message.MoveUp;
+            var_LivingObject.MoveDown = message.MoveDown;
+            var_LivingObject.MoveLeft = message.MoveLeft;
+            var_LivingObject.MoveRight = message.MoveRight;
         }
     }
 }

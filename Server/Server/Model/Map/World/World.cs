@@ -558,10 +558,25 @@ namespace Server.Model.Map.World
         {
             foreach (PlayerObject var_PlayerObject in playerObjects)
             {
-                //if (var_PlayerObject.Id == _Id)
-                //{
+                if (var_PlayerObject.Id == _Id)
+                {
                     return var_PlayerObject;
-                //}
+                }
+            }
+            return null;
+        }
+
+        public LivingObject getLivingObject(int _Id)
+        {
+            foreach (QuadTree<LivingObject>.QuadNode var_QuadNode in this.quadTree.GetAllNodes())
+            {
+                foreach (LivingObject var_LivingObject in var_QuadNode.Objects)
+                {
+                    if (var_LivingObject.Id == _Id)
+                    {
+                        return var_LivingObject;
+                    }
+                }
             }
             return null;
         }

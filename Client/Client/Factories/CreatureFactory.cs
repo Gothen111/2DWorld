@@ -42,5 +42,19 @@ namespace Client.Factories
 
             return npcObject;
         }
+
+        public NpcObject createNpcObject(int _Id, RaceEnum objectRace, FactionEnum objectFaction, CreatureEnum objectType, GenderEnum objectGender)
+        {
+            NpcObject npcObject = new NpcObject();
+            npcObject.Id = _Id;
+            npcObject.Scale = 1;
+            npcObject.Velocity = new Vector3(0, 0, 0);
+            npcObject.Faction = BehaviourFactory.behaviourFactory.getFaction(objectFaction);
+            npcObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
+            npcObject.Gender = objectGender;
+            npcObject.Name = NameFactory.getName(objectType, objectGender);
+
+            return npcObject;
+        }
     }
 }

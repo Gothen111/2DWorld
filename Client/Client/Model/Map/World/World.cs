@@ -227,24 +227,25 @@ namespace Client.Model.Map.World
             return null;
         }
 
-        public void addLivingObject(Object.LivingObject livingObject)
+        public Object.LivingObject addLivingObject(Object.LivingObject livingObject)
         {
-            addLivingObject(livingObject, true);
+            return addLivingObject(livingObject, true);
         }
 
-        public void addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree)
+        public Object.LivingObject addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree)
         {
             Region.Region region = getRegionLivingObjectIsIn(livingObject);
-            addLivingObject(livingObject, insertInQuadTree, region);
+            return addLivingObject(livingObject, insertInQuadTree, region);
         }
 
-        public void addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree, Region.Region _Region)
+        public Object.LivingObject addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree, Region.Region _Region)
         {
             Chunk.Chunk chunk = _Region.getChunkLivingObjectIsIn(livingObject);
             Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
             block.addLivingObject(livingObject);
             if (insertInQuadTree)
                 quadTree.Insert(livingObject);
+            return livingObject;
         }
 
         public void removeObjectFromWorld(LivingObject livingObject)
@@ -552,6 +553,33 @@ namespace Client.Model.Map.World
                 if (var_Region.Id == _Id)
                 {
                     return var_Region;
+                }
+            }
+            return null;
+        }
+
+        public PlayerObject getPlayerObject(int _Id)
+        {
+            foreach (PlayerObject var_PlayerObject in playerObjects)
+            {
+                if (var_PlayerObject.Id == _Id)
+                {
+                    return var_PlayerObject;
+                }
+            }
+            return null;
+        }
+
+        public LivingObject getLivingObject(int _Id)
+        {
+            foreach (QuadTree<LivingObject>.QuadNode var_QuadNode in this.quadTree.GetAllNodes())
+            {
+                foreach (LivingObject var_LivingObject in var_QuadNode.Objects)
+                {
+                    if (var_LivingObject.Id == _Id)
+                    {
+                        return var_LivingObject;
+                    }
                 }
             }
             return null;
