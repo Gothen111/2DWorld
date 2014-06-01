@@ -77,6 +77,18 @@ namespace Server.Connection
                 case Commands.ECommandType.WalkRightCommand:
                     Commands.CommandManager.commandManager.handleWalkRightCommand(var_PlayerObject);
                     break;
+                case Commands.ECommandType.StopWalkDownCommand:
+                    Commands.CommandManager.commandManager.stopWalkDownCommand(var_PlayerObject);
+                    break;
+                case Commands.ECommandType.StopWalkTopCommand:
+                    Commands.CommandManager.commandManager.stopWalkUpCommand(var_PlayerObject);
+                    break;
+                case Commands.ECommandType.StopWalkLeftCommand:
+                    Commands.CommandManager.commandManager.stopWalkLeftCommand(var_PlayerObject);
+                    break;
+                case Commands.ECommandType.StopWalkRightCommand:
+                    Commands.CommandManager.commandManager.stopWalkRightCommand(var_PlayerObject);
+                    break;
             }
         }
     }

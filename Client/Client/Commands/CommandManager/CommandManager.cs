@@ -17,11 +17,18 @@ namespace Client.Commands
 
         public void handleWalkUpCommand(LivingObject actor)
         {
+            if (!actor.MoveUp)
+            {
+                Event.EventList.Add(new Event(new Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkTopCommand), GameMessageImportance.VeryImportant));
+            }
             actor.MoveUp = true;
-            Event.EventList.Add(new Event(new Connection.Message.PlayerCommandMessage(actor as PlayerObject,ECommandType.WalkTopCommand), GameMessageImportance.VeryImportant));
         }
         public void stopWalkUpCommand(LivingObject actor)
         {
+            if (actor.MoveUp)
+            {
+                Event.EventList.Add(new Event(new Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkTopCommand), GameMessageImportance.VeryImportant));
+            }
             actor.MoveUp = false;
         }
 
@@ -32,6 +39,10 @@ namespace Client.Commands
         }
         public void stopWalkDownCommand(LivingObject actor)
         {
+            if (actor.MoveDown)
+            {
+                Event.EventList.Add(new Event(new Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkDownCommand), GameMessageImportance.VeryImportant));
+            }
             actor.MoveDown = false;
         }
 
@@ -42,6 +53,10 @@ namespace Client.Commands
         }
         public void stopWalkLeftCommand(LivingObject actor)
         {
+            if (actor.MoveLeft)
+            {
+                Event.EventList.Add(new Event(new Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkLeftCommand), GameMessageImportance.VeryImportant));
+            }
             actor.MoveLeft = false;
         }
 
@@ -52,6 +67,10 @@ namespace Client.Commands
         }
         public void stopWalkRightCommand(LivingObject actor)
         {
+            if (actor.MoveRight)
+            {
+                Event.EventList.Add(new Event(new Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkRightCommand), GameMessageImportance.VeryImportant));
+            }
             actor.MoveRight = false;
         }
     }

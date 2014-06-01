@@ -10,6 +10,10 @@ namespace Server.Commands
         WalkLeftCommand,
         WalkRightCommand,
         WalkTopCommand,
-        WalkDownCommand
+        WalkDownCommand,
+        StopWalkLeftCommand,
+        StopWalkRightCommand,
+        StopWalkTopCommand,
+        StopWalkDownCommand
     }
 }
