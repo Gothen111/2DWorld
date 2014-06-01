@@ -9,9 +9,10 @@ using GameLibrary.Model.Map.Chunk;
 namespace GameLibrary.Model.Object
 {
     [Serializable()]
-    public class Object
+    public class Object: ISerializable
     {
-        private int id = 0;
+        public static int _id = 0;
+        private int id = _id++;
 
         public int Id
         {
