@@ -68,30 +68,30 @@ namespace Server.Connection
 
             switch(message.ECommandType)
             {
-                /*case GameLibrary.Commands.ECommandType.WalkDownCommand:
-                    GameLibrary.Commands.CommandManager.commandManager.handleWalkDownCommand(var_PlayerObject);
+                case GameLibrary.Commands.ECommandType.WalkDownCommand:
+                    GameLibrary.Configuration.Configuration.commandManager.handleWalkDownCommand(var_PlayerObject);
                     break;
-                case Commands.ECommandType.WalkTopCommand:
-                    GameLibrary.Commands.CommandManager.commandManager.handleWalkUpCommand(var_PlayerObject);
+                case GameLibrary.Commands.ECommandType.WalkTopCommand:
+                    GameLibrary.Configuration.Configuration.commandManager.handleWalkUpCommand(var_PlayerObject);
                     break;
-                case Commands.ECommandType.WalkLeftCommand:
-                    Commands.CommandManager.commandManager.handleWalkLeftCommand(var_PlayerObject);
+                case GameLibrary.Commands.ECommandType.WalkLeftCommand:
+                    GameLibrary.Configuration.Configuration.commandManager.handleWalkLeftCommand(var_PlayerObject);
                     break;
-                case Commands.ECommandType.WalkRightCommand:
-                    Commands.CommandManager.commandManager.handleWalkRightCommand(var_PlayerObject);
+                case GameLibrary.Commands.ECommandType.WalkRightCommand:
+                    GameLibrary.Configuration.Configuration.commandManager.handleWalkRightCommand(var_PlayerObject);
                     break;
-                case Commands.ECommandType.StopWalkDownCommand:
-                    Commands.CommandManager.commandManager.stopWalkDownCommand(var_PlayerObject);
+                case GameLibrary.Commands.ECommandType.StopWalkDownCommand:
+                    GameLibrary.Configuration.Configuration.commandManager.stopWalkDownCommand(var_PlayerObject);
                     break;
-                case Commands.ECommandType.StopWalkTopCommand:
-                    Commands.CommandManager.commandManager.stopWalkUpCommand(var_PlayerObject);
+                case GameLibrary.Commands.ECommandType.StopWalkTopCommand:
+                    GameLibrary.Configuration.Configuration.commandManager.stopWalkUpCommand(var_PlayerObject);
                     break;
-                case Commands.ECommandType.StopWalkLeftCommand:
-                    Commands.CommandManager.commandManager.stopWalkLeftCommand(var_PlayerObject);
+                case GameLibrary.Commands.ECommandType.StopWalkLeftCommand:
+                    GameLibrary.Configuration.Configuration.commandManager.stopWalkLeftCommand(var_PlayerObject);
                     break;
-                case Commands.ECommandType.StopWalkRightCommand:
-                    Commands.CommandManager.commandManager.stopWalkRightCommand(var_PlayerObject);
-                    break;*/
+                case GameLibrary.Commands.ECommandType.StopWalkRightCommand:
+                    GameLibrary.Configuration.Configuration.commandManager.stopWalkRightCommand(var_PlayerObject);
+                    break;
             }
         }
     }
