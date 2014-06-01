@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 namespace GameLibrary.Model.Object
 {
+    [Serializable()]
     public class CreatureObject : LivingObject
     {
         //protected Inventory inventory;
@@ -31,6 +33,17 @@ namespace GameLibrary.Model.Object
             this.LayerDepth = 0.1f;
             this.equipment = new List<EquipmentObject>();
             this.addEquipmentObject(GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword));
+        }
+
+        public CreatureObject(SerializationInfo info, StreamingContext ctxt)
+            : base(info, ctxt)
+        {
+
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
         }
 
         public override void update()

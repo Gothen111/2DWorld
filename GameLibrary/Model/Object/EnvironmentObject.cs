@@ -2,17 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace GameLibrary.Model.Object
 {
+    [Serializable()]
     public class EnvironmentObject : LivingObject
     {
-        public EnvironmentObject()
-            :base()
+        public EnvironmentObject() :base()
         {
             this.LayerDepth = 0.0f;
             this.CanBeEffected = false;
         }
+
+        public EnvironmentObject(SerializationInfo info, StreamingContext ctxt)
+            : base(info, ctxt)
+        {
+
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
+        }
+
         public override void update()
         {
             base.update();

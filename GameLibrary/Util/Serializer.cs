@@ -33,11 +33,14 @@ namespace GameLibrary.Util
             string result = "";
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                using (GZipStream gZipStream = new GZipStream(memoryStream, CompressionMode.Compress))
+                using (StreamReader streamReader = new StreamReader(memoryStream))
                 {
-                    BinaryFormatter bFormatter = new BinaryFormatter();
-                    bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
-                    result = gZipStream.ToString();
+                    using (GZipStream gZipStream = new GZipStream(streamReader.BaseStream, CompressionMode.Compress))
+                    {
+                        BinaryFormatter bFormatter = new BinaryFormatter();
+                        bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
+                        result = streamReader.ReadToEnd();
+                    }
                 }
             }
 
