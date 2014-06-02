@@ -145,7 +145,7 @@ namespace Server.Connection
         {
             foreach (Client var_Client in clients)
             {
-                if(var_Client.IPEndPoint == _IPEndPoint)
+                if(var_Client.IPEndPoint.Equals(_IPEndPoint))
                 {
                     return var_Client;
                 }

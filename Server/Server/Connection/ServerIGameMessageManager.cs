@@ -48,14 +48,13 @@ namespace Server.Connection
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
             PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
-            var_PlayerObject.Position = new Vector3(0, 0, 0);
+            var_PlayerObject.Position = new Vector3(0, GameLibrary.Util.Random.GenerateGoodRandomNumber(0,100), 0);
             var_PlayerObject.GraphicPath = "Character/Char1_Small";
 
             GameLibrary.Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
 
             //Event.EventList.Add(new Event(new UpdatePlayerMessage(var_PlayerObject), GameMessageImportance.VeryImportant));
             Client var_Client = ServerNetworkManager.serverNetworkManager.getClient(_Im.SenderEndPoint);
-            ServerNetworkManager.serverNetworkManager.addClient(var_Client);
             ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdatePlayerMessage(var_PlayerObject), var_Client);
 
             GameLibrary.Camera.Camera.camera.setTarget(var_PlayerObject);

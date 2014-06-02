@@ -267,13 +267,16 @@ namespace GameLibrary.Model.Map.World
         public Object.LivingObject addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree, Region.Region _Region)
         {
             Chunk.Chunk chunk = _Region.getChunkLivingObjectIsIn(livingObject);
-            Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
-            block.addLivingObject(livingObject);
-            if (insertInQuadTree)
+            if (chunk != null)
             {
-                if(quadTree == null)
-                    quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
-                quadTree.Insert(livingObject);
+                Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
+                block.addLivingObject(livingObject);
+                if (insertInQuadTree)
+                {
+                    if (quadTree == null)
+                        quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
+                    quadTree.Insert(livingObject);
+                }
             }
             return livingObject;
         }
