@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandManager\ServerCommandManager.cs" />
+    <Compile Include="Connection\Client.cs" />
     <Compile Include="Connection\ServerIGameMessageManager.cs" />
     <Compile Include="Connection\ServerMessageManager.cs" />
     <Compile Include="Connection\ServerNetworkManager.cs" />

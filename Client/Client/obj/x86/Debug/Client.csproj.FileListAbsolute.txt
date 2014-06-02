@@ -90,3 +90,8 @@ C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Debug\Newto
 C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Debug\Newtonsoft.Json.xml
 C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Debug\Server.exe
 C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Debug\Server.pdb
+D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Server.exe
+D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Newtonsoft.Json.dll
+D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Server.pdb
+D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Newtonsoft.Json.pdb
+D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Newtonsoft.Json.xml

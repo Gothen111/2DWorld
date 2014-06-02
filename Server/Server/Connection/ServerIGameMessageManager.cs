@@ -53,7 +53,10 @@ namespace Server.Connection
 
             GameLibrary.Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
 
-            Event.EventList.Add(new Event(new UpdatePlayerMessage(var_PlayerObject), GameMessageImportance.VeryImportant));
+            //Event.EventList.Add(new Event(new UpdatePlayerMessage(var_PlayerObject), GameMessageImportance.VeryImportant));
+            Client var_Client = ServerNetworkManager.serverNetworkManager.getClient(_Im.SenderEndPoint);
+            ServerNetworkManager.serverNetworkManager.addClient(var_Client);
+            ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdatePlayerMessage(var_PlayerObject), var_Client);
 
             GameLibrary.Camera.Camera.camera.setTarget(var_PlayerObject);
         }

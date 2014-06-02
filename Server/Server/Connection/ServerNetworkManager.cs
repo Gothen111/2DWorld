@@ -15,6 +15,9 @@ namespace Server.Connection
     {
         public static ServerNetworkManager serverNetworkManager = new ServerNetworkManager();
         private NetServer netServer;
+
+        private List<Client> clients;
+
         public void Connect(int _Port)
         {
             var config = new NetPeerConfiguration("2DWorld")
@@ -31,6 +34,8 @@ namespace Server.Connection
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             netServer = new NetServer(config);
             netServer.Start();
+
+            this.clients = new List<Client>();
         }
 
         public void Disconnect()
@@ -60,21 +65,21 @@ namespace Server.Connection
             netServer.SendToAll(om, _Importance == GameMessageImportance.VeryImportant ? NetDeliveryMethod.ReliableOrdered : NetDeliveryMethod.Unreliable); // ReliableUnordered
         }
 
-        /*public void SendMessageToPlayer(IGameMessage _IGameMessage, System.Net.IPAddress _IpAdress)
+        public void SendMessageToClient(IGameMessage _IGameMessage, Client _Client)
         {
             NetOutgoingMessage om = netServer.CreateMessage();
             om.Write((byte)_IGameMessage.MessageType);
             _IGameMessage.Encode(om);
             foreach (NetConnection connection in this.netServer.Connections)
             {
-                if (connection.RemoteEndPoint.Address == _IpAdress)
+                if (connection.RemoteEndPoint == _Client.IPEndPoint)
                 {
                     this.netServer.SendMessage(om, connection, NetDeliveryMethod.ReliableOrdered); // ReliableUnordered // Unreliable
                     break;
                 }
             }
         }
-
+        /*
         public void SendMessageToAllPlayerWithoutOne(IGameMessage _IGameMessage, System.Net.IPAddress _IpAdress)
         {
             NetOutgoingMessage om = netServer.CreateMessage();
@@ -119,6 +124,33 @@ namespace Server.Connection
         {
             UpdateSendingEvents();
             ServerMessageManager.ProcessNetworkMessages();
+        }
+
+        public void addClient(Client _Client)
+        {
+            this.clients.Add(_Client);
+        }
+
+        public void removeClient(Client _Client)
+        {
+            this.clients.Remove(_Client);
+        }
+
+        public void setClientPlayerObject()
+        {
+
+        }
+
+        public Client getClient(IPEndPoint _IPEndPoint)
+        {
+            foreach (Client var_Client in clients)
+            {
+                if(var_Client.IPEndPoint == _IPEndPoint)
+                {
+                    return var_Client;
+                }
+            }
+            return null;
         }
     }
 }

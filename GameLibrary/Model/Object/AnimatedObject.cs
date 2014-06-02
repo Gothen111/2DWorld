@@ -237,17 +237,20 @@ namespace GameLibrary.Model.Object
                 objectsColliding.Remove(this as LivingObject);
                 if (objectsColliding.Count < 1)
                 {
-                    this.Position += this.Velocity;
+                    if (Configuration.Configuration.isHost)
+                    {
+                        this.Position += this.Velocity;
+                    }
                     EventHandler handler = this.ObjectMoves;
                     if (handler != null)
                     {
                         handler(this, EventArgs.Empty);
                     }
                 }
-                if (this.Position.X < 0)
+                /*if (this.Position.X < 0)
                     this.Position += new Vector3(0 - this.Position.X, 0, 0);
                 if (this.Position.Y < 0)
-                    this.Position += new Vector3(0, 0 - this.Position.Y, 0);
+                    this.Position += new Vector3(0, 0 - this.Position.Y, 0);*/
             }
 
 
