@@ -15,6 +15,11 @@ namespace GameLibrary.Model.Object.Interaction
             set { interactionOwner = value; }
         }
 
+        public LivingObjectInteraction()
+        {
+
+        }
+
         public LivingObjectInteraction(LivingObject _InteractionOwner)
         {
             this.interactionOwner = _InteractionOwner;

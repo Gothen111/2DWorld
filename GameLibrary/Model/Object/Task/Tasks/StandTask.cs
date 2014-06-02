@@ -10,10 +10,14 @@ namespace GameLibrary.Model.Object.Task.Tasks
 {
     public class StandTask : LivingObjectTask
     {
-
-        public StandTask(LivingObject _TaskOwner, TaskPriority _Priority)
-            : base(_TaskOwner, _Priority)
+        public StandTask()
         {
+
+        }
+
+        public StandTask(LivingObject _TaskOwner, TaskPriority _Priority) : base(_TaskOwner, _Priority)
+        {
+
         }
 
         public override bool wantToDoTask()

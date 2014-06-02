@@ -10,6 +10,12 @@ namespace GameLibrary.Model.Object.Animation.Animations
     public class MoveAnimation : AnimatedObjectAnimation
     {
         private int currentFrame;
+
+        public MoveAnimation()
+        {
+
+        }
+
         public MoveAnimation(AnimatedObject _AnimationOwner)
             : base(_AnimationOwner, 0, 20)
         {

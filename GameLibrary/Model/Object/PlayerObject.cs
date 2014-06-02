@@ -22,7 +22,7 @@ namespace GameLibrary.Model.Object
 
         }
 
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             base.GetObjectData(info, ctxt);
         }

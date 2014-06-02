@@ -22,8 +22,12 @@ namespace GameLibrary.Model.Object.Task.Tasks
         private bool wantToDoTaskCheck = true;
         private float updateWantToDo = 20;
 
-        public AttackRandomTask(LivingObject _TaskOwner, TaskPriority _Priority)
-            : base(_TaskOwner, _Priority)
+        public AttackRandomTask()
+        {
+
+        }
+
+        public AttackRandomTask(LivingObject _TaskOwner, TaskPriority _Priority) : base(_TaskOwner, _Priority)
         {
             target = null;
         }

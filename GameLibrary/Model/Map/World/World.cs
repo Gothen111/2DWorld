@@ -17,6 +17,7 @@ namespace GameLibrary.Model.Map.World
     public class World : ISerializable
     {
         public static World world;
+
         private List<Region.Region> regions;
 
         private String name;
@@ -45,7 +46,12 @@ namespace GameLibrary.Model.Map.World
 
         private List<Object.PlayerObject> playerObjects;
 
-        public World(SerializationInfo info, StreamingContext ctxt)
+        public World()
+        {
+            this.quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
+        }
+
+        public World(SerializationInfo info, StreamingContext ctxt) : this()
         {
             this.regions = (List<Region.Region>)info.GetValue("regions", typeof(List<Region.Region>));
         }
@@ -60,7 +66,10 @@ namespace GameLibrary.Model.Map.World
             this.name = _Name;
 
             regions = new List<Region.Region>();
-            quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
+            if (Configuration.Configuration.isHost)
+            {
+                quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
+            }
 
             this.playerObjects = new List<PlayerObject>();
         }
@@ -244,7 +253,11 @@ namespace GameLibrary.Model.Map.World
             Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
             block.addLivingObject(livingObject);
             if (insertInQuadTree)
+            {
+                if(quadTree == null)
+                    quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
                 quadTree.Insert(livingObject);
+            }
             return livingObject;
         }
 
@@ -431,7 +444,7 @@ namespace GameLibrary.Model.Map.World
                         continue;
                     if (Util.Intersection.RectangleIntersectsRectangle(bounds, livingObject.DrawBounds))
                     {
-                        if (livingObject.CollisionBounds.Count > 0)
+                        if (livingObject.CollisionBounds != null && livingObject.CollisionBounds.Count > 0)
                         {
                             foreach (Rectangle collisionBound in livingObject.CollisionBounds)
                             {
@@ -572,13 +585,16 @@ namespace GameLibrary.Model.Map.World
 
         public LivingObject getLivingObject(int _Id)
         {
-            foreach (QuadTree<LivingObject>.QuadNode var_QuadNode in this.quadTree.GetAllNodes())
+            if (this.quadTree != null)
             {
-                foreach (LivingObject var_LivingObject in var_QuadNode.Objects)
+                foreach (QuadTree<LivingObject>.QuadNode var_QuadNode in this.quadTree.GetAllNodes())
                 {
-                    if (var_LivingObject.Id == _Id)
+                    foreach (LivingObject var_LivingObject in var_QuadNode.Objects)
                     {
-                        return var_LivingObject;
+                        if (var_LivingObject.Id == _Id)
+                        {
+                            return var_LivingObject;
+                        }
                     }
                 }
             }

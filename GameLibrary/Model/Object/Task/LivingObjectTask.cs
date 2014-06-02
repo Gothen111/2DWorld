@@ -26,6 +26,11 @@ namespace GameLibrary.Model.Object.Task
             set { priority = value; }
         }
 
+        public LivingObjectTask()
+        {
+
+        }
+
         public LivingObjectTask(LivingObject _TaskOwner, Tasks.TaskPriority _Priority)
         {
             this.taskOwner = _TaskOwner;

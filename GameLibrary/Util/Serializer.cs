@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Compression;
+using System.Text;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -11,7 +13,7 @@ namespace GameLibrary.Util
         {
             Stream stream = File.Open(filename, FileMode.Create);
             var gZipStream = new GZipStream(stream, CompressionMode.Compress);
-            
+
             BinaryFormatter bFormatter = new BinaryFormatter();
             bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
             stream.Close();
@@ -30,39 +32,40 @@ namespace GameLibrary.Util
 
         public static string SerializeObjectToString(ISerializable objectToSerialize)
         {
-            string result = "";
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                using (StreamReader streamReader = new StreamReader(memoryStream))
-                {
-                    using (GZipStream gZipStream = new GZipStream(streamReader.BaseStream, CompressionMode.Compress))
-                    {
-                        BinaryFormatter bFormatter = new BinaryFormatter();
-                        bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
-                        result = streamReader.ReadToEnd();
-                    }
-                }
-            }
-
-            return result;
+            return Newtonsoft.Json.JsonConvert.SerializeObject(objectToSerialize);
         }
 
-        public static ISerializable DeserializeObjectFromString(string objectToDeserialize)
+        public static T DeserializeObjectFromString<T>(string objectToDeserialize)
         {
-            ISerializable objectToSerialize;
-            using (MemoryStream memoryStream = new MemoryStream())
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>((objectToDeserialize));
+        }
+
+        public static string Compress(string s)
+        {
+            var bytes = Encoding.Unicode.GetBytes(s);
+            using (var msi = new MemoryStream(bytes))
+            using (var mso = new MemoryStream())
             {
-                using (StreamWriter stream = new StreamWriter(memoryStream))
+                using (var gs = new GZipStream(mso, CompressionMode.Compress))
                 {
-                    stream.Write(objectToDeserialize);
-                    using (var gZipStream = new GZipStream(stream.BaseStream, CompressionMode.Decompress))
-                    {
-                        BinaryFormatter bFormatter = new BinaryFormatter();
-                        objectToSerialize = (ISerializable)bFormatter.Deserialize(gZipStream.BaseStream);
-                    }
+                    msi.CopyTo(gs);
                 }
+                return Convert.ToBase64String(mso.ToArray());
             }
-            return objectToSerialize;
+        }
+
+        public static string Decompress(string s)
+        {
+            var bytes = Convert.FromBase64String(s);
+            using (var msi = new MemoryStream(bytes))
+            using (var mso = new MemoryStream())
+            {
+                using (var gs = new GZipStream(msi, CompressionMode.Decompress))
+                {
+                    gs.CopyTo(mso);
+                }
+                return Encoding.Unicode.GetString(mso.ToArray());
+            }
         }
     }
 }

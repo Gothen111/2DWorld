@@ -57,8 +57,10 @@ namespace GameLibrary.Model.Object
             set { aggroRange = value; }
         }
 
+        [System.Xml.Serialization.XmlIgnoreAttribute]
         private Task.Aggro.AggroSystem<LivingObject> aggroSystem;
 
+        [System.Xml.Serialization.XmlIgnoreAttribute]
         public Task.Aggro.AggroSystem<LivingObject> AggroSystem
         {
             get { return aggroSystem; }
@@ -135,7 +137,7 @@ namespace GameLibrary.Model.Object
             //this.tasks = (List<LivingObjectTask>)info.GetValue("tasks", typeof(List<LivingObjectTask>));
         }
 
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             base.GetObjectData(info, ctxt);
 

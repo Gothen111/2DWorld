@@ -42,7 +42,17 @@ namespace GameLibrary.Model.Object
 
         public Rectangle DrawBounds
         {
-            get { return new Rectangle((int)(this.Position.X + this.animation.drawPositionExtra().X - this.Size.X / 2), (int)(this.Position.Y + this.animation.drawPositionExtra().Y - this.Size.Y), (int)this.Size.X, (int)this.Size.Y); }
+            get
+            {
+                if (this.animation != null)
+                {
+                    return new Rectangle((int)(this.Position.X + this.animation.drawPositionExtra().X - this.Size.X / 2), (int)(this.Position.Y + this.animation.drawPositionExtra().Y - this.Size.Y), (int)this.Size.X, (int)this.Size.Y);
+                }
+                else
+                {
+                    return this.Bounds;
+                }
+            }
         }
 
         private List<Rectangle> collisionBounds;
@@ -130,7 +140,14 @@ namespace GameLibrary.Model.Object
 
         public AnimatedObject(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
         {
-            this.scale = (float)info.GetValue("scale", typeof(float));
+            try
+            {
+                this.scale = (float)info.GetValue("scale", typeof(float));
+            }
+            catch (Exception e)
+            {
+                this.scale = 1f;
+            }
             this.layerDepth = (float)info.GetValue("layerDepth", typeof(float));
             this.movementSpeed = (float)info.GetValue("movementSpeed", typeof(float));
 
@@ -141,19 +158,19 @@ namespace GameLibrary.Model.Object
             this.standartStandPositionX = (int)info.GetValue("standartStandPositionX", typeof(int));
         }
 
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            base.GetObjectData(info, ctxt);
-
             info.AddValue("scale", this.scale, typeof(float));
             info.AddValue("layerDepth", this.layerDepth, typeof(float));
             info.AddValue("movementSpeed", this.movementSpeed, typeof(float));
 
             info.AddValue("directionEnum", this.directionEnum, typeof(DirectionEnum));
 
-            info.AddValue("grapicPath", this.graphicPath, typeof(String));
+            info.AddValue("graphicPath", this.graphicPath, typeof(String));
 
             info.AddValue("standartStandPositionX", this.standartStandPositionX, typeof(int));
+
+            base.GetObjectData(info, ctxt);
         }
 
         public override void update()
@@ -279,11 +296,13 @@ namespace GameLibrary.Model.Object
 
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
         {
-            Vector3 var_DrawPositionExtra = this.animation.drawPositionExtra();
+            Vector3 var_DrawPositionExtra = Vector3.Zero;
+            if(this.animation != null)
+                var_DrawPositionExtra = this.animation.drawPositionExtra();
             //TODO: An das Attribut Scale anpassen
             Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
 
-            if (!this.animation.graphicPath().Equals(""))
+            if (this.animation != null && !this.animation.graphicPath().Equals(""))
             {
                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, this.layerDepth);//Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), this.scale, Vector2.Zero, null, this.layerDepth);
             }

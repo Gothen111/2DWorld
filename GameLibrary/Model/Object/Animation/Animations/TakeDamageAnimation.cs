@@ -9,9 +9,14 @@ namespace GameLibrary.Model.Object.Animation.Animations
 {
     public class TakeDamageAnimation : AnimatedObjectAnimation
     {
-        public TakeDamageAnimation(AnimatedObject _AnimationOwner)
-            : base(_AnimationOwner, 0, 20)
+        public TakeDamageAnimation()
         {
+
+        }
+
+        public TakeDamageAnimation(AnimatedObject _AnimationOwner) : base(_AnimationOwner, 0, 20)
+        {
+
         }
 
         public override Vector3 drawPositionExtra()

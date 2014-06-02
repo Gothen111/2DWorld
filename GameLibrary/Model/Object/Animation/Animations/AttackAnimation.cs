@@ -10,6 +10,12 @@ namespace GameLibrary.Model.Object.Animation.Animations
     public class AttackAnimation : AnimatedObjectAnimation
     {
         private int currentFrame;
+
+        public AttackAnimation()
+        {
+
+        }
+
         public AttackAnimation(AnimatedObject _AnimationOwner)
             : base(_AnimationOwner, 0, 10)
         {

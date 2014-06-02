@@ -11,6 +11,12 @@ namespace GameLibrary.Model.Object.Animation.Animations
     {
         private bool chestOpen;
         private int currentFrame;
+
+        public OpenChestAnimation()
+        {
+
+        }
+
         public OpenChestAnimation(AnimatedObject _AnimationOwner)
             : base(_AnimationOwner, 0, 20)
         {

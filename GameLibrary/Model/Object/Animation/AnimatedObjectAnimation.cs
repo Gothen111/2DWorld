@@ -32,6 +32,11 @@ namespace GameLibrary.Model.Object.Animation
             set { animationMax = value; }
         }
 
+        public AnimatedObjectAnimation()
+        {
+
+        }
+
         public AnimatedObjectAnimation(AnimatedObject _AnimationOwner, int _Animation, int _AnimationMax)
         {
             this.animationOwner = _AnimationOwner;

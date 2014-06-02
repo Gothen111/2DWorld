@@ -9,7 +9,7 @@ using GameLibrary.Model.Map.Chunk;
 namespace GameLibrary.Model.Object
 {
     [Serializable()]
-    public class Object: ISerializable
+    public class Object : ISerializable
     {
         public static int _id = 0;
         private int id = _id++;
@@ -86,7 +86,7 @@ namespace GameLibrary.Model.Object
             this.size = (Vector3)info.GetValue("size", typeof(Vector3));
             this.velocity = (Vector3)info.GetValue("velocity", typeof(Vector3));
 
-            this.bounds = (Rectangle)info.GetValue("bounds", typeof(Rectangle));
+            this.bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
 
             this.objects = (List<Object>)info.GetValue("objects", typeof(List<Object>));
         }
@@ -99,7 +99,7 @@ namespace GameLibrary.Model.Object
             info.AddValue("size", this.size, typeof(Vector3));
             info.AddValue("velocity", this.velocity, typeof(Vector3));
 
-            info.AddValue("bounds", this.bounds, typeof(Rectangle));
+            //info.AddValue("bounds", this.bounds, typeof(Rectangle));
 
             info.AddValue("objects", this.objects, typeof(List<Object>));
         }

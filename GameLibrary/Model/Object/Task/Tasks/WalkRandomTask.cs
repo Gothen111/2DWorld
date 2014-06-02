@@ -32,6 +32,11 @@ namespace GameLibrary.Model.Object.Task.Tasks
             set { targetPosition = value; }
         }
 
+        public WalkRandomTask()
+        {
+
+        }
+
         public WalkRandomTask(LivingObject _TaskOwner, TaskPriority _Priority)
             : base(_TaskOwner, _Priority)
         {
