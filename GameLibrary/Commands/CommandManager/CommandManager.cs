@@ -22,5 +22,7 @@ namespace GameLibrary.Commands
 
         public abstract void handleWalkRightCommand(LivingObject actor);
         public abstract void stopWalkRightCommand(LivingObject actor);
+
+        public abstract void sendUpdateObjectPositionCommand(LivingObject actor);
     }
 }

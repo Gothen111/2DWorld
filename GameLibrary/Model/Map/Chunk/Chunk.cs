@@ -52,7 +52,7 @@ namespace GameLibrary.Model.Map.Chunk
             this.parentRegion = _ParentRegion;
         }
 
-        public Chunk(SerializationInfo info, StreamingContext ctxt)
+        public Chunk(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
         {
             this.blocks = (Block.Block[,])info.GetValue("blocks", typeof(Block.Block[,]));
         }
@@ -92,6 +92,7 @@ namespace GameLibrary.Model.Map.Chunk
                 for (int y = 0; y < this.Size.Y; y++)
                 {
                     Block.Block var_Block = this.getBlockAtPosition(x, y);
+                    var_Block.ParentChunk = this;
                     if (x > 0)
                     {
                         var_Block.LeftNeighbour = this.getBlockAtPosition(x-1, y);

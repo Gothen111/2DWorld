@@ -71,5 +71,10 @@ namespace Client.Commands
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkRightCommand), GameMessageImportance.VeryImportant));
             }
         }
+
+        public override void sendUpdateObjectPositionCommand(LivingObject actor)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

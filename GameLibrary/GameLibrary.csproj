@@ -104,6 +104,7 @@
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Commands\CommandManager\CommandManager.cs" />
     <Compile Include="Commands\CommandTypes\Command.cs" />
+    <Compile Include="Commands\CommandTypes\UpdateObjectPositionCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkLeftCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkRightCommand.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
+    <Compile Include="Connection\Message\UpdateObjectPositionMessage.cs" />
     <Compile Include="Connection\Message\PlayerCommandMessage.cs" />
     <Compile Include="Connection\Message\RequestPlayerMessage.cs" />
     <Compile Include="Connection\Message\UpdateChunkMessage.cs" />
@@ -133,6 +135,7 @@
     <Compile Include="Factory\FarmFactory.cs" />
     <Compile Include="Factory\NameFactory.cs" />
     <Compile Include="Factory\RegionFactory.cs" />
+    <Compile Include="Gui\Component.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Model\Behaviour\Behaviour.cs" />
     <Compile Include="Model\Behaviour\BehaviourItem.cs" />
@@ -186,9 +189,14 @@
     <Compile Include="Model\Player\PlayerContoller.cs" />
     <Compile Include="Model\Path\Path.cs" />
     <Compile Include="Model\Path\PathFinder.cs" />
+    <Compile Include="Peripherals\KeyboardManager.cs" />
+    <Compile Include="Peripherals\MouseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ressourcen\Font\EFont.cs" />
     <Compile Include="Ressourcen\RessourcenManager.cs" />
+    <Compile Include="UserInterface\KeyboardListener.cs" />
+    <Compile Include="UserInterface\MouseEnum\MouseEnum.cs" />
+    <Compile Include="UserInterface\MouseListener.cs" />
     <Compile Include="Util\Circle.cs" />
     <Compile Include="Util\Intersection.cs" />
     <Compile Include="Util\MapHandler.cs" />

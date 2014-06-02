@@ -133,6 +133,10 @@
       <Project>{8E6C0DFD-71AF-48E4-8740-116100330B53}</Project>
       <Name>GameLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Server\Server\Server.csproj">
+      <Project>{2F7C6EFE-0AF3-4EC0-BA8B-83402163B55E}</Project>
+      <Name>Server</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClientContent\ClientContent.contentproj">
       <Name>ClientContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>

@@ -39,6 +39,9 @@ namespace Client.Connection
                 case EIGameMessageType.UpdateLivingObjectMessage:
                     handleUpdateLivingObjectMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.UpdateObjectPositionMessage:
+                    handleUpdateObjectPositionMessage(_NetIncomingMessage);
+                    break;
 
             }
         }
@@ -57,10 +60,7 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            GameLibrary.Model.Object.PlayerObject.playerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
-            GameLibrary.Model.Object.PlayerObject.playerObject.Id = message.Id;
-            GameLibrary.Model.Object.PlayerObject.playerObject.Position = new Vector3(0, 0, 0);  
-            GameLibrary.Model.Object.PlayerObject.playerObject.GraphicPath = "Character/Char1_Small";
+            GameLibrary.Model.Object.PlayerObject.playerObject = message.PlayerObject;
             GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Model.Object.PlayerObject.playerObject);
 
             GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.W }, new GameLibrary.Commands.CommandTypes.WalkUpCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
@@ -83,6 +83,19 @@ namespace Client.Connection
             var_LivingObject.MoveDown = message.MoveDown;
             var_LivingObject.MoveLeft = message.MoveLeft;
             var_LivingObject.MoveRight = message.MoveRight;
+        }
+
+        private static void handleUpdateObjectPositionMessage(NetIncomingMessage _Im)
+        {
+            var message = new UpdateObjectPositionMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Model.Object.LivingObject var_LivingObject = GameLibrary.Model.Map.World.World.world.getLivingObject(message.Id);
+            if (var_LivingObject != null)
+            {
+                var_LivingObject.Position = message.Position;
+            }
         }
     }
 }

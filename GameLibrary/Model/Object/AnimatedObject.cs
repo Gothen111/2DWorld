@@ -140,20 +140,15 @@ namespace GameLibrary.Model.Object
 
         public AnimatedObject(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
         {
-            try
-            {
-                this.scale = (float)info.GetValue("scale", typeof(float));
-            }
-            catch (Exception e)
-            {
-                this.scale = 1f;
-            }
+            this.scale = (float)info.GetValue("scale", typeof(float));
             this.layerDepth = (float)info.GetValue("layerDepth", typeof(float));
             this.movementSpeed = (float)info.GetValue("movementSpeed", typeof(float));
 
             this.directionEnum = (DirectionEnum)info.GetValue("directionEnum", typeof(DirectionEnum));
 
             this.graphicPath = (String)info.GetValue("graphicPath", typeof(String));
+
+            this.animation = new Animation.Animations.StandAnimation(this);
 
             this.standartStandPositionX = (int)info.GetValue("standartStandPositionX", typeof(int));
         }

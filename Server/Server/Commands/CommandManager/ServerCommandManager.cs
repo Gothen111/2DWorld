@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 
 using GameLibrary.Model.Object;
+using GameLibrary.Commands.CommandTypes;
 using GameLibrary.Model.Object.Task.Tasks;
+using GameLibrary.Connection;
 using GameLibrary.Commands.CommandTypes;
 
 using GameLibrary.Commands;
@@ -47,6 +49,11 @@ namespace Server.Commands
         public override void stopWalkRightCommand(LivingObject actor)
         {
             actor.MoveRight = false;
+        }
+
+        public override void sendUpdateObjectPositionCommand(LivingObject actor)
+        {
+            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(actor), GameMessageImportance.VeryImportant));
         }
     }
 }

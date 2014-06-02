@@ -32,12 +32,12 @@ namespace GameLibrary.Util
 
         public static string SerializeObjectToString(ISerializable objectToSerialize)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(objectToSerialize);
+            return Compress(Newtonsoft.Json.JsonConvert.SerializeObject(objectToSerialize));
         }
 
         public static T DeserializeObjectFromString<T>(string objectToDeserialize)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>((objectToDeserialize));
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(Decompress(objectToDeserialize));
         }
 
         public static string Compress(string s)

@@ -53,19 +53,8 @@ namespace GameLibrary.Connection.Message
             this.MessageTime = im.ReadDouble();
             this.RegionId = im.ReadInt32();
 
-            this.Chunk = new Model.Map.Chunk.Chunk(this.Id,"Chunk",0,0,40,40, Model.Map.World.World.world.getRegion(this.RegionId));
-
-            for (int x = 0; x < Model.Map.Chunk.Chunk.chunkSizeX; x++)
-            {
-                for (int y = 0; y < Model.Map.Chunk.Chunk.chunkSizeY; y++)
-                {
-                    this.Chunk.setBlockAtPosition(x, y, new Model.Map.Block.Block((int)this.Chunk.Position.X + x * Model.Map.Block.Block.BlockSize, (int)this.Chunk.Position.Y + y * Model.Map.Block.Block.BlockSize, Model.Map.Block.BlockEnum.Nothing, this.Chunk));
-                    for (int layer = 0; layer < 6; layer++)
-                    {
-                        this.Chunk.getBlockAtPosition(x, y).setLayerAt((Model.Map.Block.BlockEnum)im.ReadInt32(), (Model.Map.Block.BlockLayerEnum)layer);
-                    }
-                }
-            }
+            this.Chunk = Util.Serializer.DeserializeObjectFromString<Model.Map.Chunk.Chunk>(im.ReadString());
+            this.Chunk.ParentRegion = Model.Map.World.World.world.getRegion(this.RegionId);
             this.Chunk.setAllNeighboursOfBlocks();
         }
 
@@ -75,16 +64,7 @@ namespace GameLibrary.Connection.Message
             om.Write(this.MessageTime);
             om.Write(this.RegionId);
 
-            for (int x = 0; x < Model.Map.Chunk.Chunk.chunkSizeX; x++)
-            {
-                for (int y = 0; y < Model.Map.Chunk.Chunk.chunkSizeY; y++)
-                {
-                    for (int layer = 0; layer < 6; layer++)
-                    {
-                        om.Write((int)this.Chunk.getBlockAtPosition(x,y).Layer[layer]);
-                    }
-                }
-            }
+            om.Write(Util.Serializer.SerializeObjectToString(this.Chunk));
         }
 
         #endregion

@@ -66,20 +66,20 @@ namespace GameLibrary.Model.Map.Block
             this.isWalkAble = true;
         }
 
-        public Block(SerializationInfo info, StreamingContext ctxt)
+        public Block(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
         {
             this.layer = (BlockEnum[])info.GetValue("layer", typeof(BlockEnum[]));
             //TODO: Alle Objekttypen müssen serialisierbar gemacht werden
-            //this.objects = (List<Object.LivingObject>)info.GetValue("objects", typeof(List<Object.LivingObject>));
-            //this.objectsPreEnviorment = (List<Object.LivingObject>)info.GetValue("objectsPreEnviorment", typeof(List<Object.LivingObject>));
+            this.objects = (List<Object.LivingObject>)info.GetValue("objects", typeof(List<Object.LivingObject>));
+            this.objectsPreEnviorment = (List<Object.LivingObject>)info.GetValue("objectsPreEnviorment", typeof(List<Object.LivingObject>));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             base.GetObjectData(info, ctxt);
             info.AddValue("layer", this.layer, typeof(BlockEnum[]));
-            //info.AddValue("objects", this.objects, typeof(List<Object.LivingObject>));
-            //info.AddValue("objectsPreEnviorment", this.objectsPreEnviorment, typeof(List<Object.LivingObject>));
+            info.AddValue("objects", this.objects, typeof(List<Object.LivingObject>));
+            info.AddValue("objectsPreEnviorment", this.objectsPreEnviorment, typeof(List<Object.LivingObject>));
         }
 
         public void setLayerAt(Enum _Enum, BlockLayerEnum _Id)

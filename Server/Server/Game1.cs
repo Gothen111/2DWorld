@@ -73,9 +73,6 @@ namespace Server
             watch.Stop();
             GameLibrary.Logger.Logger.LogInfo(watch.Elapsed.ToString());
 
-            string world = GameLibrary.Util.Serializer.SerializeObjectToString(GameLibrary.Model.Map.World.World.world);
-            GameLibrary.Model.Map.World.World w2 = GameLibrary.Util.Serializer.DeserializeObjectFromString<GameLibrary.Model.Map.World.World>(world);
-
             base.Initialize();
         }
 

@@ -1,56 +1,63 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using Microsoft.Xna.Framework;
 
 using Lidgren.Network;
 using Lidgren.Network.Xna;
 
 namespace GameLibrary.Connection.Message
 {
-    public class UpdatePlayerMessage : IGameMessage
+    public class UpdateObjectPositionMessage : IGameMessage
     {
         #region Constructors and Destructors
 
-        public UpdatePlayerMessage(NetIncomingMessage im)
+        public UpdateObjectPositionMessage(NetIncomingMessage im)
         {
             this.Decode(im);
         }
 
-        public UpdatePlayerMessage(Model.Object.PlayerObject _PlayerObject)
+        public UpdateObjectPositionMessage(Model.Object.LivingObject _LivingObject)
         {
+            this.Id = _LivingObject.Id;
             this.MessageTime = NetTime.Now;
-            this.PlayerObject = _PlayerObject;
+            this.Position = _LivingObject.Position;
         }
 
         #endregion
 
         #region Properties
 
+        public int Id { get; set; }
+
         public double MessageTime { get; set; }
 
-        public Model.Object.PlayerObject PlayerObject { get; set; }
+        public Vector3 Position { get; set; }
 
+        public EIGameMessageType MessageType
+        {
+            get { return EIGameMessageType.UpdateObjectPositionMessage; }
+        }
 
         #endregion
 
         #region Public Methods
 
-        public EIGameMessageType MessageType
-        {
-            get { return EIGameMessageType.UpdatePlayerMessage; }
-        }
-
         public void Decode(NetIncomingMessage im)
         {
+            this.Id = im.ReadInt32();
             this.MessageTime = im.ReadDouble();
-            this.PlayerObject = Util.Serializer.DeserializeObjectFromString<Model.Object.PlayerObject>(im.ReadString());
+            this.Position = im.ReadVector3();
         }
 
         public void Encode(NetOutgoingMessage om)
         {
+            om.Write(this.Id);
             om.Write(this.MessageTime);
-            om.Write(Util.Serializer.SerializeObjectToString(this.PlayerObject));
+            om.Write(this.Position);
         }
 
         #endregion

@@ -88,6 +88,11 @@ namespace Client
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             GameLibrary.Model.Player.PlayerContoller.playerContoller.update();
+            if (this.IsActive)
+            {
+                GameLibrary.Peripherals.KeyboardManager.keyboardManager.update();
+                GameLibrary.Peripherals.MouseManager.mouseManager.update();
+            }
             GameLibrary.Model.Map.World.World.world.update();
             ClientNetworkManager.clientNetworkManager.update();
             GameLibrary.Camera.Camera.camera.update(gameTime);

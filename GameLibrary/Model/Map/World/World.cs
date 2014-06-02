@@ -44,6 +44,9 @@ namespace GameLibrary.Model.Map.World
             set { size = value; }
         }
 
+        private float updatePlayerIntervall = 0;
+        private float updatePlayerIntervallmax = 60;
+
         private List<Object.PlayerObject> playerObjects;
 
         public World()
@@ -213,7 +216,21 @@ namespace GameLibrary.Model.Map.World
         public void update()
         {
             this.updatePlayerObjectsNeighborhood();
+            if (GameLibrary.Configuration.Configuration.isHost && this.updatePlayerIntervall <= this.updatePlayerIntervallmax)
+            {
+                this.updatePlayerIntervall = 0;
+                foreach (PlayerObject playerObject in this.playerObjects)
+                {
+                    Configuration.Configuration.commandManager.sendUpdateObjectPositionCommand(playerObject);
+                }
+            }
+            else
+            {
+                this.updatePlayerIntervall++;
+            }
         }
+
+        #region Methoden für Range-Berechnung
 
         public Region.Region getRegionLivingObjectIsIn(GameLibrary.Model.Object.LivingObject _LivingObject)
         {
@@ -469,6 +486,8 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
+        #endregion
+
         public void addPlayerObject(Object.PlayerObject _PlayerObject)
         {
             this.playerObjects.Add(_PlayerObject);
@@ -559,6 +578,8 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
+        #region Objekte anhand der ID finden
+
         public Region.Region getRegion(int _Id)
         {
             foreach (Region.Region var_Region in regions)
@@ -600,5 +621,7 @@ namespace GameLibrary.Model.Map.World
             }
             return null;
         }
+
+        #endregion
     }
 }
