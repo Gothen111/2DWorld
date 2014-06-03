@@ -252,17 +252,24 @@ namespace GameLibrary.Model.Map.World
 
         public Object.LivingObject addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree, Region.Region _Region)
         {
-            Chunk.Chunk chunk = _Region.getChunkLivingObjectIsIn(livingObject);
-            if (chunk != null)
+            if (_Region != null)
             {
-                Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
-                block.addLivingObject(livingObject);
-                if (insertInQuadTree)
+                Chunk.Chunk chunk = _Region.getChunkLivingObjectIsIn(livingObject);
+                if (chunk != null)
                 {
-                    if (quadTree == null)
-                        quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
-                    quadTree.Insert(livingObject);
+                    Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
+                    block.addLivingObject(livingObject);
+                    if (insertInQuadTree)
+                    {
+                        if (quadTree == null)
+                            quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
+                        quadTree.Insert(livingObject);
+                    }
                 }
+            }
+            else
+            {
+                Logger.Logger.LogInfo("World.addLivingObject: LivingObject konnte der Region nicht hinzugefügt werden, da diese null war");
             }
             return livingObject;
         }

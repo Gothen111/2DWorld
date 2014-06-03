@@ -114,6 +114,10 @@ namespace Client
             {
                 GameLibrary.Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
             }
+            else
+            {
+                spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Dein Charakter ist leider gestorben :(", new Vector2(50, 50), Color.White);
+            }
 
             spriteBatch.End();
 
