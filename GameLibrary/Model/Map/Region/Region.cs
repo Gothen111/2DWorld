@@ -78,6 +78,10 @@ namespace GameLibrary.Model.Map.Region
                     {*/
                         this.chunks.Add(_Chunk);
                         this.setAllNeighboursOfChunk(_Chunk);
+                        if (GameLibrary.Configuration.Configuration.isHost)
+                        {
+                            GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateChunkCommand(_Chunk));
+                        }
                         return true;
                 /*    }
                 }*/
@@ -181,6 +185,11 @@ namespace GameLibrary.Model.Map.Region
             return null;
         }
 
+        public void createChunkAt(int _PosX, int _PosY)
+        {
+            GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
+        }
+
         public void loadChunk(int _ID)
         {
 
@@ -223,5 +232,6 @@ namespace GameLibrary.Model.Map.Region
             }
             return null;
         }
+
     }
 }

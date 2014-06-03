@@ -82,6 +82,11 @@ namespace Client.Commands
             throw new NotImplementedException();
         }
 
+        public override void sendUpdateChunkCommand(GameLibrary.Model.Map.Chunk.Chunk chunk)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void handleAttackCommand(LivingObject actor)
         {
             actor.attackLivingObject(null, 0); //TODO: Noch Response einbauen, dass Attackanimation nur dann gestartet wird, wenn ein Objekt getroffen wurde

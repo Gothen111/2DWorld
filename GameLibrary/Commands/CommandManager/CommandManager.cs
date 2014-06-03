@@ -27,5 +27,7 @@ namespace GameLibrary.Commands
         public abstract void sendUpdateObjectHealthCommand(LivingObject actor);
 
         public abstract void handleAttackCommand(LivingObject actor);
+
+        public abstract void sendUpdateChunkCommand(Model.Map.Chunk.Chunk chunk);
     }
 }

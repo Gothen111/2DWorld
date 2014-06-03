@@ -66,5 +66,10 @@ namespace Server.Commands
             if (actor is CreatureObject)
                 (actor as CreatureObject).attack();
         }
+
+        public override void sendUpdateChunkCommand(GameLibrary.Model.Map.Chunk.Chunk chunk)
+        {
+            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateChunkMessage(chunk), GameMessageImportance.VeryImportant));
+        }
     }
 }

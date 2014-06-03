@@ -105,6 +105,7 @@
     <Compile Include="Commands\CommandManager\CommandManager.cs" />
     <Compile Include="Commands\CommandTypes\Command.cs" />
     <Compile Include="Commands\CommandTypes\AttackCommand.cs" />
+    <Compile Include="Commands\CommandTypes\UpdateChunkCommand.cs" />
     <Compile Include="Commands\CommandTypes\UpdateObjectHealthCommand.cs" />
     <Compile Include="Commands\CommandTypes\UpdateObjectPositionCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
@@ -189,6 +190,10 @@
     <Compile Include="Model\Object\Task\Tasks\StandTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\TaskPriority.cs" />
     <Compile Include="Model\Object\Task\Tasks\WalkRandomTask.cs" />
+    <Compile Include="Model\Player\Connection\Client.cs" />
+    <Compile Include="Model\Player\Connection\ServerIGameMessageManager.cs" />
+    <Compile Include="Model\Player\Connection\ServerMessageManager.cs" />
+    <Compile Include="Model\Player\Connection\ServerNetworkManager.cs" />
     <Compile Include="Model\Player\InputAction.cs" />
     <Compile Include="Model\Player\PlayerContoller.cs" />
     <Compile Include="Model\Path\Path.cs" />
