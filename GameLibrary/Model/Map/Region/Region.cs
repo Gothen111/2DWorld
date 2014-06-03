@@ -17,7 +17,14 @@ namespace GameLibrary.Model.Map.Region
     {
         public static int regionSizeX = 2;
         public static int regionSizeY = 2;
+
         private List<Chunk.Chunk> chunks;
+
+        public List<Chunk.Chunk> Chunks
+        {
+            get { return chunks; }
+            set { chunks = value; }
+        }
 
         public Rectangle Bounds
         {
@@ -34,9 +41,11 @@ namespace GameLibrary.Model.Map.Region
 
         private RegionEnum regionEnum;
 
-        public Region(SerializationInfo info, StreamingContext ctxt)
+        public Region(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
         {
             this.chunks = (List<Chunk.Chunk>)info.GetValue("chunks", typeof(List<Chunk.Chunk>));
+            this.Position = (Vector2)info.GetValue("position", typeof(Vector2));
+            this.Size = (Vector2)info.GetValue("size", typeof(Vector2));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -90,6 +99,16 @@ namespace GameLibrary.Model.Map.Region
         public bool containsChunk(Chunk.Chunk _Chunk)
         {
             return false;
+        }
+
+        public void setAllNeighboursOfChunks()
+        {
+            foreach (Chunk.Chunk var_Chunk in this.chunks)
+            {
+                var_Chunk.ParentRegion = this;
+                var_Chunk.Parent = this;
+                setAllNeighboursOfChunk(var_Chunk);
+            }
         }
 
         public void setAllNeighboursOfChunk(Chunk.Chunk _Chunk)

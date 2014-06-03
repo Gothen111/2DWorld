@@ -94,6 +94,9 @@ namespace Server.Connection
                 case GameLibrary.Commands.ECommandType.StopWalkRightCommand:
                     GameLibrary.Configuration.Configuration.commandManager.stopWalkRightCommand(var_PlayerObject);
                     break;
+                case GameLibrary.Commands.ECommandType.AttackCommand:
+                    GameLibrary.Configuration.Configuration.commandManager.handleAttackCommand(var_PlayerObject);
+                    break;
             }
         }
     }

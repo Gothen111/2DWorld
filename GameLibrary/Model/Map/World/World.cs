@@ -16,6 +16,7 @@ namespace GameLibrary.Model.Map.World
     [Serializable()]
     public class World : ISerializable
     {
+        #region Attribute
         public static World world;
 
         private List<Region.Region> regions;
@@ -48,7 +49,8 @@ namespace GameLibrary.Model.Map.World
         private float updatePlayerIntervallmax = 60;
 
         private List<Object.PlayerObject> playerObjects;
-
+        #endregion
+        #region Constructors
         public World()
         {
             this.quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
@@ -76,7 +78,7 @@ namespace GameLibrary.Model.Map.World
 
             this.playerObjects = new List<PlayerObject>();
         }
-
+        #endregion
         public bool addRegion(Region.Region _Region)
         {
             if (!containsRegion(_Region.Id))
@@ -100,7 +102,7 @@ namespace GameLibrary.Model.Map.World
         {
             return false;
         }
-
+        #region drawing
         public void drawBlocks(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, LivingObject _Target)
         {
             //float var_LayerDepth = 0.79f;
@@ -212,23 +214,7 @@ namespace GameLibrary.Model.Map.World
                 }
             }
         }
-
-        public void update()
-        {
-            this.updatePlayerObjectsNeighborhood();
-            if (GameLibrary.Configuration.Configuration.isHost && this.updatePlayerIntervall <= this.updatePlayerIntervallmax)
-            {
-                this.updatePlayerIntervall = 0;
-                foreach (PlayerObject playerObject in this.playerObjects)
-                {
-                    Configuration.Configuration.commandManager.sendUpdateObjectPositionCommand(playerObject);
-                }
-            }
-            else
-            {
-                this.updatePlayerIntervall++;
-            }
-        }
+        #endregion
 
         #region Methoden für Range-Berechnung
 
@@ -489,13 +475,34 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
-        #endregion
 
         public void addPlayerObject(Object.PlayerObject _PlayerObject)
         {
             this.playerObjects.Add(_PlayerObject);
             this.addLivingObject(_PlayerObject);
         }
+
+        #endregion
+
+        #region update-Methoden
+
+        public void update()
+        {
+            this.updatePlayerObjectsNeighborhood();
+            if (GameLibrary.Configuration.Configuration.isHost && this.updatePlayerIntervall <= this.updatePlayerIntervallmax)
+            {
+                this.updatePlayerIntervall = 0;
+                foreach (PlayerObject playerObject in this.playerObjects)
+                {
+                    Configuration.Configuration.commandManager.sendUpdateObjectPositionCommand(playerObject);
+                }
+            }
+            else
+            {
+                this.updatePlayerIntervall++;
+            }
+        }
+
 
         private void updatePlayerObjectsNeighborhood()
         {
@@ -580,6 +587,7 @@ namespace GameLibrary.Model.Map.World
                 }
             }
         }
+        #endregion
 
         #region Objekte anhand der ID finden
 

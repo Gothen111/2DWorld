@@ -8,10 +8,12 @@ namespace GameLibrary.Connection.Message
     public enum EIGameMessageType
     {
         UpdateChunkMessage,
+        UpdateRegionMessage,
         RequestPlayerMessage,
         UpdatePlayerMessage,
         PlayerCommandMessage,
         UpdateLivingObjectMessage,
         UpdateObjectPositionMessage,
+        UpdateObjectHealthMessage,
     }
 }

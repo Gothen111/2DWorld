@@ -78,8 +78,8 @@ namespace GameLibrary.Model.Map.Block
         {
             base.GetObjectData(info, ctxt);
             info.AddValue("layer", this.layer, typeof(BlockEnum[]));
-            info.AddValue("objects", this.objects, typeof(List<Object.LivingObject>));
-            info.AddValue("objectsPreEnviorment", this.objectsPreEnviorment, typeof(List<Object.LivingObject>));
+            info.AddValue("objects", this.objects, this.objects.GetType());
+            info.AddValue("objectsPreEnviorment", this.objectsPreEnviorment, this.objectsPreEnviorment.GetType());
         }
 
         public void setLayerAt(Enum _Enum, BlockLayerEnum _Id)

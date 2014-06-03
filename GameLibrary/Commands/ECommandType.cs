@@ -15,5 +15,6 @@ namespace GameLibrary.Commands
         StopWalkRightCommand,
         StopWalkTopCommand,
         StopWalkDownCommand,
+        AttackCommand,
     }
 }

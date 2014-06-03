@@ -42,7 +42,7 @@ namespace GameLibrary.Factory
                         equipmentWeaponObject.Range = 50;
                         equipmentWeaponObject.AttackSpeed = 0;
                         equipmentWeaponObject.AttackSpeedMax = 60;
-                        equipmentWeaponObject.SearchFlags.Add(new GameLibrary.Model.Map.World.SearchFlags.NpcObjectFlag());
+                        //equipmentWeaponObject.SearchFlags.Add(new GameLibrary.Model.Map.World.SearchFlags.());
                         break;
                     }
             }

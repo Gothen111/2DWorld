@@ -15,7 +15,7 @@ namespace GameLibrary.Logger
             if (LogLevel >= 0 || OnlyError)
             {
                 Console.ForegroundColor = ConsoleColor.Red; // DarkRed
-                Console.WriteLine("Error: " + _Msg);
+                writeToConsole("Error: " + _Msg);
             }
         }
 
@@ -26,11 +26,11 @@ namespace GameLibrary.Logger
                 Console.ForegroundColor = ConsoleColor.DarkCyan; // DarkCyan
                 if (_UseSameRow)
                 {
-                    Console.Write(String.Format("Debug: {0}    \r", _Msg));
+                    writeToConsole(String.Format("Debug: {0}    \r", _Msg));
                 }
                 else
                 {
-                    Console.WriteLine("Debug: " + _Msg);
+                    writeToConsole("Debug: " + _Msg);
                 }
             }
         }
@@ -47,11 +47,11 @@ namespace GameLibrary.Logger
                 Console.ForegroundColor = ConsoleColor.Gray;
                 if (_UseSameRow)
                 {
-                    Console.Write(String.Format("Info : {0}    \r", _Msg));
+                    writeToConsole(String.Format("Info : {0}    \r", _Msg));
                 }
                 else
                 {
-                    Console.WriteLine("Info : " + _Msg);
+                    writeToConsole("Info : " + _Msg);
                 }
             }
         }
@@ -59,6 +59,11 @@ namespace GameLibrary.Logger
         public static void LogInfo(String _Msg)
         {
             LogInfo(_Msg, false);
+        }
+
+        public static void writeToConsole(string _String)
+        {
+            Console.WriteLine(_String);
         }
     }
 }

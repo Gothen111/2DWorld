@@ -104,6 +104,8 @@
     <Compile Include="Camera\Camera.cs" />
     <Compile Include="Commands\CommandManager\CommandManager.cs" />
     <Compile Include="Commands\CommandTypes\Command.cs" />
+    <Compile Include="Commands\CommandTypes\AttackCommand.cs" />
+    <Compile Include="Commands\CommandTypes\UpdateObjectHealthCommand.cs" />
     <Compile Include="Commands\CommandTypes\UpdateObjectPositionCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkLeftCommand.cs" />
@@ -115,6 +117,8 @@
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
+    <Compile Include="Connection\Message\UpdateRegionMessage.cs" />
+    <Compile Include="Connection\Message\UpdateObjectHealthMessage.cs" />
     <Compile Include="Connection\Message\UpdateObjectPositionMessage.cs" />
     <Compile Include="Connection\Message\PlayerCommandMessage.cs" />
     <Compile Include="Connection\Message\RequestPlayerMessage.cs" />

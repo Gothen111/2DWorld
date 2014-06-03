@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using GameLibrary.Factory.FactoryEnums;
 using GameLibrary.Model.Object.Interaction;
 using GameLibrary.Model.Object.Task;
+using GameLibrary.Connection;
 //using Server.GameLibrary.Model.Object.Task.Tasks;
 
 namespace GameLibrary.Model.Object
@@ -129,7 +130,7 @@ namespace GameLibrary.Model.Object
 
             this.gender = (GenderEnum)info.GetValue("gender", typeof(GenderEnum));
 
-            this.aggroSystem = (Task.Aggro.AggroSystem<LivingObject>)info.GetValue("aggroSystem", typeof(Task.Aggro.AggroSystem<LivingObject>));
+            //this.aggroSystem = (Task.Aggro.AggroSystem<LivingObject>)info.GetValue("aggroSystem", typeof(Task.Aggro.AggroSystem<LivingObject>));
 
             //TODO: Verändere Methoden, sodass Interaction und Tasks nicht mehr den Owner speichern, sonst gibt es eine Kettenspeicherung bei Serialisierung
             //this.interactions = (List<LivingObjectInteraction>)info.GetValue("interactions", typeof(List<LivingObjectInteraction>));
@@ -150,7 +151,7 @@ namespace GameLibrary.Model.Object
 
             info.AddValue("gender", this.gender, typeof(GenderEnum));
 
-            info.AddValue("aggroSystem", this.aggroSystem, typeof(Task.Aggro.AggroSystem<LivingObject>));
+            //info.AddValue("aggroSystem", this.aggroSystem, typeof(Task.Aggro.AggroSystem<LivingObject>));
 
             //info.AddValue("interactions", this.interactions, typeof(List<LivingObjectInteraction>));
 
@@ -270,7 +271,8 @@ namespace GameLibrary.Model.Object
         {
             //ChangeDirection(_Target.Position);
             this.Animation = new Animation.Animations.AttackAnimation(this);
-            _Target.onAttacked(this, _Damage);
+            if(Configuration.Configuration.isHost)
+                _Target.onAttacked(this, _Damage);
         }
 
         public void MoveWithoutDirectionChange(Vector3 _TargetPosition)
@@ -298,6 +300,10 @@ namespace GameLibrary.Model.Object
             knockBackVector.Y = knockBackVector.Y / knockBackVector.Length() * 20;
             knockBackVector.Z = knockBackVector.Z / knockBackVector.Length() * 20;
             this.knockBack(knockBackVector);
+
+            GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateObjectHealthCommand(this));
+            GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateObjectPositionCommand(this));
+            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(this), GameMessageImportance.VeryImportant));
         }
 
         public void damage(int _DamageAmount)

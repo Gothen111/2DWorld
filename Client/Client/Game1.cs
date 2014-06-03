@@ -45,10 +45,7 @@ namespace Client
             GameLibrary.Camera.Camera.camera = new GameLibrary.Camera.Camera(GraphicsDevice.Viewport);
 
             GameLibrary.Model.Map.World.World.world = new GameLibrary.Model.Map.World.World("Welt");
-            GameLibrary.Model.Map.Region.Region region = GameLibrary.Factory.RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, GameLibrary.Model.Map.Region.RegionEnum.Grassland, GameLibrary.Model.Map.World.World.world);
-
-            GameLibrary.Model.Map.World.World.world.addRegion(region);
-
+            
             ClientNetworkManager.clientNetworkManager.Start("127.0.0.1", "14242");
 
             base.Initialize();
@@ -132,7 +129,8 @@ namespace Client
             spriteBatch.End();
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
+            if(gameTime.ElapsedGameTime.Milliseconds > 0)
+                spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
             //spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + world.QuadTree.Root.quadObjects.ToString(), new Vector2(100, 0), Color.White);
             spriteBatch.End();
 

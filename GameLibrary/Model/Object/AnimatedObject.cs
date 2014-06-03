@@ -177,7 +177,7 @@ namespace GameLibrary.Model.Object
             if (this.animation != null)
             {
                 this.animation.update();
-                if (this.animation.finishedAnimation() && !(this.animation is Animation.Animations.MoveAnimation))
+                if (this.animation.finishedAnimation() && !(this.animation is Animation.Animations.MoveAnimation || this.Velocity != Vector3.Zero))
                 {
                     this.animation = new Animation.Animations.StandAnimation(this);
                 }

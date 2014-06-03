@@ -39,13 +39,20 @@ namespace GameLibrary.Factory
                 {*/
             if (Configuration.Configuration.isHost)
             {
-                this.createChunkInRegion(var_Result, _PosX, _PosY);
+                for (int x = 0; x < Region.regionSizeX; x++)
+                {
+                    for (int y = 0; y < Region.regionSizeY; y++)
+                    {
+                        this.createChunkInRegion(var_Result, x, y);
+                    }
+                }
+                var_Result.setAllNeighboursOfChunks();
             }
                 //}
                 //Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " + (int)(((float)x / Region.regionSizeX) * 100) + "%", true);
             //}
 
-            //FarmFactory.farmFactory.generateFarms(var_Result, 1, 0);
+            FarmFactory.farmFactory.generateFarms(var_Result, 1, 0);
 
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
 
@@ -66,8 +73,8 @@ namespace GameLibrary.Factory
 
         public void createChunkInRegion(Region _Region, int _PosX, int _PosY)
         {
-            Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(0, /*x * Chunk.chunkSizeX * Block.BlockSize + */_PosX, /*y * Chunk.chunkSizeX * Block.BlockSize + */_PosY, ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), _Region);
-            this.addChunkToRegion(_Region, /*x * Chunk.chunkSizeX * Block.BlockSize + */_PosX, /*y * Chunk.chunkSizeX * Block.BlockSize + */_PosY, var_Chunk);
+            Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk(0, (int)(_PosX * Chunk.chunkSizeX * Block.BlockSize + _Region.Position.X), (int)(_PosY * Chunk.chunkSizeY * Block.BlockSize + _Region.Position.Y), ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), _Region);
+            this.addChunkToRegion(_Region, _PosY , _PosY, var_Chunk);
         }
     }
 }

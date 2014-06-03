@@ -55,6 +55,7 @@ namespace GameLibrary.Model.Map.Chunk
         public Chunk(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
         {
             this.blocks = (Block.Block[,])info.GetValue("blocks", typeof(Block.Block[,]));
+            setAllNeighboursOfBlocks();
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -157,6 +158,22 @@ namespace GameLibrary.Model.Map.Chunk
                     this.getBlockAtPosition(x, y).update();
                 }
             }
+        }
+
+        public List<Object.LivingObject> getAllObjectsInChunk()
+        {
+            List<Object.LivingObject> result = new List<Object.LivingObject>();
+            for (int x = 0; x < this.Size.X; x++)
+            {
+                for (int y = 0; y < this.Size.Y; y++)
+                {
+                    foreach(Object.LivingObject var_LivingObject in this.getBlockAtPosition(x, y).Objects)
+                    {
+                        result.Add(var_LivingObject);
+                    }
+                }
+            }
+            return result;
         }
     }
 }

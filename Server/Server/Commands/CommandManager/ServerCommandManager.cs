@@ -55,5 +55,16 @@ namespace Server.Commands
         {
             Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(actor), GameMessageImportance.VeryImportant));
         }
+
+        public override void sendUpdateObjectHealthCommand(LivingObject actor)
+        {
+            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectHealthMessage(actor), GameMessageImportance.VeryImportant));
+        }
+
+        public override void handleAttackCommand(LivingObject actor)
+        {
+            if (actor is CreatureObject)
+                (actor as CreatureObject).attack();
+        }
     }
 }
