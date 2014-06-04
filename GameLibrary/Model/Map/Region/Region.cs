@@ -31,14 +31,6 @@ namespace GameLibrary.Model.Map.Region
             get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)Size.Y * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize); }
         }
 
-        private World.World parentWorld;
-
-        public World.World ParentWorld
-        {
-            get { return parentWorld; }
-            set { parentWorld = value; }
-        }
-
         private RegionEnum regionEnum;
 
         public Region(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
@@ -65,7 +57,7 @@ namespace GameLibrary.Model.Map.Region
 
             this.regionEnum = _RegionEnum;
 
-            parentWorld = _ParentWorld;
+            this.Parent = _ParentWorld;
         }
 
         public bool setChunkAtPosition(int _PosX, int _PosY, Chunk.Chunk _Chunk)
@@ -109,7 +101,6 @@ namespace GameLibrary.Model.Map.Region
         {
             foreach (Chunk.Chunk var_Chunk in this.chunks)
             {
-                var_Chunk.ParentRegion = this;
                 var_Chunk.Parent = this;
                 setAllNeighboursOfChunk(var_Chunk);
             }
@@ -218,7 +209,11 @@ namespace GameLibrary.Model.Map.Region
 
         public override void update()
         {
-            base.update();
+            if (this.NeedUpdate)
+            {
+                base.update();
+                this.updateChilds();
+            }
         }
 
         public Chunk.Chunk getChunk(int _Id)
@@ -232,6 +227,5 @@ namespace GameLibrary.Model.Map.Region
             }
             return null;
         }
-
     }
 }

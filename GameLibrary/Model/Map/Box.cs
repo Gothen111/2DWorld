@@ -79,12 +79,24 @@ namespace GameLibrary.Model.Map
             set { parent = value; }
         }
 
-        public Box()
-        {
+        private bool needUpdate;
 
+        public bool NeedUpdate
+        {
+            get { return needUpdate; }
+            set { needUpdate = value; }
         }
 
-        public Box(SerializationInfo info, StreamingContext ctxt)
+        private List<Box> childsToUpdate;
+
+        public Box()
+        {
+            this.needUpdate = true;
+            this.childsToUpdate = new List<Box>();
+        }
+
+        public Box(SerializationInfo info, StreamingContext ctxt) 
+            :this()
         {
             this.id = (int)info.GetValue("id", typeof(int));
             this.size = (Vector2)info.GetValue("size", typeof(Vector2));
@@ -102,7 +114,33 @@ namespace GameLibrary.Model.Map
 
         public virtual void update()
         {
+            //this.needUpdate = false;
+        }
 
+        public void markAsDirty()
+        {
+            this.needUpdate = true;
+            if (this.parent != null)
+            {
+                this.parent.markAsDirty();
+            }
+        }
+
+        public void addChildToUpdateList(Box _Box)
+        {
+            if (!this.childsToUpdate.Contains(_Box))
+            {
+                this.childsToUpdate.Add(_Box);
+            }
+        }
+
+        public void updateChilds()
+        {
+            foreach (Box var_Box in this.childsToUpdate)
+            {
+                var_Box.update();
+            }
+            this.childsToUpdate.Clear();
         }
     }
 }

@@ -14,20 +14,12 @@ using GameLibrary.Model.Collison;
 namespace GameLibrary.Model.Map.World
 {
     [Serializable()]
-    public class World : ISerializable
+    public class World : Box, ISerializable
     {
         #region Attribute
         public static World world;
 
         private List<Region.Region> regions;
-
-        private String name;
-
-        public String Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
 
         private QuadTree<LivingObject> quadTree;
 
@@ -37,14 +29,6 @@ namespace GameLibrary.Model.Map.World
             set { quadTree = value; }
         }
 
-        private Vector2 size;
-
-        public Vector2 Size
-        {
-            get { return size; }
-            set { size = value; }
-        }
-
         private float updatePlayerIntervall = 0;
         private float updatePlayerIntervallmax = 60;
 
@@ -52,6 +36,7 @@ namespace GameLibrary.Model.Map.World
         #endregion
         #region Constructors
         public World()
+            :base()
         {
             this.quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
         }
@@ -61,14 +46,14 @@ namespace GameLibrary.Model.Map.World
             this.regions = (List<Region.Region>)info.GetValue("regions", typeof(List<Region.Region>));
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("regions", this.regions, typeof(List<Region.Region>));
         }
 
         public World(String _Name)
         {
-            this.name = _Name;
+            this.Name = _Name;
 
             regions = new List<Region.Region>();
             if (Configuration.Configuration.isHost)
@@ -111,7 +96,7 @@ namespace GameLibrary.Model.Map.World
             {
                 if (_Target.CurrentBlock != null)
                 {
-                    Chunk.Chunk var_ChunkMid = _Target.CurrentBlock.ParentChunk;
+                    Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_Target.CurrentBlock.Parent;
                     var_ChunkMid.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
 
                     Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
@@ -167,7 +152,7 @@ namespace GameLibrary.Model.Map.World
             {
                 if (_Target.CurrentBlock != null)
                 {
-                    Chunk.Chunk var_ChunkMid = _Target.CurrentBlock.ParentChunk;
+                    Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_Target.CurrentBlock.Parent;
                     var_ChunkMid.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
 
                     /*Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
@@ -307,11 +292,11 @@ namespace GameLibrary.Model.Map.World
         public List<LivingObject> getObjectsColliding(Rectangle bounds, List<SearchFlags.Searchflag> _SearchFlags)
         {
             List<LivingObject> result = new List<LivingObject>();
-            getObjectsCollidiong(bounds, this.QuadTree.Root, result, _SearchFlags);
+            getObjectsColliding(bounds, this.QuadTree.Root, result, _SearchFlags);
             return result;
         }
 
-        private void getObjectsCollidiong(Rectangle bounds, QuadTree<LivingObject>.QuadNode currentNode, List<LivingObject> result, List<SearchFlags.Searchflag> _SearchFlags)
+        private void getObjectsColliding(Rectangle bounds, QuadTree<LivingObject>.QuadNode currentNode, List<LivingObject> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
             if (Util.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
             {
@@ -487,26 +472,33 @@ namespace GameLibrary.Model.Map.World
         {
             this.playerObjects.Add(_PlayerObject);
             this.addLivingObject(_PlayerObject);
+
+            _PlayerObject.CurrentBlock.markAsDirty();
         }
 
         #endregion
 
         #region update-Methoden
 
-        public void update()
+        public override void update()
         {
-            this.updatePlayerObjectsNeighborhood();
-            if (GameLibrary.Configuration.Configuration.isHost && this.updatePlayerIntervall <= this.updatePlayerIntervallmax)
+            if (this.NeedUpdate)
             {
-                this.updatePlayerIntervall = 0;
-                foreach (PlayerObject playerObject in this.playerObjects)
+                base.update();
+                this.updatePlayerObjectsNeighborhood();
+                if (GameLibrary.Configuration.Configuration.isHost && this.updatePlayerIntervall <= this.updatePlayerIntervallmax)
                 {
-                    Configuration.Configuration.commandManager.sendUpdateObjectPositionCommand(playerObject);
+                    this.updatePlayerIntervall = 0;
+                    foreach (PlayerObject playerObject in this.playerObjects)
+                    {
+                        Configuration.Configuration.commandManager.sendUpdateObjectPositionCommand(playerObject);
+                    }
                 }
-            }
-            else
-            {
-                this.updatePlayerIntervall++;
+                else
+                {
+                    this.updatePlayerIntervall++;
+                }
+                this.updateChilds();
             }
         }
 
@@ -523,13 +515,12 @@ namespace GameLibrary.Model.Map.World
         {
             if (_PlayerObject.CurrentBlock != null)
             {
-                Region.Region var_PlayerObjectRegion = _PlayerObject.CurrentBlock.ParentChunk.ParentRegion;
+                Region.Region var_PlayerObjectRegion = (Region.Region)_PlayerObject.CurrentBlock.Parent.Parent;
+                this.addChildToUpdateList(var_PlayerObjectRegion);
 
-                var_PlayerObjectRegion.update();
-
-                Chunk.Chunk var_ChunkMid = _PlayerObject.CurrentBlock.ParentChunk;
-
-                var_ChunkMid.update();
+                Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_PlayerObject.CurrentBlock.Parent;
+                var_PlayerObjectRegion.addChildToUpdateList(var_ChunkMid);
+                var_ChunkMid.markAsDirty();
 
                 Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
                 if (var_ChunkTop != null)

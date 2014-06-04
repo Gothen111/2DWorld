@@ -37,14 +37,6 @@ namespace GameLibrary.Model.Map.Block
 
         public List<Object.LivingObject> objectsPreEnviorment;
 
-        private Chunk.Chunk parentChunk;
-
-        public Chunk.Chunk ParentChunk
-        {
-            get { return parentChunk; }
-            set { parentChunk = value; }
-        }
-
         private bool isWalkAble;
 
         public bool IsWalkAble
@@ -54,19 +46,21 @@ namespace GameLibrary.Model.Map.Block
         }
 
         public Block(int _PosX, int _PosY, BlockEnum _BlockEnum, Chunk.Chunk _ParentChunk)
+            :base()
         {
             this.layer = new BlockEnum[Enum.GetValues(typeof(BlockLayerEnum)).Length];
             this.layer[0] = _BlockEnum;
             this.objects = new List<Object.LivingObject>();
             this.Position = new Vector2(_PosX, _PosY);
-            this.parentChunk = _ParentChunk;
+            this.Parent = _ParentChunk;
 
             objectsPreEnviorment = new List<Object.LivingObject>();
 
             this.isWalkAble = true;
         }
 
-        public Block(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
+        public Block(SerializationInfo info, StreamingContext ctxt) 
+            :base(info, ctxt)
         {
             this.layer = (BlockEnum[])info.GetValue("layer", typeof(BlockEnum[]));
             //TODO: Alle Objekttypen müssen serialisierbar gemacht werden
@@ -161,15 +155,19 @@ namespace GameLibrary.Model.Map.Block
 
         public override void update()
         {
-            foreach (Object.LivingObject var_LivingObject in objects.Reverse<Object.LivingObject>())
+            if (this.NeedUpdate)
             {
-                if (var_LivingObject.IsDead)
+                base.update();
+                foreach (Object.LivingObject var_LivingObject in objects.Reverse<Object.LivingObject>())
                 {
-                    this.objects.Remove(var_LivingObject);
-                }
-                else
-                {
-                    var_LivingObject.update();
+                    if (var_LivingObject.IsDead)
+                    {
+                        this.objects.Remove(var_LivingObject);
+                    }
+                    else
+                    {
+                        var_LivingObject.update();
+                    }
                 }
             }
         }

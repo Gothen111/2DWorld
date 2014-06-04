@@ -190,10 +190,6 @@
     <Compile Include="Model\Object\Task\Tasks\StandTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\TaskPriority.cs" />
     <Compile Include="Model\Object\Task\Tasks\WalkRandomTask.cs" />
-    <Compile Include="Model\Player\Connection\Client.cs" />
-    <Compile Include="Model\Player\Connection\ServerIGameMessageManager.cs" />
-    <Compile Include="Model\Player\Connection\ServerMessageManager.cs" />
-    <Compile Include="Model\Player\Connection\ServerNetworkManager.cs" />
     <Compile Include="Model\Player\InputAction.cs" />
     <Compile Include="Model\Player\PlayerContoller.cs" />
     <Compile Include="Model\Path\Path.cs" />

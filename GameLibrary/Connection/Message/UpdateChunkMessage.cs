@@ -21,7 +21,7 @@ namespace GameLibrary.Connection.Message
         {
             this.Id = _Chunk.Id;
             this.MessageTime = NetTime.Now;
-            this.RegionId = _Chunk.ParentRegion.Id;
+            this.RegionId = _Chunk.Parent.Id;
             this.Chunk = _Chunk;
         }
 
@@ -56,7 +56,7 @@ namespace GameLibrary.Connection.Message
             this.RegionId = im.ReadInt32();
 
             this.Chunk = Util.Serializer.DeserializeObjectFromString<Model.Map.Chunk.Chunk>(im.ReadString());
-            this.Chunk.ParentRegion = Model.Map.World.World.world.getRegion(this.RegionId);
+            this.Chunk.Parent = Model.Map.World.World.world.getRegion(this.RegionId);
             this.Chunk.setAllNeighboursOfBlocks();
         }
 

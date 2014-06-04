@@ -32,15 +32,8 @@ namespace GameLibrary.Model.Map.Chunk
             get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y); }
         }
 
-        private Region.Region parentRegion;
-
-        public Region.Region ParentRegion
-        {
-            get { return parentRegion; }
-            set { parentRegion = value; }
-        }
-
         public Chunk(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, Region.Region _ParentRegion)
+            :base()
         {
             this.Id = _Id;
             this.Name = _Name;
@@ -49,10 +42,11 @@ namespace GameLibrary.Model.Map.Chunk
 
             blocks = new Block.Block[_SizeX, _SizeY];
 
-            this.parentRegion = _ParentRegion;
+            this.Parent = _ParentRegion;
         }
 
-        public Chunk(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
+        public Chunk(SerializationInfo info, StreamingContext ctxt) 
+            :base(info, ctxt)
         {
             this.blocks = (Block.Block[,])info.GetValue("blocks", typeof(Block.Block[,]));
             setAllNeighboursOfBlocks();
@@ -93,7 +87,7 @@ namespace GameLibrary.Model.Map.Chunk
                 for (int y = 0; y < this.Size.Y; y++)
                 {
                     Block.Block var_Block = this.getBlockAtPosition(x, y);
-                    var_Block.ParentChunk = this;
+                    var_Block.Parent = this;
                     if (x > 0)
                     {
                         var_Block.LeftNeighbour = this.getBlockAtPosition(x-1, y);
@@ -150,12 +144,15 @@ namespace GameLibrary.Model.Map.Chunk
 
         public override void update()
         {
-            base.update();
-            for (int x = 0; x < this.Size.X; x++)
+            if (this.NeedUpdate)
             {
-                for (int y = 0; y < this.Size.Y; y++)
+                base.update();
+                for (int x = 0; x < this.Size.X; x++)
                 {
-                    this.getBlockAtPosition(x, y).update();
+                    for (int y = 0; y < this.Size.Y; y++)
+                    {
+                        this.getBlockAtPosition(x, y).update();
+                    }
                 }
             }
         }

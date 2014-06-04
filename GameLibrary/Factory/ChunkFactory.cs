@@ -288,7 +288,7 @@ namespace GameLibrary.Factory
                     var_Block.Objects.Add(var_EnvironmentObject);
                     var_EnvironmentObject.CurrentBlock = var_Block;
                 }
-                _Chunk.ParentRegion.ParentWorld.QuadTree.Insert(var_EnvironmentObject);
+                ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_EnvironmentObject);
             }
         }
 
