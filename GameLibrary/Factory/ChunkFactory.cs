@@ -266,6 +266,7 @@ namespace GameLibrary.Factory
                 if (var_Block.IsWalkAble && var_Block.Layer[1] == BlockEnum.Nothing)
                 {
                     var_Block.objectsPreEnviorment.Add(var_EnvironmentObject);
+                    //((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_EnvironmentObject);
                 }
             }
         }
@@ -287,8 +288,8 @@ namespace GameLibrary.Factory
                 {
                     var_Block.Objects.Add(var_EnvironmentObject);
                     var_EnvironmentObject.CurrentBlock = var_Block;
+                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_EnvironmentObject);
                 }
-                ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_EnvironmentObject);
             }
         }
 

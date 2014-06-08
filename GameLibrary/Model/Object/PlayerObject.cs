@@ -28,11 +28,17 @@ namespace GameLibrary.Model.Object
         }
         public override void update()
         {
-            base.update();
-
-            if (Configuration.Configuration.isHost)
+            if (this.NeedUpdate)
             {
-                GameLibrary.Connection.Event.EventList.Add(new Connection.Event(new Connection.Message.UpdateLivingObjectMessage(this), Connection.GameMessageImportance.VeryImportant));
+                base.update();
+
+                if (Configuration.Configuration.isHost)
+                {
+                    GameLibrary.Connection.Event.EventList.Add(new Connection.Event(new Connection.Message.UpdateLivingObjectMessage(this), Connection.GameMessageImportance.VeryImportant));
+                }
+
+                //Console.WriteLine("UPDATE");
+                //Console.WriteLine(this.Animation.ToString() + " " + this.Animation.finishedAnimation());
             }
         }
     }

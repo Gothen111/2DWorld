@@ -25,6 +25,11 @@ namespace GameLibrary.Model.Player
                 if (var_InputAction.wantsToPeformAction())
                 {
                     var_InputAction.performAction();
+                    if (!Configuration.Configuration.isHost)
+                    {
+                        Model.Object.PlayerObject.playerObject.markAsDirty();
+                        //Console.WriteLine("DIRTY");
+                    }
                 }
                 else
                 {

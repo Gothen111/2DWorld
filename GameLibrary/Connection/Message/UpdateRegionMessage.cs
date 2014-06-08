@@ -52,6 +52,7 @@ namespace GameLibrary.Connection.Message
             this.MessageTime = im.ReadDouble();
 
             this.Region = Util.Serializer.DeserializeObjectFromString<Model.Map.Region.Region>(im.ReadString());
+            this.Region.Parent = Model.Map.World.World.world;
         }
 
         public void Encode(NetOutgoingMessage om)

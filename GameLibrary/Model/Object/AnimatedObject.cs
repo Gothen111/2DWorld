@@ -151,6 +151,10 @@ namespace GameLibrary.Model.Object
             this.animation = new Animation.Animations.StandAnimation(this);
 
             this.standartStandPositionX = (int)info.GetValue("standartStandPositionX", typeof(int));
+
+            //this.collisionBounds = (List<Rectangle>)info.GetValue("collisionBounds", typeof(List<Rectangle>)); //???
+            this.collisionBounds = new List<Rectangle>();
+            //this.collisionBounds.Add(new Rectangle(0, 0, 50, 50));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -165,24 +169,32 @@ namespace GameLibrary.Model.Object
 
             info.AddValue("standartStandPositionX", this.standartStandPositionX, typeof(int));
 
+            //info.AddValue("collisionBounds", this.collisionBounds, typeof(List<Rectangle>)); //???
+
             base.GetObjectData(info, ctxt);
         }
 
         public override void update()
         {
-            base.update();
-
-            this.move();
-
-            if (this.animation != null)
+            if (this.NeedUpdate)
             {
-                this.animation.update();
-                if (this.animation.finishedAnimation() && !(this.animation is Animation.Animations.MoveAnimation || this.Velocity != Vector3.Zero))
+                base.update();
+
+                this.move();
+
+                if (this.animation != null)
                 {
-                    this.animation = new Animation.Animations.StandAnimation(this);
+                    this.animation.update();
+                    if (this.animation.finishedAnimation())// && !(this.animation is Animation.Animations.MoveAnimation || this.Velocity != Vector3.Zero))
+                    {
+                        this.animation = new Animation.Animations.StandAnimation(this);
+                    }
+                    else
+                    {
+                        this.markAsDirty();
+                    }
                 }
             }
-            //this.Velocity = new Vector3(0, 0, 0);
         }
 
         private void move()
@@ -264,8 +276,10 @@ namespace GameLibrary.Model.Object
                     if (this.animation.finishedAnimation())
                     {
                         this.animation = new Animation.Animations.MoveAnimation(this);
+                        Console.WriteLine("MOVE");
                     }
                 }
+                this.markAsDirty();
             }
             else
             {

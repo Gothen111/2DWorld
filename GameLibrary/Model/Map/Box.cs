@@ -71,22 +71,27 @@ namespace GameLibrary.Model.Map
             set { name = value; }
         }
 
+        [System.Xml.Serialization.XmlIgnoreAttribute]
         private Box parent;
 
+        [System.Xml.Serialization.XmlIgnoreAttribute]
         public Box Parent
         {
             get { return parent; }
             set { parent = value; }
         }
 
+        [System.Xml.Serialization.XmlIgnoreAttribute]
         private bool needUpdate;
 
+        [System.Xml.Serialization.XmlIgnoreAttribute]
         public bool NeedUpdate
         {
             get { return needUpdate; }
             set { needUpdate = value; }
         }
 
+        [System.Xml.Serialization.XmlIgnoreAttribute]
         private List<Box> childsToUpdate;
 
         public Box()
@@ -114,7 +119,7 @@ namespace GameLibrary.Model.Map
 
         public virtual void update()
         {
-            //this.needUpdate = false;
+            this.needUpdate = false;
         }
 
         public void markAsDirty()

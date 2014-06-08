@@ -98,6 +98,7 @@ namespace Server.Connection
                     GameLibrary.Configuration.Configuration.commandManager.handleAttackCommand(var_PlayerObject);
                     break;
             }
+            var_PlayerObject.markAsDirty();
         }
     }
 }

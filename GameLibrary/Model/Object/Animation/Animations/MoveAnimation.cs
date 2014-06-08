@@ -47,6 +47,11 @@ namespace GameLibrary.Model.Object.Animation.Animations
             }
         }
 
+        public override bool finishedAnimation()
+        {
+            return base.finishedAnimation() || (this.AnimationOwner.Velocity.X == 0 && this.AnimationOwner.Velocity.Y == 0 && this.AnimationOwner.Velocity.Z == 0);
+        }
+
         private void updateMovementDirection()
         {
             if (this.AnimationOwner.Velocity.X == 0 && this.AnimationOwner.Velocity.Y == 0)

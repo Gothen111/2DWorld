@@ -160,11 +160,14 @@ namespace GameLibrary.Model.Object
 
         public override void update()
         {
-            base.update();
-            if (Configuration.Configuration.isHost)
+            if (this.NeedUpdate)
             {
-                this.updateAggroSystem();
-                this.doTasks();
+                base.update();
+                if (Configuration.Configuration.isHost)
+                {
+                    this.updateAggroSystem();
+                    this.doTasks();
+                }
             }
         }
 
@@ -242,6 +245,7 @@ namespace GameLibrary.Model.Object
             if (this.currentTask != null)
             {
                 this.currentTask.update();
+                this.markAsDirty();
             }
         }
 
@@ -251,6 +255,7 @@ namespace GameLibrary.Model.Object
             {
                 var_Interaction.doInteraction(_Interactor);
             }
+            this.markAsDirty();
         }
 
         public void interact()
@@ -303,7 +308,8 @@ namespace GameLibrary.Model.Object
 
             GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateObjectHealthCommand(this));
             GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateObjectPositionCommand(this));
-            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(this), GameMessageImportance.VeryImportant));
+            //Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(this), GameMessageImportance.VeryImportant));
+            this.markAsDirty();
         }
 
         public void damage(int _DamageAmount)
@@ -335,6 +341,7 @@ namespace GameLibrary.Model.Object
                     this.Animation = new GameLibrary.Model.Object.Animation.Animations.TakeDamageAnimation(this);
                 }
             }
+            this.markAsDirty();
         }
 
         public void knockBack(Vector3 _KnockBackAmount)

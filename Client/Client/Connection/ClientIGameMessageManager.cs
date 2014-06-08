@@ -119,6 +119,7 @@ namespace Client.Connection
             var_LivingObject.MoveDown = message.MoveDown;
             var_LivingObject.MoveLeft = message.MoveLeft;
             var_LivingObject.MoveRight = message.MoveRight;
+            var_LivingObject.markAsDirty();
         }
 
         private static void handleUpdateObjectPositionMessage(NetIncomingMessage _Im)
@@ -131,7 +132,8 @@ namespace Client.Connection
             if (var_LivingObject != null)
             {
                 var_LivingObject.Position = message.Position;
-            }
+                var_LivingObject.markAsDirty();
+            }   
         }
 
         private static void handleUpdateObjectHealthMessage(NetIncomingMessage _Im)
@@ -146,6 +148,7 @@ namespace Client.Connection
                 var_LivingObject.HealthPoints = message.Health;
                 var_LivingObject.MaxHealthPoints = message.MaxHealth;
                 var_LivingObject.damage(0);
+                var_LivingObject.markAsDirty();
             }
             else
             {

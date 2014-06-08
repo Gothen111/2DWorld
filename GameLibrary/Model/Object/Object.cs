@@ -73,12 +73,21 @@ namespace GameLibrary.Model.Object
             set { velocity = value; }
         }
 
+        private bool needUpdate;
+
+        public bool NeedUpdate
+        {
+            get { return needUpdate; }
+            set { needUpdate = value; }
+        }
+
         public Object()
         {
-            
+            this.needUpdate = true;
         }
 
         public Object(SerializationInfo info, StreamingContext ctxt)
+            :this()
         {
             this.Id = (int)info.GetValue("Id", typeof(int));
 
@@ -106,7 +115,16 @@ namespace GameLibrary.Model.Object
 
         public virtual void update()
         {
+            this.needUpdate = false;
+        }
 
+        public void markAsDirty()
+        {
+            this.needUpdate = true;
+            if (this.currentBlock != null)
+            {
+                this.currentBlock.markAsDirty();
+            }
         }
     }
 }

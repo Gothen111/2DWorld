@@ -27,7 +27,10 @@ namespace GameLibrary.Model.Object
 
         public override void update()
         {
-            base.update();
+            if (this.NeedUpdate)
+            {
+                base.update();
+            }
         }
     }
 }

@@ -141,6 +141,12 @@ namespace GameLibrary.Model.Map.World
                         var_ChunkBottom.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
                     }
                 }
+
+                /*List<LivingObject> var_LivingObjects = this.getObjectsInRange(_Target.Position, 1000);
+                foreach (LivingObject var_LivingObject in var_LivingObjects)
+                {
+                    var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
+                }*/
             }
         }
 
@@ -520,7 +526,7 @@ namespace GameLibrary.Model.Map.World
 
                 Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_PlayerObject.CurrentBlock.Parent;
                 var_PlayerObjectRegion.addChildToUpdateList(var_ChunkMid);
-                var_ChunkMid.markAsDirty();
+                //var_ChunkMid.markAsDirty();
 
                 Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
                 if (var_ChunkTop != null)

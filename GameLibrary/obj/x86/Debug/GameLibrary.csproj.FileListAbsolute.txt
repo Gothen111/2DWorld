@@ -27,4 +27,3 @@ C:\Users\Jonas\Documents\Mats Projekte\2DWorld\GameLibrary\bin\x86\Debug\Newtons
 D:\Programmieren\Projekte\Github\2DWorld\GameLibrary\bin\x86\Debug\Newtonsoft.Json.dll
 D:\Programmieren\Projekte\Github\2DWorld\GameLibrary\bin\x86\Debug\Newtonsoft.Json.pdb
 D:\Programmieren\Projekte\Github\2DWorld\GameLibrary\bin\x86\Debug\Newtonsoft.Json.xml
-D:\Programmieren\Projekte\Github\2DWorld\GameLibrary\obj\x86\Debug\GameLibrary.csprojResolveAssemblyReference.cache
