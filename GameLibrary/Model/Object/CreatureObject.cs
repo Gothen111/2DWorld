@@ -87,7 +87,7 @@ namespace GameLibrary.Model.Object
         public override void attack()
         {
             base.attack();
-            //this.swingWeapon();
+            this.swingWeapon();
         }
 
         public void swingWeapon()
