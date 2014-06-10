@@ -118,7 +118,7 @@ namespace GameLibrary.Model.Object
             this.needUpdate = false;
         }
 
-        public void markAsDirty()
+        public virtual void markAsDirty()
         {
             this.needUpdate = true;
             if (this.currentBlock != null)

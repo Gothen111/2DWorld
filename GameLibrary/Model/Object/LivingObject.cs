@@ -162,13 +162,13 @@ namespace GameLibrary.Model.Object
         {
             if (this.NeedUpdate)
             {
-                base.update();
                 if (Configuration.Configuration.isHost)
                 {
                     this.updateAggroSystem();
                     this.doTasks();
                 }
             }
+            base.update();
         }
 
         private void updateAggroSystem()

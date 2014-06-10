@@ -52,9 +52,10 @@ namespace GameLibrary.Model.Object
         {
             if (this.NeedUpdate)
             {
-                base.update();
-                updateEquippment();
+
             }
+            updateEquippment();
+            base.update();
         }
 
         public void updateEquippment()
@@ -86,7 +87,7 @@ namespace GameLibrary.Model.Object
         public override void attack()
         {
             base.attack();
-            this.swingWeapon();
+            //this.swingWeapon();
         }
 
         public void swingWeapon()

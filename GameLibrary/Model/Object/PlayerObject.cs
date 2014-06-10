@@ -30,8 +30,6 @@ namespace GameLibrary.Model.Object
         {
             if (this.NeedUpdate)
             {
-                base.update();
-
                 if (Configuration.Configuration.isHost)
                 {
                     GameLibrary.Connection.Event.EventList.Add(new Connection.Event(new Connection.Message.UpdateLivingObjectMessage(this), Connection.GameMessageImportance.VeryImportant));
@@ -40,6 +38,7 @@ namespace GameLibrary.Model.Object
                 //Console.WriteLine("UPDATE");
                 //Console.WriteLine(this.Animation.ToString() + " " + this.Animation.finishedAnimation());
             }
+            base.update();
         }
     }
 }

@@ -40,8 +40,9 @@ namespace GameLibrary.Model.Object
         {
             if (this.NeedUpdate)
             {
-                base.update();
+
             }
+            base.update();
         }
     }
 }
