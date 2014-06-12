@@ -89,6 +89,13 @@ namespace GameLibrary.Model.Map.Region
 
         public bool containsChunk(int _Id)
         {
+            foreach (Chunk.Chunk var_Chunk in this.chunks)
+            {
+                if (var_Chunk.Id == _Id)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -176,9 +183,9 @@ namespace GameLibrary.Model.Map.Region
             return null;
         }
 
-        public void createChunkAt(int _PosX, int _PosY)
+        public Chunk.Chunk createChunkAt(int _PosX, int _PosY)
         {
-            GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
+            return GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
         }
 
         public void loadChunk(int _ID)

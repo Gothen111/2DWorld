@@ -10,7 +10,8 @@ namespace GameLibrary.Model.Map
     [Serializable()]
     public class Box : ISerializable
     {
-        private int id;
+        public static int _id = 0;
+        private int id = _id++;
 
         public int Id
         {
@@ -55,6 +56,38 @@ namespace GameLibrary.Model.Map
             set { bottomNeighbour = value; }
         }
 
+        private bool topNeighbourRequested;
+
+        public bool TopNeighbourRequested
+        {
+            get { return topNeighbourRequested; }
+            set { topNeighbourRequested = value; }
+        }
+        private bool leftNeighbourRequested;
+
+        public bool LeftNeighbourRequested
+        {
+            get { return leftNeighbourRequested; }
+            set { leftNeighbourRequested = value; }
+        }
+        private bool rightNeighbourRequested;
+
+        public bool RightNeighbourRequested
+        {
+            get { return rightNeighbourRequested; }
+            set { rightNeighbourRequested = value; }
+        }
+        private bool bottomNeighbourRequested;
+
+        public bool BottomNeighbourRequested
+        {
+            get { return bottomNeighbourRequested; }
+            set { bottomNeighbourRequested = value; }
+        }
+
+        private int neighbourRequestedTimer;
+        private int neighbourRequestedTimerMax;
+
         private Vector2 position;
 
         public Vector2 Position
@@ -98,6 +131,13 @@ namespace GameLibrary.Model.Map
         {
             this.needUpdate = true;
             this.childsToUpdate = new List<Box>();
+            this.topNeighbourRequested = false;
+            this.leftNeighbourRequested = false;
+            this.rightNeighbourRequested = false;
+            this.bottomNeighbourRequested = false;
+            this.neighbourRequestedTimerMax = 200;
+            this.neighbourRequestedTimer = this.neighbourRequestedTimerMax;
+            
         }
 
         public Box(SerializationInfo info, StreamingContext ctxt) 
@@ -120,6 +160,18 @@ namespace GameLibrary.Model.Map
         public virtual void update()
         {
             this.needUpdate = false;
+            if (this.neighbourRequestedTimer <= 0)
+            {
+                this.topNeighbourRequested = false;
+                this.leftNeighbourRequested = false;
+                this.rightNeighbourRequested = false;
+                this.bottomNeighbourRequested = false;
+                this.neighbourRequestedTimer = this.neighbourRequestedTimerMax;
+            }
+            else
+            {
+                this.neighbourRequestedTimer -= 1;
+            }
         }
 
         public void markAsDirty()

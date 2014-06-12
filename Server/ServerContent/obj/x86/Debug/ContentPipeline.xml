@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Wall.xnb</Output>
-      <Time>2014-06-01T23:49:31.5961136+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Wall.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\WoodenPlank.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\WoodenPlank.xnb</Output>
-      <Time>2014-06-01T23:49:31.6111144+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\WoodenPlank.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\Layer2\Dirt.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Layer2\Dirt.xnb</Output>
-      <Time>2014-06-01T23:49:31.5951135+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Layer2\Dirt.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\Layer2\Gras.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Layer2\Gras.xnb</Output>
-      <Time>2014-06-01T23:49:31.5961136+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Layer2\Gras.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\Layer1\Gras.png</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Layer1\Gras.xnb</Output>
-      <Time>2014-06-01T23:49:31.5941135+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Layer1\Gras.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\Layer1\Wall.png</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Layer1\Wall.xnb</Output>
-      <Time>2014-06-01T23:49:31.5951135+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Layer1\Wall.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Char1_Small.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\Char1_Small.xnb</Output>
-      <Time>2014-06-01T23:49:31.6131145+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\Char1_Small.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Shadow.png</Source>
@@ -70,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\Shadow.xnb</Output>
-      <Time>2014-06-01T23:49:31.6161147+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\Shadow.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\Environment\Tree\Tree1.png</Source>
@@ -79,8 +79,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Tree\Tree1.xnb</Output>
-      <Time>2014-06-01T23:49:31.5931134+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Tree\Tree1.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Char1_Small_Attack.png</Source>
@@ -88,8 +88,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\Char1_Small_Attack.xnb</Output>
-      <Time>2014-06-01T23:49:31.6141146+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\Char1_Small_Attack.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Lifebar.png</Source>
@@ -97,8 +97,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\Lifebar.xnb</Output>
-      <Time>2014-06-01T23:49:31.6151147+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\Lifebar.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\Environment\Flower\Flower1.png</Source>
@@ -106,8 +106,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Flower\Flower1.xnb</Output>
-      <Time>2014-06-01T23:49:31.5921133+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Flower\Flower1.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\Environment\Chest\Chest.png</Source>
@@ -115,8 +115,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Chest\Chest.xnb</Output>
-      <Time>2014-06-01T23:49:31.5901132+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Chest\Chest.xnb</Output>
+      <Time>2014-06-12T17:38:48.9406557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\Environment\Farm\FarmHouse1.png</Source>
@@ -124,8 +124,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Farm\FarmHouse1.xnb</Output>
-      <Time>2014-06-01T23:49:31.5911133+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Farm\FarmHouse1.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Block\Environment\Tree\Tree1_Dead.png</Source>
@@ -133,8 +133,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Tree\Tree1_Dead.xnb</Output>
-      <Time>2014-06-01T23:49:31.5941135+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Block\Environment\Tree\Tree1_Dead.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\HumanFemale1.png</Source>
@@ -142,8 +142,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\HumanFemale1.xnb</Output>
-      <Time>2014-06-01T23:49:31.6141146+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\HumanFemale1.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <Item>
       <Source>Font\Arial.spritefont</Source>
@@ -151,8 +151,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\Font\Arial.xnb</Output>
-      <Time>2014-06-01T23:49:31.6121145+02:00</Time>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Font\Arial.xnb</Output>
+      <Time>2014-06-12T17:38:48.9506557+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -160,39 +160,39 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\ServerContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\ServerContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Server\Server\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>D:\Programmieren\Projekte\Github\2DWorld\Server\ServerContent\</RootDirectory>
+      <LoggerRootDirectory>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\Programmieren\Projekte\Github\2DWorld\Server\ServerContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
-        <Value>2010-08-23T12:41:18+02:00</Value>
+        <Value>2010-08-23T13:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
-        <Value>2010-08-23T12:41:18+02:00</Value>
+        <Value>2010-08-23T13:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
-        <Value>2010-08-23T12:41:18+02:00</Value>
+        <Value>2010-08-23T13:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
-        <Value>2010-08-23T12:41:18+02:00</Value>
+        <Value>2010-08-23T13:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
-        <Value>2010-08-23T12:41:18+02:00</Value>
+        <Value>2010-08-23T13:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
-        <Value>2010-08-23T12:41:18+02:00</Value>
+        <Value>2010-08-23T13:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-06-01T23:42:41.9666841+02:00</Value>
+        <Value>2012-11-04T16:08:38.9272236+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

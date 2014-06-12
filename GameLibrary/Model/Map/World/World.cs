@@ -10,6 +10,8 @@ using GameLibrary.Model.Map.Region;
 using Microsoft.Xna.Framework.Graphics;
 using GameLibrary.Model.Object;
 using GameLibrary.Model.Collison;
+using GameLibrary.Connection;
+using GameLibrary.Connection.Message;
 
 namespace GameLibrary.Model.Map.World
 {
@@ -548,7 +550,21 @@ namespace GameLibrary.Model.Map.World
                 }
                 else
                 {
-                    //var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize);
+                    if (Configuration.Configuration.isHost)
+                    {
+                        Chunk.Chunk var_Chunk = var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize);
+                    }
+                    else
+                    {
+                        if (var_ChunkMid.TopNeighbourRequested)
+                        {
+                        }
+                        else
+                        {
+                            Event.EventList.Add(new Event(new RequestChunkMessage(new Vector2(var_ChunkMid.Position.X, var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize)), GameMessageImportance.VeryImportant));
+                            var_ChunkMid.TopNeighbourRequested = true;
+                        }
+                    }
                 }
                 Chunk.Chunk var_ChunkLeft = (Chunk.Chunk)var_ChunkMid.LeftNeighbour;
                 if (var_ChunkLeft != null)
@@ -556,7 +572,21 @@ namespace GameLibrary.Model.Map.World
                 }
                 else
                 {
-                    //var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y);
+                    if (Configuration.Configuration.isHost)
+                    {
+                        Chunk.Chunk var_Chunk = var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y);
+                    }
+                    else
+                    {
+                        if (var_ChunkMid.LeftNeighbourRequested)
+                        {
+                        }
+                        else
+                        {
+                            Event.EventList.Add(new Event(new RequestChunkMessage(new Vector2(var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, var_ChunkMid.Position.Y)), GameMessageImportance.VeryImportant));
+                            var_ChunkMid.LeftNeighbourRequested = true;
+                        }
+                    }
                 }
                 Chunk.Chunk var_ChunkRight = (Chunk.Chunk)var_ChunkMid.RightNeighbour;
                 if (var_ChunkRight != null)
@@ -564,7 +594,21 @@ namespace GameLibrary.Model.Map.World
                 }
                 else
                 {
-                    //var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y);
+                    if (Configuration.Configuration.isHost)
+                    {
+                        Chunk.Chunk var_Chunk = var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y);
+                    }
+                    else
+                    {
+                        if (var_ChunkMid.RightNeighbourRequested)
+                        {
+                        }
+                        else
+                        {
+                            Event.EventList.Add(new Event(new RequestChunkMessage(new Vector2(var_ChunkMid.Position.X + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, var_ChunkMid.Position.Y)), GameMessageImportance.VeryImportant));
+                            var_ChunkMid.RightNeighbourRequested = true;
+                        }
+                    }
                 }
 
                 Chunk.Chunk var_ChunkBottom = (Chunk.Chunk)var_ChunkMid.BottomNeighbour;
@@ -587,7 +631,21 @@ namespace GameLibrary.Model.Map.World
                 }
                 else
                 {
-                    //var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+                    if (Configuration.Configuration.isHost)
+                    {
+                        Chunk.Chunk var_Chunk = var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+                    }
+                    else
+                    {
+                        if (var_ChunkMid.BottomNeighbourRequested)
+                        {
+                        }
+                        else
+                        {
+                            Event.EventList.Add(new Event(new RequestChunkMessage(new Vector2(var_ChunkMid.Position.X, var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize)), GameMessageImportance.VeryImportant));
+                            var_ChunkMid.BottomNeighbourRequested = true;
+                        }
+                    }
                 }
             }
         }

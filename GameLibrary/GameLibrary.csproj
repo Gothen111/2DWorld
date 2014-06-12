@@ -118,6 +118,7 @@
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
+    <Compile Include="Connection\Message\RequestChunkMessage.cs" />
     <Compile Include="Connection\Message\UpdateRegionMessage.cs" />
     <Compile Include="Connection\Message\UpdateObjectHealthMessage.cs" />
     <Compile Include="Connection\Message\UpdateObjectPositionMessage.cs" />
