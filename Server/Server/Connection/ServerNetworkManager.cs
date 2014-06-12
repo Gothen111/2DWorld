@@ -26,12 +26,12 @@ namespace Server.Connection
                 //SimulatedMinimumLatency = 0.2f,
                 //SimulatedLoss = 0.1f
             };
-            config.EnableMessageType(NetIncomingMessageType.WarningMessage);
+            /*config.EnableMessageType(NetIncomingMessageType.WarningMessage);
             config.EnableMessageType(NetIncomingMessageType.VerboseDebugMessage);
             config.EnableMessageType(NetIncomingMessageType.ErrorMessage);
             config.EnableMessageType(NetIncomingMessageType.Error);
             config.EnableMessageType(NetIncomingMessageType.DebugMessage);
-            config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+            config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);*/
             netServer = new NetServer(config);
             netServer.Start();
 

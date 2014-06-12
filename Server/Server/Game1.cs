@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -106,15 +107,12 @@ namespace Server
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
             GameLibrary.Commands.Executer.Executer.executer.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             GameLibrary.Model.Player.PlayerContoller.playerContoller.update();
             GameLibrary.Model.Map.World.World.world.update();
             GameLibrary.Camera.Camera.camera.update(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Z))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z))
             {
                 if (GameLibrary.Camera.Camera.camera.Zoom == 1f)
                 {

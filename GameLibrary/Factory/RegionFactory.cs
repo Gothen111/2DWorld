@@ -7,6 +7,7 @@ using GameLibrary.Model.Map.World;
 using GameLibrary.Model.Map.Region;
 using GameLibrary.Model.Map.Chunk;
 using GameLibrary.Model.Map.Block;
+using GameLibrary.Factory.FactoryEnums;
 using GameLibrary.Factory;
 
 namespace GameLibrary.Factory

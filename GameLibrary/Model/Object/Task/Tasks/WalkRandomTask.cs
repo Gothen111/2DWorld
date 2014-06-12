@@ -41,7 +41,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
             : base(_TaskOwner, _Priority)
         {
             this.finishedWalking = false;
-            Chunk var_Chunk = Model.Map.World.World.world.getRegionLivingObjectIsIn(this.TaskOwner).getChunkLivingObjectIsIn(TaskOwner);
+            Chunk var_Chunk = _TaskOwner.CurrentBlock.Parent as Chunk;
             Block var_Block = var_Chunk.getBlockAtPosition((float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.X-1), (float)Util.Random.GenerateGoodRandomNumber(0, (int)var_Chunk.Size.Y-1));
             targetPosition = new Vector3(var_Block.Position.X, var_Block.Position.Y, 0);
         }
@@ -66,7 +66,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
                 Region var_Region = Model.Map.World.World.world.getRegionLivingObjectIsIn(this.TaskOwner);
                 if (var_Region != null)
                 {
-                    Chunk var_Chunk = var_Region.getChunkLivingObjectIsIn(TaskOwner);
+                    Chunk var_Chunk = this.TaskOwner.CurrentBlock.Parent as Chunk;
                     if (var_Chunk != null)
                     {
                         Block var_Block = var_Chunk.getBlockAtPosition((float)Util.Random.GenerateGoodRandomNumber((int)var_Chunk.Position.X, (int)(var_Chunk.Position.X + var_Chunk.Size.X - 1)), (float)Util.Random.GenerateGoodRandomNumber((int)var_Chunk.Position.Y, (int)(var_Chunk.Position.Y + var_Chunk.Size.Y - 1)));
@@ -84,25 +84,11 @@ namespace GameLibrary.Model.Object.Task.Tasks
                     this.finishedWalking = false;
                     if (this.TaskOwner.Position.X < targetPosition.X)
                     {
-                        if (Math.Abs(this.TaskOwner.Position.Y - targetPosition.Y) > 1)
-                        {
-                            var_Pos += new Vector3(movementSpeed / 2, 0, 0);
-                        }
-                        else
-                        {
-                            var_Pos += new Vector3(movementSpeed, 0, 0);
-                        }
+                        this.TaskOwner.MoveRight = true;
                     }
-                    else
+                    else if(this.TaskOwner.Position.X > targetPosition.X)
                     {
-                        if (Math.Abs(this.TaskOwner.Position.Y - targetPosition.Y) > 1)
-                        {
-                            var_Pos -= new Vector3(movementSpeed / 2, 0, 0);
-                        }
-                        else
-                        {
-                            var_Pos -= new Vector3(movementSpeed, 0, 0);
-                        }
+                        this.TaskOwner.MoveLeft = true;
                     }
                 }
                 else
@@ -115,25 +101,11 @@ namespace GameLibrary.Model.Object.Task.Tasks
                     this.finishedWalking = false;
                     if (this.TaskOwner.Position.Y < targetPosition.Y)
                     {
-                        if (Math.Abs(this.TaskOwner.Position.X - targetPosition.X) > 1)
-                        {
-                            var_Pos += new Vector3(0, movementSpeed / 2, 0);
-                        }
-                        else
-                        {
-                            var_Pos += new Vector3(0, movementSpeed, 0);
-                        }
+                        this.TaskOwner.MoveDown = true;
                     }
-                    else
+                    else if (this.TaskOwner.Position.Y > targetPosition.Y)
                     {
-                        if (Math.Abs(this.TaskOwner.Position.X - targetPosition.X) > 1)
-                        {
-                            var_Pos -= new Vector3(0, movementSpeed / 2, 0);
-                        }
-                        else
-                        {
-                            var_Pos -= new Vector3(0, movementSpeed, 0);
-                        }
+                        this.TaskOwner.MoveUp = true;
                     }
                 }
                 else
@@ -142,7 +114,14 @@ namespace GameLibrary.Model.Object.Task.Tasks
                 }
                 //this.TaskOwner.Move(var_Pos);
                 this.TaskOwner.Velocity = var_Pos;
+                updateMovementInNetWork();
             }
+        }
+
+        private void updateMovementInNetWork()
+        {
+            if (this.TaskOwner.MoveUp)
+                ;
         }
     }
 }

@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Block\Environment\Chest\Chest.png</Source>
+      <Name>Block\Environment\Chest\Chest</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Environment\Chest\Chest.xnb</Output>
+      <Time>2014-06-01T23:49:31.3681005+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\Environment\Farm\FarmHouse1.png</Source>
+      <Name>Block\Environment\Farm\FarmHouse1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Environment\Farm\FarmHouse1.xnb</Output>
+      <Time>2014-06-01T23:49:31.3701006+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\Environment\Flower\Flower1.png</Source>
+      <Name>Block\Environment\Flower\Flower1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Environment\Flower\Flower1.xnb</Output>
+      <Time>2014-06-01T23:49:31.3701006+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\Environment\Tree\Tree1.png</Source>
+      <Name>Block\Environment\Tree\Tree1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Environment\Tree\Tree1.xnb</Output>
+      <Time>2014-06-01T23:49:31.3711007+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\Environment\Tree\Tree1_Dead.png</Source>
+      <Name>Block\Environment\Tree\Tree1_Dead</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Environment\Tree\Tree1_Dead.xnb</Output>
+      <Time>2014-06-01T23:49:31.3721008+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\Layer1\Gras.png</Source>
+      <Name>Block\Layer1\Gras</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Layer1\Gras.xnb</Output>
+      <Time>2014-06-01T23:49:31.3721008+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\Layer1\Wall.png</Source>
+      <Name>Block\Layer1\Wall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Layer1\Wall.xnb</Output>
+      <Time>2014-06-01T23:49:31.3731008+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\Layer2\Dirt.png</Source>
+      <Name>Block\Layer2\Dirt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Layer2\Dirt.xnb</Output>
+      <Time>2014-06-01T23:49:31.3741009+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\Layer2\Gras.png</Source>
+      <Name>Block\Layer2\Gras</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Layer2\Gras.xnb</Output>
+      <Time>2014-06-01T23:49:31.3741009+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\Wall.png</Source>
+      <Name>Block\Wall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\Wall.xnb</Output>
+      <Time>2014-06-01T23:49:31.3751009+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Block\WoodenPlank.png</Source>
+      <Name>Block\WoodenPlank</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Block\WoodenPlank.xnb</Output>
+      <Time>2014-06-01T23:49:31.4041026+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Object\Character\Char1_Small.png</Source>
+      <Name>Object\Character\Char1_Small</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Object\Character\Char1_Small.xnb</Output>
+      <Time>2014-06-01T23:49:31.4061027+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Object\Character\Char1_Small_Attack.png</Source>
+      <Name>Object\Character\Char1_Small_Attack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Object\Character\Char1_Small_Attack.xnb</Output>
+      <Time>2014-06-01T23:49:31.4071028+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Object\Character\HumanFemale1.png</Source>
+      <Name>Object\Character\HumanFemale1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Object\Character\HumanFemale1.xnb</Output>
+      <Time>2014-06-01T23:49:31.412103+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Object\Character\Lifebar.png</Source>
+      <Name>Object\Character\Lifebar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Object\Character\Lifebar.xnb</Output>
+      <Time>2014-06-01T23:49:31.4131031+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Object\Character\Shadow.png</Source>
+      <Name>Object\Character\Shadow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Object\Character\Shadow.xnb</Output>
+      <Time>2014-06-01T23:49:31.4131031+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Font\Arial.spritefont</Source>
+      <Name>Font\Arial</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\Font\Arial.xnb</Output>
+      <Time>2014-06-01T23:49:31.4051026+02:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Release</BuildConfiguration>
+      <CompressContent>true</CompressContent>
+      <RootDirectory>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\ClientContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\ClientContent\obj\x86\Release\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\Client\bin\x86\Release\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2014-06-01T23:42:41.9666841+02:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

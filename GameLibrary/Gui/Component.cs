@@ -52,9 +52,22 @@ namespace GameLibrary.Gui
             set { isVisible = value; }
         }
 
+        private bool allowMultipleFocus;
+
+        public bool AllowMultipleFocus
+        {
+            get { return allowMultipleFocus; }
+            set { allowMultipleFocus = value; }
+        }
+
         public Component()
         {
+            Peripherals.MouseManager.mouseFocus.Add(this);
+        }
 
+        public Component(Rectangle _Bounds) : this()
+        {
+            this.bounds = _Bounds;
         }
 
         public bool mouseClicked(MouseEnum mouseButtonClicked, Vector2 position)
@@ -93,7 +106,11 @@ namespace GameLibrary.Gui
         {
             this.IsFocused = true;
             if (!GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Contains(this))
+            {
+                if (!allowMultipleFocus)
+                    GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Clear();
                 GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Add(this);
+            }
         }
 
         public void keyboardButtonClicked(Keys buttonPressed)

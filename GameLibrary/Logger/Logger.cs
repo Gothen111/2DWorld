@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace GameLibrary.Logger
 {
@@ -9,6 +10,7 @@ namespace GameLibrary.Logger
     {
         private static int LogLevel = 2;
         private static bool OnlyError = false;
+        private static string filePath = "log.txt";
 
         public static void LogErr(String _Msg)
         {
@@ -63,7 +65,17 @@ namespace GameLibrary.Logger
 
         public static void writeToConsole(string _String)
         {
-            Console.WriteLine(_String);
+            if (filePath.Equals("") || !GameLibrary.Configuration.Configuration.isHost)
+            {
+                Console.WriteLine(_String);
+            }
+            else
+            {
+                StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Append));
+                writer.WriteLine(_String);
+                writer.Flush();
+                writer.Close();
+            }
         }
     }
 }

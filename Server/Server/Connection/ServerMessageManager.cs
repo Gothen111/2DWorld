@@ -41,13 +41,13 @@ namespace Server.Connection
                         switch ((NetConnectionStatus)im.ReadByte())
                         {
                             case NetConnectionStatus.Connected:
-                                Console.WriteLine("{0} Connected", im.SenderEndPoint);
+                                GameLibrary.Logger.Logger.LogInfo(im.SenderEndPoint + " Connected");
 
                                 OnClientConnectToServer(im.SenderEndPoint);
 
                                 break;
                             case NetConnectionStatus.Disconnected:
-                                Console.WriteLine("{0} Disconnected", im.SenderEndPoint);
+                                GameLibrary.Logger.Logger.LogInfo(im.SenderEndPoint + " Disconnected");
 
                                 OnClientDisconnectFromServer(im.SenderEndPoint);
 

@@ -141,6 +141,9 @@
     <Compile Include="Factory\NameFactory.cs" />
     <Compile Include="Factory\RegionFactory.cs" />
     <Compile Include="Gui\Component.cs" />
+    <Compile Include="Gui\Container.cs" />
+    <Compile Include="Gui\ContainerStrategy\OverlayStrategy.cs" />
+    <Compile Include="Gui\ContainerStrategy\Strategy.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Model\Behaviour\Behaviour.cs" />
     <Compile Include="Model\Behaviour\BehaviourItem.cs" />

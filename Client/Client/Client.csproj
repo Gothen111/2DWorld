@@ -138,8 +138,9 @@
       <Name>Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClientContent\ClientContent.contentproj">
-      <Name>ClientContent</Name>
+      <Name>ClientContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{4D38BC74-DDA3-4F01-96CA-06A6AF1C4715}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
