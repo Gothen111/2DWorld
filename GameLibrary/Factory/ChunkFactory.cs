@@ -16,23 +16,23 @@ namespace GameLibrary.Factory
     {
         public static ChunkFactory chunkFactory = new ChunkFactory();
 
-        public Chunk generateChunk(int _Id, int _PosX, int _PosY, ChunkEnum _ChunkEnum, List<Enum> _Layer, Region _ParentRegion)
+        public Chunk generateChunk(int _PosX, int _PosY, ChunkEnum _ChunkEnum, List<Enum> _Layer, Region _ParentRegion)
         {
             switch (_ChunkEnum)
             {
                 case ChunkEnum.Grassland:
                     {
-                        return generateChunkGrassland(_Id, _PosX, _PosY, Chunk.chunkSizeX, Chunk.chunkSizeY, _Layer, _ParentRegion);
+                        return generateChunkGrassland(_PosX, _PosY, Chunk.chunkSizeX, Chunk.chunkSizeY, _Layer, _ParentRegion);
                     }
             }
             return null;
         }
 
-        private Chunk generateChunkGrassland(int _Id, int _PosX, int _PosY, int _SizeX, int _SizeY, List<Enum> _Layer, Region _ParentRegion)
+        private Chunk generateChunkGrassland(int _PosX, int _PosY, int _SizeX, int _SizeY, List<Enum> _Layer, Region _ParentRegion)
         {
             Chunk var_Result;
 
-            var_Result = new Chunk(_Id, "Chunk", _PosX, _PosY, _SizeX, _SizeY, _ParentRegion);
+            var_Result = new Chunk("Chunk", _PosX, _PosY, _SizeX, _SizeY, _ParentRegion);
             this.fillChunkWithBlock(var_Result, BlockEnum.Gras);
 
             var_Result.setAllNeighboursOfBlocks();

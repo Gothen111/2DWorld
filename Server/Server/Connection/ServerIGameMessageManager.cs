@@ -38,6 +38,9 @@ namespace Server.Connection
                 case EIGameMessageType.PlayerCommandMessage:
                     handlePlayerCommandMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.RequestChunkMessage:
+                    handleRequestChunkMessage(_NetIncomingMessage);
+                    break;
             }
         }
 
@@ -100,5 +103,17 @@ namespace Server.Connection
             }
             var_PlayerObject.markAsDirty();
         }
+
+        private static void handleRequestChunkMessage(NetIncomingMessage _Im)
+        {
+            var message = new RequestChunkMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getRegion(0).getChunkAtPosition(message.Position.X, message.Position.Y);
+
+            Event.EventList.Add(new Event(new UpdateChunkMessage(var_Chunk), GameMessageImportance.VeryImportant));
+        }
+
     }
 }

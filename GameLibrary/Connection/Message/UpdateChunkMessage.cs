@@ -37,8 +37,6 @@ namespace GameLibrary.Connection.Message
 
         public Model.Map.Chunk.Chunk Chunk { get; set; }
 
-        public String Content { get; set; }
-
 
         #endregion
 
