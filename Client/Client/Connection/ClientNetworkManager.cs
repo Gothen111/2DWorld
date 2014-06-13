@@ -66,11 +66,11 @@ namespace Client.Connection
                 {
                     this.Disconnect();
                     this.netClient.Shutdown("");
-                    Console.WriteLine("Abort!");
+                    GameLibrary.Logger.Logger.LogInfo("Abort!");
                 }
                 else
                 {
-                    Console.WriteLine("Connection Try : " + connectionTry);
+                    GameLibrary.Logger.Logger.LogInfo("Connection Try : " + connectionTry);
                     this.netClient.Connect(new IPEndPoint(NetUtility.Resolve(_Ip), Convert.ToInt32(_Port)));
                     this.timeOut = this.timeOutMax * this.connectionTry;
                     this.connectionTry += 1;

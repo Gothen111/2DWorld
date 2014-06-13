@@ -35,7 +35,7 @@ namespace Server.Connection
                     case NetIncomingMessageType.DebugMessage:
                     case NetIncomingMessageType.WarningMessage:
                     case NetIncomingMessageType.ErrorMessage:
-                        Console.WriteLine(im.ReadString());
+                        GameLibrary.Logger.Logger.LogInfo(im.SenderEndPoint + im.ReadString());
                         break;
                     case NetIncomingMessageType.StatusChanged:
                         switch ((NetConnectionStatus)im.ReadByte())

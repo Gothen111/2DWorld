@@ -28,7 +28,6 @@ namespace GameLibrary.Model.Player
                     if (!Configuration.Configuration.isHost)
                     {
                         Model.Object.PlayerObject.playerObject.markAsDirty();
-                        //Console.WriteLine("DIRTY");
                     }
                 }
                 else

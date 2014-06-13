@@ -207,7 +207,6 @@ namespace GameLibrary.Model.Object
 
             if ((int)var_PositionBlockSizeOld.X < (int)var_PositionBlockSizeNew.X)
             {
-                Console.WriteLine((int)var_PositionBlockSizeOld.X);
                 var_Block = (Map.Block.Block)this.CurrentBlock.RightNeighbour;
                 if (var_Block == null || !var_Block.IsWalkAble)
                 {
@@ -274,7 +273,6 @@ namespace GameLibrary.Model.Object
                     if (this.animation.finishedAnimation())
                     {
                         this.animation = new Animation.Animations.MoveAnimation(this);
-                        Console.WriteLine("MOVE");
                     }
                 }
                 this.markAsDirty();
