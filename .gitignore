@@ -6,3 +6,5 @@
 *.exe
 *.pdb
 *.xnb
+!/Lidgren.Network.dll
+!/Lidgren.Network.Xna.dll
