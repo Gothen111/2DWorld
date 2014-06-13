@@ -112,18 +112,6 @@ namespace Server
             GameLibrary.Model.Map.World.World.world.update();
             GameLibrary.Camera.Camera.camera.update(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Z))
-            {
-                if (GameLibrary.Camera.Camera.camera.Zoom == 1f)
-                {
-                    GameLibrary.Camera.Camera.camera.Zoom = 0.1f;
-                }
-                else
-                {
-                    GameLibrary.Camera.Camera.camera.Zoom = 1f;
-                }
-            }
-
             ServerNetworkManager.serverNetworkManager.update();
 
             base.Update(gameTime);

@@ -95,18 +95,6 @@ namespace Client
             GameLibrary.Camera.Camera.camera.update(gameTime);
             // TODO: Add your update logic here
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Z))
-            {
-                if (GameLibrary.Camera.Camera.camera.Zoom == 1f)
-                {
-                    GameLibrary.Camera.Camera.camera.Zoom = 0.1f;
-                }
-                else
-                {
-                    GameLibrary.Camera.Camera.camera.Zoom = 1f;
-                }
-            }
-
             base.Update(gameTime);
         }
 
