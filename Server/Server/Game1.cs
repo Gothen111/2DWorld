@@ -32,7 +32,7 @@ namespace Server
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        GameLibrary.Model.Map.Region.Region region;
+        //GameLibrary.Model.Map.Region.Region region;
 
         GameLibrary.Model.Object.PlayerObject playerObject;
 
@@ -67,9 +67,9 @@ namespace Server
             watch.Start();
 
             GameLibrary.Model.Map.World.World.world = new GameLibrary.Model.Map.World.World("Welt");
-            region = GameLibrary.Factory.RegionFactory.regionFactory.generateRegion(0, "Region", 0, 0, GameLibrary.Model.Map.Region.RegionEnum.Grassland, GameLibrary.Model.Map.World.World.world);
+            //region = GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region", 0, 0, GameLibrary.Model.Map.Region.RegionEnum.Grassland, GameLibrary.Model.Map.World.World.world);
 
-            GameLibrary.Model.Map.World.World.world.addRegion(region);
+            //GameLibrary.Model.Map.World.World.world.addRegion(region);
 
             watch.Stop();
             GameLibrary.Logger.Logger.LogInfo(watch.Elapsed.ToString());

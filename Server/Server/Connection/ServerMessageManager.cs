@@ -76,7 +76,7 @@ namespace Server.Connection
             //GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new UpdateChunkMessage(GameLibrary.Model.Map.World.World.world.getRegion(0).getChunk(0)), GameLibrary.Connection.GameMessageImportance.VeryImportant));
             Client var_Client = new Client(_IPEndPoint);
             ServerNetworkManager.serverNetworkManager.addClient(var_Client);
-            ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdateRegionMessage(GameLibrary.Model.Map.World.World.world.getRegion(0)), var_Client);
+            //ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdateRegionMessage(GameLibrary.Model.Map.World.World.world.getRegion(0)), var_Client);
         }
 
         /// <summary>

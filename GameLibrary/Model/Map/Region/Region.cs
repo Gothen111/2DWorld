@@ -45,7 +45,8 @@ namespace GameLibrary.Model.Map.Region
         public Region(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
         {
             this.id = (int)info.GetValue("id", typeof(int));
-            this.chunks = (List<Chunk.Chunk>)info.GetValue("chunks", typeof(List<Chunk.Chunk>));
+            //this.chunks = (List<Chunk.Chunk>)info.GetValue("chunks", typeof(List<Chunk.Chunk>));
+            this.chunks = new List<Chunk.Chunk>();
             this.Position = (Vector2)info.GetValue("position", typeof(Vector2));
             this.Size = (Vector2)info.GetValue("size", typeof(Vector2));
         }
@@ -54,12 +55,11 @@ namespace GameLibrary.Model.Map.Region
         {
             base.GetObjectData(info, ctxt);
             info.AddValue("id", this.id);
-            info.AddValue("chunks", this.chunks, typeof(List<Chunk.Chunk>));
+            //info.AddValue("chunks", this.chunks, typeof(List<Chunk.Chunk>));
         }
 
-        public Region(int _Id, String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, RegionEnum _RegionEnum, World.World _ParentWorld)
+        public Region(String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, RegionEnum _RegionEnum, World.World _ParentWorld)
         {
-            this.Id = _Id;
             this.Name = _Name;
             this.Position = new Vector2(_PosX, _PosY);
             this.Size = new Vector2(_SizeX, _SizeY);
@@ -81,9 +81,10 @@ namespace GameLibrary.Model.Map.Region
                     {*/
                         this.chunks.Add(_Chunk);
                         this.setAllNeighboursOfChunk(_Chunk);
+                        World.World.world.setAllNeighboursOfRegion((Region)_Chunk.Parent);
                         if (GameLibrary.Configuration.Configuration.isHost)
                         {
-                            GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateChunkCommand(_Chunk));
+                            //GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateChunkCommand(_Chunk));
                         }
                         return true;
                 /*    }
@@ -183,9 +184,9 @@ namespace GameLibrary.Model.Map.Region
         {
             foreach (Chunk.Chunk var_Chunk in this.chunks)
             {
-                if (var_Chunk.Position.X == _PosX)
+                if (var_Chunk.Bounds.Left <= _PosX && var_Chunk.Bounds.Right >= _PosX)
                 {
-                    if (var_Chunk.Position.Y == _PosY)
+                    if (var_Chunk.Bounds.Top <= _PosY && var_Chunk.Bounds.Bottom >= _PosY)
                     {
                         return var_Chunk;
                     }

@@ -63,6 +63,10 @@ namespace Client.Connection
                 if (GameLibrary.Model.Map.World.World.world.getLivingObject(var_LivingObject.Id) == null)
                     GameLibrary.Model.Map.World.World.world.addLivingObject(var_LivingObject);
             }
+            if (GameLibrary.Model.Map.World.World.world.getChunkAtPosition(GameLibrary.Model.Object.PlayerObject.playerObject.Position.X, GameLibrary.Model.Object.PlayerObject.playerObject.Position.Y) != null)
+            {
+                GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Model.Object.PlayerObject.playerObject);
+            }
         }
 
         private static void handleUpdateRegionMessage(NetIncomingMessage _Im)
@@ -70,18 +74,18 @@ namespace Client.Connection
             var message = new UpdateRegionMessage(_Im);
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            if (GameLibrary.Model.Map.World.World.world.getRegion(message.Region.Id) == null)
+            if (!GameLibrary.Model.Map.World.World.world.containsRegion(message.Region.Id))
             {
                 message.Region.setAllNeighboursOfChunks();
                 GameLibrary.Model.Map.World.World.world.addRegion(message.Region);
-                foreach (GameLibrary.Model.Map.Chunk.Chunk var_Chunk in message.Region.Chunks)
+                /*foreach (GameLibrary.Model.Map.Chunk.Chunk var_Chunk in message.Region.Chunks)
                 {
                     foreach (GameLibrary.Model.Object.LivingObject var_LivingObject in var_Chunk.getAllObjectsInChunk())
                     {
                         if (GameLibrary.Model.Map.World.World.world.getLivingObject(var_LivingObject.Id) == null)
                             GameLibrary.Model.Map.World.World.world.addLivingObject(var_LivingObject);
                     }
-                }
+                }*/
             }
             else
             {
@@ -96,7 +100,14 @@ namespace Client.Connection
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
             GameLibrary.Model.Object.PlayerObject.playerObject = message.PlayerObject;
-            GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Model.Object.PlayerObject.playerObject);
+            if (GameLibrary.Model.Map.World.World.world.getChunkAtPosition(GameLibrary.Model.Object.PlayerObject.playerObject.Position.X, GameLibrary.Model.Object.PlayerObject.playerObject.Position.Y) != null)
+            {
+                GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Model.Object.PlayerObject.playerObject);
+            }
+            else
+            {
+                GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new RequestChunkMessage(new Vector2(GameLibrary.Model.Object.PlayerObject.playerObject.Position.X, GameLibrary.Model.Object.PlayerObject.playerObject.Position.Y)), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+            }
 
             GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.W }, new GameLibrary.Commands.CommandTypes.WalkUpCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
             GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.S }, new GameLibrary.Commands.CommandTypes.WalkDownCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));

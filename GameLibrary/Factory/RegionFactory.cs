@@ -16,23 +16,23 @@ namespace GameLibrary.Factory
     {
         public static RegionFactory regionFactory = new RegionFactory();
 
-        public Region generateRegion(int _Id, String _Name, int _PosX, int _PosY, RegionEnum _RegionEnum, World _ParentWorld)
+        public Region generateRegion(String _Name, int _PosX, int _PosY, RegionEnum _RegionEnum, World _ParentWorld)
         {
             switch (_RegionEnum)
             {
                 case RegionEnum.Grassland:
                     {
-                        return generateRegionGrassland(_Id, _Name, _PosX, _PosY, _ParentWorld);
+                        return generateRegionGrassland(_Name, _PosX, _PosY, _ParentWorld);
                     }
             }
             return null;
         }
 
-        private Region generateRegionGrassland(int _Id, String _Name, int _PosX, int _PosY, World _ParentWorld)
+        private Region generateRegionGrassland(String _Name, int _PosX, int _PosY, World _ParentWorld)
         {
             Region var_Result;
 
-            var_Result = new Region(_Id, _Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Grassland, _ParentWorld);
+            var_Result = new Region(_Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Grassland, _ParentWorld);
 
             /*for (int x = 0; x < Region.regionSizeX; x++)
             {
@@ -74,7 +74,7 @@ namespace GameLibrary.Factory
 
         public Chunk createChunkInRegion(Region _Region, int _PosX, int _PosY)
         {
-            Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX + _Region.Position.X), (int)(_PosY + _Region.Position.Y), ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), _Region);
+            Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), _Region);
             this.addChunkToRegion(_Region, _PosY , _PosY, var_Chunk);
 
             return var_Chunk;

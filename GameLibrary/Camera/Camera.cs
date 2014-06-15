@@ -87,6 +87,17 @@ namespace GameLibrary.Camera
                 if (this.zoom < 0.5f)
                     this.zoom = 0.5f;
             }
+            if (buttonPressed.Equals(Microsoft.Xna.Framework.Input.Keys.Z))
+            {
+                if(this.zoom == 0.1f)
+                {
+                    this.zoom = 1.0f;
+                }
+                else
+                {
+                    this.zoom = 0.1f;
+                }
+            }
         }
 
         public void keyboardButtonReleased(Microsoft.Xna.Framework.Input.Keys buttonReleased)

@@ -110,9 +110,17 @@ namespace Server.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getRegion(0).getChunkAtPosition(message.Position.X, message.Position.Y);
+            GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
 
-            Event.EventList.Add(new Event(new UpdateChunkMessage(var_Chunk), GameMessageImportance.VeryImportant));
+            if (var_Chunk != null)
+            {
+                Event.EventList.Add(new Event(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), GameMessageImportance.VeryImportant));
+                Event.EventList.Add(new Event(new UpdateChunkMessage(var_Chunk), GameMessageImportance.VeryImportant));
+            }
+            else
+            {
+                GameLibrary.Logger.Logger.LogErr("handleRequestChunkMessage: Chunk an Position X: " + message.Position.X + " Y: " + message.Position.Y + " ist null");
+            }
         }
 
     }

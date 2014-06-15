@@ -96,9 +96,12 @@ namespace GameLibrary.Model.Map.Block
 
         public void addLivingObject(Object.LivingObject _LivingObject)
         {
-            _LivingObject.ObjectMoves += this.HandleEvent;
-            _LivingObject.CurrentBlock = this;
-            this.objects.Add(_LivingObject);
+            if (!this.objects.Contains(_LivingObject))
+            {
+                _LivingObject.ObjectMoves += this.HandleEvent;
+                _LivingObject.CurrentBlock = this;
+                this.objects.Add(_LivingObject);
+            }
         }
 
         public void removeLivingObject(Object.LivingObject _LivingObject)

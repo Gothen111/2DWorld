@@ -38,7 +38,7 @@ namespace GameLibrary.Model.Map.Chunk
 
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X * Block.Block.BlockSize, (int)Size.Y * Block.Block.BlockSize); }
         }
 
         public Chunk(String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, Region.Region _ParentRegion)
