@@ -253,7 +253,8 @@ namespace GameLibrary.Factory
 
         private void generateFlowers(Chunk _Chunk)
         {
-            for (int i = 0; i < 2000; i++)
+            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / Util.Random.GenerateGoodRandomNumber(1,5);
+            for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Flower_1);
 
@@ -273,7 +274,8 @@ namespace GameLibrary.Factory
 
         private void generateTrees(Chunk _Chunk)
         {
-            for (int i = 0; i < 100; i++)
+            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Util.Random.GenerateGoodRandomNumber(1, 5);
+            for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Tree_Normal_1);
 

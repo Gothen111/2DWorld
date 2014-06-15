@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using GameLibrary.Model.Map.Region;
 using Lidgren.Network;
 using Lidgren.Network.Xna;
 
@@ -21,7 +22,7 @@ namespace GameLibrary.Connection.Message
         {
             this.Id = _Chunk.Id;
             this.MessageTime = NetTime.Now;
-            this.RegionId = _Chunk.Parent.Id;
+            this.RegionId = ((Region)_Chunk.Parent).Id;
             this.Chunk = _Chunk;
         }
 

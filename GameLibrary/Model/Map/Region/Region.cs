@@ -15,6 +15,15 @@ namespace GameLibrary.Model.Map.Region
     [Serializable()]
     public class Region : Box
     {
+        public static int _id = 0;
+        private int id = _id++;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         public static int regionSizeX = 2;
         public static int regionSizeY = 2;
 
@@ -35,6 +44,7 @@ namespace GameLibrary.Model.Map.Region
 
         public Region(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
         {
+            this.id = (int)info.GetValue("id", typeof(int));
             this.chunks = (List<Chunk.Chunk>)info.GetValue("chunks", typeof(List<Chunk.Chunk>));
             this.Position = (Vector2)info.GetValue("position", typeof(Vector2));
             this.Size = (Vector2)info.GetValue("size", typeof(Vector2));
@@ -43,6 +53,7 @@ namespace GameLibrary.Model.Map.Region
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             base.GetObjectData(info, ctxt);
+            info.AddValue("id", this.id);
             info.AddValue("chunks", this.chunks, typeof(List<Chunk.Chunk>));
         }
 

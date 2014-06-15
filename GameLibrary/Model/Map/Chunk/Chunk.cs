@@ -16,8 +16,17 @@ namespace GameLibrary.Model.Map.Chunk
     [Serializable()]
     public class Chunk : Box
     {
-        public static int chunkSizeX = 40; // 40
-        public static int chunkSizeY = 40; // 40
+        public static int _id = 0;
+        private int id = _id++;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public static int chunkSizeX = 25; // 40
+        public static int chunkSizeY = 25; // 40
 
         private Block.Block[,] blocks;
 
@@ -47,6 +56,7 @@ namespace GameLibrary.Model.Map.Chunk
         public Chunk(SerializationInfo info, StreamingContext ctxt) 
             :base(info, ctxt)
         {
+            this.id = (int)info.GetValue("id", typeof(int));
             this.blocks = (Block.Block[,])info.GetValue("blocks", typeof(Block.Block[,]));
             setAllNeighboursOfBlocks();
         }
@@ -54,6 +64,7 @@ namespace GameLibrary.Model.Map.Chunk
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             base.GetObjectData(info, ctxt);
+            info.AddValue("id", this.id);
             info.AddValue("blocks", this.blocks, typeof(Block.Block[,]));
         }
 

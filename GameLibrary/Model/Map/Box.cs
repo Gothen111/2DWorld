@@ -10,15 +10,6 @@ namespace GameLibrary.Model.Map
     [Serializable()]
     public class Box : ISerializable
     {
-        public static int _id = 0;
-        private int id = _id++;
-
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
         private Vector2 size;
 
         public Vector2 Size
@@ -143,7 +134,7 @@ namespace GameLibrary.Model.Map
         public Box(SerializationInfo info, StreamingContext ctxt) 
             :this()
         {
-            this.id = (int)info.GetValue("id", typeof(int));
+            
             this.size = (Vector2)info.GetValue("size", typeof(Vector2));
             this.position = (Vector2)info.GetValue("position", typeof(Vector2));
             this.name = (String)info.GetValue("name", typeof(String));
@@ -151,7 +142,6 @@ namespace GameLibrary.Model.Map
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            info.AddValue("id", this.id);
             info.AddValue("size", this.size, typeof(Vector2));
             info.AddValue("position", this.position, typeof(Vector2));
             info.AddValue("name", this.name);
