@@ -6,5 +6,7 @@
 *.exe
 *.pdb
 *.xnb
+*.psess
+*.vsmdi
 !/Lidgren.Network.dll
 !/Lidgren.Network.Xna.dll
