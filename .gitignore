@@ -8,5 +8,6 @@
 *.xnb
 *.psess
 *.vsmdi
+*.xml
 !/Lidgren.Network.dll
 !/Lidgren.Network.Xna.dll
