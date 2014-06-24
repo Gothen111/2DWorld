@@ -612,7 +612,14 @@ namespace GameLibrary.Model.Map.World
 
         public bool containsPlayerObject(Object.PlayerObject _PlayerObject)
         {
-            return this.playerObjects.Contains(_PlayerObject);
+            if (Configuration.Configuration.isHost)
+            {
+                return this.playerObjects.Contains(_PlayerObject);
+            }
+            else
+            {
+                return GameLibrary.Connection.Client.client.PlayerObject != null ? true : false;
+            }
         }
         public void addPlayerObject(Object.PlayerObject _PlayerObject)
         {
@@ -671,9 +678,16 @@ namespace GameLibrary.Model.Map.World
 
         private void updatePlayerObjectsNeighborhood()
         {
-            foreach (Object.PlayerObject var_PlayerObject in this.playerObjects)
+            if (Configuration.Configuration.isHost)
             {
-                this.updatePlayerObjectNeighborhood(var_PlayerObject);
+                foreach (Object.PlayerObject var_PlayerObject in this.playerObjects)
+                {
+                    this.updatePlayerObjectNeighborhood(var_PlayerObject);
+                }
+            }
+            else
+            {
+                this.updatePlayerObjectNeighborhood(GameLibrary.Connection.Client.client.PlayerObject);
             }
         }
 

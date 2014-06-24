@@ -161,11 +161,28 @@ namespace Client.Connection
                 switch (GameLibrary.Connection.Client.client.ClientStatus)
                 {
                     case EClientStatus.Connected:
-                        GameLibrary.Connection.Client.client.ClientStatus = EClientStatus.RequestWorld;
+                        GameLibrary.Connection.Client.client.ClientStatus = EClientStatus.RequestPlayerPosition;
                         break;
                     case EClientStatus.RequestPlayerPosition:
                         GameLibrary.Connection.Client.client.ClientStatus = EClientStatus.RequestedPlayerPosition;
                         Event.EventList.Add(new Event(new RequestPlayerMessage("Fred"), GameMessageImportance.VeryImportant));
+                        break;
+                    case EClientStatus.RequestWorld:
+                        GameLibrary.Connection.Client.client.ClientStatus = EClientStatus.RequestedWorld;
+                        Event.EventList.Add(new Event(new RequestWorldMessage(), GameMessageImportance.VeryImportant));
+                        break;
+                    case EClientStatus.RequestRegion:
+                        GameLibrary.Connection.Client.client.ClientStatus = EClientStatus.RequestedRegion;
+                        Microsoft.Xna.Framework.Vector2 var_Position = new Microsoft.Xna.Framework.Vector2(GameLibrary.Connection.Client.client.PlayerObject.Position.X, GameLibrary.Connection.Client.client.PlayerObject.Position.Y);
+                        Event.EventList.Add(new Event(new RequestRegionMessage(var_Position), GameMessageImportance.VeryImportant));
+                        break;
+                    case EClientStatus.RequestChunk:
+                        GameLibrary.Connection.Client.client.ClientStatus = EClientStatus.RequestedChunk;
+                        var_Position = new Microsoft.Xna.Framework.Vector2(GameLibrary.Connection.Client.client.PlayerObject.Position.X, GameLibrary.Connection.Client.client.PlayerObject.Position.Y);
+                        Event.EventList.Add(new Event(new RequestChunkMessage(var_Position), GameMessageImportance.VeryImportant));
+                        break;
+                    case EClientStatus.JoinedWorld:
+                        GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Connection.Client.client.PlayerObject);
                         break;
                 }
             }

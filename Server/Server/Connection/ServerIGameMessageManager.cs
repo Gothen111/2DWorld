@@ -35,6 +35,12 @@ namespace Server.Connection
                 case EIGameMessageType.RequestPlayerMessage:
                     handleRequestPlayerMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.RequestWorldMessage:
+                    handleRequestWorldMessage(_NetIncomingMessage);
+                    break;
+                case EIGameMessageType.RequestRegionMessage:
+                    handleRequestRegionMessage(_NetIncomingMessage);
+                    break;
                 case EIGameMessageType.PlayerCommandMessage:
                     handlePlayerCommandMessage(_NetIncomingMessage);
                     break;
@@ -61,6 +67,54 @@ namespace Server.Connection
             ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdatePlayerMessage(var_PlayerObject), var_Client);
 
             GameLibrary.Camera.Camera.camera.setTarget(var_PlayerObject);
+        }
+
+        private static void handleRequestWorldMessage(NetIncomingMessage _Im)
+        {
+            var message = new RequestWorldMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            Client var_Client = ServerNetworkManager.serverNetworkManager.getClient(_Im.SenderEndPoint);
+            ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdateWorldMessage(GameLibrary.Model.Map.World.World.world), var_Client);
+        }
+
+        private static void handleRequestRegionMessage(NetIncomingMessage _Im)
+        {
+            var message = new RequestRegionMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            Client var_Client = ServerNetworkManager.serverNetworkManager.getClient(_Im.SenderEndPoint);
+            GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
+
+            if (var_Chunk != null)
+            {
+                ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), var_Client);
+            }
+            else
+            {
+                GameLibrary.Logger.Logger.LogErr("handleRequestChunkMessage: Chunk an Position X: " + message.Position.X + " Y: " + message.Position.Y + " ist null");
+            }
+        }
+
+        private static void handleRequestChunkMessage(NetIncomingMessage _Im)
+        {
+            var message = new RequestChunkMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
+
+            if (var_Chunk != null)
+            {
+                Event.EventList.Add(new Event(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), GameMessageImportance.VeryImportant));
+                Event.EventList.Add(new Event(new UpdateChunkMessage(var_Chunk), GameMessageImportance.VeryImportant));
+            }
+            else
+            {
+                GameLibrary.Logger.Logger.LogErr("handleRequestChunkMessage: Chunk an Position X: " + message.Position.X + " Y: " + message.Position.Y + " ist null");
+            }
         }
 
         private static void handlePlayerCommandMessage(NetIncomingMessage _Im)
@@ -103,25 +157,5 @@ namespace Server.Connection
             }
             var_PlayerObject.markAsDirty();
         }
-
-        private static void handleRequestChunkMessage(NetIncomingMessage _Im)
-        {
-            var message = new RequestChunkMessage(_Im);
-
-            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
-
-            GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
-
-            if (var_Chunk != null)
-            {
-                Event.EventList.Add(new Event(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), GameMessageImportance.VeryImportant));
-                Event.EventList.Add(new Event(new UpdateChunkMessage(var_Chunk), GameMessageImportance.VeryImportant));
-            }
-            else
-            {
-                GameLibrary.Logger.Logger.LogErr("handleRequestChunkMessage: Chunk an Position X: " + message.Position.X + " Y: " + message.Position.Y + " ist null");
-            }
-        }
-
     }
 }

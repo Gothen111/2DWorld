@@ -44,7 +44,7 @@ namespace Client
 
             GameLibrary.Camera.Camera.camera = new GameLibrary.Camera.Camera(GraphicsDevice.Viewport);
 
-            GameLibrary.Model.Map.World.World.world = new GameLibrary.Model.Map.World.World("Welt");
+            //GameLibrary.Model.Map.World.World.world = new GameLibrary.Model.Map.World.World("Welt");
             
             ClientNetworkManager.clientNetworkManager.Start("127.0.0.1", "14242");
 
@@ -90,7 +90,10 @@ namespace Client
                 GameLibrary.Peripherals.KeyboardManager.keyboardManager.update();
                 GameLibrary.Peripherals.MouseManager.mouseManager.update();
             }
-            GameLibrary.Model.Map.World.World.world.update();
+            if (GameLibrary.Model.Map.World.World.world != null)
+            {
+                GameLibrary.Model.Map.World.World.world.update();
+            }
             ClientNetworkManager.clientNetworkManager.update();
             GameLibrary.Camera.Camera.camera.update(gameTime);
             // TODO: Add your update logic here

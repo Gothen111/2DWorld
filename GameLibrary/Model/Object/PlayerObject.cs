@@ -9,8 +9,6 @@ namespace GameLibrary.Model.Object
     [Serializable()]
     public class PlayerObject : FactionObject
     {
-        public static PlayerObject playerObject;
-
         public PlayerObject() :base()
         {
 

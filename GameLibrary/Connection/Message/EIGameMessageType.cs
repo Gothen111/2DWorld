@@ -8,6 +8,7 @@ namespace GameLibrary.Connection.Message
     public enum EIGameMessageType
     {
         UpdateChunkMessage,
+        RequestRegionMessage,
         UpdateRegionMessage,
         RequestPlayerMessage,
         UpdatePlayerMessage,

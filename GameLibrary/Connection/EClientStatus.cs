@@ -13,7 +13,10 @@ namespace GameLibrary.Connection
         RequestWorld,
         RequestedWorld,
         RequestRegion,
+        RequestedRegion,
         RequestChunk,
+        RequestedChunk,
+        JoinedWorld,
         Disconnected
     }
 }
