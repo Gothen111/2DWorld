@@ -115,9 +115,13 @@
     <Compile Include="Commands\ECommandType.cs" />
     <Compile Include="Commands\Executer\Executer.cs" />
     <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Connection\Client.cs" />
+    <Compile Include="Connection\EClientStatus.cs" />
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
+    <Compile Include="Connection\Message\UpdateWorldMessage.cs" />
+    <Compile Include="Connection\Message\RequestWorldMessage.cs" />
     <Compile Include="Connection\Message\RequestChunkMessage.cs" />
     <Compile Include="Connection\Message\UpdateRegionMessage.cs" />
     <Compile Include="Connection\Message\UpdateObjectHealthMessage.cs" />

@@ -7,6 +7,7 @@ using System.Net;
 using Lidgren.Network;
 
 using Server.Connection;
+using GameLibrary.Connection;
 using GameLibrary.Connection.Message;
 
 namespace Server.Connection

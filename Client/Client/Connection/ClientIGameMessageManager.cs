@@ -99,7 +99,16 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            GameLibrary.Model.Object.PlayerObject.playerObject = message.PlayerObject;
+            if (GameLibrary.Connection.Client.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedPlayerPosition)
+            {
+                if (GameLibrary.Connection.Client.client.PlayerObject == null)
+                {
+                    GameLibrary.Connection.Client.client.PlayerObject = message.PlayerObject;
+                    GameLibrary.Connection.Client.client.ClientStatus = GameLibrary.Connection.EClientStatus.RequestWorld;
+                }
+            }
+
+            /*GameLibrary.Model.Object.PlayerObject.playerObject = message.PlayerObject;
             if (GameLibrary.Model.Map.World.World.world.getChunkAtPosition(GameLibrary.Model.Object.PlayerObject.playerObject.Position.X, GameLibrary.Model.Object.PlayerObject.playerObject.Position.Y) != null)
             {
                 GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Model.Object.PlayerObject.playerObject);
@@ -107,7 +116,7 @@ namespace Client.Connection
             else
             {
                 GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new RequestChunkMessage(new Vector2(GameLibrary.Model.Object.PlayerObject.playerObject.Position.X, GameLibrary.Model.Object.PlayerObject.playerObject.Position.Y)), GameLibrary.Connection.GameMessageImportance.VeryImportant));
-            }
+            }*/
 
             GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.W }, new GameLibrary.Commands.CommandTypes.WalkUpCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
             GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.S }, new GameLibrary.Commands.CommandTypes.WalkDownCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
@@ -115,7 +124,7 @@ namespace Client.Connection
             GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.D }, new GameLibrary.Commands.CommandTypes.WalkRightCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
             GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.Space }, new GameLibrary.Commands.CommandTypes.AttackCommand(GameLibrary.Model.Object.PlayerObject.playerObject)));
 
-            GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Model.Object.PlayerObject.playerObject);
+            //GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Model.Object.PlayerObject.playerObject);
         }
 
         private static void handleUpdateLivingObjectMessage(NetIncomingMessage _Im)

@@ -138,6 +138,7 @@ namespace Client.Connection
                     this.connectionTry = 1;
                     this.UpdateSendingEvents();
                     ClientMessageManager.ProcessNetworkMessages();
+                    this.checkClientStatus();
                 }
                 else
                 {
@@ -149,6 +150,23 @@ namespace Client.Connection
                     {
                         this.timeOut -= 1;
                     }
+                }
+            }
+        }
+
+        public void checkClientStatus()
+        {
+            if (GameLibrary.Connection.Client.client != null)
+            {
+                switch (GameLibrary.Connection.Client.client.ClientStatus)
+                {
+                    case EClientStatus.Connected:
+                        GameLibrary.Connection.Client.client.ClientStatus = EClientStatus.RequestWorld;
+                        break;
+                    case EClientStatus.RequestPlayerPosition:
+                        GameLibrary.Connection.Client.client.ClientStatus = EClientStatus.RequestedPlayerPosition;
+                        Event.EventList.Add(new Event(new RequestPlayerMessage("Fred"), GameMessageImportance.VeryImportant));
+                        break;
                 }
             }
         }

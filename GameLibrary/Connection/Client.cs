@@ -8,10 +8,12 @@ using Lidgren.Network;
 
 using GameLibrary.Model.Object;
 
-namespace Server.Connection
+namespace GameLibrary.Connection
 {
-    class Client
+    public class Client
     {
+        public static Client client;
+
         IPEndPoint iPEndPoint;
 
         public IPEndPoint IPEndPoint
@@ -27,9 +29,18 @@ namespace Server.Connection
             set { playerObject = value; }
         }
 
+        private EClientStatus clientStatus;
+
+        public EClientStatus ClientStatus
+        {
+            get { return clientStatus; }
+            set { clientStatus = value; }
+        }
+
         public Client(IPEndPoint _IPEndPoint)
         {
             this.iPEndPoint = _IPEndPoint;
+            this.clientStatus = EClientStatus.Connected;
         }
     }
 }
