@@ -46,6 +46,7 @@ namespace GameLibrary.Model.Map.World
         public World(SerializationInfo info, StreamingContext ctxt) : this()
         {
             this.regions = (List<Region.Region>)info.GetValue("regions", typeof(List<Region.Region>));
+            this.playerObjects = new List<PlayerObject>();
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -612,14 +613,7 @@ namespace GameLibrary.Model.Map.World
 
         public bool containsPlayerObject(Object.PlayerObject _PlayerObject)
         {
-            if (Configuration.Configuration.isHost)
-            {
-                return this.playerObjects.Contains(_PlayerObject);
-            }
-            else
-            {
-                return GameLibrary.Connection.Client.client.PlayerObject != null ? true : false;
-            }
+            return this.playerObjects.Contains(_PlayerObject);
         }
         public void addPlayerObject(Object.PlayerObject _PlayerObject)
         {
@@ -678,16 +672,9 @@ namespace GameLibrary.Model.Map.World
 
         private void updatePlayerObjectsNeighborhood()
         {
-            if (Configuration.Configuration.isHost)
+            foreach (Object.PlayerObject var_PlayerObject in this.playerObjects)
             {
-                foreach (Object.PlayerObject var_PlayerObject in this.playerObjects)
-                {
-                    this.updatePlayerObjectNeighborhood(var_PlayerObject);
-                }
-            }
-            else
-            {
-                this.updatePlayerObjectNeighborhood(GameLibrary.Connection.Client.client.PlayerObject);
+                this.updatePlayerObjectNeighborhood(var_PlayerObject);
             }
         }
 
