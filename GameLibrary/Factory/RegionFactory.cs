@@ -44,7 +44,7 @@ namespace GameLibrary.Factory
                 {
                     for (int y = 0; y < 1; y++)
                     {
-                        this.createChunkInRegion(var_Result, x * Chunk.chunkSizeX * Block.BlockSize, y * Chunk.chunkSizeY * Block.BlockSize);
+                        this.createChunkInRegion(var_Result, _PosX + x * Chunk.chunkSizeX * Block.BlockSize, _PosY + y * Chunk.chunkSizeY * Block.BlockSize);
                     }
                 }
                 var_Result.setAllNeighboursOfChunks();

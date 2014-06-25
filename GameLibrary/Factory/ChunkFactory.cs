@@ -289,7 +289,7 @@ namespace GameLibrary.Factory
                 if (var_Block.IsWalkAble)
                 {
                     var_Block.Objects.Add(var_EnvironmentObject);
-                    var_EnvironmentObject.CurrentBlock = var_Block;
+                    //var_EnvironmentObject.CurrentBlock = var_Block;
                     ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_EnvironmentObject);
                 }
             }

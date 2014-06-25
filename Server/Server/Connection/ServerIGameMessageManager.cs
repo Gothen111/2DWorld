@@ -106,6 +106,8 @@ namespace Server.Connection
 
             GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
 
+            Console.WriteLine("X: " + message.Position.X + " Y: " + message.Position.Y);
+
             if (var_Chunk != null)
             {
                 Event.EventList.Add(new Event(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), GameMessageImportance.VeryImportant));

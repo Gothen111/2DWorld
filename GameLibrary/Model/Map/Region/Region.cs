@@ -37,7 +37,7 @@ namespace GameLibrary.Model.Map.Region
 
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)Size.Y * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(Size.X * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize) - 1, (int)(Size.Y * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize) - 1); }
         }
 
         private RegionEnum regionEnum;
@@ -81,7 +81,7 @@ namespace GameLibrary.Model.Map.Region
                     {*/
                         this.chunks.Add(_Chunk);
                         this.setAllNeighboursOfChunk(_Chunk);
-                        World.World.world.setAllNeighboursOfRegion((Region)_Chunk.Parent);
+                        //World.World.world.setAllNeighboursOfRegion((Region)_Chunk.Parent);
                         if (GameLibrary.Configuration.Configuration.isHost)
                         {
                             //GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateChunkCommand(_Chunk));
@@ -127,7 +127,7 @@ namespace GameLibrary.Model.Map.Region
 
         public void setAllNeighboursOfChunk(Chunk.Chunk _Chunk)
         {
-            Chunk.Chunk var_ChunkNeighbourLeft = this.getChunkAtPosition(_Chunk.Position.X - Chunk.Chunk.chunkSizeX*Block.Block.BlockSize, _Chunk.Position.Y);
+            Chunk.Chunk var_ChunkNeighbourLeft = World.World.world.getChunkAtPosition(_Chunk.Position.X - Chunk.Chunk.chunkSizeX*Block.Block.BlockSize, _Chunk.Position.Y);
 
             if (var_ChunkNeighbourLeft != null)
             {
@@ -140,7 +140,7 @@ namespace GameLibrary.Model.Map.Region
                 }
             }
 
-            Chunk.Chunk var_ChunkNeighbourRight = this.getChunkAtPosition(_Chunk.Position.X + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, _Chunk.Position.Y);
+            Chunk.Chunk var_ChunkNeighbourRight = World.World.world.getChunkAtPosition(_Chunk.Position.X + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, _Chunk.Position.Y);
 
             if (var_ChunkNeighbourRight != null)
             {
@@ -153,7 +153,7 @@ namespace GameLibrary.Model.Map.Region
                 }
             }
 
-            Chunk.Chunk var_ChunkNeighbourTop = this.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y - Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+            Chunk.Chunk var_ChunkNeighbourTop = World.World.world.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y - Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
 
             if (var_ChunkNeighbourTop != null)
             {
@@ -166,7 +166,7 @@ namespace GameLibrary.Model.Map.Region
                 }
             }
 
-            Chunk.Chunk var_ChunkNeighbourBottom = this.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+            Chunk.Chunk var_ChunkNeighbourBottom = World.World.world.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
 
             if (var_ChunkNeighbourBottom != null)
             {
