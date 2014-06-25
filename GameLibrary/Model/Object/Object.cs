@@ -53,7 +53,7 @@ namespace GameLibrary.Model.Object
 
         private Map.Block.Block currentBlock;
 
-        internal Map.Block.Block CurrentBlock
+        public Map.Block.Block CurrentBlock
         {
             get { return currentBlock; }
             set { currentBlock = value; }
@@ -115,7 +115,7 @@ namespace GameLibrary.Model.Object
 
         public virtual void update()
         {
-            this.needUpdate = false;
+            //this.needUpdate = false;
         }
 
         public virtual void markAsDirty()

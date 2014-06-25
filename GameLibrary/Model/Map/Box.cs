@@ -149,7 +149,7 @@ namespace GameLibrary.Model.Map
 
         public virtual void update()
         {
-            this.needUpdate = false;
+            //this.needUpdate = false;
             if (this.neighbourRequestedTimer <= 0)
             {
                 this.topNeighbourRequested = false;

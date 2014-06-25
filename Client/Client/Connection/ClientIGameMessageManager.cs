@@ -143,16 +143,31 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
             GameLibrary.Model.Map.World.World.world.getRegion(message.RegionId).setChunkAtPosition((int)message.Chunk.Position.X, (int)message.Chunk.Position.Y, message.Chunk);
-            foreach (GameLibrary.Model.Object.LivingObject var_LivingObject in message.Chunk.getAllObjectsInChunk())
+            /*foreach (GameLibrary.Model.Object.LivingObject var_LivingObject in message.Chunk.getAllObjectsInChunk())
             {
                 if (GameLibrary.Model.Map.World.World.world.getLivingObject(var_LivingObject.Id) == null)
-                    GameLibrary.Model.Map.World.World.world.addLivingObject(var_LivingObject);
-            }
+                {
+                    if (var_LivingObject is GameLibrary.Model.Object.PlayerObject)
+                    {
+                        GameLibrary.Model.Map.World.World.world.addPlayerObject((GameLibrary.Model.Object.PlayerObject)var_LivingObject); //??? geht nicht .. alles nur living objects
+                    }
+                    else
+                    {
+                        GameLibrary.Model.Map.World.World.world.addLivingObject(var_LivingObject);
+                    }
+                }
+            }*/
             if (GameLibrary.Connection.Client.client != null)
             {
                 if (GameLibrary.Connection.Client.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedChunk)
                 {
-                    GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Connection.Client.client.PlayerObject);
+                    /*GameLibrary.Model.Map.Region.Region region = GameLibrary.Model.Map.World.World.world.getRegionLivingObjectIsIn(GameLibrary.Connection.Client.client.PlayerObject);
+                    GameLibrary.Model.Map.Chunk.Chunk chunk = region.getChunkLivingObjectIsIn(GameLibrary.Connection.Client.client.PlayerObject);
+                    GameLibrary.Model.Map.Block.Block block = chunk.getBlockAtCoordinate(GameLibrary.Connection.Client.client.PlayerObject.Position.X, GameLibrary.Connection.Client.client.PlayerObject.Position.Y);
+                    GameLibrary.Connection.Client.client.PlayerObject.CurrentBlock = block;*/
+
+                    GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Connection.Client.client.PlayerObject);//, true);
+                    //GameLibrary.Connection.Client.client.PlayerObject = (GameLibrary.Model.Object.PlayerObject) GameLibrary.Model.Map.World.World.world.getLivingObject(GameLibrary.Connection.Client.client.PlayerObject.Id);
                     GameLibrary.Connection.Client.client.ClientStatus = GameLibrary.Connection.EClientStatus.JoinedWorld;
                 }
             }

@@ -45,13 +45,14 @@ namespace GameLibrary.Model.Map.World
 
         public World(SerializationInfo info, StreamingContext ctxt) : this()
         {
-            this.regions = (List<Region.Region>)info.GetValue("regions", typeof(List<Region.Region>));
+            //this.regions = (List<Region.Region>)info.GetValue("regions", typeof(List<Region.Region>));
             this.playerObjects = new List<PlayerObject>();
+            this.regions = new List<Region.Region>();
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            info.AddValue("regions", this.regions, typeof(List<Region.Region>));
+            //info.AddValue("regions", this.regions, typeof(List<Region.Region>));
         }
 
         public World(String _Name)
@@ -617,28 +618,34 @@ namespace GameLibrary.Model.Map.World
         }
         public void addPlayerObject(Object.PlayerObject _PlayerObject)
         {
+            this.addPlayerObject(_PlayerObject, false);
+        }
+        public void addPlayerObject(Object.PlayerObject _PlayerObject, bool _OnlyToPlayerList)
+        {
             if (!containsPlayerObject(_PlayerObject))
             {
                 this.playerObjects.Add(_PlayerObject);
 
-                if (Configuration.Configuration.isHost)
+                if (!_OnlyToPlayerList)
                 {
-                    Vector2 var_Position_Region = new Vector2(_PlayerObject.Position.X - _PlayerObject.Position.X % (Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize), _PlayerObject.Position.Y - _PlayerObject.Position.X % (Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
-
-                    Region.Region var_Region = World.world.getRegionAtPosition((int)var_Position_Region.X, (int)var_Position_Region.Y)
-                                                ?? World.world.createRegionAt((int)var_Position_Region.X, (int)var_Position_Region.Y);
-                    if (var_Region != null)
+                    if (Configuration.Configuration.isHost)
                     {
-                        this.addRegion(var_Region);
+                        Vector2 var_Position_Region = new Vector2(_PlayerObject.Position.X - _PlayerObject.Position.X % (Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize), _PlayerObject.Position.Y - _PlayerObject.Position.X % (Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
 
-                        Vector2 var_Position_Chunk = new Vector2(_PlayerObject.Position.X - _PlayerObject.Position.X % (Chunk.Chunk.chunkSizeX * Block.Block.BlockSize), _PlayerObject.Position.Y - _PlayerObject.Position.X % (Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
+                        Region.Region var_Region = World.world.getRegionAtPosition((int)var_Position_Region.X, (int)var_Position_Region.Y)
+                                                    ?? World.world.createRegionAt((int)var_Position_Region.X, (int)var_Position_Region.Y);
+                        if (var_Region != null)
+                        {
+                            this.addRegion(var_Region);
 
-                        Chunk.Chunk var_Chunk = var_Region.createChunkAt((int)var_Position_Chunk.X, (int)var_Position_Chunk.Y);
+                            Vector2 var_Position_Chunk = new Vector2(_PlayerObject.Position.X - _PlayerObject.Position.X % (Chunk.Chunk.chunkSizeX * Block.Block.BlockSize), _PlayerObject.Position.Y - _PlayerObject.Position.X % (Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
+                            
+                            Chunk.Chunk var_Chunk = var_Region.createChunkAt((int)var_Position_Chunk.X, (int)var_Position_Chunk.Y);
+                        }
                     }
+
+                    this.addLivingObject(_PlayerObject);
                 }
-
-                this.addLivingObject(_PlayerObject);
-
                 _PlayerObject.CurrentBlock.markAsDirty();
             }
         }

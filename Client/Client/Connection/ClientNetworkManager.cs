@@ -183,6 +183,8 @@ namespace Client.Connection
                         break;
                     case EClientStatus.JoinedWorld:
                         GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Connection.Client.client.PlayerObject);
+                        //GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Model.Map.World.World.world.getLivingObject(0));
+                        //GameLibrary.Camera.Camera.camera.setPosition(new Microsoft.Xna.Framework.Vector3(0, 0, 0));
                         break;
                 }
             }

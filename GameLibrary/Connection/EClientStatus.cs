@@ -16,6 +16,7 @@ namespace GameLibrary.Connection
         RequestedRegion,
         RequestChunk,
         RequestedChunk,
+        JoinWorld,
         JoinedWorld,
         Disconnected
     }
