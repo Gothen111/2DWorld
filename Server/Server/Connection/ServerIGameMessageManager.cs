@@ -62,7 +62,6 @@ namespace Server.Connection
 
             PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male);
             var_PlayerObject.Position = new Vector3(0, GameLibrary.Util.Random.GenerateGoodRandomNumber(0,100), 0);
-            var_PlayerObject.GraphicPath = "Character/Char1_Small";
 
             GameLibrary.Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
 

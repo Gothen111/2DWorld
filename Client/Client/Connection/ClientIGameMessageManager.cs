@@ -202,6 +202,7 @@ namespace Client.Connection
                 if (var_LivingObject != null)
                 {
                     var_LivingObject.Position = message.Position;
+                    var_LivingObject.checkChangedBlock();
                     var_LivingObject.markAsDirty();
                 }
                 else

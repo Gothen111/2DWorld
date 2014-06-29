@@ -309,6 +309,7 @@ namespace GameLibrary.Model.Object
             GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateObjectHealthCommand(this));
             GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateObjectPositionCommand(this));
             //Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(this), GameMessageImportance.VeryImportant));
+            this.checkChangedBlock();
             this.markAsDirty();
         }
 

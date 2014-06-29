@@ -295,6 +295,12 @@ namespace GameLibrary.Model.Map.World
             //float var_AmountToRemove = 0.001f;
             if (_Target != null)
             {
+                List<LivingObject> var_LivingObjects = this.getObjectsInRange(_Target.Position, 400);
+                foreach (LivingObject var_LivingObject in var_LivingObjects)
+                {
+                    var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
+                }
+
                 if (_Target.CurrentBlock != null)
                 {
                     Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_Target.CurrentBlock.Parent;
@@ -691,10 +697,11 @@ namespace GameLibrary.Model.Map.World
             if (_PlayerObject.CurrentBlock != null)
             {
                 Region.Region var_PlayerObjectRegion = (Region.Region)_PlayerObject.CurrentBlock.Parent.Parent;
-                this.addChildToUpdateList(var_PlayerObjectRegion);
+                //this.addChildToUpdateList(var_PlayerObjectRegion);
 
                 Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_PlayerObject.CurrentBlock.Parent;
-                var_PlayerObjectRegion.addChildToUpdateList(var_ChunkMid);
+                //var_PlayerObjectRegion.addChildToUpdateList(var_ChunkMid);
+
                 //var_ChunkMid.markAsDirty();
 
                 Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
@@ -835,6 +842,7 @@ namespace GameLibrary.Model.Map.World
                 List<LivingObject> var_LivingObjects = this.getObjectsInRange(_PlayerObject.Position, 400);
                 foreach(LivingObject var_LivingObject in var_LivingObjects)
                 {
+                    var_LivingObject.update();
                     Configuration.Configuration.networkManager.SendMessageToClient(new UpdateObjectPositionMessage(var_LivingObject), var_Client);
                 }
             }

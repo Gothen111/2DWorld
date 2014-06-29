@@ -218,6 +218,7 @@
     <Compile Include="Util\MapHandler.cs" />
     <Compile Include="Util\Random.cs" />
     <Compile Include="Util\Serializer.cs" />
+    <Compile Include="Util\Square.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\Map\Camera\" />

@@ -41,7 +41,7 @@ namespace GameLibrary.Factory
             //generateFlowers(var_Result);
             //generateTrees(var_Result);
             //generateWall(var_Result);
-            //generateNpc(var_Result);
+            generateNpc(var_Result);
 
             return var_Result;
         }

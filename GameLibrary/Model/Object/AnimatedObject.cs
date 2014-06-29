@@ -14,8 +14,6 @@ namespace GameLibrary.Model.Object
     [Serializable()]
     public class AnimatedObject: Object
     {
-        public event EventHandler ObjectMoves;
-
         private float scale;
 
         public float Scale
@@ -152,8 +150,15 @@ namespace GameLibrary.Model.Object
 
             this.standartStandPositionX = (int)info.GetValue("standartStandPositionX", typeof(int));
 
-            //this.collisionBounds = (List<Rectangle>)info.GetValue("collisionBounds", typeof(List<Rectangle>)); //???
+            List<Util.Square> var_List = (List<Util.Square>)info.GetValue("collisionBounds", typeof(List<Util.Square>));
             this.collisionBounds = new List<Rectangle>();
+
+            foreach (Util.Square var_Square in var_List)
+            {
+                this.collisionBounds.Add(var_Square.Rectangle);
+            }
+
+            //this.collisionBounds = (List<Rectangle>)info.GetValue("collisionBounds", typeof(List<Rectangle>)); //???
             //this.collisionBounds.Add(new Rectangle(0, 0, 50, 50));
         }
 
@@ -169,7 +174,13 @@ namespace GameLibrary.Model.Object
 
             info.AddValue("standartStandPositionX", this.standartStandPositionX, typeof(int));
 
-            //info.AddValue("collisionBounds", this.collisionBounds, typeof(List<Rectangle>)); //???
+            List<Util.Square> var_List = new List<Util.Square>();
+            foreach (Rectangle var_Rectangle in this.collisionBounds)
+            {
+                var_List.Add(new Util.Square(var_Rectangle));
+            }
+
+            info.AddValue("collisionBounds", var_List, typeof(List<Util.Square>)); //???
 
             base.GetObjectData(info, ctxt);
         }
@@ -252,10 +263,6 @@ namespace GameLibrary.Model.Object
                     }
                     checkChangedBlock();
                 }
-                /*if (this.Position.X < 0)
-                    this.Position += new Vector3(0 - this.Position.X, 0, 0);
-                if (this.Position.Y < 0)
-                    this.Position += new Vector3(0, 0 - this.Position.Y, 0);*/
             }
 
 
@@ -308,50 +315,55 @@ namespace GameLibrary.Model.Object
 
             if (this.animation != null && !this.animation.graphicPath().Equals(""))
             {
-                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, this.layerDepth);//Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), this.scale, Vector2.Zero, null, this.layerDepth);
+                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, this.layerDepth);
             }
-            //_SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), 0, new Vector2(0,0), 1,SpriteEffects.None,this.layerDepth);
-        
         }
 
         public void checkChangedBlock()
         {
-            int var_BlockPosX = (int)this.CurrentBlock.Position.X / Map.Block.Block.BlockSize;
-            int var_BlockPosY = (int)this.CurrentBlock.Position.Y / Map.Block.Block.BlockSize;
+            if (this.CurrentBlock != null)
+            {
+                int var_BlockPosX = (int)this.CurrentBlock.Position.X / Map.Block.Block.BlockSize;
+                int var_BlockPosY = (int)this.CurrentBlock.Position.Y / Map.Block.Block.BlockSize;
 
-            Vector3 var_Position = this.Position;
+                Vector3 var_Position = this.Position;
 
-            if (var_Position.X < var_BlockPosX * Map.Block.Block.BlockSize)
-            {
-                this.CurrentBlock.removeLivingObject((LivingObject)this);
-                if (this.CurrentBlock.LeftNeighbour != null)
+                if (var_Position.X < var_BlockPosX * Map.Block.Block.BlockSize)
                 {
-                    ((Map.Block.Block)this.CurrentBlock.LeftNeighbour).addLivingObject((LivingObject)this);
+                    this.CurrentBlock.removeLivingObject((LivingObject)this);
+                    if (this.CurrentBlock.LeftNeighbour != null)
+                    {
+                        ((Map.Block.Block)this.CurrentBlock.LeftNeighbour).addLivingObject((LivingObject)this);
+                    }
+                }
+                else if (var_Position.X > (var_BlockPosX + 1) * Map.Block.Block.BlockSize)
+                {
+                    this.CurrentBlock.removeLivingObject((LivingObject)this);
+                    if (this.CurrentBlock.RightNeighbour != null)
+                    {
+                        ((Map.Block.Block)this.CurrentBlock.RightNeighbour).addLivingObject((LivingObject)this);
+                    }
+                }
+                else if (var_Position.Y < var_BlockPosY * Map.Block.Block.BlockSize)
+                {
+                    this.CurrentBlock.removeLivingObject((LivingObject)this);
+                    if (this.CurrentBlock.TopNeighbour != null)
+                    {
+                        ((Map.Block.Block)this.CurrentBlock.TopNeighbour).addLivingObject((LivingObject)this);
+                    }
+                }
+                else if (var_Position.Y > (var_BlockPosY + 1) * Map.Block.Block.BlockSize)
+                {
+                    this.CurrentBlock.removeLivingObject((LivingObject)this);
+                    if (this.CurrentBlock.BottomNeighbour != null)
+                    {
+                        ((Map.Block.Block)this.CurrentBlock.BottomNeighbour).addLivingObject((LivingObject)this);
+                    }
                 }
             }
-            else if (var_Position.X > (var_BlockPosX + 1) * Map.Block.Block.BlockSize)
+            else
             {
-                this.CurrentBlock.removeLivingObject((LivingObject)this);
-                if (this.CurrentBlock.RightNeighbour != null)
-                {
-                    ((Map.Block.Block)this.CurrentBlock.RightNeighbour).addLivingObject((LivingObject)this);
-                }
-            }
-            else if (var_Position.Y < var_BlockPosY * Map.Block.Block.BlockSize)
-            {
-                this.CurrentBlock.removeLivingObject((LivingObject)this);
-                if (this.CurrentBlock.TopNeighbour != null)
-                {
-                    ((Map.Block.Block)this.CurrentBlock.TopNeighbour).addLivingObject((LivingObject)this);
-                }
-            }
-            else if (var_Position.Y > (var_BlockPosY + 1) * Map.Block.Block.BlockSize)
-            {
-                this.CurrentBlock.removeLivingObject((LivingObject)this);
-                if (this.CurrentBlock.BottomNeighbour != null)
-                {
-                    ((Map.Block.Block)this.CurrentBlock.BottomNeighbour).addLivingObject((LivingObject)this);
-                }
+                Logger.Logger.LogErr("AnimatedObject->checkChangedBlock() : this.CurrentBlock = null");
             }
         }
     }

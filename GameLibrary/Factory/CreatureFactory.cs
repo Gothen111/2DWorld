@@ -26,6 +26,7 @@ namespace GameLibrary.Factory
             playerObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
             playerObject.Gender = objectGender;
             playerObject.Name = NameFactory.getName(objectType, objectGender);
+            playerObject.GraphicPath = "Character/Char1_Small";
 
             return playerObject;
         }
@@ -41,22 +42,6 @@ namespace GameLibrary.Factory
             npcObject.Name = NameFactory.getName(objectType, objectGender);
             npcObject.GraphicPath = "Character/Char1_Small";
             npcObject.Tasks.Add(new Model.Object.Task.Tasks.AttackRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Attack_Random));
-            //Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.AttackCommand(npcObject));
-
-
-            return npcObject;
-        }
-
-        public NpcObject createNpcObject(int _Id, RaceEnum objectRace, FactionEnum objectFaction, CreatureEnum objectType, GenderEnum objectGender)
-        {
-            NpcObject npcObject = new NpcObject();
-            npcObject.Id = _Id;
-            npcObject.Scale = 1;
-            npcObject.Velocity = new Vector3(0, 0, 0);
-            npcObject.Faction = BehaviourFactory.behaviourFactory.getFaction(objectFaction);
-            npcObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
-            npcObject.Gender = objectGender;
-            npcObject.Name = NameFactory.getName(objectType, objectGender);
 
             return npcObject;
         }
