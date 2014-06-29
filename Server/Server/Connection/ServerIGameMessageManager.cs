@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Media;
 
 using GameLibrary.Connection;
 using GameLibrary.Connection.Message;
+using GameLibrary.Configuration;
 
 using GameLibrary.Model.Map;
 using GameLibrary.Model.Object;
@@ -47,6 +48,9 @@ namespace Server.Connection
                 case EIGameMessageType.RequestChunkMessage:
                     handleRequestChunkMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.RequestLivingObjectMessage:
+                    handleRequestLivingObjectMessage(_NetIncomingMessage);
+                    break;
             }
         }
 
@@ -62,9 +66,9 @@ namespace Server.Connection
 
             GameLibrary.Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
 
-            //Event.EventList.Add(new Event(new UpdatePlayerMessage(var_PlayerObject), GameMessageImportance.VeryImportant));
-            Client var_Client = ServerNetworkManager.serverNetworkManager.getClient(_Im.SenderEndPoint);
-            ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdatePlayerMessage(var_PlayerObject), var_Client);
+            Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
+            var_Client.PlayerObject = var_PlayerObject;
+            Configuration.networkManager.SendMessageToClient(new UpdatePlayerMessage(var_PlayerObject), var_Client);
 
             GameLibrary.Camera.Camera.camera.setTarget(var_PlayerObject);
         }
@@ -75,8 +79,8 @@ namespace Server.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            Client var_Client = ServerNetworkManager.serverNetworkManager.getClient(_Im.SenderEndPoint);
-            ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdateWorldMessage(GameLibrary.Model.Map.World.World.world), var_Client);
+            Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
+            Configuration.networkManager.SendMessageToClient(new UpdateWorldMessage(GameLibrary.Model.Map.World.World.world), var_Client);
         }
 
         private static void handleRequestRegionMessage(NetIncomingMessage _Im)
@@ -85,12 +89,13 @@ namespace Server.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            Client var_Client = ServerNetworkManager.serverNetworkManager.getClient(_Im.SenderEndPoint);
+            Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
+
             GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
 
             if (var_Chunk != null)
             {
-                ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), var_Client);
+                Configuration.networkManager.SendMessageToClient(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), var_Client);
             }
             else
             {
@@ -158,6 +163,24 @@ namespace Server.Connection
                     break;
             }
             var_PlayerObject.markAsDirty();
+        }
+        private static void handleRequestLivingObjectMessage(NetIncomingMessage _Im)
+        {
+            var message = new RequestLivingObjectMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
+
+            GameLibrary.Model.Object.LivingObject var_LivingObject = GameLibrary.Model.Map.World.World.world.getLivingObject(message.Id);
+            if (var_LivingObject != null)
+            {
+                Configuration.networkManager.SendMessageToClient(new UpdateLivingObjectMessage(var_LivingObject), var_Client);
+            }
+            else
+            {
+                GameLibrary.Logger.Logger.LogErr("");
+            }
         }
     }
 }

@@ -14,13 +14,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using Server.Connection;
-
 using GameLibrary.Model;
 using GameLibrary.Model.Map;
 using GameLibrary.Factory;
 using GameLibrary.Model.Object;
 using GameLibrary.Ressourcen;
+using GameLibrary.Configuration;
+using GameLibrary.Connection;
+
+using Server.Connection;
 
 namespace Server
 {
@@ -43,10 +45,10 @@ namespace Server
             graphics.PreferredBackBufferWidth = 1500;
             graphics.PreferredBackBufferHeight = 800;
 
-            ServerNetworkManager.serverNetworkManager.Connect(14242);
+            Configuration.isHost = true;
+            Configuration.commandManager = new Commands.ServerCommandManager();
+            Configuration.networkManager = new ServerNetworkManager();
 
-            GameLibrary.Configuration.Configuration.isHost = true;
-            GameLibrary.Configuration.Configuration.commandManager = new Commands.ServerCommandManager();
 
             this.IsMouseVisible = true;
         }
@@ -59,20 +61,11 @@ namespace Server
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             GameLibrary.Camera.Camera.camera = new GameLibrary.Camera.Camera(GraphicsDevice.Viewport);
 
-            System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
-            watch.Start();
+            Configuration.networkManager.Start("", "14242");
 
             GameLibrary.Model.Map.World.World.world = new GameLibrary.Model.Map.World.World("Welt");
-            //region = GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region", 0, 0, GameLibrary.Model.Map.Region.RegionEnum.Grassland, GameLibrary.Model.Map.World.World.world);
-
-            //GameLibrary.Model.Map.World.World.world.addRegion(region);
-
-            watch.Stop();
-            GameLibrary.Logger.Logger.LogInfo(watch.Elapsed.ToString());
 
             base.Initialize();
         }
@@ -112,7 +105,7 @@ namespace Server
             GameLibrary.Model.Map.World.World.world.update();
             GameLibrary.Camera.Camera.camera.update(gameTime);
 
-            ServerNetworkManager.serverNetworkManager.update();
+            Configuration.networkManager.update();
 
             base.Update(gameTime);
         }

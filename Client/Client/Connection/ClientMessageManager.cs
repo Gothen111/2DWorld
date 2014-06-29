@@ -8,6 +8,7 @@ using Lidgren.Network;
 
 using GameLibrary.Connection.Message;
 using GameLibrary.Connection;
+using GameLibrary.Configuration;
 
 namespace Client.Connection
 {
@@ -19,7 +20,7 @@ namespace Client.Connection
         public static void ProcessNetworkMessages()
         {
             NetIncomingMessage im;
-            while ((im = ClientNetworkManager.clientNetworkManager.ReadMessage()) != null)
+            while ((im = Configuration.networkManager.ReadMessage()) != null)
             {
                 switch (im.MessageType)
                 {
@@ -56,7 +57,7 @@ namespace Client.Connection
 
                         break;
                 }
-                ClientNetworkManager.clientNetworkManager.Recycle(im);
+                Configuration.networkManager.Recycle(im);
             }
         }
 
@@ -65,7 +66,7 @@ namespace Client.Connection
         /// </summary>
         public static void OnClientConnectToServer(IPEndPoint _IPEndPoint)
         {
-            GameLibrary.Connection.Client.client = new GameLibrary.Connection.Client(_IPEndPoint);
+            GameLibrary.Connection.NetworkManager.client = new GameLibrary.Connection.Client(_IPEndPoint);
             //Event.EventList.Add(new Event(new RequestPlayerMessage("Fred"), GameMessageImportance.VeryImportant));
         }
 

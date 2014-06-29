@@ -9,6 +9,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using GameLibrary.Configuration;
+using GameLibrary.Connection;
+
+using Client.Commands;
 using Client.Connection;
 
 namespace Client
@@ -28,8 +32,9 @@ namespace Client
 
             this.IsMouseVisible = true;
 
-            GameLibrary.Configuration.Configuration.isHost = false;
-            GameLibrary.Configuration.Configuration.commandManager = new Commands.ClientCommandManager();
+            Configuration.isHost = false;
+            Configuration.commandManager = new ClientCommandManager();
+            Configuration.networkManager = new ClientNetworkManager();
         }
 
         /// <summary>
@@ -40,13 +45,9 @@ namespace Client
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             GameLibrary.Camera.Camera.camera = new GameLibrary.Camera.Camera(GraphicsDevice.Viewport);
 
-            //GameLibrary.Model.Map.World.World.world = new GameLibrary.Model.Map.World.World("Welt");
-            
-            ClientNetworkManager.clientNetworkManager.Start("127.0.0.1", "14242");
+            Configuration.networkManager.Start("127.0.0.1", "14242");
 
             base.Initialize();
         }
@@ -94,7 +95,7 @@ namespace Client
             {
                 GameLibrary.Model.Map.World.World.world.update();
             }
-            ClientNetworkManager.clientNetworkManager.update();
+            Configuration.networkManager.update();
             GameLibrary.Camera.Camera.camera.update(gameTime);
             // TODO: Add your update logic here
 

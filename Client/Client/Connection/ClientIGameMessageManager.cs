@@ -62,14 +62,14 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            if (GameLibrary.Connection.Client.client != null)
+            if (GameLibrary.Connection.NetworkManager.client != null)
             {
-                if (GameLibrary.Connection.Client.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedPlayerPosition)
+                if (GameLibrary.Connection.NetworkManager.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedPlayerPosition)
                 {
-                    if (GameLibrary.Connection.Client.client.PlayerObject == null)
+                    if (GameLibrary.Connection.NetworkManager.client.PlayerObject == null)
                     {
-                        GameLibrary.Connection.Client.client.PlayerObject = message.PlayerObject;
-                        GameLibrary.Connection.Client.client.ClientStatus = GameLibrary.Connection.EClientStatus.RequestWorld;
+                        GameLibrary.Connection.NetworkManager.client.PlayerObject = message.PlayerObject;
+                        GameLibrary.Connection.NetworkManager.client.ClientStatus = GameLibrary.Connection.EClientStatus.RequestWorld;
                     }
                 }
             }
@@ -84,11 +84,11 @@ namespace Client.Connection
                 GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new RequestChunkMessage(new Vector2(GameLibrary.Model.Object.PlayerObject.playerObject.Position.X, GameLibrary.Model.Object.PlayerObject.playerObject.Position.Y)), GameLibrary.Connection.GameMessageImportance.VeryImportant));
             }*/
 
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.W }, new GameLibrary.Commands.CommandTypes.WalkUpCommand(GameLibrary.Connection.Client.client.PlayerObject)));
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.S }, new GameLibrary.Commands.CommandTypes.WalkDownCommand(GameLibrary.Connection.Client.client.PlayerObject)));
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.A }, new GameLibrary.Commands.CommandTypes.WalkLeftCommand(GameLibrary.Connection.Client.client.PlayerObject)));
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.D }, new GameLibrary.Commands.CommandTypes.WalkRightCommand(GameLibrary.Connection.Client.client.PlayerObject)));
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.Space }, new GameLibrary.Commands.CommandTypes.AttackCommand(GameLibrary.Connection.Client.client.PlayerObject)));
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.W }, new GameLibrary.Commands.CommandTypes.WalkUpCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.S }, new GameLibrary.Commands.CommandTypes.WalkDownCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.A }, new GameLibrary.Commands.CommandTypes.WalkLeftCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.D }, new GameLibrary.Commands.CommandTypes.WalkRightCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
+            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.Space }, new GameLibrary.Commands.CommandTypes.AttackCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
 
             //GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Model.Object.PlayerObject.playerObject);
         }
@@ -101,14 +101,14 @@ namespace Client.Connection
 
             GameLibrary.Model.Map.World.World var_World = message.World;
 
-            if(GameLibrary.Connection.Client.client!=null)
+            if(GameLibrary.Connection.NetworkManager.client!=null)
             {
-                if (GameLibrary.Connection.Client.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedWorld)
+                if (GameLibrary.Connection.NetworkManager.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedWorld)
                 {
                     if (GameLibrary.Model.Map.World.World.world == null)
                     {
                         GameLibrary.Model.Map.World.World.world = message.World;
-                        GameLibrary.Connection.Client.client.ClientStatus = GameLibrary.Connection.EClientStatus.RequestRegion;
+                        GameLibrary.Connection.NetworkManager.client.ClientStatus = GameLibrary.Connection.EClientStatus.RequestRegion;
                     }
                 }
             }
@@ -119,7 +119,7 @@ namespace Client.Connection
             var message = new UpdateRegionMessage(_Im);
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            if (GameLibrary.Connection.Client.client != null)
+            if (GameLibrary.Connection.NetworkManager.client != null)
             {
                 if (!GameLibrary.Model.Map.World.World.world.containsRegion(message.Region.Id))
                 {
@@ -130,9 +130,9 @@ namespace Client.Connection
                 {
                     GameLibrary.Logger.Logger.LogErr("Region sollte hinzugefügt werden, ist allerdings schon vorhanden -> Benutze UpdateChunkMessage");
                 }
-                if (GameLibrary.Connection.Client.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedRegion)
+                if (GameLibrary.Connection.NetworkManager.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedRegion)
                 {
-                    GameLibrary.Connection.Client.client.ClientStatus = GameLibrary.Connection.EClientStatus.RequestChunk;
+                    GameLibrary.Connection.NetworkManager.client.ClientStatus = GameLibrary.Connection.EClientStatus.RequestChunk;
                 }
             }
         }
@@ -157,18 +157,18 @@ namespace Client.Connection
                     }
                 }
             }*/
-            if (GameLibrary.Connection.Client.client != null)
+            if (GameLibrary.Connection.NetworkManager.client != null)
             {
-                if (GameLibrary.Connection.Client.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedChunk)
+                if (GameLibrary.Connection.NetworkManager.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedChunk)
                 {
-                    /*GameLibrary.Model.Map.Region.Region region = GameLibrary.Model.Map.World.World.world.getRegionLivingObjectIsIn(GameLibrary.Connection.Client.client.PlayerObject);
-                    GameLibrary.Model.Map.Chunk.Chunk chunk = region.getChunkLivingObjectIsIn(GameLibrary.Connection.Client.client.PlayerObject);
-                    GameLibrary.Model.Map.Block.Block block = chunk.getBlockAtCoordinate(GameLibrary.Connection.Client.client.PlayerObject.Position.X, GameLibrary.Connection.Client.client.PlayerObject.Position.Y);
-                    GameLibrary.Connection.Client.client.PlayerObject.CurrentBlock = block;*/
+                    /*GameLibrary.Model.Map.Region.Region region = GameLibrary.Model.Map.World.World.world.getRegionLivingObjectIsIn(GameLibrary.Connection.NetworkManager.client.PlayerObject);
+                    GameLibrary.Model.Map.Chunk.Chunk chunk = region.getChunkLivingObjectIsIn(GameLibrary.Connection.NetworkManager.client.PlayerObject);
+                    GameLibrary.Model.Map.Block.Block block = chunk.getBlockAtCoordinate(GameLibrary.Connection.NetworkManager.client.PlayerObject.Position.X, GameLibrary.Connection.NetworkManager.client.PlayerObject.Position.Y);
+                    GameLibrary.Connection.NetworkManager.client.PlayerObject.CurrentBlock = block;*/
 
-                    GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Connection.Client.client.PlayerObject);//, true);
-                    //GameLibrary.Connection.Client.client.PlayerObject = (GameLibrary.Model.Object.PlayerObject) GameLibrary.Model.Map.World.World.world.getLivingObject(GameLibrary.Connection.Client.client.PlayerObject.Id);
-                    GameLibrary.Connection.Client.client.ClientStatus = GameLibrary.Connection.EClientStatus.JoinedWorld;
+                    GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Connection.NetworkManager.client.PlayerObject);//, true);
+                    //GameLibrary.Connection.NetworkManager.client.PlayerObject = (GameLibrary.Model.Object.PlayerObject) GameLibrary.Model.Map.World.World.world.getLivingObject(GameLibrary.Connection.NetworkManager.client.PlayerObject.Id);
+                    GameLibrary.Connection.NetworkManager.client.ClientStatus = GameLibrary.Connection.EClientStatus.JoinedWorld;
                 }
             }
             /*if (GameLibrary.Model.Map.World.World.world.getChunkAtPosition(GameLibrary.Model.Object.PlayerObject.playerObject.Position.X, GameLibrary.Model.Object.PlayerObject.playerObject.Position.Y) != null)
@@ -206,6 +206,11 @@ namespace Client.Connection
                 {
                     var_LivingObject.Position = message.Position;
                     var_LivingObject.markAsDirty();
+                }
+                else
+                {
+                    GameLibrary.Logger.Logger.LogErr("LivingObject mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Health wird nicht geupdatet");
+                    GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.RequestLivingObjectMessage(message.Id), GameLibrary.Connection.GameMessageImportance.UnImportant));
                 }
             }
         }

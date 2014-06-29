@@ -18,6 +18,7 @@ namespace GameLibrary.Connection.Message
         UpdateObjectHealthMessage,
         RequestChunkMessage,
         RequestWorldMessage,
-        UpdateWorldMessage
+        UpdateWorldMessage,
+        RequestLivingObjectMessage
     }
 }

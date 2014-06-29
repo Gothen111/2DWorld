@@ -262,8 +262,9 @@ namespace GameLibrary.Factory
                 int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
-                
-                Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
+
+                Block var_Block = _Chunk.getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y);
+                //Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
                 if (var_Block.IsWalkAble && var_Block.Layer[1] == BlockEnum.Nothing)
                 {
                     var_Block.objectsPreEnviorment.Add(var_EnvironmentObject);
@@ -285,7 +286,8 @@ namespace GameLibrary.Factory
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
                 var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left + 15, var_EnvironmentObject.DrawBounds.Bottom - 30, var_EnvironmentObject.DrawBounds.Width - 30, 20));
 
-                Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
+                Block var_Block = _Chunk.getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y);
+                //Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
                 if (var_Block.IsWalkAble)
                 {
                     var_Block.Objects.Add(var_EnvironmentObject);

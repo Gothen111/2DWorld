@@ -120,6 +120,7 @@
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
+    <Compile Include="Connection\Message\RequestLivingObjectMessage.cs" />
     <Compile Include="Connection\Message\RequestRegionMessage.cs" />
     <Compile Include="Connection\Message\UpdateWorldMessage.cs" />
     <Compile Include="Connection\Message\RequestWorldMessage.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Connection\Message\UpdateChunkMessage.cs" />
     <Compile Include="Connection\Message\UpdateLivingObjectMessage.cs" />
     <Compile Include="Connection\Message\UpdatePlayerMessage.cs" />
+    <Compile Include="Connection\NetworkManager.cs" />
     <Compile Include="Factory\BehaviourFactory.cs" />
     <Compile Include="Factory\ChunkFactory.cs" />
     <Compile Include="Factory\CreatureFactory.cs" />

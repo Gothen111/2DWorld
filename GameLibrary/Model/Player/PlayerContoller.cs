@@ -27,7 +27,7 @@ namespace GameLibrary.Model.Player
                     var_InputAction.performAction();
                     if (!Configuration.Configuration.isHost)
                     {
-                        GameLibrary.Connection.Client.client.PlayerObject.markAsDirty();
+                        GameLibrary.Connection.NetworkManager.client.PlayerObject.markAsDirty();
                     }
                 }
                 else

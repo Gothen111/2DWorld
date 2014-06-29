@@ -222,7 +222,8 @@ namespace GameLibrary.Model.Map.Region
             }
             else
             {
-                return this.getChunkAtPosition(var_X, var_Y);
+                //return this.getChunkAtPosition(var_X, var_Y);
+                return this.getChunkAtPosition(_LivingObject.Position.X, _LivingObject.Position.Y);
             }
         }
 

@@ -9,6 +9,7 @@ using Lidgren.Network;
 using Server.Connection;
 using GameLibrary.Connection;
 using GameLibrary.Connection.Message;
+using GameLibrary.Configuration;
 
 namespace Server.Connection
 {
@@ -28,7 +29,7 @@ namespace Server.Connection
         public static void ProcessNetworkMessages()
         {
             NetIncomingMessage im;
-            while ((im = ServerNetworkManager.serverNetworkManager.ReadMessage()) != null)
+            while ((im = Configuration.networkManager.ReadMessage()) != null)
             {
                 switch (im.MessageType)
                 {
@@ -65,7 +66,7 @@ namespace Server.Connection
 
                         break;
                 }
-                ServerNetworkManager.serverNetworkManager.Recycle(im);
+                Configuration.networkManager.Recycle(im);
             }
         }
 
@@ -76,7 +77,7 @@ namespace Server.Connection
         {
             //GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new UpdateChunkMessage(GameLibrary.Model.Map.World.World.world.getRegion(0).getChunk(0)), GameLibrary.Connection.GameMessageImportance.VeryImportant));
             Client var_Client = new Client(_IPEndPoint);
-            ServerNetworkManager.serverNetworkManager.addClient(var_Client);
+            Configuration.networkManager.addClient(var_Client);
             //ServerNetworkManager.serverNetworkManager.SendMessageToClient(new UpdateRegionMessage(GameLibrary.Model.Map.World.World.world.getRegion(0)), var_Client);
         }
 
@@ -85,8 +86,8 @@ namespace Server.Connection
         /// </summary>
         public static void OnClientDisconnectFromServer(IPEndPoint _IPEndPoint)
         {
-            Client var_Client = ServerNetworkManager.serverNetworkManager.getClient(_IPEndPoint);
-            ServerNetworkManager.serverNetworkManager.removeClient(var_Client);
+            Client var_Client = Configuration.networkManager.getClient(_IPEndPoint);
+            Configuration.networkManager.removeClient(var_Client);
         }
     }
 }

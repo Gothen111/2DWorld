@@ -12,8 +12,6 @@ namespace GameLibrary.Connection
 {
     public class Client
     {
-        public static Client client;
-
         IPEndPoint iPEndPoint;
 
         public IPEndPoint IPEndPoint

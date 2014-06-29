@@ -120,7 +120,22 @@ namespace GameLibrary.Model.Map.Chunk
 
         public Block.Block getBlockAtCoordinate(float _PosX, float _PosY)
         {
-            return blocks[(int)(_PosX/Block.Block.BlockSize), ((int)_PosY/Block.Block.BlockSize)];
+            for (int x = 0; x < chunkSizeX; x++)
+            {
+                for (int y = 0; y < chunkSizeY; y++)
+                {
+                    Block.Block var_Block = getBlockAtPosition(x, y);
+                    if (var_Block.Bounds.Left <= _PosX && var_Block.Bounds.Right >= _PosX)
+                    {
+                        if (var_Block.Bounds.Top <= _PosY && var_Block.Bounds.Bottom >= _PosY)
+                        {
+                            return var_Block;
+                        }
+                    }
+                }
+            }
+            return null;
+            //return blocks[(int)(_PosX/Block.Block.BlockSize), ((int)_PosY/Block.Block.BlockSize)];
         }
 
         public Block.Block getBlockAtPosition(float _PosX, float _PosY)
