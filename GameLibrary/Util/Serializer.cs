@@ -38,7 +38,8 @@ namespace GameLibrary.Util
 
         public static T DeserializeObjectFromString<T>(string objectToDeserialize)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(Decompress(objectToDeserialize));
+            Newtonsoft.Json.JsonSerializerSettings settings = new Newtonsoft.Json.JsonSerializerSettings { TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All };
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(Decompress(objectToDeserialize), settings);
         }
 
         public static string Compress(string s)
