@@ -34,7 +34,10 @@ namespace GameLibrary.Model.Map.World
         private float updatePlayerIntervall = 0;
         private float updatePlayerIntervallmax = 60;
 
-        private List<Object.PlayerObject> playerObjects;
+        private List<PlayerObject> playerObjects;
+
+        private List<LivingObject> livingObjectsToUpdate;
+
         #endregion
         #region Constructors
         public World()
@@ -666,6 +669,9 @@ namespace GameLibrary.Model.Map.World
             if (this.NeedUpdate)
             {
                 base.update();
+
+                this.livingObjectsToUpdate = new List<LivingObject>();
+
                 this.updatePlayerObjectsNeighborhood();
                 if (GameLibrary.Configuration.Configuration.isHost && this.updatePlayerIntervall <= this.updatePlayerIntervallmax)
                 {
@@ -679,6 +685,12 @@ namespace GameLibrary.Model.Map.World
                 {
                     this.updatePlayerIntervall++;
                 }
+
+                foreach (LivingObject var_LivingObject in this.livingObjectsToUpdate)
+                {
+                    var_LivingObject.update();
+                }
+
                 this.updateChilds();
             }
         }
@@ -842,7 +854,10 @@ namespace GameLibrary.Model.Map.World
                 List<LivingObject> var_LivingObjects = this.getObjectsInRange(_PlayerObject.Position, 400);
                 foreach(LivingObject var_LivingObject in var_LivingObjects)
                 {
-                    var_LivingObject.update();
+                    if (!this.livingObjectsToUpdate.Contains(var_LivingObject))
+                    {
+                        this.livingObjectsToUpdate.Add(var_LivingObject);
+                    }
                     Configuration.Configuration.networkManager.SendMessageToClient(new UpdateObjectPositionMessage(var_LivingObject), var_Client);
                 }
             }

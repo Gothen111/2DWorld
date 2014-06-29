@@ -224,8 +224,6 @@ namespace GameLibrary.Model.Map.Block
 
         public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            
-
             //int var_ChunkY = (int)(this.parentChunk.Position.Y / Chunk.Chunk.chunkSizeY*Block.BlockSize);
             float var_LayerDepth = 0.79f;
 
