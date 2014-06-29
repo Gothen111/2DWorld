@@ -77,7 +77,7 @@ namespace GameLibrary.Model.Object.Equipment
             this.searchFlags = (List<Map.World.SearchFlags.Searchflag>)info.GetValue("searchFlags", typeof(List<Map.World.SearchFlags.Searchflag>));
         }
 
-        public override void EquipmentWeapon(SerializationInfo info, StreamingContext ctxt)
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("weaponEnum", weaponEnum, typeof(WeaponEnum));
 

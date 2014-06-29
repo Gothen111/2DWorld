@@ -250,11 +250,7 @@ namespace GameLibrary.Model.Object
                     {
                         this.Position += this.Velocity;
                     }
-                    EventHandler handler = this.ObjectMoves;
-                    if (handler != null)
-                    {
-                        handler(this, EventArgs.Empty);
-                    }
+                    checkChangedBlock();
                 }
                 /*if (this.Position.X < 0)
                     this.Position += new Vector3(0 - this.Position.X, 0, 0);
@@ -316,6 +312,47 @@ namespace GameLibrary.Model.Object
             }
             //_SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), 0, new Vector2(0,0), 1,SpriteEffects.None,this.layerDepth);
         
+        }
+
+        public void checkChangedBlock()
+        {
+            int var_BlockPosX = (int)this.CurrentBlock.Position.X / Map.Block.Block.BlockSize;
+            int var_BlockPosY = (int)this.CurrentBlock.Position.Y / Map.Block.Block.BlockSize;
+
+            Vector3 var_Position = this.Position;
+
+            if (var_Position.X < var_BlockPosX * Map.Block.Block.BlockSize)
+            {
+                this.CurrentBlock.removeLivingObject((LivingObject)this);
+                if (this.CurrentBlock.LeftNeighbour != null)
+                {
+                    ((Map.Block.Block)this.CurrentBlock.LeftNeighbour).addLivingObject((LivingObject)this);
+                }
+            }
+            else if (var_Position.X > (var_BlockPosX + 1) * Map.Block.Block.BlockSize)
+            {
+                this.CurrentBlock.removeLivingObject((LivingObject)this);
+                if (this.CurrentBlock.RightNeighbour != null)
+                {
+                    ((Map.Block.Block)this.CurrentBlock.RightNeighbour).addLivingObject((LivingObject)this);
+                }
+            }
+            else if (var_Position.Y < var_BlockPosY * Map.Block.Block.BlockSize)
+            {
+                this.CurrentBlock.removeLivingObject((LivingObject)this);
+                if (this.CurrentBlock.TopNeighbour != null)
+                {
+                    ((Map.Block.Block)this.CurrentBlock.TopNeighbour).addLivingObject((LivingObject)this);
+                }
+            }
+            else if (var_Position.Y > (var_BlockPosY + 1) * Map.Block.Block.BlockSize)
+            {
+                this.CurrentBlock.removeLivingObject((LivingObject)this);
+                if (this.CurrentBlock.BottomNeighbour != null)
+                {
+                    ((Map.Block.Block)this.CurrentBlock.BottomNeighbour).addLivingObject((LivingObject)this);
+                }
+            }
         }
     }
 }

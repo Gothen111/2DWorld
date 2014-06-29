@@ -101,15 +101,15 @@ namespace GameLibrary.Model.Map.Block
         {
             if (!this.objects.Contains(_LivingObject))
             {
-                _LivingObject.ObjectMoves += this.HandleEvent;
-                _LivingObject.CurrentBlock = this;
                 this.objects.Add(_LivingObject);
             }
+            //_LivingObject.ObjectMoves += this.HandleEvent;
+            _LivingObject.CurrentBlock = this;
         }
 
         public void removeLivingObject(Object.LivingObject _LivingObject)
         {
-            _LivingObject.ObjectMoves -= this.HandleEvent;
+            //_LivingObject.ObjectMoves -= this.HandleEvent;
             this.objects.Remove(_LivingObject);
         }
 

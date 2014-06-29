@@ -84,12 +84,6 @@ namespace Client.Connection
                 GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new RequestChunkMessage(new Vector2(GameLibrary.Model.Object.PlayerObject.playerObject.Position.X, GameLibrary.Model.Object.PlayerObject.playerObject.Position.Y)), GameLibrary.Connection.GameMessageImportance.VeryImportant));
             }*/
 
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.W }, new GameLibrary.Commands.CommandTypes.WalkUpCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.S }, new GameLibrary.Commands.CommandTypes.WalkDownCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.A }, new GameLibrary.Commands.CommandTypes.WalkLeftCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.D }, new GameLibrary.Commands.CommandTypes.WalkRightCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
-            GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.Space }, new GameLibrary.Commands.CommandTypes.AttackCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
-
             //GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Model.Object.PlayerObject.playerObject);
         }
 
@@ -164,6 +158,13 @@ namespace Client.Connection
 
                     GameLibrary.Model.Object.PlayerObject var_PlayerObject = (GameLibrary.Model.Object.PlayerObject) GameLibrary.Model.Map.World.World.world.getLivingObject(GameLibrary.Connection.NetworkManager.client.PlayerObject.Id);
                     GameLibrary.Connection.NetworkManager.client.PlayerObject = var_PlayerObject;
+                    GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Connection.NetworkManager.client.PlayerObject, true);//, true);
+                    GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.W }, new GameLibrary.Commands.CommandTypes.WalkUpCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
+                    GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.S }, new GameLibrary.Commands.CommandTypes.WalkDownCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
+                    GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.A }, new GameLibrary.Commands.CommandTypes.WalkLeftCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
+                    GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.D }, new GameLibrary.Commands.CommandTypes.WalkRightCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
+                    GameLibrary.Model.Player.PlayerContoller.playerContoller.addInputAction(new GameLibrary.Model.Player.InputAction(new List<Keys>() { Keys.Space }, new GameLibrary.Commands.CommandTypes.AttackCommand(GameLibrary.Connection.NetworkManager.client.PlayerObject)));
+
                     GameLibrary.Connection.NetworkManager.client.ClientStatus = GameLibrary.Connection.EClientStatus.JoinedWorld;
                 }
             }

@@ -829,7 +829,7 @@ namespace GameLibrary.Model.Map.World
                 }
             }
 
-            /*if (Configuration.Configuration.isHost)
+            if (Configuration.Configuration.isHost)
             {
                 Client var_Client = GameLibrary.Configuration.Configuration.networkManager.getClient(_PlayerObject);
                 List<LivingObject> var_LivingObjects = this.getObjectsInRange(_PlayerObject.Position, 400);
@@ -837,7 +837,7 @@ namespace GameLibrary.Model.Map.World
                 {
                     Configuration.Configuration.networkManager.SendMessageToClient(new UpdateObjectPositionMessage(var_LivingObject), var_Client);
                 }
-            }*/
+            }
         }
         #endregion
 
