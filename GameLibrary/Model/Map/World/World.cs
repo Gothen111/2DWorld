@@ -387,9 +387,6 @@ namespace GameLibrary.Model.Map.World
                 Chunk.Chunk chunk = _Region.getChunkLivingObjectIsIn(livingObject);
                 if (chunk != null)
                 {
-                    int var_X = (int) livingObject.Position.X / (GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * GameLibrary.Model.Map.Block.Block.BlockSize);// Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
-                    int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
-
                     Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
                     block.addLivingObject(livingObject);
                     if (insertInQuadTree)
@@ -832,7 +829,7 @@ namespace GameLibrary.Model.Map.World
                 }
             }
 
-            if (Configuration.Configuration.isHost)
+            /*if (Configuration.Configuration.isHost)
             {
                 Client var_Client = GameLibrary.Configuration.Configuration.networkManager.getClient(_PlayerObject);
                 List<LivingObject> var_LivingObjects = this.getObjectsInRange(_PlayerObject.Position, 400);
@@ -840,7 +837,7 @@ namespace GameLibrary.Model.Map.World
                 {
                     Configuration.Configuration.networkManager.SendMessageToClient(new UpdateObjectPositionMessage(var_LivingObject), var_Client);
                 }
-            }
+            }*/
         }
         #endregion
 

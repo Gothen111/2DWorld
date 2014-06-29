@@ -64,10 +64,10 @@ namespace GameLibrary.Model.Map.Block
         {
             this.layer = (BlockEnum[])info.GetValue("layer", typeof(BlockEnum[]));
             //TODO: Alle Objekttypen müssen serialisierbar gemacht werden
-            //this.objects = (List<Object.LivingObject>)info.GetValue("objects", typeof(List<Object.LivingObject>));
+            this.objects = (List<Object.LivingObject>)info.GetValue("objects", typeof(List<Object.LivingObject>));
             this.objectsPreEnviorment = (List<Object.LivingObject>)info.GetValue("objectsPreEnviorment", typeof(List<Object.LivingObject>));
 
-            this.objects = new List<Object.LivingObject>();
+            //this.objects = new List<Object.LivingObject>();
             //this.objectsPreEnviorment = new List<Object.LivingObject>();
         }
 
@@ -75,7 +75,7 @@ namespace GameLibrary.Model.Map.Block
         {
             base.GetObjectData(info, ctxt);
             info.AddValue("layer", this.layer, typeof(BlockEnum[]));
-            //info.AddValue("objects", this.objects, this.objects.GetType());
+            info.AddValue("objects", this.objects, this.objects.GetType());
             info.AddValue("objectsPreEnviorment", this.objectsPreEnviorment, this.objectsPreEnviorment.GetType());
         }
 

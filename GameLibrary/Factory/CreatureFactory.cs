@@ -39,6 +39,10 @@ namespace GameLibrary.Factory
             npcObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
             npcObject.Gender = objectGender;
             npcObject.Name = NameFactory.getName(objectType, objectGender);
+            npcObject.GraphicPath = "Character/Char1_Small";
+            npcObject.Tasks.Add(new Model.Object.Task.Tasks.AttackRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Attack_Random));
+            //Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.AttackCommand(npcObject));
+
 
             return npcObject;
         }

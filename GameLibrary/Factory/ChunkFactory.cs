@@ -41,6 +41,7 @@ namespace GameLibrary.Factory
             generateFlowers(var_Result);
             generateTrees(var_Result);
             //generateWall(var_Result);
+            generateNpc(var_Result);
 
             return var_Result;
         }
@@ -269,6 +270,30 @@ namespace GameLibrary.Factory
                 {
                     var_Block.objectsPreEnviorment.Add(var_EnvironmentObject);
                     //((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_EnvironmentObject);
+                }
+            }
+        }
+
+        private void generateNpc(Chunk _Chunk)
+        {
+            int var_Count = 20;
+            for (int i = 0; i < var_Count; i++)
+            {
+                GameLibrary.Model.Object.NpcObject var_NpcObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Beerdrinker, CreatureEnum.Archer, GenderEnum.Female);
+
+                int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+
+                var_NpcObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
+
+                Block var_Block = _Chunk.getBlockAtCoordinate(var_NpcObject.Position.X, var_NpcObject.Position.Y);
+                //Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
+                if (var_Block.IsWalkAble && var_Block.Layer[1] == BlockEnum.Nothing)
+                {
+                    var_Block.Objects.Add(var_NpcObject);
+                    var_NpcObject.CurrentBlock = var_Block;
+                    //((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_EnvironmentObject);
+                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_NpcObject);
                 }
             }
         }
