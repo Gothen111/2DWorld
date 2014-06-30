@@ -31,9 +31,6 @@ namespace GameLibrary.Model.Map.World
             set { quadTree = value; }
         }
 
-        private float updatePlayerIntervall = 0;
-        private float updatePlayerIntervallmax = 60;
-
         private List<PlayerObject> playerObjects;
 
         private List<LivingObject> livingObjectsToUpdate;
@@ -48,14 +45,12 @@ namespace GameLibrary.Model.Map.World
 
         public World(SerializationInfo info, StreamingContext ctxt) : this()
         {
-            //this.regions = (List<Region.Region>)info.GetValue("regions", typeof(List<Region.Region>));
             this.playerObjects = new List<PlayerObject>();
             this.regions = new List<Region.Region>();
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            //info.AddValue("regions", this.regions, typeof(List<Region.Region>));
         }
 
         public World(String _Name)
@@ -76,7 +71,6 @@ namespace GameLibrary.Model.Map.World
             if (!containsRegion(_Region.Id))
             {
                 this.regions.Add(_Region);
-                //this.setAllNeighboursOfRegion(_Region);
                 return false;
             }
             else
@@ -97,106 +91,7 @@ namespace GameLibrary.Model.Map.World
 
         public bool containsRegion(Region.Region _Region)
         {
-            return false;
-        }
-
-
-        public void setAllNeighboursOfRegion(Region.Region _Region)
-        {
-            if (_Region != null)
-            {
-                Region.Region var_RegionNeighbourLeft = this.getRegionAtPosition(_Region.Position.X - (Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX) * Block.Block.BlockSize, _Region.Position.Y);
-
-                if (var_RegionNeighbourLeft != null)
-                {
-                    _Region.LeftNeighbour = var_RegionNeighbourLeft;
-                    var_RegionNeighbourLeft.RightNeighbour = _Region;
-
-                    foreach (Chunk.Chunk var_Chunk_Right in _Region.Chunks)
-                    {
-                        foreach (Chunk.Chunk var_Chunk_Left in var_RegionNeighbourLeft.Chunks)
-                        {
-                            if (var_Chunk_Right.Position.Y == var_Chunk_Left.Position.Y)
-                            {
-                                if (var_Chunk_Right.Position.X == var_Chunk_Left.Position.X + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize)
-                                {
-                                    var_Chunk_Right.LeftNeighbour = var_Chunk_Left;
-                                    var_Chunk_Left.RightNeighbour = var_Chunk_Right;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Region.Region var_RegionNeighbourRight = this.getRegionAtPosition(_Region.Position.X + (Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX) * Block.Block.BlockSize, _Region.Position.Y);
-
-                if (var_RegionNeighbourRight != null)
-                {
-                    _Region.RightNeighbour = var_RegionNeighbourRight;
-                    var_RegionNeighbourRight.LeftNeighbour = _Region;
-
-                    foreach (Chunk.Chunk var_Chunk_Right in var_RegionNeighbourRight.Chunks)
-                    {
-                        foreach (Chunk.Chunk var_Chunk_Left in _Region.Chunks)
-                        {
-                            if (var_Chunk_Right.Position.Y == var_Chunk_Left.Position.Y)
-                            {
-                                if (var_Chunk_Right.Position.X == var_Chunk_Left.Position.X + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize)
-                                {
-                                    var_Chunk_Right.LeftNeighbour = var_Chunk_Left;
-                                    var_Chunk_Left.RightNeighbour = var_Chunk_Right;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Region.Region var_RegionNeighbourTop = this.getRegionAtPosition(_Region.Position.X, _Region.Position.Y - (Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY) * Block.Block.BlockSize);
-
-                if (var_RegionNeighbourTop != null)
-                {
-                    _Region.TopNeighbour = var_RegionNeighbourTop;
-                    var_RegionNeighbourTop.BottomNeighbour = _Region;
-
-                    foreach (Chunk.Chunk var_Chunk_Top in var_RegionNeighbourTop.Chunks)
-                    {
-                        foreach (Chunk.Chunk var_Chunk_Bottom in _Region.Chunks)
-                        {
-                            if (var_Chunk_Top.Position.X == var_Chunk_Bottom.Position.X)
-                            {
-                                if (var_Chunk_Top.Position.Y == var_Chunk_Bottom.Position.Y - Chunk.Chunk.chunkSizeX * Block.Block.BlockSize)
-                                {
-                                    var_Chunk_Top.BottomNeighbour = var_Chunk_Bottom;
-                                    var_Chunk_Bottom.TopNeighbour = var_Chunk_Top;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Region.Region var_RegionNeighbourBottom = this.getRegionAtPosition(_Region.Position.X, _Region.Position.Y + (Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY) * Block.Block.BlockSize);
-
-                if (var_RegionNeighbourBottom != null)
-                {
-                    _Region.BottomNeighbour = var_RegionNeighbourBottom;
-                    var_RegionNeighbourBottom.TopNeighbour = _Region;
-
-                    foreach (Chunk.Chunk var_Chunk_Top in _Region.Chunks)
-                    {
-                        foreach (Chunk.Chunk var_Chunk_Bottom in var_RegionNeighbourBottom.Chunks)
-                        {
-                            if (var_Chunk_Top.Position.X == var_Chunk_Bottom.Position.X)
-                            {
-                                if (var_Chunk_Top.Position.Y == var_Chunk_Bottom.Position.Y - Chunk.Chunk.chunkSizeX * Block.Block.BlockSize)
-                                {
-                                    var_Chunk_Top.BottomNeighbour = var_Chunk_Bottom;
-                                    var_Chunk_Bottom.TopNeighbour = var_Chunk_Top;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            return containsRegion(_Region.Id);
         }
 
         public Region.Region getRegionAtPosition(float _PosX, float _PosY)
@@ -232,14 +127,12 @@ namespace GameLibrary.Model.Map.World
         #region drawing
         public void drawBlocks(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, LivingObject _Target)
         {
-            //float var_LayerDepth = 0.79f;
-            //float var_AmountToRemove = 0.001f;
             if (_Target != null)
             {
                 if (_Target.CurrentBlock != null)
                 {
                     Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_Target.CurrentBlock.Parent;
-                    var_ChunkMid.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                    var_ChunkMid.drawBlocks(_GraphicsDevice, _SpriteBatch);
 
                     Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
                     if (var_ChunkTop != null)
@@ -247,24 +140,24 @@ namespace GameLibrary.Model.Map.World
                         Chunk.Chunk var_ChunkTopLeft = (Chunk.Chunk)var_ChunkTop.LeftNeighbour;
                         if (var_ChunkTopLeft != null)
                         {
-                            var_ChunkTopLeft.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth, var_AmountToRemove);
+                            var_ChunkTopLeft.drawBlocks(_GraphicsDevice, _SpriteBatch);
                         }
                         Chunk.Chunk var_ChunkTopRight = (Chunk.Chunk)var_ChunkTop.RightNeighbour;
                         if (var_ChunkTopRight != null)
                         {
-                            var_ChunkTopRight.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth, var_AmountToRemove);
+                            var_ChunkTopRight.drawBlocks(_GraphicsDevice, _SpriteBatch);
                         }
-                        var_ChunkTop.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth, var_AmountToRemove);
+                        var_ChunkTop.drawBlocks(_GraphicsDevice, _SpriteBatch);
                     }
                     Chunk.Chunk var_ChunkLeft = (Chunk.Chunk)var_ChunkMid.LeftNeighbour;
                     if (var_ChunkLeft != null)
                     {
-                        var_ChunkLeft.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                        var_ChunkLeft.drawBlocks(_GraphicsDevice, _SpriteBatch);
                     }
                     Chunk.Chunk var_ChunkRight = (Chunk.Chunk)var_ChunkMid.RightNeighbour;
                     if (var_ChunkRight != null)
                     {
-                        var_ChunkRight.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                        var_ChunkRight.drawBlocks(_GraphicsDevice, _SpriteBatch);
                     }
 
                     Chunk.Chunk var_ChunkBottom = (Chunk.Chunk)var_ChunkMid.BottomNeighbour;
@@ -273,83 +166,35 @@ namespace GameLibrary.Model.Map.World
                         Chunk.Chunk var_ChunkBottomLeft = (Chunk.Chunk)var_ChunkBottom.LeftNeighbour;
                         if (var_ChunkBottomLeft != null)
                         {
-                            var_ChunkBottomLeft.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                            var_ChunkBottomLeft.drawBlocks(_GraphicsDevice, _SpriteBatch);
                         }
                         Chunk.Chunk var_ChunkBottomRight = (Chunk.Chunk)var_ChunkBottom.RightNeighbour;
                         if (var_ChunkBottomRight != null)
                         {
-                            var_ChunkBottomRight.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                            var_ChunkBottomRight.drawBlocks(_GraphicsDevice, _SpriteBatch);
                         }
-                        var_ChunkBottom.drawBlocks(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
+                        var_ChunkBottom.drawBlocks(_GraphicsDevice, _SpriteBatch);
                     }
                 }
-
-                /*List<LivingObject> var_LivingObjects = this.getObjectsInRange(_Target.Position, 1000);
-                foreach (LivingObject var_LivingObject in var_LivingObjects)
-                {
-                    var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
-                }*/
             }
         }
 
         public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, LivingObject _Target)
         {
-            //float var_LayerDepth = 0.79f;
-            //float var_AmountToRemove = 0.001f;
             if (_Target != null)
             {
                 List<LivingObject> var_LivingObjects = this.getObjectsInRange(_Target.Position, 400);
                 foreach (LivingObject var_LivingObject in var_LivingObjects)
                 {
+                    //TODO: Objekte müssen abhänig von position gemalt werden! also ne layerdepth bekommen!
                     var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
                 }
 
+                //TODO: preenvionmentobjekte brauchen n exta quadtree zum malen.
                 if (_Target.CurrentBlock != null)
                 {
                     Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_Target.CurrentBlock.Parent;
-                    var_ChunkMid.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-
-                    /*Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
-                    if (var_ChunkTop != null)
-                    {
-                        Chunk.Chunk var_ChunkTopLeft = (Chunk.Chunk)var_ChunkTop.LeftNeighbour;
-                        if (var_ChunkTopLeft != null)
-                        {
-                            var_ChunkTopLeft.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth, var_AmountToRemove);
-                        }
-                        Chunk.Chunk var_ChunkTopRight = (Chunk.Chunk)var_ChunkTop.RightNeighbour;
-                        if (var_ChunkTopRight != null)
-                        {
-                            var_ChunkTopRight.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth, var_AmountToRemove);
-                        }
-                        var_ChunkTop.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth, var_AmountToRemove);
-                    }
-                    Chunk.Chunk var_ChunkLeft = (Chunk.Chunk)var_ChunkMid.LeftNeighbour;
-                    if (var_ChunkLeft != null)
-                    {
-                        var_ChunkLeft.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-                    }
-                    Chunk.Chunk var_ChunkRight = (Chunk.Chunk)var_ChunkMid.RightNeighbour;
-                    if (var_ChunkRight != null)
-                    {
-                        var_ChunkRight.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-                    }
-
-                    Chunk.Chunk var_ChunkBottom = (Chunk.Chunk)var_ChunkMid.BottomNeighbour;
-                    if (var_ChunkBottom != null)
-                    {
-                        Chunk.Chunk var_ChunkBottomLeft = (Chunk.Chunk)var_ChunkBottom.LeftNeighbour;
-                        if (var_ChunkBottomLeft != null)
-                        {
-                            var_ChunkBottomLeft.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-                        }
-                        Chunk.Chunk var_ChunkBottomRight = (Chunk.Chunk)var_ChunkBottom.RightNeighbour;
-                        if (var_ChunkBottomRight != null)
-                        {
-                            var_ChunkBottomRight.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-                        }
-                        var_ChunkBottom.drawObjects(_GraphicsDevice, _SpriteBatch);//, var_LayerDepth - var_AmountToRemove * 2 * Chunk.Chunk.chunkSizeX, var_AmountToRemove);
-                    }*/
+                    var_ChunkMid.drawObjects(_GraphicsDevice, _SpriteBatch);
                 }
             }
         }
@@ -415,6 +260,7 @@ namespace GameLibrary.Model.Map.World
 
         public void removeObjectFromWorld(LivingObject livingObject)
         {
+            //TODO: Client informieren!
             quadTree.Remove(livingObject);
             if (livingObject.CurrentBlock != null)
             {
@@ -625,10 +471,12 @@ namespace GameLibrary.Model.Map.World
         {
             return this.playerObjects.Contains(_PlayerObject);
         }
+
         public void addPlayerObject(Object.PlayerObject _PlayerObject)
         {
             this.addPlayerObject(_PlayerObject, false);
         }
+
         public void addPlayerObject(Object.PlayerObject _PlayerObject, bool _OnlyToPlayerList)
         {
             if (!containsPlayerObject(_PlayerObject))
@@ -653,7 +501,6 @@ namespace GameLibrary.Model.Map.World
                                                     ?? var_Region.createChunkAt((int)var_Position_Chunk.X, (int)var_Position_Chunk.Y);
                         }
                     }
-
                     this.addLivingObject(_PlayerObject);
                 }
             }
@@ -670,17 +517,12 @@ namespace GameLibrary.Model.Map.World
             this.livingObjectsToUpdate = new List<LivingObject>();
 
             this.updatePlayerObjectsNeighborhood();
-            if (GameLibrary.Configuration.Configuration.isHost && this.updatePlayerIntervall <= this.updatePlayerIntervallmax)
+            if (GameLibrary.Configuration.Configuration.isHost)
             {
-                this.updatePlayerIntervall = 0;
                 foreach (PlayerObject playerObject in this.playerObjects)
                 {
                     Configuration.Configuration.commandManager.sendUpdateObjectPositionCommand(playerObject);
                 }
-            }
-            else
-            {
-                this.updatePlayerIntervall++;
             }
 
             foreach (LivingObject var_LivingObject in this.livingObjectsToUpdate)
@@ -703,12 +545,8 @@ namespace GameLibrary.Model.Map.World
             if (_PlayerObject.CurrentBlock != null)
             {
                 Region.Region var_PlayerObjectRegion = (Region.Region)_PlayerObject.CurrentBlock.Parent.Parent;
-                //this.addChildToUpdateList(var_PlayerObjectRegion);
 
                 Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_PlayerObject.CurrentBlock.Parent;
-                //var_PlayerObjectRegion.addChildToUpdateList(var_ChunkMid);
-
-                //var_ChunkMid.markAsDirty();
 
                 Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
                 if (var_ChunkTop != null)
@@ -738,7 +576,6 @@ namespace GameLibrary.Model.Map.World
                         {
                             this.addRegion(var_Region);
                             Chunk.Chunk var_Chunk = var_Region.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize);
-                            //this.setAllNeighboursOfRegion(var_Region);
                         }
                     }
                     else
