@@ -26,14 +26,11 @@ namespace GameLibrary.Model.Object
         }
         public override void update()
         {
-            if (this.NeedUpdate)
-            {
-                if (Configuration.Configuration.isHost)
-                {
-                    GameLibrary.Connection.Event.EventList.Add(new Connection.Event(new Connection.Message.UpdateLivingObjectMessage(this), Connection.GameMessageImportance.VeryImportant));
-                }
-            }
             base.update();
+            if (Configuration.Configuration.isHost)
+            {
+                GameLibrary.Connection.Event.EventList.Add(new Connection.Event(new Connection.Message.UpdateLivingObjectMessage(this), Connection.GameMessageImportance.VeryImportant));
+            }          
         }
     }
 }

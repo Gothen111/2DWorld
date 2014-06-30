@@ -161,19 +161,16 @@ namespace GameLibrary.Model.Map.Block
 
         public override void update()
         {
-            if (this.NeedUpdate)
+            base.update();
+            foreach (Object.LivingObject var_LivingObject in objects.Reverse<Object.LivingObject>())
             {
-                base.update();
-                foreach (Object.LivingObject var_LivingObject in objects.Reverse<Object.LivingObject>())
+                if (var_LivingObject.IsDead)
                 {
-                    if (var_LivingObject.IsDead)
-                    {
-                        this.objects.Remove(var_LivingObject);
-                    }
-                    else
-                    {
-                        var_LivingObject.update();
-                    }
+                    this.objects.Remove(var_LivingObject);
+                }
+                else
+                {
+                    var_LivingObject.update();
                 }
             }
         }

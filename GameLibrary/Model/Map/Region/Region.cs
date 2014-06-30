@@ -229,11 +229,7 @@ namespace GameLibrary.Model.Map.Region
 
         public override void update()
         {
-            if (this.NeedUpdate)
-            {
-                base.update();
-                this.updateChilds();
-            }
+            base.update();
         }
 
         public Chunk.Chunk getChunk(int _Id)

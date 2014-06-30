@@ -187,7 +187,6 @@ namespace Client.Connection
                 var_LivingObject.MoveDown = message.MoveDown;
                 var_LivingObject.MoveLeft = message.MoveLeft;
                 var_LivingObject.MoveRight = message.MoveRight;
-                var_LivingObject.markAsDirty();
             }
         }
 
@@ -203,7 +202,6 @@ namespace Client.Connection
                 {
                     var_LivingObject.Position = message.Position;
                     var_LivingObject.checkChangedBlock();
-                    var_LivingObject.markAsDirty();
                 }
                 else
                 {
@@ -225,7 +223,6 @@ namespace Client.Connection
                 var_LivingObject.HealthPoints = message.Health;
                 var_LivingObject.MaxHealthPoints = message.MaxHealth;
                 var_LivingObject.damage(0);
-                var_LivingObject.markAsDirty();
             }
             else
             {

@@ -656,7 +656,6 @@ namespace GameLibrary.Model.Map.World
 
                     this.addLivingObject(_PlayerObject);
                 }
-                _PlayerObject.CurrentBlock.markAsDirty();
             }
         }
 
@@ -666,32 +665,27 @@ namespace GameLibrary.Model.Map.World
 
         public override void update()
         {
-            if (this.NeedUpdate)
+            base.update();
+
+            this.livingObjectsToUpdate = new List<LivingObject>();
+
+            this.updatePlayerObjectsNeighborhood();
+            if (GameLibrary.Configuration.Configuration.isHost && this.updatePlayerIntervall <= this.updatePlayerIntervallmax)
             {
-                base.update();
-
-                this.livingObjectsToUpdate = new List<LivingObject>();
-
-                this.updatePlayerObjectsNeighborhood();
-                if (GameLibrary.Configuration.Configuration.isHost && this.updatePlayerIntervall <= this.updatePlayerIntervallmax)
+                this.updatePlayerIntervall = 0;
+                foreach (PlayerObject playerObject in this.playerObjects)
                 {
-                    this.updatePlayerIntervall = 0;
-                    foreach (PlayerObject playerObject in this.playerObjects)
-                    {
-                        Configuration.Configuration.commandManager.sendUpdateObjectPositionCommand(playerObject);
-                    }
+                    Configuration.Configuration.commandManager.sendUpdateObjectPositionCommand(playerObject);
                 }
-                else
-                {
-                    this.updatePlayerIntervall++;
-                }
+            }
+            else
+            {
+                this.updatePlayerIntervall++;
+            }
 
-                foreach (LivingObject var_LivingObject in this.livingObjectsToUpdate)
-                {
-                    var_LivingObject.update();
-                }
-
-                this.updateChilds();
+            foreach (LivingObject var_LivingObject in this.livingObjectsToUpdate)
+            {
+                var_LivingObject.update();
             }
         }
 

@@ -187,23 +187,16 @@ namespace GameLibrary.Model.Object
 
         public override void update()
         {
-            if (this.NeedUpdate)
+            base.update();
+            if (this.animation != null)
             {
-                if (this.animation != null)
+                this.animation.update();
+                if (this.animation.finishedAnimation() || this.Velocity.Equals(Vector3.Zero))// && !(this.animation is Animation.Animations.MoveAnimation || this.Velocity != Vector3.Zero))
                 {
-                    this.animation.update();
-                    if (this.animation.finishedAnimation() || this.Velocity.Equals(Vector3.Zero))// && !(this.animation is Animation.Animations.MoveAnimation || this.Velocity != Vector3.Zero))
-                    {
-                        this.animation = new Animation.Animations.StandAnimation(this);
-                    }
-                    else
-                    {
-                        this.markAsDirty();
-                    }
+                    this.animation = new Animation.Animations.StandAnimation(this);
                 }
             }
-            this.move();
-            base.update();
+            this.move();          
         }
 
         private void move()
@@ -278,7 +271,6 @@ namespace GameLibrary.Model.Object
                         this.animation = new Animation.Animations.MoveAnimation(this);
                     }
                 }
-                this.markAsDirty();
             }
             else
             {

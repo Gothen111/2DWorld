@@ -25,10 +25,6 @@ namespace GameLibrary.Model.Player
                 if (var_InputAction.wantsToPeformAction())
                 {
                     var_InputAction.performAction();
-                    if (!Configuration.Configuration.isHost)
-                    {
-                        GameLibrary.Connection.NetworkManager.client.PlayerObject.markAsDirty();
-                    }
                 }
                 else
                 {

@@ -50,12 +50,8 @@ namespace GameLibrary.Model.Object
 
         public override void update()
         {
-            if (this.NeedUpdate)
-            {
-
-            }
-            updateEquippment();
             base.update();
+            updateEquippment();
         }
 
         public void updateEquippment()
