@@ -25,6 +25,7 @@ namespace GameLibrary.Connection.Message
             this.Id = _LivingObject.Id;
             this.MessageTime = NetTime.Now;
             this.Position = _LivingObject.Position;
+            this.Velocity = _LivingObject.Velocity;
         }
 
         #endregion
@@ -36,6 +37,8 @@ namespace GameLibrary.Connection.Message
         public double MessageTime { get; set; }
 
         public Vector3 Position { get; set; }
+
+        public Vector3 Velocity { get; set; }
 
         public EIGameMessageType MessageType
         {
@@ -51,6 +54,7 @@ namespace GameLibrary.Connection.Message
             this.Id = im.ReadInt32();
             this.MessageTime = im.ReadDouble();
             this.Position = im.ReadVector3();
+            this.Velocity = im.ReadVector3();
         }
 
         public void Encode(NetOutgoingMessage om)
@@ -58,6 +62,7 @@ namespace GameLibrary.Connection.Message
             om.Write(this.Id);
             om.Write(this.MessageTime);
             om.Write(this.Position);
+            om.Write(this.Velocity);
         }
 
         #endregion

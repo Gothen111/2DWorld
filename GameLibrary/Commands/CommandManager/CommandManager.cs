@@ -23,11 +23,6 @@ namespace GameLibrary.Commands
         public abstract void handleWalkRightCommand(LivingObject actor);
         public abstract void stopWalkRightCommand(LivingObject actor);
 
-        public abstract void sendUpdateObjectPositionCommand(LivingObject actor);
-        public abstract void sendUpdateObjectHealthCommand(LivingObject actor);
-
         public abstract void handleAttackCommand(LivingObject actor);
-
-        public abstract void sendUpdateChunkCommand(Model.Map.Chunk.Chunk chunk);
     }
 }

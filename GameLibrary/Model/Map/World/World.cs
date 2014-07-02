@@ -517,13 +517,6 @@ namespace GameLibrary.Model.Map.World
             this.livingObjectsToUpdate = new List<LivingObject>();
 
             this.updatePlayerObjectsNeighborhood();
-            if (GameLibrary.Configuration.Configuration.isHost)
-            {
-                foreach (PlayerObject playerObject in this.playerObjects)
-                {
-                    Configuration.Configuration.commandManager.sendUpdateObjectPositionCommand(playerObject);
-                }
-            }
 
             foreach (LivingObject var_LivingObject in this.livingObjectsToUpdate)
             {
@@ -679,17 +672,24 @@ namespace GameLibrary.Model.Map.World
                 }
             }
 
+            Client var_Client = null;
             if (Configuration.Configuration.isHost)
             {
-                Client var_Client = GameLibrary.Configuration.Configuration.networkManager.getClient(_PlayerObject);
-                List<LivingObject> var_LivingObjects = this.getObjectsInRange(_PlayerObject.Position, 400);
-                foreach(LivingObject var_LivingObject in var_LivingObjects)
+                var_Client = GameLibrary.Configuration.Configuration.networkManager.getClient(_PlayerObject);
+            }
+            List<LivingObject> var_LivingObjects = this.getObjectsInRange(_PlayerObject.Position, 400);
+            foreach(LivingObject var_LivingObject in var_LivingObjects)
+            {
+                if (!this.livingObjectsToUpdate.Contains(var_LivingObject))
                 {
-                    if (!this.livingObjectsToUpdate.Contains(var_LivingObject))
+                    this.livingObjectsToUpdate.Add(var_LivingObject);
+                    if (Configuration.Configuration.isHost)
                     {
-                        this.livingObjectsToUpdate.Add(var_LivingObject);
+                        if (var_Client != null)
+                        {
+                            Configuration.Configuration.networkManager.SendMessageToClient(new UpdateObjectPositionMessage(var_LivingObject), var_Client);
+                        }
                     }
-                    Configuration.Configuration.networkManager.SendMessageToClient(new UpdateObjectPositionMessage(var_LivingObject), var_Client);
                 }
             }
         }

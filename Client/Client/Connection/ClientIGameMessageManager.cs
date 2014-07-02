@@ -201,6 +201,7 @@ namespace Client.Connection
                 if (var_LivingObject != null)
                 {
                     var_LivingObject.Position = message.Position;
+                    //var_LivingObject.MoveDown = true;
                     var_LivingObject.checkChangedBlock();
                 }
                 else

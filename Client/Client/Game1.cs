@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 using GameLibrary.Configuration;
 using GameLibrary.Connection;
+using GameLibrary.Util;
 
 using Client.Commands;
 using Client.Connection;
@@ -24,6 +25,8 @@ namespace Client
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        private FrameCounter frameCounter = new FrameCounter();
 
         public Game1()
         {
@@ -137,9 +140,19 @@ namespace Client
             spriteBatch.End();
 
             spriteBatch.Begin();
-            if(gameTime.ElapsedGameTime.Milliseconds > 0)
+            if (gameTime.ElapsedGameTime.Milliseconds > 0)
+            {
+                var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                frameCounter.Update(deltaTime);
+
+                var fps = string.Format("FPS: {0}", frameCounter.AverageFramesPerSecond);
+
+                spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + fps, new Vector2(100, 0), Color.White);
+
                 spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
-            //spriteBatch.DrawString(Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + world.QuadTree.Root.quadObjects.ToString(), new Vector2(100, 0), Color.White);
+            }
+            //spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + GameLibrary.Model.Map.World.World.world.QuadTree.Root.Objects.ToString(), new Vector2(200, 0), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

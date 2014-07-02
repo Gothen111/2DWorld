@@ -110,7 +110,7 @@ namespace Server.Connection
 
             GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
 
-            Console.WriteLine("X: " + message.Position.X + " Y: " + message.Position.Y);
+            GameLibrary.Logger.Logger.LogDeb("Client Requested Chunk at X: " + message.Position.X + " Y: " + message.Position.Y);
 
             if (var_Chunk != null)
             {

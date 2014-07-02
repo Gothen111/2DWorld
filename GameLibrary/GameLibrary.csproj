@@ -105,9 +105,6 @@
     <Compile Include="Commands\CommandManager\CommandManager.cs" />
     <Compile Include="Commands\CommandTypes\Command.cs" />
     <Compile Include="Commands\CommandTypes\AttackCommand.cs" />
-    <Compile Include="Commands\CommandTypes\UpdateChunkCommand.cs" />
-    <Compile Include="Commands\CommandTypes\UpdateObjectHealthCommand.cs" />
-    <Compile Include="Commands\CommandTypes\UpdateObjectPositionCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkDownCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkLeftCommand.cs" />
     <Compile Include="Commands\CommandTypes\WalkRightCommand.cs" />
@@ -214,6 +211,7 @@
     <Compile Include="UserInterface\MouseEnum\MouseEnum.cs" />
     <Compile Include="UserInterface\MouseListener.cs" />
     <Compile Include="Util\Circle.cs" />
+    <Compile Include="Util\FrameCounter.cs" />
     <Compile Include="Util\Intersection.cs" />
     <Compile Include="Util\MapHandler.cs" />
     <Compile Include="Util\Random.cs" />

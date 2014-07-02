@@ -34,9 +34,7 @@ namespace Server
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //GameLibrary.Model.Map.Region.Region region;
-
-        GameLibrary.Model.Object.PlayerObject playerObject;
+        private int counter = 0;
 
         public Game1()
         {
@@ -106,6 +104,28 @@ namespace Server
             GameLibrary.Camera.Camera.camera.update(gameTime);
 
             Configuration.networkManager.update();
+
+
+            /*if (counter <= 0)
+            {
+
+                GameLibrary.Model.Object.NpcObject var_NpcObject = GameLibrary.Factory.CreatureFactory.creatureFactory.createNpcObject(GameLibrary.Factory.FactoryEnums.RaceEnum.Human, GameLibrary.Factory.FactoryEnums.FactionEnum.Beerdrinker, GameLibrary.Factory.FactoryEnums.CreatureEnum.Archer, GameLibrary.Factory.FactoryEnums.GenderEnum.Female);
+
+                int var_X = GameLibrary.Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = GameLibrary.Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+
+                var_NpcObject.Position = new Vector3(var_X, var_Y, 0);
+
+                GameLibrary.Model.Map.World.World.world.addLivingObject(var_NpcObject);
+
+                counter = 10;
+            }
+            else
+            {
+                counter -= 1;
+            }*/
+
+
 
             base.Update(gameTime);
         }

@@ -301,9 +301,9 @@ namespace GameLibrary.Model.Object
             knockBackVector.Z = knockBackVector.Z / knockBackVector.Length() * 20;
             this.knockBack(knockBackVector);
 
-            GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateObjectHealthCommand(this));
-            GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateObjectPositionCommand(this));
-            //Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(this), GameMessageImportance.VeryImportant));
+            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(this), GameMessageImportance.VeryImportant));
+            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectHealthMessage(this), GameMessageImportance.VeryImportant));
+
             this.checkChangedBlock();
         }
 

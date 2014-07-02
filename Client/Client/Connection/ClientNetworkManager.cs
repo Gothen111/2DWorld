@@ -103,7 +103,6 @@ namespace Client.Connection
         {
             if (this.clientStarted)
             {
-                //System.Console.WriteLine(this.netClient.ConnectionStatus.ToString());
                 if (this.netClient.ConnectionStatus == NetConnectionStatus.Connected || this.netClient.ConnectionStatus == NetConnectionStatus.None)
                 {
                     this.connectionTry = 1;

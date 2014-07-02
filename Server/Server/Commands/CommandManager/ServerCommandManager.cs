@@ -51,25 +51,10 @@ namespace Server.Commands
             actor.MoveRight = false;
         }
 
-        public override void sendUpdateObjectPositionCommand(LivingObject actor)
-        {
-            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(actor), GameMessageImportance.VeryImportant));
-        }
-
-        public override void sendUpdateObjectHealthCommand(LivingObject actor)
-        {
-            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectHealthMessage(actor), GameMessageImportance.VeryImportant));
-        }
-
         public override void handleAttackCommand(LivingObject actor)
         {
             if (actor is CreatureObject)
                 (actor as CreatureObject).attack();
-        }
-
-        public override void sendUpdateChunkCommand(GameLibrary.Model.Map.Chunk.Chunk chunk)
-        {
-            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateChunkMessage(chunk), GameMessageImportance.VeryImportant));
         }
     }
 }
