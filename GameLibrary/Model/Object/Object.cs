@@ -28,12 +28,8 @@ namespace GameLibrary.Model.Object
             set { 
                 position = value; 
                 bounds = new Rectangle((int)value.X, (int)value.Y, (int)size.X, (int)size.Y); 
-                if(positionChanged != null)
-                    positionChanged(this, new EventArgs()); 
             }
         }
-
-        public event EventHandler positionChanged;
 
         private Vector3 size;
 

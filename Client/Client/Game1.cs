@@ -28,6 +28,11 @@ namespace Client
 
         private FrameCounter frameCounter = new FrameCounter();
 
+         /*
+            IsFixedTimeStep = false;
+            graphics.SynchronizeWithVerticalRetrace = false;
+         */
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);

@@ -307,9 +307,14 @@ namespace GameLibrary.Model.Object
             this.checkChangedBlock();
         }
 
+        public virtual int calculateDamage(int _DamageAmount)
+        {
+            return _DamageAmount;
+        }
+
         public void damage(int _DamageAmount)
         {
-            this.healthPoints -= _DamageAmount;
+            this.healthPoints -= this.calculateDamage(_DamageAmount);
             if (this.healthPoints <= 0 && !this.isDead)
             {
                 this.isDead = true;

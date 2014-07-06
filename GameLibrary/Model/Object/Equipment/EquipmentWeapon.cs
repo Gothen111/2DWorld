@@ -91,7 +91,7 @@ namespace GameLibrary.Model.Object.Equipment
             base.GetObjectData(info, ctxt);
         }
 
-        public void update()
+        public override void update()
         {
             if (attackSpeed < attackSpeedMax)
             {

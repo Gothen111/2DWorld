@@ -177,7 +177,7 @@ namespace Server.Connection
             }
             else
             {
-                GameLibrary.Logger.Logger.LogErr("");
+                GameLibrary.Logger.Logger.LogErr("ServerIGameMessageManager->handleRequestLivingObjectMessage(...) LivingObject mit Id " + message.Id + " existiert nicht!");
             }
         }
     }

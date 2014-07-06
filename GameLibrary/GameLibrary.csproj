@@ -140,6 +140,7 @@
     <Compile Include="Factory\FactoryEnums\EnvironmentEnum.cs" />
     <Compile Include="Factory\FactoryEnums\FactionEnum.cs" />
     <Compile Include="Factory\FactoryEnums\GenderEnum.cs" />
+    <Compile Include="Factory\FactoryEnums\ArmorEnum.cs" />
     <Compile Include="Factory\FactoryEnums\RaceEnum.cs" />
     <Compile Include="Factory\FactoryEnums\WeaponEnum.cs" />
     <Compile Include="Factory\FarmFactory.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Model\Object\EnvironmentObject.cs" />
     <Compile Include="Model\Object\EquipmentObject.cs" />
     <Compile Include="Model\Object\Equipment\EquipmentWeapon.cs" />
+    <Compile Include="Model\Object\Equipment\EquipmentArmor.cs" />
     <Compile Include="Model\Object\FactionObject.cs" />
     <Compile Include="Model\Object\Interaction\Interactions\ChestInteraction.cs" />
     <Compile Include="Model\Object\Interaction\LivingObjectInteraction.cs" />

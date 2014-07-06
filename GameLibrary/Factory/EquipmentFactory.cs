@@ -49,5 +49,25 @@ namespace GameLibrary.Factory
 
             return equipmentWeaponObject;
         }
+
+        public GameLibrary.Model.Object.Equipment.EquipmentArmor createEquipmentArmorObject(ArmorEnum _ArmorEnum)
+        {
+            GameLibrary.Model.Object.Equipment.EquipmentArmor equipmentArmorObject = new GameLibrary.Model.Object.Equipment.EquipmentArmor();
+            equipmentArmorObject.Scale = 1;
+            equipmentArmorObject.Velocity = new Vector3(0, 0, 0);
+
+
+            switch (_ArmorEnum)
+            {
+                case ArmorEnum.Chest:
+                    {
+                        equipmentArmorObject.NormalArmor = 5;
+                        equipmentArmorObject.ArmorEnum = _ArmorEnum;
+                        break;
+                    }
+            }
+
+            return equipmentArmorObject;
+        }
     }
 }

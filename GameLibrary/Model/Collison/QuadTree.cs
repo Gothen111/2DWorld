@@ -214,7 +214,6 @@ namespace GameLibrary.Model.Collison
                 QuadNode node = objectToNodeLookup[quadObject];
                 node.quadObjects.Remove(quadObject);
                 objectToNodeLookup.Remove(quadObject);
-                quadObject.positionChanged -= new EventHandler(quadObject_BoundsChanged);
             }
         }
 
@@ -224,7 +223,6 @@ namespace GameLibrary.Model.Collison
             {
                 node.quadObjects.Add(quadObject);
                 objectToNodeLookup.Add(quadObject, node);
-                quadObject.positionChanged += new EventHandler(quadObject_BoundsChanged);
             }
         }
 

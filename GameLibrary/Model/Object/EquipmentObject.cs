@@ -31,5 +31,9 @@ namespace GameLibrary.Model.Object
         {
             base.update();
         }
+
+        public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
+        {
+        }
     }
 }

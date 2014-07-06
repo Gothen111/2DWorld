@@ -62,10 +62,7 @@ namespace GameLibrary.Model.Object
                 {
                     if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentWeapon)
                     {
-                        if (((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).WeaponEnum != null)
-                        {
-                            ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).update();
-                        }
+                        ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).update();
                     }
                 }
             }
@@ -93,12 +90,9 @@ namespace GameLibrary.Model.Object
             {
                 if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentWeapon)
                 {
-                    if (((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).WeaponEnum != null)
+                    if (((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).WeaponEnum == GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword)
                     {
-                        if (((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).WeaponEnum == GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword)
-                        {
-                            var_EquipmentWeaponForAttack = ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject);
-                        }
+                        var_EquipmentWeaponForAttack = ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject);
                     }
                 }
             }
@@ -117,6 +111,18 @@ namespace GameLibrary.Model.Object
             }
         }
 
+        public override int calculateDamage(int _DamageAmount)
+        {
+            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            {
+                if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentArmor)
+                {
+                    _DamageAmount = _DamageAmount / ((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject).NormalArmor;
+                }
+            }
+            return _DamageAmount;
+        }
+
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
         {
             //TODO: An das Attribut Scale anpassen
@@ -125,7 +131,23 @@ namespace GameLibrary.Model.Object
                 var_DrawPositionExtra = this.Animation.drawPositionExtra();
              Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
              _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], var_Position, Color.White); 
+            this.drawEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
             base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
+        }
+
+        private void drawEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
+        {
+            Vector3 var_DrawPositionExtra = Vector3.Zero;
+            if (this.Animation != null)
+                var_DrawPositionExtra = this.Animation.drawPositionExtra();
+            Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X / 2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
+            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            {
+                var_EquipmentObject.Position = new Vector3(var_Position, 0);
+                var_EquipmentObject.Animation = this.Animation;
+                var_EquipmentObject.LayerDepth = this.LayerDepth - 0.1f;
+                var_EquipmentObject.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
+            }
         }
     }
 }
