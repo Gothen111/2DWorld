@@ -45,6 +45,15 @@ namespace GameLibrary.Factory
                         //equipmentWeaponObject.SearchFlags.Add(new GameLibrary.Model.Map.World.SearchFlags.());
                         break;
                     }
+                case WeaponEnum.Spear:
+                    {
+                        equipmentWeaponObject.NormalDamage = 1;
+                        equipmentWeaponObject.WeaponEnum = _WeaponEnum;
+                        equipmentWeaponObject.Range = 80;
+                        equipmentWeaponObject.AttackSpeed = 0;
+                        equipmentWeaponObject.AttackSpeedMax = 30;
+                        break;
+                    }
             }
 
             return equipmentWeaponObject;

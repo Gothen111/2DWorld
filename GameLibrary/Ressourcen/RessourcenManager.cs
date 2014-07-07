@@ -62,6 +62,8 @@ namespace GameLibrary.Ressourcen
             addTexture("Character/Shadow", _ContentManager.Load<Texture2D>("Object/Character/Shadow"));
 
             addTexture("Character/Cloth1", _ContentManager.Load<Texture2D>("Object/Character/Cloth1"));
+
+            addTexture("Character/GoldCoin", _ContentManager.Load<Texture2D>("Object/Character/GoldCoin"));
         }
 
         public void addTexture(String _Name, Texture2D _Texture2D)

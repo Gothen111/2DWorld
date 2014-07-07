@@ -5,15 +5,23 @@ using System.Text;
 using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
+
 namespace GameLibrary.Model.Object
 {
     [Serializable()]
     public class CreatureObject : LivingObject
     {
-        //protected Inventory inventory;
+        private Inventory.Inventory inventory;
+
+        public Inventory.Inventory Inventory
+        {
+            get { return inventory; }
+            set { inventory = value; }
+        }
+
         private List<EquipmentObject> equipment;
 
-        public List<EquipmentObject> Equipment
+        protected List<EquipmentObject> Equipment
         {
             get { return equipment; }
             set { equipment = value; }
@@ -32,7 +40,8 @@ namespace GameLibrary.Model.Object
         {
             this.LayerDepth = 0.1f;
             this.equipment = new List<EquipmentObject>();
-            this.addEquipmentObject(GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword));
+            this.addEquipmentObject(GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Spear));
+            this.inventory = new Inventory.Inventory();
         }
 
         public CreatureObject(SerializationInfo info, StreamingContext ctxt)
@@ -90,10 +99,10 @@ namespace GameLibrary.Model.Object
             {
                 if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentWeapon)
                 {
-                    if (((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).WeaponEnum == GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword)
-                    {
+                    //if (((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).WeaponEnum == GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword)
+                    //{
                         var_EquipmentWeaponForAttack = ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject);
-                    }
+                    //}
                 }
             }
             if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady())

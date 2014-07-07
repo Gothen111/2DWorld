@@ -163,6 +163,15 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\Cloth1.xnb</Output>
       <Time>2014-07-06T17:26:14.8749914+02:00</Time>
     </Item>
+    <Item>
+      <Source>Object\Character\GoldCoin.png</Source>
+      <Name>Object\Character\GoldCoin</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\Object\Character\GoldCoin.xnb</Output>
+      <Time>2014-07-07T22:14:01.0374706+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

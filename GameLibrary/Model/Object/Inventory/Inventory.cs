@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameLibrary.Model.Object.Inventory
 {
-    class Inventory
+    public class Inventory
     {
         private int maxItems;
 
@@ -50,6 +50,8 @@ namespace GameLibrary.Model.Object.Inventory
                 else
                 {
                     this.items.Add(_ItemObject);
+                    //TODO: Remove Item fom World
+                    //GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
                 }
             }
         }
@@ -95,7 +97,7 @@ namespace GameLibrary.Model.Object.Inventory
             _ItemObject.OnStack -= 1;
             if (_ItemObject.OnStack <= 0)
             {
-                //TODO: Lösche Item
+                this.items.Remove(_ItemObject);
             }
             return true;
         }

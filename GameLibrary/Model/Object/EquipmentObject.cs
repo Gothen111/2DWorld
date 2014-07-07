@@ -9,9 +9,10 @@ using GameLibrary.Factory.FactoryEnums;
 namespace GameLibrary.Model.Object
 {
     [Serializable()]
-    public class EquipmentObject : AnimatedObject
+    public class EquipmentObject : ItemObject
     {
         public EquipmentObject()
+            : base()
         {
 
         }

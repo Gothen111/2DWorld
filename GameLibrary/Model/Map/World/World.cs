@@ -75,7 +75,7 @@ namespace GameLibrary.Model.Map.World
             }
             else
             {
-                Logger.Logger.LogErr("World->addRegion(...) : Chunk mit Id: " + _Region.Id + " schon vorhanden!");
+                Logger.Logger.LogErr("World->addRegion(...) : Region mit Id: " + _Region.Id + " schon vorhanden!");
                 return false;
             }
         }

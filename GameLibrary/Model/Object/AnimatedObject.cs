@@ -256,6 +256,14 @@ namespace GameLibrary.Model.Object
                     }
                     checkChangedBlock();
                 }
+                else
+                {
+                    foreach (LivingObject var_LivingObject in objectsColliding)
+                    {
+                        var_LivingObject.onCollide(this);
+                        this.onCollide(var_LivingObject);
+                    }
+                }
             }
 
 
@@ -295,6 +303,11 @@ namespace GameLibrary.Model.Object
             {
                 this.directionEnum = ObjectEnums.DirectionEnum.Down;
             }
+        }
+
+        public virtual void onCollide(AnimatedObject _CollideWith)
+        {
+
         }
 
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)

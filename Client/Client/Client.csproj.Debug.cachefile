@@ -16,6 +16,7 @@ Content\Object\Character\Lifebar.xnb
 Content\Object\Character\Shadow.xnb
 Content\Font\Arial.xnb
 Content\Object\Character\Cloth1.xnb
+Content\Object\Character\GoldCoin.xnb
 Content\Block\Wall.xnb
 Content\Block\WoodenPlank.xnb
 Content\Block\Layer2\Dirt.xnb
@@ -34,3 +35,4 @@ Content\Block\Environment\Tree\Tree1_Dead.xnb
 Content\Object\Character\HumanFemale1.xnb
 Content\Font\Arial.xnb
 Content\Object\Character\Cloth1.xnb
+Content\Object\Character\GoldCoin.xnb
