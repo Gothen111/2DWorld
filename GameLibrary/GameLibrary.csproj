@@ -188,6 +188,8 @@
     <Compile Include="Model\Object\FactionObject.cs" />
     <Compile Include="Model\Object\Interaction\Interactions\ChestInteraction.cs" />
     <Compile Include="Model\Object\Interaction\LivingObjectInteraction.cs" />
+    <Compile Include="Model\Object\Inventory\Inventory.cs" />
+    <Compile Include="Model\Object\Inventory\ItemObject.cs" />
     <Compile Include="Model\Object\LivingObject.cs" />
     <Compile Include="Model\Object\NpcObject.cs" />
     <Compile Include="Model\Object\Object.cs" />
