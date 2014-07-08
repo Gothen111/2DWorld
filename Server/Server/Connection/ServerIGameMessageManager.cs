@@ -108,14 +108,16 @@ namespace Server.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
+            Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
+
             GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
 
             GameLibrary.Logger.Logger.LogDeb("Client Requested Chunk at X: " + message.Position.X + " Y: " + message.Position.Y);
 
             if (var_Chunk != null)
             {
-                Event.EventList.Add(new Event(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), GameMessageImportance.VeryImportant));
-                Event.EventList.Add(new Event(new UpdateChunkMessage(var_Chunk), GameMessageImportance.VeryImportant));
+                Configuration.networkManager.SendMessageToClient(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), var_Client);
+                Configuration.networkManager.SendMessageToClient(new UpdateChunkMessage(var_Chunk), var_Client);
             }
             else
             {

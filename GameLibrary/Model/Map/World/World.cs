@@ -183,7 +183,7 @@ namespace GameLibrary.Model.Map.World
         {
             if (_Target != null)
             {
-                List<LivingObject> var_LivingObjects = this.getObjectsInRange(_Target.Position, 400);
+                List<LivingObject> var_LivingObjects = this.livingObjectsToUpdate; // = this.getObjectsInRange(_Target.Position, 400);
                 foreach (LivingObject var_LivingObject in var_LivingObjects)
                 {
                     //TODO: Objekte müssen abhänig von position gemalt werden! also ne layerdepth bekommen!
