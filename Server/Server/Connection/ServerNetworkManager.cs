@@ -65,6 +65,37 @@ namespace Server.Connection
             }
         }
 
+        public override void UpdateSendingEvents()
+        {
+            for (int i = 0; i < Event.EventList.Count; i++)
+            {
+                IGameMessage var_IGameMessage = Event.EventList[i].getIGameMessage();
+                GameMessageImportance var_Importance = Event.EventList[i].getImportance();
+
+                SendMessage(var_IGameMessage, var_Importance);
+
+                Event.EventList.Remove(Event.EventList[i]);
+                i -= 1;
+            }
+        }
+
+        private void sendMessageToClientsInRange(IGameMessage _IGameMessage, GameMessageImportance _GameMessageImportance)
+        {
+            int var_Range = 1000;
+
+            foreach (Client var_Client in NetworkManager.serverClients)
+            {
+                if (var_Client.PlayerObject != null)
+                {
+                    int var_Distance = (int) Math.Sqrt(Math.Pow(var_Client.PlayerObject.Position.X, 2) + Math.Pow(var_Client.PlayerObject.Position.Y, 2));
+                    if (var_Distance <= var_Range)
+                    {
+                        this.SendMessageToClient(_IGameMessage, var_Client);
+                    }
+                }
+            }
+        }
+
         public override void update()
         {
             base.update();

@@ -59,7 +59,7 @@ namespace GameLibrary.Connection
         {
         }
 
-        public void UpdateSendingEvents()
+        public virtual void UpdateSendingEvents()
         {
             for (int i = 0; i < Event.EventList.Count; i++)
             {

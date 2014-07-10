@@ -119,6 +119,16 @@ namespace GameLibrary.Model.Map.World
             return null;
         }
 
+        public Block.Block getBlockAtPosition(float _PosX, float _PosY)
+        {
+            Chunk.Chunk var_Chunk = World.world.getChunkAtPosition(_PosX, _PosY);
+            if (var_Chunk != null)
+            {
+                return var_Chunk.getBlockAtCoordinate(_PosX, _PosY);
+            }
+            return null;
+        }
+
         public Region.Region createRegionAt(int _PosX, int _PosY)
         {
             return GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, _PosX, _PosY, RegionEnum.Grassland, this);
@@ -672,24 +682,12 @@ namespace GameLibrary.Model.Map.World
                 }
             }
 
-            Client var_Client = null;
-            if (Configuration.Configuration.isHost)
-            {
-                var_Client = GameLibrary.Configuration.Configuration.networkManager.getClient(_PlayerObject);
-            }
             List<LivingObject> var_LivingObjects = this.getObjectsInRange(_PlayerObject.Position, 400);
             foreach(LivingObject var_LivingObject in var_LivingObjects)
             {
                 if (!this.livingObjectsToUpdate.Contains(var_LivingObject))
                 {
                     this.livingObjectsToUpdate.Add(var_LivingObject);
-                    if (Configuration.Configuration.isHost)
-                    {
-                        if (var_Client != null)
-                        {
-                            Configuration.Configuration.networkManager.SendMessageToClient(new UpdateObjectPositionMessage(var_LivingObject), var_Client);
-                        }
-                    }
                 }
             }
         }

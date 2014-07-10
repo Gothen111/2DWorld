@@ -253,6 +253,7 @@ namespace GameLibrary.Model.Object
                     if (Configuration.Configuration.isHost)
                     {
                         this.Position += this.Velocity;
+                        GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
                     }
                     checkChangedBlock();
                 }
