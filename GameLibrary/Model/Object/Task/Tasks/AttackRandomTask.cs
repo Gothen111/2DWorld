@@ -95,9 +95,12 @@ namespace GameLibrary.Model.Object.Task.Tasks
                     var_Objects.Remove(this.TaskOwner);
                     if (var_Objects.Count > 0)
                     {
-                        foreach (LivingObject var_LivingObject in var_Objects)
+                        foreach (Object var_Object in var_Objects)
                         {
-                            this.TaskOwner.AggroSystem.addAggro(var_LivingObject, this.TaskOwner.AggroRange - Vector3.Distance(this.TaskOwner.Position, var_LivingObject.Position));
+                            if (var_Object is LivingObject)
+                            {
+                                this.TaskOwner.AggroSystem.addAggro((LivingObject)var_Object, this.TaskOwner.AggroRange - Vector3.Distance(this.TaskOwner.Position, var_Object.Position));
+                            }
                         }
                         target = this.TaskOwner.AggroSystem.getTarget();
                         if (target == this.TaskOwner)

@@ -117,6 +117,7 @@
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
+    <Compile Include="Connection\Message\RemoveObjectMessage.cs" />
     <Compile Include="Connection\Message\RequestLivingObjectMessage.cs" />
     <Compile Include="Connection\Message\RequestRegionMessage.cs" />
     <Compile Include="Connection\Message\UpdateWorldMessage.cs" />

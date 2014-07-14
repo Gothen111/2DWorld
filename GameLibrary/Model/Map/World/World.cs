@@ -277,6 +277,11 @@ namespace GameLibrary.Model.Map.World
                 _Object.CurrentBlock.removeObject(_Object);
                 _Object.CurrentBlock = null;
             }
+
+            if (Configuration.Configuration.isHost)
+            {
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.RemoveObjectMessage(_Object), GameMessageImportance.VeryImportant));
+            }
         }
 
         public List<Object.Object> getObjectsInRange(Vector3 _Position, float _Range)

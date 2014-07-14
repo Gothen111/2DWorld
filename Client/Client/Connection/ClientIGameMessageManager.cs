@@ -51,6 +51,9 @@ namespace Client.Connection
                 case EIGameMessageType.UpdateObjectHealthMessage:
                     handleUpdateObjectHealthMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.RemoveObjectMessage:
+                    handleRemoveObjectMessage(_NetIncomingMessage);
+                    break;
 
             }
         }
@@ -208,6 +211,23 @@ namespace Client.Connection
             else
             {
                 GameLibrary.Logger.Logger.LogErr("LivingObject mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Health wird nicht geupdatet");
+            }
+        }
+
+        private static void handleRemoveObjectMessage(NetIncomingMessage _Im)
+        {
+            var message = new RemoveObjectMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Model.Object.Object var_Object = GameLibrary.Model.Map.World.World.world.getObject(message.Id);
+            if (var_Object != null)
+            {
+                GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(var_Object);
+            }
+            else
+            {
+                GameLibrary.Logger.Logger.LogErr("LivingObject mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Wurde nicht gelöscht");
             }
         }
     }
