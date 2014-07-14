@@ -210,11 +210,11 @@ namespace GameLibrary.Model.Map.Region
 
         }
 
-        public Chunk.Chunk getChunkLivingObjectIsIn(GameLibrary.Model.Object.LivingObject _LivingObject)
+        public Chunk.Chunk getChunkObjectIsIn(GameLibrary.Model.Object.Object _Object)
         {
             //TODO: Fehlerbehandlungen, falls LivingObject nicht in der Region ist --> Nullpointer da var_X oder var_Y zu klein/groß
-            int var_X = (int)(_LivingObject.Position.X / ((this.Position.X + 1) * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize));
-            int var_Y = (int)(_LivingObject.Position.Y / ((this.Position.Y + 1) * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
+            int var_X = (int)(_Object.Position.X / ((this.Position.X + 1) * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize));
+            int var_Y = (int)(_Object.Position.Y / ((this.Position.Y + 1) * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
             if (var_X >= Region.regionSizeX || var_Y >= Region.regionSizeY)
             {
                 Logger.Logger.LogErr("LivingObject befindet sich nicht in Region " + this.Id);
@@ -223,7 +223,7 @@ namespace GameLibrary.Model.Map.Region
             else
             {
                 //return this.getChunkAtPosition(var_X, var_Y);
-                return this.getChunkAtPosition(_LivingObject.Position.X, _LivingObject.Position.Y);
+                return this.getChunkAtPosition(_Object.Position.X, _Object.Position.Y);
             }
         }
 

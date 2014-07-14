@@ -141,9 +141,11 @@
     <Compile Include="Factory\FactoryEnums\FactionEnum.cs" />
     <Compile Include="Factory\FactoryEnums\GenderEnum.cs" />
     <Compile Include="Factory\FactoryEnums\ArmorEnum.cs" />
+    <Compile Include="Factory\FactoryEnums\ItemEnum.cs" />
     <Compile Include="Factory\FactoryEnums\RaceEnum.cs" />
     <Compile Include="Factory\FactoryEnums\WeaponEnum.cs" />
     <Compile Include="Factory\FarmFactory.cs" />
+    <Compile Include="Factory\ItemFactory.cs" />
     <Compile Include="Factory\NameFactory.cs" />
     <Compile Include="Factory\RegionFactory.cs" />
     <Compile Include="Gui\Component.cs" />

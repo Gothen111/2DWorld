@@ -53,14 +53,6 @@ namespace GameLibrary.Model.Object
             }
         }
 
-        private List<Rectangle> collisionBounds;
-
-        public List<Rectangle> CollisionBounds
-        {
-            get { return collisionBounds; }
-            set { collisionBounds = value; }
-        }
-
         private float movementSpeed;
 
         public float MovementSpeed
@@ -133,7 +125,6 @@ namespace GameLibrary.Model.Object
 
             this.standartStandPositionX = 0;
             this.movementSpeed = 1.0f;
-            this.collisionBounds = new List<Rectangle>();
         }
 
         public AnimatedObject(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
@@ -149,17 +140,6 @@ namespace GameLibrary.Model.Object
             this.animation = new Animation.Animations.StandAnimation(this);
 
             this.standartStandPositionX = (int)info.GetValue("standartStandPositionX", typeof(int));
-
-            List<Util.Square> var_List = (List<Util.Square>)info.GetValue("collisionBounds", typeof(List<Util.Square>));
-            this.collisionBounds = new List<Rectangle>();
-
-            foreach (Util.Square var_Square in var_List)
-            {
-                this.collisionBounds.Add(var_Square.Rectangle);
-            }
-
-            //this.collisionBounds = (List<Rectangle>)info.GetValue("collisionBounds", typeof(List<Rectangle>)); //???
-            //this.collisionBounds.Add(new Rectangle(0, 0, 50, 50));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -173,14 +153,6 @@ namespace GameLibrary.Model.Object
             info.AddValue("graphicPath", this.graphicPath, typeof(String));
 
             info.AddValue("standartStandPositionX", this.standartStandPositionX, typeof(int));
-
-            List<Util.Square> var_List = new List<Util.Square>();
-            foreach (Rectangle var_Rectangle in this.collisionBounds)
-            {
-                var_List.Add(new Util.Square(var_Rectangle));
-            }
-
-            info.AddValue("collisionBounds", var_List, typeof(List<Util.Square>)); //???
 
             base.GetObjectData(info, ctxt);
         }
@@ -246,7 +218,7 @@ namespace GameLibrary.Model.Object
             if (var_X != 0 || var_Y != 0)
             {
                 Rectangle nextBounds = new Rectangle((int)(this.DrawBounds.Left + this.Velocity.X), (int)(this.DrawBounds.Top + this.Velocity.Y), this.DrawBounds.Width, this.DrawBounds.Height);
-                List<LivingObject> objectsColliding = GameLibrary.Model.Map.World.World.world.getObjectsColliding(nextBounds); // World.getObjectsColliding(nextBounds);
+                List<Object> objectsColliding = GameLibrary.Model.Map.World.World.world.getObjectsColliding(nextBounds); // World.getObjectsColliding(nextBounds);
                 objectsColliding.Remove(this as LivingObject);
                 if (objectsColliding.Count < 1)
                 {
@@ -259,10 +231,13 @@ namespace GameLibrary.Model.Object
                 }
                 else
                 {
-                    foreach (LivingObject var_LivingObject in objectsColliding)
+                    if (Configuration.Configuration.isHost)
                     {
-                        var_LivingObject.onCollide(this);
-                        this.onCollide(var_LivingObject);
+                        foreach (AnimatedObject var_AnimatedObject in objectsColliding)
+                        {
+                            var_AnimatedObject.onCollide(this);
+                            this.onCollide(var_AnimatedObject);
+                        }
                     }
                 }
             }
@@ -336,34 +311,34 @@ namespace GameLibrary.Model.Object
 
                 if (var_Position.X < var_BlockPosX * Map.Block.Block.BlockSize)
                 {
-                    this.CurrentBlock.removeLivingObject((LivingObject)this);
+                    this.CurrentBlock.removeObject(this);
                     if (this.CurrentBlock.LeftNeighbour != null)
                     {
-                        ((Map.Block.Block)this.CurrentBlock.LeftNeighbour).addLivingObject((LivingObject)this);
+                        ((Map.Block.Block)this.CurrentBlock.LeftNeighbour).addObject(this);
                     }
                 }
                 else if (var_Position.X > (var_BlockPosX + 1) * Map.Block.Block.BlockSize)
                 {
-                    this.CurrentBlock.removeLivingObject((LivingObject)this);
+                    this.CurrentBlock.removeObject((LivingObject)this);
                     if (this.CurrentBlock.RightNeighbour != null)
                     {
-                        ((Map.Block.Block)this.CurrentBlock.RightNeighbour).addLivingObject((LivingObject)this);
+                        ((Map.Block.Block)this.CurrentBlock.RightNeighbour).addObject(this);
                     }
                 }
                 else if (var_Position.Y < var_BlockPosY * Map.Block.Block.BlockSize)
                 {
-                    this.CurrentBlock.removeLivingObject((LivingObject)this);
+                    this.CurrentBlock.removeObject((LivingObject)this);
                     if (this.CurrentBlock.TopNeighbour != null)
                     {
-                        ((Map.Block.Block)this.CurrentBlock.TopNeighbour).addLivingObject((LivingObject)this);
+                        ((Map.Block.Block)this.CurrentBlock.TopNeighbour).addObject(this);
                     }
                 }
                 else if (var_Position.Y > (var_BlockPosY + 1) * Map.Block.Block.BlockSize)
                 {
-                    this.CurrentBlock.removeLivingObject((LivingObject)this);
+                    this.CurrentBlock.removeObject((LivingObject)this);
                     if (this.CurrentBlock.BottomNeighbour != null)
                     {
-                        ((Map.Block.Block)this.CurrentBlock.BottomNeighbour).addLivingObject((LivingObject)this);
+                        ((Map.Block.Block)this.CurrentBlock.BottomNeighbour).addObject(this);
                     }
                 }
             }

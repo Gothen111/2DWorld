@@ -23,9 +23,9 @@ namespace GameLibrary.Model.Map.World
 
         private List<Region.Region> regions;
 
-        private QuadTree<LivingObject> quadTree;
+        private QuadTree<Object.Object> quadTree;
 
-        public QuadTree<LivingObject> QuadTree
+        public QuadTree<Object.Object> QuadTree
         {
             get { return quadTree; }
             set { quadTree = value; }
@@ -33,14 +33,14 @@ namespace GameLibrary.Model.Map.World
 
         private List<PlayerObject> playerObjects;
 
-        private List<LivingObject> livingObjectsToUpdate;
+        private List<Object.Object> objectsToUpdate;
 
         #endregion
         #region Constructors
         public World()
             :base()
         {
-            this.quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
+            this.quadTree = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
         }
 
         public World(SerializationInfo info, StreamingContext ctxt) : this()
@@ -60,7 +60,7 @@ namespace GameLibrary.Model.Map.World
             regions = new List<Region.Region>();
             if (Configuration.Configuration.isHost)
             {
-                quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
+                quadTree = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
             }
 
             this.playerObjects = new List<PlayerObject>();
@@ -135,7 +135,7 @@ namespace GameLibrary.Model.Map.World
         }
 
         #region drawing
-        public void drawBlocks(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, LivingObject _Target)
+        public void drawBlocks(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, LivingObject _Target) // LIVINGOBJEKT
         {
             if (_Target != null)
             {
@@ -189,22 +189,22 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
-        public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, LivingObject _Target)
+        public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, LivingObject _Target) // LIVINGOBJECT
         {
             if (_Target != null)
             {
-                List<LivingObject> var_LivingObjects = this.livingObjectsToUpdate; // = this.getObjectsInRange(_Target.Position, 400);
-                foreach (LivingObject var_LivingObject in var_LivingObjects)
+                List<Object.Object> var_Objects = this.objectsToUpdate; // = this.getObjectsInRange(_Target.Position, 400);
+                foreach (AnimatedObject var_AnimatedObject in var_Objects)
                 {
                     //TODO: Objekte müssen abhänig von position gemalt werden! also ne layerdepth bekommen!
-                    var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
+                    var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
                 }
 
                 //TODO: preenvionmentobjekte brauchen n exta quadtree zum malen.
                 if (_Target.CurrentBlock != null)
                 {
                     Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_Target.CurrentBlock.Parent;
-                    var_ChunkMid.drawObjects(_GraphicsDevice, _SpriteBatch);
+                    //var_ChunkMid.drawObjects(_GraphicsDevice, _SpriteBatch);
                 }
             }
         }
@@ -212,17 +212,17 @@ namespace GameLibrary.Model.Map.World
 
         #region Methoden für Range-Berechnung
 
-        public Region.Region getRegionLivingObjectIsIn(GameLibrary.Model.Object.LivingObject _LivingObject)
+        public Region.Region getRegionObjectIsIn(GameLibrary.Model.Object.Object _Object)
         {
             foreach (Region.Region var_Region in this.regions)
             {
-                if (_LivingObject.Position.X >= var_Region.Position.X)
+                if (_Object.Position.X >= var_Region.Position.X)
                 {
-                    if (_LivingObject.Position.X <= var_Region.Position.X + var_Region.Bounds.Width)
+                    if (_Object.Position.X <= var_Region.Position.X + var_Region.Bounds.Width)
                     {
-                        if (_LivingObject.Position.Y >= var_Region.Position.Y)
+                        if (_Object.Position.Y >= var_Region.Position.Y)
                         {
-                            if (_LivingObject.Position.Y <= var_Region.Position.Y + var_Region.Bounds.Height)
+                            if (_Object.Position.Y <= var_Region.Position.Y + var_Region.Bounds.Height)
                             {
                                 return var_Region;
                             }
@@ -233,86 +233,86 @@ namespace GameLibrary.Model.Map.World
             return null;
         }
 
-        public Object.LivingObject addLivingObject(Object.LivingObject livingObject)
+        public Object.Object addObject(Object.Object _Object)
         {
-            return addLivingObject(livingObject, true);
+            return addObject(_Object, true);
         }
 
-        public Object.LivingObject addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree)
+        public Object.Object addObject(Object.Object _Object, Boolean insertInQuadTree)
         {
-            Region.Region region = getRegionLivingObjectIsIn(livingObject);
-            return addLivingObject(livingObject, insertInQuadTree, region);
+            Region.Region region = getRegionObjectIsIn(_Object);
+            return addObject(_Object, insertInQuadTree, region);
         }
 
-        public Object.LivingObject addLivingObject(Object.LivingObject livingObject, Boolean insertInQuadTree, Region.Region _Region)
+        public Object.Object addObject(Object.Object _Object, Boolean insertInQuadTree, Region.Region _Region)
         {
             if (_Region != null)
             {
-                Chunk.Chunk chunk = _Region.getChunkLivingObjectIsIn(livingObject);
+                Chunk.Chunk chunk = _Region.getChunkObjectIsIn(_Object);
                 if (chunk != null)
                 {
-                    Block.Block block = chunk.getBlockAtCoordinate(livingObject.Position.X, livingObject.Position.Y);
-                    block.addLivingObject(livingObject);
+                    Block.Block block = chunk.getBlockAtCoordinate(_Object.Position.X, _Object.Position.Y);
+                    block.addObject(_Object);
                     if (insertInQuadTree)
                     {
                         if (quadTree == null)
-                            quadTree = new QuadTree<LivingObject>(new Vector3(32, 32, 0), 20);
-                        quadTree.Insert(livingObject);
+                            quadTree = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+                        quadTree.Insert(_Object);
                     }
                 }
             }
             else
             {
-                Logger.Logger.LogInfo("World.addLivingObject: LivingObject konnte der Region nicht hinzugefügt werden, da diese null war");
+                Logger.Logger.LogInfo("World.addObject: Object konnte der Region nicht hinzugefügt werden, da diese null war");
             }
-            return livingObject;
+            return _Object;
         }
 
-        public void removeObjectFromWorld(LivingObject livingObject)
+        public void removeObjectFromWorld(Object.Object _Object)
         {
             //TODO: Client informieren!
-            quadTree.Remove(livingObject);
-            if (livingObject.CurrentBlock != null)
+            quadTree.Remove(_Object);
+            if (_Object.CurrentBlock != null)
             {
-                livingObject.CurrentBlock.removeLivingObject(livingObject);
-                livingObject.CurrentBlock = null;
+                _Object.CurrentBlock.removeObject(_Object);
+                _Object.CurrentBlock = null;
             }
         }
 
-        public List<LivingObject> getObjectsInRange(Vector3 _Position, float _Range)
+        public List<Object.Object> getObjectsInRange(Vector3 _Position, float _Range)
         {
             return getObjectsInRange(_Position, _Range, new List<SearchFlags.Searchflag>());
         }
 
-        public List<LivingObject> getObjectsInRange(Vector3 _Position, float _Range, List<SearchFlags.Searchflag> _SearchFlags)
+        public List<Object.Object> getObjectsInRange(Vector3 _Position, float _Range, List<SearchFlags.Searchflag> _SearchFlags)
         {
             Util.Circle circle = new Util.Circle(_Position, _Range);
-            List<LivingObject> result = new List<LivingObject>();
+            List<Object.Object> result = new List<Object.Object>();
 
             getObjectsInRange(circle, this.quadTree.Root, result, _SearchFlags);
 
             return result;
         }
 
-        public List<LivingObject> getObjectsColliding(Rectangle bounds)
+        public List<Object.Object> getObjectsColliding(Rectangle bounds)
         {
             return getObjectsColliding(bounds, new List<SearchFlags.Searchflag>());
         }
 
-        public List<LivingObject> getObjectsColliding(Rectangle bounds, List<SearchFlags.Searchflag> _SearchFlags)
+        public List<Object.Object> getObjectsColliding(Rectangle bounds, List<SearchFlags.Searchflag> _SearchFlags)
         {
-            List<LivingObject> result = new List<LivingObject>();
+            List<Object.Object> result = new List<Object.Object>();
             getObjectsColliding(bounds, this.QuadTree.Root, result, _SearchFlags);
             return result;
         }
 
-        private void getObjectsColliding(Rectangle bounds, QuadTree<LivingObject>.QuadNode currentNode, List<LivingObject> result, List<SearchFlags.Searchflag> _SearchFlags)
+        private void getObjectsColliding(Rectangle bounds, QuadTree<Object.Object>.QuadNode currentNode, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
             if (Util.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
             {
                 //Circle fits in node, so search in subnodes
                 Boolean circleFitsInSubnode = false;
-                foreach (QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
+                foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
                 {
                     if (node != null)
                     {
@@ -337,13 +337,13 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
-        private void getObjectsInRange(Util.Circle aggroCircle, QuadTree<LivingObject>.QuadNode currentNode, List<LivingObject> result, List<SearchFlags.Searchflag> _SearchFlags)
+        private void getObjectsInRange(Util.Circle aggroCircle, QuadTree<Object.Object>.QuadNode currentNode, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
             if (Util.Intersection.CircleIsInRectangle(aggroCircle, currentNode.Bounds))
             {
                 //Circle fits in node, so search in subnodes
                 Boolean circleFitsInSubnode = false;
-                foreach (QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
+                foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
                 {
                     if (node != null)
                     {
@@ -368,11 +368,11 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
-        private void getObjectsInRange(Rectangle bounds, QuadTree<LivingObject>.QuadNode currentNode, List<LivingObject> result, List<SearchFlags.Searchflag> _SearchFlags)
+        private void getObjectsInRange(Rectangle bounds, QuadTree<Object.Object>.QuadNode currentNode, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
             if (Util.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
             {
-                foreach (QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
+                foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
                 {
                     if (node != null)
                     {
@@ -393,84 +393,87 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
-        private void addAllObjectsInRange(QuadTree<LivingObject>.QuadNode currentNode, Util.Circle circle, List<LivingObject> result, List<SearchFlags.Searchflag> _SearchFlags)
+        private void addAllObjectsInRange(QuadTree<Object.Object>.QuadNode currentNode, Util.Circle circle, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
-            foreach (LivingObject livingObject in currentNode.Objects)
+            foreach (Object.Object var_Object in currentNode.Objects)
             {
-                if (!result.Contains(livingObject))
+                if (!result.Contains(var_Object))
                 {
                     Boolean containsAllFlags = true;
                     foreach (SearchFlags.Searchflag searchFlag in _SearchFlags)
                     {
-                        if (!searchFlag.hasFlag(livingObject))
+                        if (!searchFlag.hasFlag(var_Object))
                             containsAllFlags = false;
 
                     }
                     if (!containsAllFlags)
                         continue;
-                    if (Util.Intersection.CircleIntersectsRectangle(circle, livingObject.Bounds))
+                    if (Util.Intersection.CircleIntersectsRectangle(circle, var_Object.Bounds))
                     {
-                        if (livingObject.CollisionBounds.Count > 0)
+                        if (var_Object.CollisionBounds.Count > 0)
                         {
-                            foreach (Rectangle collisionBound in livingObject.CollisionBounds)
+                            foreach (Rectangle collisionBound in var_Object.CollisionBounds)
                             {
                                 if (Util.Intersection.CircleIntersectsRectangle(circle, collisionBound))
                                 {
-                                    result.Add(livingObject);
+                                    result.Add(var_Object);
                                     break;
                                 }
                             }
                         }
                         else
                         {
-                            result.Add(livingObject);
+                            result.Add(var_Object);
                         }
                     }
                 }
             }
-            foreach (QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
+            foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
             {
                 if (node != null)
                     addAllObjectsInRange(node, circle, result, _SearchFlags);
             }
         }
 
-        private void addAllObjectsInRange(QuadTree<LivingObject>.QuadNode currentNode, Rectangle bounds, List<LivingObject> result, List<SearchFlags.Searchflag> _SearchFlags)
+        private void addAllObjectsInRange(QuadTree<Object.Object>.QuadNode currentNode, Rectangle bounds, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
-            foreach (LivingObject livingObject in currentNode.Objects)
+            foreach (Object.Object var_Object in currentNode.Objects)
             {
-                if (!result.Contains(livingObject) && !livingObject.IsDead)
+                if (!result.Contains(var_Object))// && !var_Object.IsDead)
                 {
                     Boolean containsAllFlags = true;
                     foreach (SearchFlags.Searchflag searchFlag in _SearchFlags)
                     {
-                        if (!searchFlag.hasFlag(livingObject))
+                        if (!searchFlag.hasFlag(var_Object))
                             containsAllFlags = false;
 
                     }
                     if (!containsAllFlags)
                         continue;
-                    if (Util.Intersection.RectangleIntersectsRectangle(bounds, livingObject.DrawBounds))
+                    if (var_Object is AnimatedObject)
                     {
-                        if (livingObject.CollisionBounds != null && livingObject.CollisionBounds.Count > 0)
+                        if (Util.Intersection.RectangleIntersectsRectangle(bounds, ((AnimatedObject) var_Object).DrawBounds))
                         {
-                            foreach (Rectangle collisionBound in livingObject.CollisionBounds)
+                            if (var_Object.CollisionBounds != null && var_Object.CollisionBounds.Count > 0)
                             {
-                                if (Util.Intersection.RectangleIntersectsRectangle(bounds, collisionBound))
+                                foreach (Rectangle collisionBound in var_Object.CollisionBounds)
                                 {
-                                    result.Add(livingObject);
-                                    break;
+                                    if (Util.Intersection.RectangleIntersectsRectangle(bounds, collisionBound))
+                                    {
+                                        result.Add(var_Object);
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            result.Add(livingObject);
+                            else
+                            {
+                                result.Add(var_Object);
+                            }
                         }
                     }
                 }
             }
-            foreach (QuadTree<LivingObject>.QuadNode node in currentNode.Nodes)
+            foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
             {
                 if (node != null)
                     addAllObjectsInRange(node, bounds, result, _SearchFlags);
@@ -511,7 +514,7 @@ namespace GameLibrary.Model.Map.World
                                                     ?? var_Region.createChunkAt((int)var_Position_Chunk.X, (int)var_Position_Chunk.Y);
                         }
                     }
-                    this.addLivingObject(_PlayerObject);
+                    this.addObject(_PlayerObject);
                 }
             }
         }
@@ -524,13 +527,13 @@ namespace GameLibrary.Model.Map.World
         {
             base.update();
 
-            this.livingObjectsToUpdate = new List<LivingObject>();
+            this.objectsToUpdate = new List<Object.Object>();
 
             this.updatePlayerObjectsNeighborhood();
 
-            foreach (LivingObject var_LivingObject in this.livingObjectsToUpdate)
+            foreach (Object.Object var_Object in this.objectsToUpdate)
             {
-                var_LivingObject.update();
+                var_Object.update();
             }
         }
 
@@ -682,12 +685,12 @@ namespace GameLibrary.Model.Map.World
                 }
             }
 
-            List<LivingObject> var_LivingObjects = this.getObjectsInRange(_PlayerObject.Position, 400);
-            foreach(LivingObject var_LivingObject in var_LivingObjects)
+            List<Object.Object> var_Objects = this.getObjectsInRange(_PlayerObject.Position, 400);
+            foreach (Object.Object var_Object in var_Objects) 
             {
-                if (!this.livingObjectsToUpdate.Contains(var_LivingObject))
+                if (!this.objectsToUpdate.Contains(var_Object))
                 {
-                    this.livingObjectsToUpdate.Add(var_LivingObject);
+                    this.objectsToUpdate.Add(var_Object);
                 }
             }
         }
@@ -719,17 +722,17 @@ namespace GameLibrary.Model.Map.World
             return null;
         }
 
-        public LivingObject getLivingObject(int _Id)
+        public Object.Object getObject(int _Id)
         {
             if (this.quadTree != null)
             {
-                foreach (QuadTree<LivingObject>.QuadNode var_QuadNode in this.quadTree.GetAllNodes())
+                foreach (QuadTree<Object.Object>.QuadNode var_QuadNode in this.quadTree.GetAllNodes())
                 {
-                    foreach (LivingObject var_LivingObject in var_QuadNode.Objects)
+                    foreach (Object.Object var_Object in var_QuadNode.Objects)
                     {
-                        if (var_LivingObject.Id == _Id)
+                        if (var_Object.Id == _Id)
                         {
-                            return var_LivingObject;
+                            return var_Object;
                         }
                     }
                 }

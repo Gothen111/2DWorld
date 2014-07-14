@@ -7,9 +7,9 @@ namespace GameLibrary.Model.Map.World.SearchFlags
 {
     public class NpcObjectFlag : Searchflag
     {
-        public override Boolean hasFlag(GameLibrary.Model.Object.LivingObject livingObject)
+        public override Boolean hasFlag(GameLibrary.Model.Object.Object _Object)
         {
-            return livingObject is GameLibrary.Model.Object.NpcObject;
+            return _Object is GameLibrary.Model.Object.NpcObject;
         }
     }
 }

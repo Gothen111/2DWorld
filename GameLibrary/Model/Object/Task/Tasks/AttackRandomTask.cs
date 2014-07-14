@@ -37,8 +37,8 @@ namespace GameLibrary.Model.Object.Task.Tasks
             if (updateWantToDo <= 0)
             {
                 wantToDoTaskCheck = true;
-                List<LivingObject> var_LivingObjects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
-                if (var_LivingObjects.Count <= 1)
+                List<Object> var_Objects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                if (var_Objects.Count <= 1)
                     wantToDoTaskCheck = false;
                 updateWantToDo = 20;
             }
@@ -64,13 +64,16 @@ namespace GameLibrary.Model.Object.Task.Tasks
                 }
                 else
                 {
-                    List<LivingObject> var_LivingObjects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
-                    var_LivingObjects.Remove(this.TaskOwner);
-                    if (var_LivingObjects.Count > 0)
+                    List<Object> var_Objects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                    var_Objects.Remove(this.TaskOwner);
+                    if (var_Objects.Count > 0)
                     {
-                        foreach(LivingObject var_LivingObject in var_LivingObjects)
+                        foreach (Object var_Object in var_Objects)
                         {
-                            this.TaskOwner.AggroSystem.addAggro(var_LivingObject, this.TaskOwner.AggroRange - Vector3.Distance(this.TaskOwner.Position, var_LivingObject.Position));
+                            if (var_Object is LivingObject)
+                            {
+                                this.TaskOwner.AggroSystem.addAggro((LivingObject)var_Object, this.TaskOwner.AggroRange - Vector3.Distance(this.TaskOwner.Position, var_Object.Position));
+                            }
                         }
                         target = this.TaskOwner.AggroSystem.getTarget();
                         if (target == this.TaskOwner)
@@ -79,7 +82,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
                             target = null;
                         }
                     }
-                    var_LivingObjects.Clear();
+                    var_Objects.Clear();
                     target = this.TaskOwner.AggroSystem.getTarget();
                     updateTarget = 50;
                 }
@@ -88,11 +91,11 @@ namespace GameLibrary.Model.Object.Task.Tasks
             {
                 if (target.IsDead)
                 {
-                    List<LivingObject> var_LivingObjects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
-                    var_LivingObjects.Remove(this.TaskOwner);
-                    if (var_LivingObjects.Count > 0)
+                    List<Object> var_Objects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
+                    var_Objects.Remove(this.TaskOwner);
+                    if (var_Objects.Count > 0)
                     {
-                        foreach (LivingObject var_LivingObject in var_LivingObjects)
+                        foreach (LivingObject var_LivingObject in var_Objects)
                         {
                             this.TaskOwner.AggroSystem.addAggro(var_LivingObject, this.TaskOwner.AggroRange - Vector3.Distance(this.TaskOwner.Position, var_LivingObject.Position));
                         }
@@ -103,7 +106,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
                             target = null;
                         }
                     }
-                    var_LivingObjects.Clear();
+                    var_Objects.Clear();
                 }
             }
             if(target!=null)

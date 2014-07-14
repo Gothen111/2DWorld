@@ -27,15 +27,15 @@ namespace GameLibrary.Model.Map.Block
             get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Block.BlockSize - 1, (int)Block.BlockSize - 1); }
         }
 
-        private List<Object.LivingObject> objects;
+        private List<Object.Object> objects;
 
-        public List<Object.LivingObject> Objects
+        public List<Object.Object> Objects
         {
             get { return objects; }
             set { objects = value; }
         }
 
-        public List<Object.LivingObject> objectsPreEnviorment;
+        public List<Object.Object> objectsPreEnviorment;
 
         private bool isWalkAble;
 
@@ -50,11 +50,11 @@ namespace GameLibrary.Model.Map.Block
         {
             this.layer = new BlockEnum[Enum.GetValues(typeof(BlockLayerEnum)).Length];
             this.layer[0] = _BlockEnum;
-            this.objects = new List<Object.LivingObject>();
+            this.objects = new List<Object.Object>();
             this.Position = new Vector2(_PosX, _PosY);
             this.Parent = _ParentChunk;
 
-            objectsPreEnviorment = new List<Object.LivingObject>();
+            objectsPreEnviorment = new List<Object.Object>();
 
             this.isWalkAble = true;
         }
@@ -64,8 +64,8 @@ namespace GameLibrary.Model.Map.Block
         {
             this.layer = (BlockEnum[])info.GetValue("layer", typeof(BlockEnum[]));
             //TODO: Alle Objekttypen müssen serialisierbar gemacht werden
-            this.objects = (List<Object.LivingObject>)info.GetValue("objects", typeof(List<Object.LivingObject>));
-            this.objectsPreEnviorment = (List<Object.LivingObject>)info.GetValue("objectsPreEnviorment", typeof(List<Object.LivingObject>));
+            this.objects = (List<Object.Object>)info.GetValue("objects", typeof(List<Object.Object>));
+            this.objectsPreEnviorment = (List<Object.Object>)info.GetValue("objectsPreEnviorment", typeof(List<Object.Object>));
 
             //this.objects = new List<Object.LivingObject>();
             //this.objectsPreEnviorment = new List<Object.LivingObject>();
@@ -97,72 +97,26 @@ namespace GameLibrary.Model.Map.Block
             }
         }
 
-        public void addLivingObject(Object.LivingObject _LivingObject)
+        public void addObject(Object.Object _Object)
         {
-            if (!this.objects.Contains(_LivingObject))
+            if (!this.objects.Contains(_Object))
             {
-                this.objects.Add(_LivingObject);
+                this.objects.Add(_Object);
             }
             //_LivingObject.ObjectMoves += this.HandleEvent;
-            _LivingObject.CurrentBlock = this;
+            _Object.CurrentBlock = this;
         }
 
-        public void removeLivingObject(Object.LivingObject _LivingObject)
+        public void removeObject(Object.Object _Object)
         {
             //_LivingObject.ObjectMoves -= this.HandleEvent;
-            this.objects.Remove(_LivingObject);
-        }
-
-        public void HandleEvent(object sender, EventArgs args)
-        {
-            if (sender is Object.LivingObject)
-            {
-                int var_BlockPosX = (int)this.Position.X / BlockSize;//(int)(parentChunk.ParentRegion.Position.X * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX + this.position.X) -1;
-                int var_BlockPosY = (int)this.Position.Y / BlockSize;//(int)(parentChunk.ParentRegion.Position.Y * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY + this.position.Y) - 1;
-
-                Object.LivingObject var_LivingObject = (Object.LivingObject)sender;
-
-                Vector3 var_Position = var_LivingObject.Position;// +var_LivingObject.Size / 2;
-
-                if (var_Position.X < var_BlockPosX * BlockSize)
-                {
-                    this.removeLivingObject(var_LivingObject);
-                    if (this.LeftNeighbour != null)
-                    {
-                        ((Block)this.LeftNeighbour).addLivingObject(var_LivingObject);
-                    }
-                }
-                else if (var_Position.X > (var_BlockPosX + 1) * BlockSize)
-                {
-                    this.removeLivingObject(var_LivingObject);
-                    if (this.RightNeighbour != null)
-                    {
-                        ((Block)this.RightNeighbour).addLivingObject(var_LivingObject);
-                    }
-                }
-                else if (var_Position.Y < var_BlockPosY * BlockSize)
-                {
-                    this.removeLivingObject(var_LivingObject);
-                    if (this.TopNeighbour != null)
-                    {
-                        ((Block)this.TopNeighbour).addLivingObject(var_LivingObject);
-                    }
-                }
-                else if (var_Position.Y > (var_BlockPosY + 1) * BlockSize)
-                {
-                    this.removeLivingObject(var_LivingObject);
-                    if (this.BottomNeighbour != null)
-                    {
-                        ((Block)this.BottomNeighbour).addLivingObject(var_LivingObject);
-                    }
-                }
-            }
+            this.objects.Remove(_Object);
         }
 
         public override void update()
         {
             base.update();
-            foreach (Object.LivingObject var_LivingObject in objects.Reverse<Object.LivingObject>())
+            foreach (Object.LivingObject var_LivingObject in objects.Reverse<Object.Object>())
             {
                 if (var_LivingObject.IsDead)
                 {

@@ -172,7 +172,7 @@ namespace Server.Connection
 
             Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
 
-            GameLibrary.Model.Object.LivingObject var_LivingObject = GameLibrary.Model.Map.World.World.world.getLivingObject(message.Id);
+            GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject) GameLibrary.Model.Map.World.World.world.getObject(message.Id);
             if (var_LivingObject != null)
             {
                 Configuration.networkManager.SendMessageToClient(new UpdateLivingObjectMessage(var_LivingObject), var_Client);

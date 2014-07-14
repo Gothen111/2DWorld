@@ -19,11 +19,11 @@ namespace GameLibrary.Model.Map.World.SearchFlags
             this.faction = GameLibrary.Factory.BehaviourFactory.behaviourFactory.getFaction(_FactionEnum);
         }
 
-        public override Boolean hasFlag(GameLibrary.Model.Object.LivingObject livingObject)
+        public override Boolean hasFlag(GameLibrary.Model.Object.Object _Object)
         {
-            if (livingObject is GameLibrary.Model.Object.FactionObject)
+            if (_Object is GameLibrary.Model.Object.FactionObject)
             {
-                return (livingObject as GameLibrary.Model.Object.FactionObject).Faction == this.faction;
+                return (_Object as GameLibrary.Model.Object.FactionObject).Faction == this.faction;
             }
             else
             {

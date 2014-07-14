@@ -107,13 +107,16 @@ namespace GameLibrary.Model.Object
             }
             if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady())
             {
-                List<LivingObject> var_LivingObjects = GameLibrary.Model.Map.World.World.world.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.Range, var_EquipmentWeaponForAttack.SearchFlags);
-                var_LivingObjects.Remove(this);
-                foreach (LivingObject var_LivingObject in var_LivingObjects)
+                List<Object> var_Objects = GameLibrary.Model.Map.World.World.world.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.Range, var_EquipmentWeaponForAttack.SearchFlags);
+                var_Objects.Remove(this);
+                foreach (Object var_Object in var_Objects)
                 {
-                    this.attackLivingObject(var_LivingObject, var_EquipmentWeaponForAttack.NormalDamage);
+                    if (var_Object is LivingObject)
+                    {
+                        this.attackLivingObject((LivingObject)var_Object, var_EquipmentWeaponForAttack.NormalDamage);
+                    }
                 }
-                if (var_LivingObjects.Count > 0)
+                if (var_Objects.Count > 0)
                 {
                     var_EquipmentWeaponForAttack.attack();
                 }

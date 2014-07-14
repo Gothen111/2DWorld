@@ -47,6 +47,14 @@ namespace GameLibrary.Model.Object
             set { bounds = value; }
         }
 
+        private List<Rectangle> collisionBounds;
+
+        public List<Rectangle> CollisionBounds
+        {
+            get { return collisionBounds; }
+            set { collisionBounds = value; }
+        }
+
         private Map.Block.Block currentBlock;
 
         public Map.Block.Block CurrentBlock
@@ -71,6 +79,7 @@ namespace GameLibrary.Model.Object
 
         public Object()
         {
+            this.collisionBounds = new List<Rectangle>();
         }
 
         public Object(SerializationInfo info, StreamingContext ctxt)
@@ -85,6 +94,14 @@ namespace GameLibrary.Model.Object
             this.bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
 
             this.objects = (List<Object>)info.GetValue("objects", typeof(List<Object>));
+
+            List<Util.Square> var_List = (List<Util.Square>)info.GetValue("collisionBounds", typeof(List<Util.Square>));
+            this.collisionBounds = new List<Rectangle>();
+
+            foreach (Util.Square var_Square in var_List)
+            {
+                this.collisionBounds.Add(var_Square.Rectangle);
+            }
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -95,9 +112,15 @@ namespace GameLibrary.Model.Object
             info.AddValue("size", this.size, typeof(Vector3));
             info.AddValue("velocity", this.velocity, typeof(Vector3));
 
-            //info.AddValue("bounds", this.bounds, typeof(Rectangle));
-
             info.AddValue("objects", this.objects, typeof(List<Object>));
+
+            List<Util.Square> var_List = new List<Util.Square>();
+            foreach (Rectangle var_Rectangle in this.collisionBounds)
+            {
+                var_List.Add(new Util.Square(var_Rectangle));
+            }
+
+            info.AddValue("collisionBounds", var_List, typeof(List<Util.Square>)); //???
         }
 
         public virtual void update()

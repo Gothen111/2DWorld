@@ -34,9 +34,18 @@ namespace GameLibrary.Model.Object
             set { stackMax = value; }
         }
 
+        private bool onlyFromPlayerTakeAble;
+
+        public bool OnlyFromPlayerTakeAble
+        {
+            get { return onlyFromPlayerTakeAble; }
+            set { onlyFromPlayerTakeAble = value; }
+        }
+
         public ItemObject()
             :base()
         {
+            this.onlyFromPlayerTakeAble = false;
         }
 
         public ItemObject(SerializationInfo info, StreamingContext ctxt)
@@ -58,14 +67,21 @@ namespace GameLibrary.Model.Object
         public override void onCollide(AnimatedObject _CollideWith)
         {
             base.onCollide(_CollideWith);
-            if (_CollideWith is CreatureObject)
+            if (this.onlyFromPlayerTakeAble)
             {
-                ((CreatureObject)_CollideWith).Inventory.addItemObjectToInventory(this);
+                if (_CollideWith is PlayerObject)
+                {
+                    ((PlayerObject)_CollideWith).Inventory.addItemObjectToInventory(this);
+                }
             }
-        }
-
-        public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
-        {
+            else
+            {
+                if (_CollideWith is CreatureObject)
+                {
+                    ((CreatureObject)_CollideWith).Inventory.addItemObjectToInventory(this);
+                }
+            }
+           
         }
     }
 }

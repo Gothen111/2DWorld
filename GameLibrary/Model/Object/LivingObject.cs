@@ -255,9 +255,9 @@ namespace GameLibrary.Model.Object
 
         public void interact()
         {
-            List<LivingObject> var_LivingObjects = Model.Map.World.World.world.getObjectsInRange(this.Position, this.Size.X + 5);
-            var_LivingObjects.Remove(this);
-            foreach (LivingObject var_LivingObject in var_LivingObjects)
+            List<Object> var_Objects = Model.Map.World.World.world.getObjectsInRange(this.Position, this.Size.X + 5);
+            var_Objects.Remove(this);
+            foreach (LivingObject var_LivingObject in var_Objects) // LIVINGOBJECTS
             {
                 var_LivingObject.getInteracted(this);
             }
@@ -323,7 +323,7 @@ namespace GameLibrary.Model.Object
                     Texture2D texture = Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath + "_Dead"];
                     this.GraphicPath = this.GraphicPath + "_Dead";
                     this.CurrentBlock.objectsPreEnviorment.Add(this);
-                    this.CurrentBlock.removeLivingObject(this);
+                    this.CurrentBlock.removeObject(this);
                 }
                 catch (Exception e)
                 {

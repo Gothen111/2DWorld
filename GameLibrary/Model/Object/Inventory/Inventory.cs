@@ -51,7 +51,7 @@ namespace GameLibrary.Model.Object.Inventory
                 {
                     this.items.Add(_ItemObject);
                     //TODO: Remove Item fom World
-                    //GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
+                    GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
                 }
             }
         }

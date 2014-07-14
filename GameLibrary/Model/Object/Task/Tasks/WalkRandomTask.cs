@@ -63,7 +63,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
         {
             if (this.finishedWalking)
             {
-                Region var_Region = Model.Map.World.World.world.getRegionLivingObjectIsIn(this.TaskOwner);
+                Region var_Region = Model.Map.World.World.world.getRegionObjectIsIn(this.TaskOwner);
                 if (var_Region != null)
                 {
                     Chunk var_Chunk = this.TaskOwner.CurrentBlock.Parent as Chunk;

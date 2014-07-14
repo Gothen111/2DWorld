@@ -7,6 +7,6 @@ namespace GameLibrary.Model.Map.World.SearchFlags
 {
     abstract public class Searchflag
     {
-        public abstract Boolean hasFlag(GameLibrary.Model.Object.LivingObject livingObject);
+        public abstract Boolean hasFlag(GameLibrary.Model.Object.Object _Object);
     }
 }

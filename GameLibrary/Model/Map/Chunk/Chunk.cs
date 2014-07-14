@@ -179,16 +179,16 @@ namespace GameLibrary.Model.Map.Chunk
             }
         }
 
-        public List<Object.LivingObject> getAllObjectsInChunk()
+        public List<Object.Object> getAllObjectsInChunk()
         {
-            List<Object.LivingObject> result = new List<Object.LivingObject>();
+            List<Object.Object> result = new List<Object.Object>();
             for (int x = 0; x < this.Size.X; x++)
             {
                 for (int y = 0; y < this.Size.Y; y++)
                 {
-                    foreach(Object.LivingObject var_LivingObject in this.getBlockAtPosition(x, y).Objects)
+                    foreach (Object.Object var_Object in this.getBlockAtPosition(x, y).Objects)
                     {
-                        result.Add(var_LivingObject);
+                        result.Add(var_Object);
                     }
                 }
             }

@@ -125,18 +125,18 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
             GameLibrary.Model.Map.World.World.world.getRegion(message.RegionId).setChunkAtPosition((int)message.Chunk.Position.X, (int)message.Chunk.Position.Y, message.Chunk);
-            foreach (GameLibrary.Model.Object.LivingObject var_LivingObject in message.Chunk.getAllObjectsInChunk())
+            foreach (GameLibrary.Model.Object.Object var_Object in message.Chunk.getAllObjectsInChunk())
             {
-                if (GameLibrary.Model.Map.World.World.world.getLivingObject(var_LivingObject.Id) == null)
+                if (GameLibrary.Model.Map.World.World.world.getObject(var_Object.Id) == null)
                 {
-                    GameLibrary.Model.Map.World.World.world.addLivingObject(var_LivingObject);
+                    GameLibrary.Model.Map.World.World.world.addObject(var_Object);
                 }
             }
             if (GameLibrary.Connection.NetworkManager.client != null)
             {
                 if (GameLibrary.Connection.NetworkManager.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedChunk)
                 {
-                    GameLibrary.Model.Object.PlayerObject var_PlayerObject = (GameLibrary.Model.Object.PlayerObject) GameLibrary.Model.Map.World.World.world.getLivingObject(GameLibrary.Connection.NetworkManager.client.PlayerObject.Id);
+                    GameLibrary.Model.Object.PlayerObject var_PlayerObject = (GameLibrary.Model.Object.PlayerObject) GameLibrary.Model.Map.World.World.world.getObject(GameLibrary.Connection.NetworkManager.client.PlayerObject.Id);
                     GameLibrary.Connection.NetworkManager.client.PlayerObject = var_PlayerObject;
                     GameLibrary.Model.Map.World.World.world.addPlayerObject(GameLibrary.Connection.NetworkManager.client.PlayerObject, true);
 
@@ -158,7 +158,7 @@ namespace Client.Connection
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
             if (GameLibrary.Model.Map.World.World.world != null)
             {
-                GameLibrary.Model.Object.LivingObject var_LivingObject = GameLibrary.Model.Map.World.World.world.getLivingObject(message.Id) ?? GameLibrary.Model.Map.World.World.world.addLivingObject(GameLibrary.Util.Serializer.DeserializeObjectFromString<GameLibrary.Model.Object.LivingObject>(message.Content));//CreatureFactory.creatureFactory.createNpcObject(message.Id, RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male));
+                GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject)(GameLibrary.Model.Map.World.World.world.getObject(message.Id) ?? GameLibrary.Model.Map.World.World.world.addObject(GameLibrary.Util.Serializer.DeserializeObjectFromString<GameLibrary.Model.Object.LivingObject>(message.Content)));//CreatureFactory.creatureFactory.createNpcObject(message.Id, RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male));
                 var_LivingObject.Position = var_LivingObject.Position;
                 var_LivingObject.MoveUp = message.MoveUp;
                 var_LivingObject.MoveDown = message.MoveDown;
@@ -174,7 +174,7 @@ namespace Client.Connection
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
             if (GameLibrary.Model.Map.World.World.world != null)
             {
-                GameLibrary.Model.Object.LivingObject var_LivingObject = GameLibrary.Model.Map.World.World.world.getLivingObject(message.Id);
+                GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject)GameLibrary.Model.Map.World.World.world.getObject(message.Id);
                 if (var_LivingObject != null)
                 {
                     var_LivingObject.Position = message.Position;
@@ -198,7 +198,7 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            GameLibrary.Model.Object.LivingObject var_LivingObject = GameLibrary.Model.Map.World.World.world.getLivingObject(message.Id);
+            GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject)GameLibrary.Model.Map.World.World.world.getObject(message.Id);
             if (var_LivingObject != null)
             {
                 var_LivingObject.HealthPoints = message.Health;
