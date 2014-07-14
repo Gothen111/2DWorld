@@ -90,15 +90,15 @@ namespace Server.Connection
 
             Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
 
-            GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
+            GameLibrary.Model.Map.Region.Region var_Region = GameLibrary.Model.Map.World.World.world.getRegionAtPosition(message.Position.X, message.Position.Y);
 
-            if (var_Chunk != null)
+            if (var_Region != null)
             {
-                Configuration.networkManager.SendMessageToClient(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), var_Client);
+                Configuration.networkManager.SendMessageToClient(new UpdateRegionMessage(var_Region), var_Client);
             }
             else
             {
-                GameLibrary.Logger.Logger.LogErr("handleRequestChunkMessage: Chunk an Position X: " + message.Position.X + " Y: " + message.Position.Y + " ist null");
+                GameLibrary.Logger.Logger.LogErr("ServerIGameMessageManager->handleRequestChunkMessage(...): Region an Position X: " + message.Position.X + " Y: " + message.Position.Y + " existiert nicht!");
             }
         }
 
@@ -121,7 +121,7 @@ namespace Server.Connection
             }
             else
             {
-                GameLibrary.Logger.Logger.LogErr("handleRequestChunkMessage: Chunk an Position X: " + message.Position.X + " Y: " + message.Position.Y + " ist null");
+                GameLibrary.Logger.Logger.LogErr("ServerIGameMessageManager->handleRequestChunkMessage(...): Chunk an Position X: " + message.Position.X + " Y: " + message.Position.Y + " existiert nicht!");
             }
         }
 

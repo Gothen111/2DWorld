@@ -81,7 +81,7 @@ namespace Server.Connection
 
         private void sendMessageToClientsInRange(IGameMessage _IGameMessage, GameMessageImportance _GameMessageImportance)
         {
-            int var_Range = 1000;
+            int var_Range = 500;
 
             foreach (Client var_Client in NetworkManager.serverClients)
             {

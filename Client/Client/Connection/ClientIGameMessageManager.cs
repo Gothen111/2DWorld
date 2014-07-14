@@ -113,7 +113,7 @@ namespace Client.Connection
                 }
                 else
                 {
-                    GameLibrary.Logger.Logger.LogErr("Region sollte hinzugefügt werden, ist allerdings schon vorhanden -> Benutze UpdateChunkMessage");
+                    GameLibrary.Logger.Logger.LogDeb("Region sollte hinzugefügt werden, ist allerdings schon vorhanden -> Benutze UpdateChunkMessage");
                 }
                 if (GameLibrary.Connection.NetworkManager.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedRegion)
                 {
@@ -135,6 +135,7 @@ namespace Client.Connection
                     GameLibrary.Model.Map.World.World.world.addObject(var_Object);
                 }
             }
+
             if (GameLibrary.Connection.NetworkManager.client != null)
             {
                 if (GameLibrary.Connection.NetworkManager.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedChunk)
@@ -189,7 +190,7 @@ namespace Client.Connection
                 }
                 else
                 {
-                    GameLibrary.Logger.Logger.LogErr("LivingObject mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Health wird nicht geupdatet");
+                    GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Position wird nicht geupdatet");
                     GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.RequestLivingObjectMessage(message.Id), GameLibrary.Connection.GameMessageImportance.UnImportant));
                 }
             }
@@ -210,7 +211,7 @@ namespace Client.Connection
             }
             else
             {
-                GameLibrary.Logger.Logger.LogErr("LivingObject mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Health wird nicht geupdatet");
+                GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Health wird nicht geupdatet");
             }
         }
 
@@ -227,7 +228,7 @@ namespace Client.Connection
             }
             else
             {
-                GameLibrary.Logger.Logger.LogErr("LivingObject mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Wurde nicht gelöscht");
+                GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Wurde nicht gelöscht");
             }
         }
     }

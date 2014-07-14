@@ -17,7 +17,7 @@ namespace GameLibrary.Logger
             if (LogLevel >= 0 || OnlyError)
             {
                 Console.ForegroundColor = ConsoleColor.Red; // DarkRed
-                writeToConsole("Error: " + _Msg);
+                writeToConsole("Error", _Msg);
             }
         }
 
@@ -28,11 +28,11 @@ namespace GameLibrary.Logger
                 Console.ForegroundColor = ConsoleColor.DarkCyan; // DarkCyan
                 if (_UseSameRow)
                 {
-                    writeToConsole(String.Format("Debug: {0}    \r", _Msg));
+                    writeToConsole("Debug", String.Format("{0}    \r", _Msg));
                 }
                 else
                 {
-                    writeToConsole("Debug: " + _Msg);
+                    writeToConsole("Debug", _Msg);
                 }
             }
         }
@@ -49,11 +49,11 @@ namespace GameLibrary.Logger
                 Console.ForegroundColor = ConsoleColor.Gray;
                 if (_UseSameRow)
                 {
-                    writeToConsole(String.Format("Info : {0}    \r", _Msg));
+                    writeToConsole("Info", String.Format("{0}    \r", _Msg));
                 }
                 else
                 {
-                    writeToConsole("Info : " + _Msg);
+                    writeToConsole("Info", _Msg);
                 }
             }
         }
@@ -63,19 +63,26 @@ namespace GameLibrary.Logger
             LogInfo(_Msg, false);
         }
 
-        public static void writeToConsole(string _String)
+        public static void writeToConsole(String _Type, String _Message)
         {
             if (filePath.Equals("") || !GameLibrary.Configuration.Configuration.isHost)
             {
-                Console.WriteLine(_String);
+                Console.WriteLine(_Type + " : " + _Message);
             }
             else
             {
-                StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Append));
-                writer.WriteLine(_String);
-                writer.Flush();
-                writer.Close();
+                saveToFile(_Type, _Message);
             }
+        }
+
+        public static void saveToFile(String _Type, String _Message)
+        {
+            StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Append));
+            writer.WriteLine("<Date>" + DateTime.Now.TimeOfDay + "</Date>");
+            writer.WriteLine("<Type>" + _Type + "</Type>");
+            writer.WriteLine("<Message>" + _Message + "</Message>");
+            writer.Flush();
+            writer.Close();
         }
     }
 }

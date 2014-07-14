@@ -34,25 +34,6 @@ namespace GameLibrary.Factory
 
             var_Result = new Region(_Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Grassland, _ParentWorld);
 
-            /*for (int x = 0; x < Region.regionSizeX; x++)
-            {
-                for (int y = 0; y < Region.regionSizeY; y++)
-                {*/
-            if (Configuration.Configuration.isHost)
-            {
-                for (int x = 0; x < 1; x++)
-                {
-                    for (int y = 0; y < 1; y++)
-                    {
-                        this.createChunkInRegion(var_Result, _PosX + x * Chunk.chunkSizeX * Block.BlockSize, _PosY + y * Chunk.chunkSizeY * Block.BlockSize);
-                    }
-                }
-                var_Result.setAllNeighboursOfChunks();
-            }
-                //}
-                //Logger.Logger.LogInfo("Erstelle Region " + var_Result.Name + " : " + (int)(((float)x / Region.regionSizeX) * 100) + "%", true);
-            //}
-
             FarmFactory.farmFactory.generateFarms(var_Result, 1, 0);
 
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");

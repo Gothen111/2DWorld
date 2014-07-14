@@ -64,6 +64,8 @@ namespace GameLibrary.Model.Map.World
             }
 
             this.playerObjects = new List<PlayerObject>();
+
+            Logger.Logger.LogInfo("Welt " + _Name + " wurde erstellt!");
         }
         #endregion
         public bool addRegion(Region.Region _Region)

@@ -47,7 +47,6 @@ namespace Server
             Configuration.commandManager = new Commands.ServerCommandManager();
             Configuration.networkManager = new ServerNetworkManager();
 
-
             this.IsMouseVisible = true;
         }
 
