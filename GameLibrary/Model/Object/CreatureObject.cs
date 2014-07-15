@@ -142,9 +142,9 @@ namespace GameLibrary.Model.Object
             if(this.Animation != null)
                 var_DrawPositionExtra = this.Animation.drawPositionExtra();
              Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
-             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], var_Position, Color.White); 
-            this.drawEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
+             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], var_Position, Color.White);    
             base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
+            this.drawEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
         }
 
         private void drawEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
