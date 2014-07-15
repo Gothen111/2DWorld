@@ -196,6 +196,9 @@ namespace GameLibrary.Model.Map.World
             if (_Target != null)
             {
                 List<Object.Object> var_Objects = this.objectsToUpdate; // = this.getObjectsInRange(_Target.Position, 400);
+
+                var_Objects.Sort(new Ressourcen.ObjectPositionComparer());
+
                 foreach (AnimatedObject var_AnimatedObject in var_Objects)
                 {
                     //TODO: Objekte müssen abhänig von position gemalt werden! also ne layerdepth bekommen!

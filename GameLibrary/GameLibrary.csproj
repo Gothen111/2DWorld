@@ -213,6 +213,7 @@
     <Compile Include="Peripherals\MouseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ressourcen\Font\EFont.cs" />
+    <Compile Include="Ressourcen\ObjectPositionComparer.cs" />
     <Compile Include="Ressourcen\RessourcenManager.cs" />
     <Compile Include="UserInterface\KeyboardListener.cs" />
     <Compile Include="UserInterface\MouseEnum\MouseEnum.cs" />

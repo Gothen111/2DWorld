@@ -147,7 +147,7 @@ namespace Server
 
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront,
+            spriteBatch.Begin(SpriteSortMode.Deferred,
                     BlendState.AlphaBlend, null, null, null, null,
                     GameLibrary.Camera.Camera.camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
             if (GameLibrary.Camera.Camera.camera.Target != null)
