@@ -10,8 +10,6 @@ namespace GameLibrary.Model.Map.Block
         Layer1,
         Layer2,
         Layer3,
-        Layer4,
-        Layer5,
-        Layer6
+        Layer4
     }
 }

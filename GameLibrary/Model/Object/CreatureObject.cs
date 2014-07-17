@@ -38,9 +38,7 @@ namespace GameLibrary.Model.Object
 
         public CreatureObject()
         {
-            this.LayerDepth = 0.1f;
             this.equipment = new List<EquipmentObject>();
-            this.addEquipmentObject(GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Spear));
             this.inventory = new Inventory.Inventory();
         }
 
@@ -157,7 +155,6 @@ namespace GameLibrary.Model.Object
             {
                 var_EquipmentObject.Position = new Vector3(var_Position, 0);
                 var_EquipmentObject.Animation = this.Animation;
-                var_EquipmentObject.LayerDepth = this.LayerDepth - 0.1f;
                 var_EquipmentObject.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
             }
         }

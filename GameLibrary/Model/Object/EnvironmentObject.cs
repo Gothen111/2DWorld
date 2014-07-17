@@ -11,7 +11,6 @@ namespace GameLibrary.Model.Object
     {
         public EnvironmentObject() :base()
         {
-            this.LayerDepth = 0.0f;
             this.CanBeEffected = false;
         }
 

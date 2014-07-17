@@ -54,6 +54,15 @@ namespace GameLibrary.Factory
                         equipmentWeaponObject.AttackSpeedMax = 30;
                         break;
                     }
+                case WeaponEnum.Paper:
+                    {
+                        equipmentWeaponObject.NormalDamage = 5;
+                        equipmentWeaponObject.WeaponEnum = _WeaponEnum;
+                        equipmentWeaponObject.Range = 80;
+                        equipmentWeaponObject.AttackSpeed = 0;
+                        equipmentWeaponObject.AttackSpeedMax = 20;
+                        break;
+                    }
             }
 
             return equipmentWeaponObject;

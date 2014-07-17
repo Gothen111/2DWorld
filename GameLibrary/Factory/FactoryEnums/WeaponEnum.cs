@@ -8,6 +8,7 @@ namespace GameLibrary.Factory.FactoryEnums
     public enum WeaponEnum
     {
         Sword,
-        Spear
+        Spear,
+        Paper
     }
 }

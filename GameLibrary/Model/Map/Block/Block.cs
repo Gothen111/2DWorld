@@ -103,13 +103,11 @@ namespace GameLibrary.Model.Map.Block
             {
                 this.objects.Add(_Object);
             }
-            //_LivingObject.ObjectMoves += this.HandleEvent;
             _Object.CurrentBlock = this;
         }
 
         public void removeObject(Object.Object _Object)
         {
-            //_LivingObject.ObjectMoves -= this.HandleEvent;
             this.objects.Remove(_Object);
         }
 
@@ -141,7 +139,7 @@ namespace GameLibrary.Model.Map.Block
             }
 
             BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
-            while ((int)var_Layer < 6)
+            while ((int)var_Layer < this.layer.Length)
             {
                 BlockEnum var_Enum = this.layer[(int)var_Layer];
                 if (var_Enum != BlockEnum.Nothing)
@@ -150,22 +148,22 @@ namespace GameLibrary.Model.Map.Block
                     {
                         if (var_Enum == BlockEnum.Gras)
                         {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.97f);
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], var_DrawPosition, var_Color);
                         }
                         if (var_Enum == BlockEnum.Wall)
                         {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.97f);
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], var_DrawPosition, var_Color);
                         }
                     }
                     if (var_Layer == BlockLayerEnum.Layer2)
                     {
                         if (var_Enum == BlockEnum.Gras)
                         {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.96f);
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], var_DrawPosition, var_Color);
                         }
                         if (var_Enum == BlockEnum.Dirt)
                         {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], var_DrawPosition, null, var_Color, 0, Vector2.Zero, 1, SpriteEffects.None, 0.96f);
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], var_DrawPosition, var_Color);
                         }
                     }
                 }
@@ -175,22 +173,13 @@ namespace GameLibrary.Model.Map.Block
 
         public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            //int var_ChunkY = (int)(this.parentChunk.Position.Y / Chunk.Chunk.chunkSizeY*Block.BlockSize);
-            float var_LayerDepth = 0.79f;
-
-            int var_i = 0;
             foreach (Object.LivingObject var_LivingObject in this.objects)
             {
-                var_LivingObject.LayerDepth = var_LayerDepth - (this.Position.Y - var_LivingObject.Position.Y) * 0.0001f - var_i * 0.00001f; // ??? VLL abs noch dran?
                 var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
-                var_i += 1;
             }
-            var_i = 0;
             foreach (Object.LivingObject var_LivingObject in this.objectsPreEnviorment)
             {
-                var_LivingObject.LayerDepth = var_LayerDepth + 0.1f - (this.Position.Y - var_LivingObject.Position.Y) * 0.0001f - var_i * 0.00001f; // ??? VLL abs noch dran?
                 var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
-                var_i += 1;
             }
         }
     }

@@ -106,14 +106,6 @@ namespace GameLibrary.Model.Object
             set { standartStandPositionX = value; }
         }
 
-        private float layerDepth;
-
-        public float LayerDepth
-        {
-            get { return layerDepth; }
-            set { layerDepth = value; }
-        }
-
         public AnimatedObject() : base()
         {
             this.scale = 1f;
@@ -130,7 +122,6 @@ namespace GameLibrary.Model.Object
         public AnimatedObject(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
         {
             this.scale = (float)info.GetValue("scale", typeof(float));
-            this.layerDepth = (float)info.GetValue("layerDepth", typeof(float));
             this.movementSpeed = (float)info.GetValue("movementSpeed", typeof(float));
 
             this.directionEnum = (DirectionEnum)info.GetValue("directionEnum", typeof(DirectionEnum));
@@ -145,7 +136,6 @@ namespace GameLibrary.Model.Object
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("scale", this.scale, typeof(float));
-            info.AddValue("layerDepth", this.layerDepth, typeof(float));
             info.AddValue("movementSpeed", this.movementSpeed, typeof(float));
 
             info.AddValue("directionEnum", this.directionEnum, typeof(DirectionEnum));
@@ -296,7 +286,7 @@ namespace GameLibrary.Model.Object
 
             if (this.animation != null && !this.animation.graphicPath().Equals(""))
             {
-                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, this.layerDepth);
+                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, 1.0f);
             }
         }
 
