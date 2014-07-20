@@ -298,9 +298,14 @@ namespace GameLibrary.Model.Map.World
         {
             Util.Circle circle = new Util.Circle(_Position, _Range);
             List<Object.Object> result = new List<Object.Object>();
+            Rectangle surroundingRectangle = new Rectangle((int)(circle.Position.X - circle.Radius), (int)(circle.Position.Y - circle.Radius), (int)(circle.Radius * 2), (int)(circle.Radius * 2));
 
-            getObjectsInRange(circle, this.quadTree.Root, result, _SearchFlags);
+            getObjectsInRange(surroundingRectangle, this.quadTree.Root, result, _SearchFlags);
+            //TODO 
+            /*foreach (Object.Object var_Object in result)
+            {
 
+            }*/
             return result;
         }
 
@@ -347,37 +352,6 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
-        private void getObjectsInRange(Util.Circle aggroCircle, QuadTree<Object.Object>.QuadNode currentNode, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
-        {
-            if (Util.Intersection.CircleIsInRectangle(aggroCircle, currentNode.Bounds))
-            {
-                //Circle fits in node, so search in subnodes
-                Boolean circleFitsInSubnode = false;
-                foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
-                {
-                    if (node != null)
-                    {
-                        if (Util.Intersection.CircleIsInRectangle(aggroCircle, node.Bounds))
-                        {
-                            circleFitsInSubnode = true;
-                            getObjectsInRange(aggroCircle, node, result, _SearchFlags);
-                        }
-                    }
-                }
-
-                //Aggrocircle fit into a subnode? then
-                if (!circleFitsInSubnode)
-                {
-                    addAllObjectsInRange(currentNode, aggroCircle, result, _SearchFlags);
-                }
-                return;
-            }
-            if (currentNode.Equals(quadTree.Root))
-            {
-                addAllObjectsInRange(currentNode, aggroCircle, result, _SearchFlags);
-            }
-        }
-
         private void getObjectsInRange(Rectangle bounds, QuadTree<Object.Object>.QuadNode currentNode, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
             if (Util.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
@@ -403,49 +377,7 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
-        private void addAllObjectsInRange(QuadTree<Object.Object>.QuadNode currentNode, Util.Circle circle, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
-        {
-            foreach (Object.Object var_Object in currentNode.Objects)
-            {
-                if (!result.Contains(var_Object))
-                {
-                    Boolean containsAllFlags = true;
-                    foreach (SearchFlags.Searchflag searchFlag in _SearchFlags)
-                    {
-                        if (!searchFlag.hasFlag(var_Object))
-                            containsAllFlags = false;
-
-                    }
-                    if (!containsAllFlags)
-                        continue;
-                    if (Util.Intersection.CircleIntersectsRectangle(circle, var_Object.Bounds))
-                    {
-                        if (var_Object.CollisionBounds.Count > 0)
-                        {
-                            foreach (Rectangle collisionBound in var_Object.CollisionBounds)
-                            {
-                                if (Util.Intersection.CircleIntersectsRectangle(circle, collisionBound))
-                                {
-                                    result.Add(var_Object);
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            result.Add(var_Object);
-                        }
-                    }
-                }
-            }
-            foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
-            {
-                if (node != null)
-                    addAllObjectsInRange(node, circle, result, _SearchFlags);
-            }
-        }
-
-        private void addAllObjectsInRange(QuadTree<Object.Object>.QuadNode currentNode, Rectangle bounds, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
+        public void addAllObjectsInRange(QuadTree<Object.Object>.QuadNode currentNode, Rectangle bounds, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
             foreach (Object.Object var_Object in currentNode.Objects)
             {
