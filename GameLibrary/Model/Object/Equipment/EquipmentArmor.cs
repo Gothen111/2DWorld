@@ -46,8 +46,6 @@ namespace GameLibrary.Model.Object.Equipment
             this.armorEnum = (ArmorEnum)info.GetValue("armorEnum", typeof(ArmorEnum));
 
             this.normalArmor = (int)info.GetValue("normalArmor", typeof(int));
-
-            this.searchFlags = (List<Map.World.SearchFlags.Searchflag>)info.GetValue("searchFlags", typeof(List<Map.World.SearchFlags.Searchflag>));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -55,8 +53,6 @@ namespace GameLibrary.Model.Object.Equipment
             info.AddValue("armorEnum", armorEnum, typeof(ArmorEnum));
 
             info.AddValue("normalArmor", normalArmor, typeof(int));
-
-            info.AddValue("searchFlags", this.searchFlags, typeof(List<Map.World.SearchFlags.Searchflag>));
 
             base.GetObjectData(info, ctxt);
         }

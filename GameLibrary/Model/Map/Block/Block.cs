@@ -118,7 +118,7 @@ namespace GameLibrary.Model.Map.Block
             {
                 if (var_LivingObject.IsDead)
                 {
-                    this.objects.Remove(var_LivingObject);
+                    //this.objects.Remove(var_LivingObject);
                 }
                 else
                 {

@@ -97,10 +97,7 @@ namespace GameLibrary.Model.Object
             {
                 if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentWeapon)
                 {
-                    //if (((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).WeaponEnum == GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword)
-                    //{
-                        var_EquipmentWeaponForAttack = ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject);
-                    //}
+                    var_EquipmentWeaponForAttack = ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject);
                 }
             }
             if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady())
@@ -121,7 +118,7 @@ namespace GameLibrary.Model.Object
             }
         }
 
-        public override int calculateDamage(int _DamageAmount)
+        public override float calculateDamage(float _DamageAmount)
         {
             foreach (EquipmentObject var_EquipmentObject in this.equipment)
             {

@@ -257,9 +257,12 @@ namespace GameLibrary.Model.Object
         {
             List<Object> var_Objects = Model.Map.World.World.world.getObjectsInRange(this.Position, this.Size.X + 5);
             var_Objects.Remove(this);
-            foreach (LivingObject var_LivingObject in var_Objects) // LIVINGOBJECTS
+            foreach (Object var_Object in var_Objects)
             {
-                var_LivingObject.getInteracted(this);
+                if (var_Object is LivingObject)
+                {
+                    ((LivingObject)var_Object).getInteracted(this);
+                }
             }
         }
 
@@ -269,7 +272,6 @@ namespace GameLibrary.Model.Object
 
         public void attackLivingObject(LivingObject _Target, int _Damage)
         {
-            //ChangeDirection(_Target.Position);
             this.Animation = new Animation.Animations.AttackAnimation(this);
             if(Configuration.Configuration.isHost)
                 _Target.onAttacked(this, _Damage);
@@ -286,7 +288,7 @@ namespace GameLibrary.Model.Object
             this.Position = _TargetPosition;
         }
 
-        public Boolean isInfight()
+        public Boolean isInFight()
         {
             return aggroSystem.AggroItems.Count > 0;
         }
@@ -307,12 +309,12 @@ namespace GameLibrary.Model.Object
             this.checkChangedBlock();
         }
 
-        public virtual int calculateDamage(int _DamageAmount)
+        public virtual float calculateDamage(float _DamageAmount)
         {
             return _DamageAmount;
         }
 
-        public void damage(int _DamageAmount)
+        public void damage(float _DamageAmount)
         {
             this.healthPoints -= this.calculateDamage(_DamageAmount);
             if (this.healthPoints <= 0 && !this.isDead)
