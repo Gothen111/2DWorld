@@ -24,7 +24,7 @@ namespace GameLibrary.Model.Map.Block
 
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Block.BlockSize - 1, (int)Block.BlockSize - 1); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Block.BlockSize /* - 1 */ , (int)Block.BlockSize /* -1 */); } 
         }
 
         private List<Object.Object> objects;
