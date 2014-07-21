@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Input;
 using GameLibrary.UserInterface;
 using GameLibrary.UserInterface.MouseEnum;
 
+using Microsoft.Xna.Framework.Graphics;
+
 namespace GameLibrary.Gui
 {
     public class Component : MouseListener, KeyboardListener
@@ -102,7 +104,7 @@ namespace GameLibrary.Gui
             }
         }
 
-        public void onClick(MouseEnum mouseButton)
+        public virtual void onClick(MouseEnum mouseButton)
         {
             this.IsFocused = true;
             if (!GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Contains(this))
@@ -113,14 +115,18 @@ namespace GameLibrary.Gui
             }
         }
 
-        public void keyboardButtonClicked(Keys buttonPressed)
+        public virtual void keyboardButtonClicked(Keys buttonPressed)
         {
 
         }
 
-        public void keyboardButtonReleased(Keys buttonReleased)
+        public virtual void keyboardButtonReleased(Keys buttonReleased)
         {
 
+        }
+
+        public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
+        {
         }
     }
 }

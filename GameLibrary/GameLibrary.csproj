@@ -153,6 +153,9 @@
     <Compile Include="Gui\Container.cs" />
     <Compile Include="Gui\ContainerStrategy\OverlayStrategy.cs" />
     <Compile Include="Gui\ContainerStrategy\Strategy.cs" />
+    <Compile Include="Gui\ImageComponent.cs" />
+    <Compile Include="Gui\Button.cs" />
+    <Compile Include="Gui\TextField.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Model\Behaviour\Behaviour.cs" />
     <Compile Include="Model\Behaviour\BehaviourItem.cs" />

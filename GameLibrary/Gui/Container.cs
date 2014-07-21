@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GameLibrary.Gui
 {
@@ -49,6 +50,11 @@ namespace GameLibrary.Gui
         {
             if(this.components.Contains(_Component))
                 this.components.Remove(_Component);
+        }
+
+        public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
+        {
+            base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
         }
     }
 }
