@@ -21,12 +21,12 @@ namespace GameLibrary.Gui
 
         private ContainerManager()
         {
-            this.createStartMenu();
+            this.setMenu(new StartMenu());
         }
 
-        public void createStartMenu()
+        public void setMenu(Container _Menu)
         {
-            this.activeContainer = new StartMenu();
+            this.activeContainer = _Menu;
         }
     }
 }

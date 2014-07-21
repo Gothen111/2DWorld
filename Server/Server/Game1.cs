@@ -34,8 +34,6 @@ namespace Server
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private int counter = 0;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);

@@ -74,6 +74,7 @@ namespace GameLibrary.Ressourcen
 
             loadTexture(_ContentManager, "Gui/Button", "Gui/Button");
             loadTexture(_ContentManager, "Gui/TextField", "Gui/TextField");
+            loadTexture(_ContentManager, "Gui/Background", "Gui/Background");
 
             Logger.Logger.LogInfo("Ressourcen wurden mit " + this.loadingErrorsCount + " Fehler(n) geladen");
         }

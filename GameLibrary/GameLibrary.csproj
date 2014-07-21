@@ -154,8 +154,8 @@
     <Compile Include="Gui\ContainerManager.cs" />
     <Compile Include="Gui\ContainerStrategy\OverlayStrategy.cs" />
     <Compile Include="Gui\ContainerStrategy\Strategy.cs" />
-    <Compile Include="Gui\ImageComponent.cs" />
     <Compile Include="Gui\Button.cs" />
+    <Compile Include="Gui\GameSurface.cs" />
     <Compile Include="Gui\StartMenu.cs" />
     <Compile Include="Gui\TextField.cs" />
     <Compile Include="Logger\Logger.cs" />
