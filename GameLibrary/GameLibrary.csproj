@@ -151,6 +151,7 @@
     <Compile Include="Factory\RegionFactory.cs" />
     <Compile Include="Gui\Component.cs" />
     <Compile Include="Gui\Container.cs" />
+    <Compile Include="Gui\ContainerManager.cs" />
     <Compile Include="Gui\ContainerStrategy\OverlayStrategy.cs" />
     <Compile Include="Gui\ContainerStrategy\Strategy.cs" />
     <Compile Include="Gui\ImageComponent.cs" />
