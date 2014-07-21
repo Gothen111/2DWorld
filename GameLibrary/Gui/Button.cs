@@ -41,7 +41,9 @@ namespace GameLibrary.Gui
         public void StartAction()
         {
             if (this.action != null)
+            {
                 this.action();
+            }
         }
 
         public override void onClick(UserInterface.MouseEnum.MouseEnum mouseButton)
