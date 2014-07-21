@@ -55,7 +55,7 @@ namespace Client
         {
             GameLibrary.Camera.Camera.camera = new GameLibrary.Camera.Camera(GraphicsDevice.Viewport);
 
-            Configuration.networkManager.Start("127.0.0.1", "14242");
+            //Configuration.networkManager.Start("127.0.0.1", "14242");
 
             base.Initialize();
         }
