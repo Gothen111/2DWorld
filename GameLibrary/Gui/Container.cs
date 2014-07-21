@@ -55,6 +55,10 @@ namespace GameLibrary.Gui
         public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
             base.draw(_GraphicsDevice, _SpriteBatch);
+            foreach (Component var_Component in this.components)
+            {
+                var_Component.draw(_GraphicsDevice, _SpriteBatch);
+            }
         }
     }
 }
