@@ -62,6 +62,14 @@ namespace GameLibrary.Gui
             set { allowMultipleFocus = value; }
         }
 
+        private String backgroundGraphicPath;
+
+        public String BackgroundGraphicPath
+        {
+            get { return backgroundGraphicPath; }
+            set { backgroundGraphicPath = value; }
+        }
+
         public Component()
         {
             Peripherals.MouseManager.mouseFocus.Add(this);
@@ -130,7 +138,24 @@ namespace GameLibrary.Gui
 
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-
+            if (this.backgroundGraphicPath != null && !this.backgroundGraphicPath.Equals(""))
+            {
+                if (!this.IsHovered)
+                {
+                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                }
+                else
+                {
+                    try
+                    {
+                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                    }
+                    catch (Exception e)
+                    {
+                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                    }
+                }
+            }
         }
     }
 }

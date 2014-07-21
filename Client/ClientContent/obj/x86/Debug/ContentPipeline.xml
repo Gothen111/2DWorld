@@ -190,6 +190,15 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\TextField.xnb</Output>
       <Time>2014-07-21T22:59:37.2307474+02:00</Time>
     </Item>
+    <Item>
+      <Source>Gui\Background.png</Source>
+      <Name>Gui\Background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Background.xnb</Output>
+      <Time>2014-07-21T23:21:12.0389273+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

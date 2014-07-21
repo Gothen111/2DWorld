@@ -55,6 +55,11 @@ namespace GameLibrary.Gui
         public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
             base.draw(_GraphicsDevice, _SpriteBatch);
+
+            if (this.BackgroundGraphicPath != null && !this.BackgroundGraphicPath.Equals(""))
+            {
+                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.BackgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+            }
             foreach (Component var_Component in this.components)
             {
                 var_Component.draw(_GraphicsDevice, _SpriteBatch);

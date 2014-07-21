@@ -118,31 +118,7 @@ namespace Client
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred,
-                    BlendState.AlphaBlend, null, null, null, null,
-                    GameLibrary.Camera.Camera.camera.getMatrix());
-
-            if (GameLibrary.Camera.Camera.camera.Target != null)
-            {
-                GameLibrary.Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
-            }
-            else
-            {
-                spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Dein Charakter ist leider gestorben :(", new Vector2(50, 50), Color.White);
-            }
-
-            spriteBatch.End();
-
-            spriteBatch.Begin(SpriteSortMode.Deferred,
-                    BlendState.AlphaBlend, null, null, null, null,
-                    GameLibrary.Camera.Camera.camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
-
-            if (GameLibrary.Camera.Camera.camera.Target != null)
-            {
-                GameLibrary.Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
-            }
-
-            spriteBatch.End();
+            GameLibrary.Gui.ContainerManager.containerManager.ActiveContainer.draw(GraphicsDevice, spriteBatch);
 
             spriteBatch.Begin();
             if (gameTime.ElapsedGameTime.Milliseconds > 0)
@@ -158,9 +134,6 @@ namespace Client
                 spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
             }
 
-            GameLibrary.Gui.ContainerManager.containerManager.ActiveContainer.draw(GraphicsDevice, spriteBatch);
-
-            //spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + GameLibrary.Model.Map.World.World.world.QuadTree.Root.Objects.ToString(), new Vector2(200, 0), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
