@@ -15,6 +15,8 @@ namespace GameLibrary.Gui
 
         public StartMenu()
         {
+            this.AllowMultipleFocus = true;
+
             this.serverIPTextField = new TextField(new Rectangle(100, 100, 100, 20));
             this.add(this.serverIPTextField);
             this.serverPortTextField = new TextField(new Rectangle(200, 100, 100, 20));

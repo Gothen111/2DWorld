@@ -65,6 +65,8 @@ namespace GameLibrary.Gui
         public Component()
         {
             Peripherals.MouseManager.mouseFocus.Add(this);
+            IsFocusAble = true;
+            isVisible = true;
         }
 
         public Component(Rectangle _Bounds) : this()
