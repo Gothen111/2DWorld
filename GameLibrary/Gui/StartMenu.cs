@@ -17,11 +17,13 @@ namespace GameLibrary.Gui
         {
             this.AllowMultipleFocus = true;
 
-            this.serverIPTextField = new TextField(new Rectangle(100, 100, 100, 20));
+            this.serverIPTextField = new TextField(new Rectangle(200, 100, 289, 85));
+            this.serverIPTextField.BackgroundGraphicPath = "Gui/TextField";
             this.add(this.serverIPTextField);
-            this.serverPortTextField = new TextField(new Rectangle(200, 100, 100, 20));
+            this.serverPortTextField = new TextField(new Rectangle(200, 200, 289, 85));
+            this.serverPortTextField.BackgroundGraphicPath = "Gui/TextField";
             this.add(this.serverPortTextField);
-            this.connectServerButton = new Button(new Rectangle(200, 100, 50, 20));
+            this.connectServerButton = new Button(new Rectangle(200, 300, 289, 85));
             this.connectServerButton.BackgroundGraphicPath = "Gui/Button";
             this.add(this.connectServerButton);
             this.connectServerButton.Action = connectToServer;

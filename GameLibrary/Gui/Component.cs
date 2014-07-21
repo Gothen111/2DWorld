@@ -76,6 +76,7 @@ namespace GameLibrary.Gui
 
         public bool mouseClicked(MouseEnum mouseButtonClicked, Vector2 position)
         {
+            Logger.Logger.LogInfo("X: " + position.X + " Y: " + position.Y);
             if (position.X >= bounds.Left && position.X <= bounds.Right && position.Y >= bounds.Top && position.Y <= bounds.Bottom)
             {
                 onClick(mouseButtonClicked);
