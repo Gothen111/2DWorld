@@ -52,9 +52,9 @@ namespace GameLibrary.Gui
                 this.components.Remove(_Component);
         }
 
-        public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
+        public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
+            base.draw(_GraphicsDevice, _SpriteBatch);
         }
     }
 }

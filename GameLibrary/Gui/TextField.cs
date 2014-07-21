@@ -18,16 +18,26 @@ namespace GameLibrary.Gui
             set { text = value; }
         }
 
+        private Color foreGroundColor;
+
+        public Color ForeGroundColor
+        {
+            get { return foreGroundColor; }
+            set { foreGroundColor = value; }
+        }
+
         public TextField()
             : base()
         {
             this.text = "";
+            foreGroundColor = Color.Black;
         }
 
         public TextField(Rectangle _Bounds)
             : base(_Bounds)
         {
             this.text = "";
+            foreGroundColor = Color.Black;
         }
 
         public override void keyboardButtonClicked(Microsoft.Xna.Framework.Input.Keys buttonPressed)
@@ -55,6 +65,13 @@ namespace GameLibrary.Gui
                     }
                 }
             }
+        }
+
+        public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
+        {
+            base.draw(_GraphicsDevice, _SpriteBatch);
+            SpriteFont font = Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"];
+            _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X, this.Bounds.Y), this.foreGroundColor);
         }
     }
 }

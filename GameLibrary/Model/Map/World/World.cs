@@ -301,11 +301,18 @@ namespace GameLibrary.Model.Map.World
             Rectangle surroundingRectangle = new Rectangle((int)(circle.Position.X - circle.Radius), (int)(circle.Position.Y - circle.Radius), (int)(circle.Radius * 2), (int)(circle.Radius * 2));
 
             getObjectsInRange(surroundingRectangle, this.quadTree.Root, result, _SearchFlags);
-            //TODO 
-            /*foreach (Object.Object var_Object in result)
+            List<Object.Object> toRemove = new List<Object.Object>();
+            foreach (Object.Object var_Object in result)
             {
-
-            }*/
+                if (Vector3.Distance(var_Object.Position, _Position) > _Range) //TODO: Mit CollisionBounds berechnen, ob Object im Kreis liegt
+                {
+                    toRemove.Add(var_Object);
+                }
+            }
+            foreach (Object.Object var_Object in toRemove)
+            {
+                result.Remove(var_Object);
+            }
             return result;
         }
 

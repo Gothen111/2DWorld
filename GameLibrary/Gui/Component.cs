@@ -125,8 +125,9 @@ namespace GameLibrary.Gui
 
         }
 
-        public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
+        public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
+
         }
     }
 }

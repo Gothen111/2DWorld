@@ -30,12 +30,26 @@ namespace GameLibrary.Gui
 
         }
 
-        public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
+        public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
+            base.draw(_GraphicsDevice, _SpriteBatch);
             if (this.backgroundGraphicPath != null && !this.backgroundGraphicPath.Equals(""))
             {
-                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                if (!this.IsHovered)
+                {
+                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                }
+                else
+                {
+                    try
+                    {
+                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                    }
+                    catch (Exception e)
+                    {
+                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                    }
+                }
             }
         }
     }
