@@ -91,7 +91,12 @@ namespace GameLibrary.Peripherals
 
         private void notifyMouseFocusAboutClickEvent(UserInterface.MouseEnum.MouseEnum mouseButton, Vector2 position)
         {
+            List<UserInterface.MouseListener> copy = new List<UserInterface.MouseListener>();
             foreach (UserInterface.MouseListener listener in mouseFocus)
+            {
+                copy.Add(listener);
+            }
+            foreach (UserInterface.MouseListener listener in copy)
             {
                 listener.mouseClicked(mouseButton, position);
             }
@@ -99,7 +104,12 @@ namespace GameLibrary.Peripherals
 
         private void notifyMouseFocusAboutReleaseEvent(UserInterface.MouseEnum.MouseEnum mouseButton, Vector2 position)
         {
+            List<UserInterface.MouseListener> copy = new List<UserInterface.MouseListener>();
             foreach (UserInterface.MouseListener listener in mouseFocus)
+            {
+                copy.Add(listener);
+            }
+            foreach (UserInterface.MouseListener listener in copy)
             {
                 listener.mouseReleased(mouseButton, position);
             }
@@ -107,7 +117,12 @@ namespace GameLibrary.Peripherals
 
         private void notifyMouseFocusAboutMoveEvent(Vector2 position)
         {
+            List<UserInterface.MouseListener> copy = new List<UserInterface.MouseListener>();
             foreach (UserInterface.MouseListener listener in mouseFocus)
+            {
+                copy.Add(listener);
+            }
+            foreach (UserInterface.MouseListener listener in copy)
             {
                 listener.mouseMoved(position);
             }

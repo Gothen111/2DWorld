@@ -130,7 +130,7 @@ namespace GameLibrary.Gui
 
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-
+            
         }
     }
 }
