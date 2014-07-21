@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameLibrary.Gui
 {
-    class Container : Component
+    public class Container : Component
     {
         private List<Component> components;
 

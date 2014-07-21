@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace GameLibrary.Gui
 {
-    class ContainerManager
+    public class ContainerManager
     {
         public static ContainerManager containerManager = new ContainerManager();
 

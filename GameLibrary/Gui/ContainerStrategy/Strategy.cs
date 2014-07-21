@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameLibrary.Gui.ContainerStrategy
 {
-    abstract class Strategy
+    public abstract class Strategy
     {
         ///<summary>
         ///Platziert das Objekt so, dass es entsprechend der Strategy in dem Container liegt.

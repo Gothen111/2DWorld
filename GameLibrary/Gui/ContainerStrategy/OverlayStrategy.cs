@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GameLibrary.Gui.ContainerStrategy
 {
-    class OverlayStrategy : Strategy
+    public class OverlayStrategy : Strategy
     {
         private Container container;
 

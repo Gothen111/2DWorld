@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameLibrary.Gui
 {
-    class ImageComponent : Component
+    public class ImageComponent : Component
     {
         private String backgroundGraphicPath;
 

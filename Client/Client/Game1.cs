@@ -157,6 +157,9 @@ namespace Client
 
                 spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "FPS:" + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(0, 0), Color.White);
             }
+
+            GameLibrary.Gui.ContainerManager.containerManager.ActiveContainer.draw(GraphicsDevice, spriteBatch);
+
             //spriteBatch.DrawString(GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"], "Units: " + GameLibrary.Model.Map.World.World.world.QuadTree.Root.Objects.ToString(), new Vector2(200, 0), Color.White);
             spriteBatch.End();
 

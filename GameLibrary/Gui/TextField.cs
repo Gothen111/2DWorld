@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameLibrary.Gui
 {
-    class TextField : ImageComponent
+    public class TextField : ImageComponent
     {
         private String text;
 

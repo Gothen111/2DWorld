@@ -72,6 +72,8 @@ namespace GameLibrary.Ressourcen
 
             loadTexture(_ContentManager, "Character/GoldCoin", "Object/Character/GoldCoin");
 
+            loadTexture(_ContentManager, "Gui/Button", "Gui/Button");
+
             Logger.Logger.LogInfo("Ressourcen wurden mit " + this.loadingErrorsCount + " Fehler(n) geladen");
         }
 
