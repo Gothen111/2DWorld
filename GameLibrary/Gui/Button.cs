@@ -18,6 +18,14 @@ namespace GameLibrary.Gui
             set { text = value; }
         }
 
+        private Action action;
+
+        public Action Action
+        {
+            get { return action; }
+            set { action = value; }
+        }
+
         public Button()
             : base()
         {
@@ -30,9 +38,16 @@ namespace GameLibrary.Gui
             this.text = "";
         }
 
+        public void StartAction()
+        {
+            if (this.action != null)
+                this.action();
+        }
+
         public override void onClick(UserInterface.MouseEnum.MouseEnum mouseButton)
         {
             base.onClick(mouseButton);
+            this.StartAction();
         }
     }
 }
