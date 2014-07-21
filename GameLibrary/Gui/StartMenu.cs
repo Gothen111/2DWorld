@@ -16,10 +16,12 @@ namespace GameLibrary.Gui
         public StartMenu()
         {
             this.serverIPTextField = new TextField(new Rectangle(100, 100, 100, 20));
+            this.serverIPTextField.BackgroundGraphicPath = "Gui/Button";
             this.add(this.serverIPTextField);
-            this.serverPortTextField = new TextField(new Rectangle(200, 100, 100, 20));
+            this.serverPortTextField = new TextField(new Rectangle(200, 200, 100, 20));
+            this.serverPortTextField.BackgroundGraphicPath = "Gui/Button";
             this.add(this.serverPortTextField);
-            this.connectServerButton = new Button(new Rectangle(200, 100, 50, 20));
+            this.connectServerButton = new Button(new Rectangle(200, 300, 50, 20));
             this.connectServerButton.BackgroundGraphicPath = "Gui/Button";
             this.add(this.connectServerButton);
             this.connectServerButton.Action = connectToServer;
