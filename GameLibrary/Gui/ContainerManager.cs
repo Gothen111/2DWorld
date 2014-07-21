@@ -19,19 +19,14 @@ namespace GameLibrary.Gui
             set { activeContainer = value; }
         }
 
-        Container mainMenu;
-
         private ContainerManager()
         {
-            this.createMainMenu();
+            this.createStartMenu();
         }
 
-        public void createMainMenu()
+        public void createStartMenu()
         {
-            this.mainMenu = new Container(new Rectangle(0,0,500,500));
-            Button var_Button = new Button(new Rectangle(100,100,50,50));
-            var_Button.Action = 
-            this.mainMenu.add(var_Button);
+            this.activeContainer = new StartMenu();
         }
     }
 }
