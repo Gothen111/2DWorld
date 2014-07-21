@@ -13,7 +13,11 @@ namespace GameLibrary.Peripherals
 
         public static List<UserInterface.KeyboardListener> keyboardFocus = new List<UserInterface.KeyboardListener>();
 
-        List<Keys> keysPressed;
+        public static bool shiftPressed = false;
+
+        public static bool altPressed = false;
+
+        private List<Keys> keysPressed;
 
         private KeyboardManager()
         {
@@ -49,6 +53,10 @@ namespace GameLibrary.Peripherals
 
         private void notifyKeyboardFocusAboutClickEvent(Keys key)
         {
+            if (key == Keys.LeftShift)
+                KeyboardManager.shiftPressed = true;
+            if (key == Keys.LeftAlt)
+                KeyboardManager.altPressed = true;
             foreach (UserInterface.KeyboardListener listener in keyboardFocus)
             {
                 listener.keyboardButtonClicked(key);
@@ -57,6 +65,10 @@ namespace GameLibrary.Peripherals
 
         private void notifyKeyboardFocusAboutReleaseEvent(Keys key)
         {
+            if (key == Keys.LeftShift)
+                KeyboardManager.shiftPressed = false;
+            if (key == Keys.LeftAlt)
+                KeyboardManager.altPressed = false;
             foreach (UserInterface.KeyboardListener listener in keyboardFocus)
             {
                 listener.keyboardButtonReleased(key);
