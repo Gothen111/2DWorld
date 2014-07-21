@@ -65,7 +65,7 @@ namespace GameLibrary.Gui
         {
             base.draw(_GraphicsDevice, _SpriteBatch);
             SpriteFont font = Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"];
-            _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X, this.Bounds.Y), this.foreGroundColor);
+            _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X + 20, this.Bounds.Y + this.Bounds.Height/3), this.foreGroundColor);
         }
     }
 }
