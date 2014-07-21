@@ -15,6 +15,8 @@ namespace GameLibrary.Gui
 
         public StartMenu()
         {
+            this.AllowMultipleFocus = true;
+
             this.serverIPTextField = new TextField(new Rectangle(100, 100, 100, 20));
             this.serverIPTextField.BackgroundGraphicPath = "Gui/Button";
             this.add(this.serverIPTextField);
