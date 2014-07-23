@@ -31,6 +31,7 @@ namespace GameLibrary.Gui
             this.add(this.serverPortTextField);
             this.connectServerButton = new Button(new Rectangle(200, 300, 289, 85));
             this.connectServerButton.BackgroundGraphicPath = "Gui/Button";
+            this.connectServerButton.Text = "Connect";
             this.add(this.connectServerButton);
             this.connectServerButton.Action = connectToServer;
         }

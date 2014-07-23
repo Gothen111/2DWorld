@@ -8,16 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameLibrary.Gui
 {
-    public class Button : Component
+    public class Button : TextField
     {
-        private String text;
-
-        public String Text
-        {
-            get { return text; }
-            set { text = value; }
-        }
-
         private Action action;
 
         public Action Action
@@ -29,13 +21,13 @@ namespace GameLibrary.Gui
         public Button()
             : base()
         {
-            this.text = "";
+            this.TextAlign = TextAlign.Center;
         }
 
         public Button(Rectangle _Bounds)
             : base(_Bounds)
         {
-            this.text = "";
+            this.TextAlign = TextAlign.Center;
         }
 
         public void StartAction()

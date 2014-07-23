@@ -8,6 +8,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameLibrary.Gui
 {
+    public enum TextAlign
+    {
+        Left,
+        Center,
+        Right
+    }
+
     public class TextField : Component
     {
         private String text;
@@ -26,11 +33,20 @@ namespace GameLibrary.Gui
             set { foreGroundColor = value; }
         }
 
+        private TextAlign textAlign;
+
+        public TextAlign TextAlign
+        {
+            get { return textAlign; }
+            set { textAlign = value; }
+        }
+
         public TextField()
             : base()
         {
             this.text = "";
             foreGroundColor = Color.Black;
+            this.textAlign = TextAlign.Left;
         }
 
         public TextField(Rectangle _Bounds)
@@ -38,6 +54,7 @@ namespace GameLibrary.Gui
         {
             this.text = "";
             foreGroundColor = Color.Black;
+            this.textAlign = TextAlign.Left;
         }
 
         public override void keyboardButtonClicked(Microsoft.Xna.Framework.Input.Keys buttonPressed)
@@ -65,7 +82,18 @@ namespace GameLibrary.Gui
         {
             base.draw(_GraphicsDevice, _SpriteBatch);
             SpriteFont font = Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"];
-            _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X + 20, this.Bounds.Y + this.Bounds.Height/3), this.foreGroundColor);
+            if (this.textAlign == TextAlign.Left)
+            {
+                _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X + 20, this.Bounds.Y + this.Bounds.Height / 3), this.foreGroundColor);
+            }
+            else if (this.textAlign == TextAlign.Center)
+            {
+                _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X + this.Bounds.Width / 2 - font.MeasureString(this.text).X/2, this.Bounds.Y + this.Bounds.Height / 3), this.foreGroundColor);
+            }
+            else if (this.textAlign == TextAlign.Right)
+            {
+                _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X + this.Bounds.Width - 20 - font.MeasureString(this.text).X, this.Bounds.Y + this.Bounds.Height / 3), this.foreGroundColor);
+            }
         }
     }
 }
