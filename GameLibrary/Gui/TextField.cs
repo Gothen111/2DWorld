@@ -80,19 +80,24 @@ namespace GameLibrary.Gui
 
         public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
+            this.draw(_GraphicsDevice, _SpriteBatch, Vector2.Zero);
+        }
+
+        public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector2 _TextShiftPosition)
+        {
             base.draw(_GraphicsDevice, _SpriteBatch);
             SpriteFont font = Ressourcen.RessourcenManager.ressourcenManager.Fonts["Arial"];
             if (this.textAlign == TextAlign.Left)
             {
-                _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X + 20, this.Bounds.Y + this.Bounds.Height / 3), this.foreGroundColor);
+                _SpriteBatch.DrawString(font, this.text, (new Vector2(this.Bounds.X + 20, this.Bounds.Y + this.Bounds.Height / 3) + _TextShiftPosition), this.foreGroundColor);
             }
             else if (this.textAlign == TextAlign.Center)
             {
-                _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X + this.Bounds.Width / 2 - font.MeasureString(this.text).X/2, this.Bounds.Y + this.Bounds.Height / 3), this.foreGroundColor);
+                _SpriteBatch.DrawString(font, this.text, (new Vector2(this.Bounds.X + this.Bounds.Width / 2 - font.MeasureString(this.text).X / 2, this.Bounds.Y + this.Bounds.Height / 3) + _TextShiftPosition), this.foreGroundColor);
             }
             else if (this.textAlign == TextAlign.Right)
             {
-                _SpriteBatch.DrawString(font, this.text, new Vector2(this.Bounds.X + this.Bounds.Width - 20 - font.MeasureString(this.text).X, this.Bounds.Y + this.Bounds.Height / 3), this.foreGroundColor);
+                _SpriteBatch.DrawString(font, this.text, (new Vector2(this.Bounds.X + this.Bounds.Width - 20 - font.MeasureString(this.text).X, this.Bounds.Y + this.Bounds.Height / 3) + _TextShiftPosition), this.foreGroundColor);
             }
         }
     }

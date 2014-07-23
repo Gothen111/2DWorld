@@ -113,7 +113,7 @@ namespace GameLibrary.Gui
             {
                 if (this.isPressed)
                 {
-                    onClick(mouseButtonReleased);
+                    onClick(mouseButtonReleased, position);
                     return true;
                 }
             }
@@ -139,7 +139,7 @@ namespace GameLibrary.Gui
             }
         }
 
-        public virtual void onClick(MouseEnum mouseButton)
+        public virtual void onClick(MouseEnum mouseButton, Vector2 _MousePosition)
         {
             this.IsFocused = true;
             if (!GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Contains(this))

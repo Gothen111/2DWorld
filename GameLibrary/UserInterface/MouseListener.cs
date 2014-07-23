@@ -13,6 +13,6 @@ namespace GameLibrary.UserInterface
         bool mouseClicked(MouseEnum.MouseEnum mouseButtonClicked, Vector2 position);
         bool mouseReleased(MouseEnum.MouseEnum mouseButtonReleased, Vector2 position);
         void mouseMoved(Vector2 position);
-        void onClick(MouseEnum.MouseEnum mouseButton);
+        void onClick(MouseEnum.MouseEnum mouseButton, Vector2 _MousePosition);
     }
 }

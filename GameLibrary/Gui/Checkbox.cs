@@ -9,40 +9,39 @@ using GameLibrary.UserInterface.MouseEnum;
 
 namespace GameLibrary.Gui
 {
-    public class Button : TextField
+    public class Checkbox : Component
     {
-        private Action action;
+        private bool isChecked;
 
-        public Action Action
+        public bool IsChecked
         {
-            get { return action; }
-            set { action = value; }
+            get { return isChecked; }
+            set { isChecked = value; }
         }
 
-        public Button()
+        public Checkbox()
             : base()
         {
-            this.TextAlign = TextAlign.Center;
+            this.isChecked = false;
         }
 
-        public Button(Rectangle _Bounds)
+        public Checkbox(Rectangle _Bounds)
             : base(_Bounds)
         {
-            this.TextAlign = TextAlign.Center;
-        }
-
-        public void StartAction()
-        {
-            if (this.action != null)
-            {
-                this.action();
-            }
+            this.isChecked = false;
         }
 
         public override void onClick(UserInterface.MouseEnum.MouseEnum mouseButton, Vector2 _MousePosition)
         {
             base.onClick(mouseButton, _MousePosition);
-            this.StartAction();
+            if (this.isChecked)
+            {
+                this.isChecked = false;
+            }
+            else
+            {
+                this.isChecked = true;
+            }
         }
     }
 }
