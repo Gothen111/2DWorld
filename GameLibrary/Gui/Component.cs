@@ -46,6 +46,14 @@ namespace GameLibrary.Gui
             set { isHovered = value; }
         }
 
+        private bool isPressed;
+
+        public bool IsPressed
+        {
+            get { return isPressed; }
+            set { isPressed = value; }
+        }
+
         private bool isVisible;
 
         public bool IsVisible
@@ -82,12 +90,28 @@ namespace GameLibrary.Gui
             this.bounds = _Bounds;
         }
 
-        public bool mouseClicked(MouseEnum mouseButtonClicked, Vector2 position)
+        public virtual bool mouseClicked(MouseEnum mouseButtonClicked, Vector2 position)
+        {
+            if (position.X >= bounds.Left && position.X <= bounds.Right && position.Y >= bounds.Top && position.Y <= bounds.Bottom)
+            {
+                this.isPressed = true;
+                return true;
+            }
+            else
+            {
+                this.IsFocused = false;
+                this.isPressed = false;
+                GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Remove(this);
+                return false;
+            }
+        }
+
+        public virtual bool mouseReleased(MouseEnum mouseButtonReleased, Vector2 position)
         {
             Logger.Logger.LogInfo("X: " + position.X + " Y: " + position.Y);
             if (position.X >= bounds.Left && position.X <= bounds.Right && position.Y >= bounds.Top && position.Y <= bounds.Bottom)
             {
-                onClick(mouseButtonClicked);
+                onClick(mouseButtonReleased);
                 return true;
             }
             else
@@ -96,11 +120,6 @@ namespace GameLibrary.Gui
                 GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Remove(this);
                 return false;
             }
-        }
-
-        public void mouseReleased(MouseEnum mouseButtonReleased, Vector2 position)
-        {
-
         }
 
         public void mouseMoved(Vector2 position)
@@ -146,13 +165,35 @@ namespace GameLibrary.Gui
                 }
                 else
                 {
-                    try
+                    if (!this.isPressed)
                     {
-                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                        try
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                        }
+                        catch (Exception e)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                        }
                     }
-                    catch (Exception e)
+                    else
                     {
-                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                        try
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Pressed"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                        }
+                        catch (Exception e)
+                        {
+                            try
+                            {
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                            }
+                            catch (Exception f)
+                            {
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                            }
+                        }
+                        
                     }
                 }
             }
