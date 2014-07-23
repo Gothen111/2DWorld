@@ -120,6 +120,8 @@
     <Compile Include="Connection\ClientIGameMessageManager.cs" />
     <Compile Include="Connection\ClientMessageManager.cs" />
     <Compile Include="Connection\ClientNetworkManager.cs" />
+    <Compile Include="Particle\Particle.cs" />
+    <Compile Include="Particle\ParticleEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

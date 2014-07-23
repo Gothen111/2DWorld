@@ -73,6 +73,8 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Character/GoldCoin", "Object/Character/GoldCoin");
 
             loadTexture(_ContentManager, "Gui/Button", "Gui/Button");
+            loadTexture(_ContentManager, "Gui/Button_Hover", "Gui/Button_Hover");
+            loadTexture(_ContentManager, "Gui/Button_Pressed", "Gui/Button_Pressed");
             loadTexture(_ContentManager, "Gui/TextField", "Gui/TextField");
             loadTexture(_ContentManager, "Gui/Background", "Gui/Background");
 

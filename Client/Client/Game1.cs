@@ -16,6 +16,8 @@ using GameLibrary.Util;
 using Client.Commands;
 using Client.Connection;
 
+using Client.Particle; // Remove
+
 namespace Client
 {
     /// <summary>
@@ -27,6 +29,8 @@ namespace Client
         SpriteBatch spriteBatch;
 
         private FrameCounter frameCounter = new FrameCounter();
+
+        private ParticleEngine particleEngine; // Remove
 
          /*
             IsFixedTimeStep = false;
@@ -71,6 +75,14 @@ namespace Client
 
             GameLibrary.Ressourcen.RessourcenManager.ressourcenManager.loadGeneral(Content);
 
+
+            List<Texture2D> textures = new List<Texture2D>();
+            textures.Add(Content.Load<Texture2D>("Particle/circle"));
+            textures.Add(Content.Load<Texture2D>("Particle/star"));    // Remove
+            textures.Add(Content.Load<Texture2D>("Particle/diamond"));
+            particleEngine = new ParticleEngine(textures, new Vector2(400, 240));
+
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -107,6 +119,12 @@ namespace Client
             GameLibrary.Camera.Camera.camera.update(gameTime);
             // TODO: Add your update logic here
 
+
+            particleEngine.EmitterLocation = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+            particleEngine.Update(); // Remove
+
+
+
             base.Update(gameTime);
         }
 
@@ -135,6 +153,8 @@ namespace Client
             }
 
             spriteBatch.End();
+
+            particleEngine.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }

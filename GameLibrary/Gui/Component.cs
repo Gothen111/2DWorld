@@ -111,15 +111,19 @@ namespace GameLibrary.Gui
             Logger.Logger.LogInfo("X: " + position.X + " Y: " + position.Y);
             if (position.X >= bounds.Left && position.X <= bounds.Right && position.Y >= bounds.Top && position.Y <= bounds.Bottom)
             {
-                onClick(mouseButtonReleased);
-                return true;
+                if (this.isPressed)
+                {
+                    onClick(mouseButtonReleased);
+                    return true;
+                }
             }
             else
             {
                 this.IsFocused = false;
+                this.isPressed = false;
                 GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Remove(this);
-                return false;
             }
+            return false;
         }
 
         public void mouseMoved(Vector2 position)
@@ -131,6 +135,7 @@ namespace GameLibrary.Gui
             else
             {
                 this.IsHovered = false;
+                this.isPressed = false;
             }
         }
 

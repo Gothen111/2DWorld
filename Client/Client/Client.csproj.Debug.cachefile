@@ -19,7 +19,12 @@ Content\Object\Character\GoldCoin.xnb
 Content\Gui\Button.xnb
 Content\Gui\TextField.xnb
 Content\Gui\Background.xnb
+Content\Gui\Button_Hover.xnb
+Content\Gui\Button_Pressed.xnb
 Content\Font\Arial.xnb
+Content\Particle\circle.xnb
+Content\Particle\diamond.xnb
+Content\Particle\star.xnb
 Content\Block\Wall.xnb
 Content\Block\WoodenPlank.xnb
 Content\Block\Layer2\Dirt.xnb
