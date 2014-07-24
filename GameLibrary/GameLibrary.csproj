@@ -155,10 +155,11 @@
     <Compile Include="Gui\ContainerStrategy\OverlayStrategy.cs" />
     <Compile Include="Gui\ContainerStrategy\Strategy.cs" />
     <Compile Include="Gui\Button.cs" />
-    <Compile Include="Gui\GameSurface.cs" />
+    <Compile Include="Gui\Menu\GameSurface.cs" />
     <Compile Include="Gui\Checkbox.cs" />
+    <Compile Include="Gui\Menu\CharacterCreationMenu.cs" />
     <Compile Include="Gui\Slider.cs" />
-    <Compile Include="Gui\StartMenu.cs" />
+    <Compile Include="Gui\Menu\StartMenu.cs" />
     <Compile Include="Gui\TextField.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Model\Behaviour\Behaviour.cs" />

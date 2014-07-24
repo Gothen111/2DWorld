@@ -78,6 +78,9 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Gui/TextField", "Gui/TextField");
             loadTexture(_ContentManager, "Gui/Background", "Gui/Background");
 
+            loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/Background", "Gui/Menu/CharacterCreation/Background");
+            loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/Plattform", "Gui/Menu/CharacterCreation/Plattform");
+
             Logger.Logger.LogInfo("Ressourcen wurden mit " + this.loadingErrorsCount + " Fehler(n) geladen");
         }
 

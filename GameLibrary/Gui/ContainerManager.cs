@@ -5,6 +5,8 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
+using GameLibrary.Gui.Menu;
+
 namespace GameLibrary.Gui
 {
     public class ContainerManager

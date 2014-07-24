@@ -5,7 +5,9 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
-namespace GameLibrary.Gui
+using GameLibrary.Gui;
+
+namespace GameLibrary.Gui.Menu
 {
     public class StartMenu : Container
     {
@@ -38,8 +40,7 @@ namespace GameLibrary.Gui
 
         public void connectToServer()
         {
-            Configuration.Configuration.networkManager.Start(this.serverIPTextField.Text, this.serverPortTextField.Text);
-            ContainerManager.containerManager.setMenu(new GameSurface());
+            ContainerManager.containerManager.setMenu(new CharacterCreationMenu());
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)

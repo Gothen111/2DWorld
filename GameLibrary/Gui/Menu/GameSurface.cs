@@ -9,7 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace GameLibrary.Gui
+using GameLibrary.Gui;
+
+namespace GameLibrary.Gui.Menu
 {
     public class GameSurface : Container
     {
