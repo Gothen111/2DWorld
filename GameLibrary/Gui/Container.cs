@@ -20,7 +20,7 @@ namespace GameLibrary.Gui
 
         private ContainerStrategy.Strategy strategy;
 
-        internal ContainerStrategy.Strategy Strategy
+		public ContainerStrategy.Strategy Strategy
         {
             get { return strategy; }
             set { strategy = value; }
@@ -36,7 +36,7 @@ namespace GameLibrary.Gui
             components = new List<Component>();
         }
 
-        public void add(Component _Component)
+		public virtual void add(Component _Component)
         {
             if (this.strategy != null && !this.strategy.checkComponent(_Component))
             {
@@ -46,7 +46,7 @@ namespace GameLibrary.Gui
             this.components.Add(_Component);
         }
 
-        public void remove(Component _Component)
+		public virtual void remove(Component _Component)
         {
             if(this.components.Contains(_Component))
                 this.components.Remove(_Component);

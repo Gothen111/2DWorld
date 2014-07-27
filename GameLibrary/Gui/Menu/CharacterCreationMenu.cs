@@ -11,9 +11,8 @@ namespace GameLibrary.Gui.Menu
 {
     public class CharacterCreationMenu : Container
     {
-        TextField serverIPTextField;
-        TextField serverPortTextField;
-        Button connectServerButton;
+		TextField playerNameTextField;
+		Button createCharacterButton;
 
         public CharacterCreationMenu()
             :base()
@@ -23,25 +22,19 @@ namespace GameLibrary.Gui.Menu
 
             this.AllowMultipleFocus = true;
 
-            this.serverIPTextField = new TextField(new Rectangle(200, 100, 289, 85));
-            this.serverIPTextField.BackgroundGraphicPath = "Gui/TextField";
-            this.serverIPTextField.Text = "127.0.0.1";
-            this.add(this.serverIPTextField);
-            this.serverPortTextField = new TextField(new Rectangle(200, 200, 289, 85));
-            this.serverPortTextField.BackgroundGraphicPath = "Gui/TextField";
-            this.serverPortTextField.Text = "14242";
-            this.add(this.serverPortTextField);
-            this.connectServerButton = new Button(new Rectangle(200, 300, 289, 85));
-            this.connectServerButton.BackgroundGraphicPath = "Gui/Button";
-            this.connectServerButton.Text = "Connect";
-            this.add(this.connectServerButton);
-            this.connectServerButton.Action = connectToServer;
+			this.playerNameTextField = new TextField(new Rectangle(200, 100, 289, 85));
+			this.playerNameTextField.Text = "Name";
+			this.add(this.playerNameTextField);
+
+			this.createCharacterButton = new Button(new Rectangle(200, 300, 289, 85));
+			this.createCharacterButton.Text = "Connect";
+			this.add(this.createCharacterButton);
+			this.createCharacterButton.Action = openCharacterMenu;
         }
 
-        public void connectToServer()
+		public void openCharacterMenu()
         {
-            Configuration.Configuration.networkManager.Start(this.serverIPTextField.Text, this.serverPortTextField.Text);
-            ContainerManager.containerManager.setMenu(new GameSurface());
+			ContainerManager.containerManager.setMenu(new CharacterMenu());
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)

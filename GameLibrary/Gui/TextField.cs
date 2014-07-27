@@ -41,12 +41,22 @@ namespace GameLibrary.Gui
             set { textAlign = value; }
         }
 
+		private bool isTextEditAble;
+
+		public bool IsTextEditAble
+		{
+			get { return isTextEditAble; }
+			set { isTextEditAble = value; }
+		}
+
         public TextField()
             : base()
         {
             this.text = "";
             foreGroundColor = Color.Black;
             this.textAlign = TextAlign.Left;
+			this.BackgroundGraphicPath = "Gui/TextField";
+			this.isTextEditAble = true;
         }
 
         public TextField(Rectangle _Bounds)
@@ -55,27 +65,32 @@ namespace GameLibrary.Gui
             this.text = "";
             foreGroundColor = Color.Black;
             this.textAlign = TextAlign.Left;
+			this.BackgroundGraphicPath = "Gui/TextField";
+			this.isTextEditAble = true;
         }
 
         public override void keyboardButtonClicked(Microsoft.Xna.Framework.Input.Keys buttonPressed)
         {
             base.keyboardButtonClicked(buttonPressed);
-            if (this.IsFocused)
-            {
-                if (buttonPressed == Microsoft.Xna.Framework.Input.Keys.Back)
-                {
-                    if(this.text.Length > 0)
-                        this.text = this.text.Substring(0, this.text.Length - 1);
-                }
-                else if (buttonPressed == Microsoft.Xna.Framework.Input.Keys.LeftShift || buttonPressed == Microsoft.Xna.Framework.Input.Keys.LeftAlt)
-                {
+			if(this.isTextEditAble)
+			{
+	            if (this.IsFocused)
+	            {
+	                if (buttonPressed == Microsoft.Xna.Framework.Input.Keys.Back)
+	                {
+	                    if(this.text.Length > 0)
+	                        this.text = this.text.Substring(0, this.text.Length - 1);
+	                }
+	                else if (buttonPressed == Microsoft.Xna.Framework.Input.Keys.LeftShift || buttonPressed == Microsoft.Xna.Framework.Input.Keys.LeftAlt)
+	                {
 
-                }
-                else
-                {
-                    this.text += Peripherals.KeyboardManager.TryConvertKey(buttonPressed);
-                }
-            }
+	                }
+	                else
+	                {
+	                    this.text += Peripherals.KeyboardManager.TryConvertKey(buttonPressed);
+	                }
+	            }
+			}
         }
 
         public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)

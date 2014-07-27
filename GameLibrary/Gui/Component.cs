@@ -198,7 +198,6 @@ namespace GameLibrary.Gui
                                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
                             }
                         }
-                        
                     }
                 }
             }

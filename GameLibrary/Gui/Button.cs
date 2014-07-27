@@ -23,12 +23,14 @@ namespace GameLibrary.Gui
             : base()
         {
             this.TextAlign = TextAlign.Center;
+			this.BackgroundGraphicPath = "Gui/Button";
         }
 
         public Button(Rectangle _Bounds)
             : base(_Bounds)
         {
             this.TextAlign = TextAlign.Center;
+			this.BackgroundGraphicPath = "Gui/Button";
         }
 
         public void StartAction()
