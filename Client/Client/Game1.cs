@@ -136,7 +136,7 @@ namespace Client
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            GameLibrary.Gui.ContainerManager.containerManager.ActiveContainer.draw(GraphicsDevice, spriteBatch);
+            GameLibrary.Gui.MenuManager.menuManager.ActiveContainer.draw(GraphicsDevice, spriteBatch);
 
             spriteBatch.Begin();
             if (gameTime.ElapsedGameTime.Milliseconds > 0)

@@ -23,7 +23,7 @@ namespace GameLibrary.Gui.Menu
 
             this.AllowMultipleFocus = true;
 
-			this.charactersListView = new ListView (new Rectangle (300, 0, 289, 600));
+			this.charactersListView = new ListView (new Rectangle (500, 0, 289, 600));
 			this.add(this.charactersListView);
 			this.fillCharactersListView();
 
@@ -41,12 +41,21 @@ namespace GameLibrary.Gui.Menu
 		//TODO: Lade Charactere aus Datei oä. und füge sie der Liste hinzu.
 		private void fillCharactersListView()
 		{
+            TextField var_TextField1 = new TextField(new Rectangle(0, 0, 289, 85));
+            var_TextField1.IsTextEditAble = false;
+            var_TextField1.Text = "2";
+            this.charactersListView.addAtBottom(var_TextField1);
 
+            TextField var_TextField2 = new TextField(new Rectangle(0, 0, 289, 85));
+            var_TextField2.IsTextEditAble = false;
+            var_TextField2.Text = "1";
+            this.charactersListView.addAtTop(var_TextField2);
+            
 		}
 
 		public void openCreateCharacterMenu()
 		{
-			ContainerManager.containerManager.setMenu(new CharacterCreationMenu());
+            MenuManager.menuManager.setMenu(new CharacterCreationMenu());
 		}
 
 		//TODO: Character noch "entnehmen", bzw als spieler character festlegen
@@ -59,9 +68,18 @@ namespace GameLibrary.Gui.Menu
 		{
 			if (this.characterHasBeenChoosen()) 
 			{
-				ContainerManager.containerManager.setMenu (new ConnectToServerMenu ());
+                MenuManager.menuManager.setMenu(new ConnectToServerMenu());
 			}
 		}
+
+        public override List<Component> releaseComponents()
+        {
+            List<Component> var_Components = base.releaseComponents();
+            var_Components.Add(this.charactersListView);
+            var_Components.Add(this.createNewCharacterButton);
+            var_Components.Add(this.connectToServerButton);
+            return var_Components;
+        }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)
         {

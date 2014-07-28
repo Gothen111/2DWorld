@@ -52,6 +52,20 @@ namespace GameLibrary.Gui
                 this.components.Remove(_Component);
         }
 
+        public virtual List<Component> releaseComponents()
+        {
+            return new List<Component>();
+        }
+
+        public void close()
+        {
+            foreach(Component var_Component in this.releaseComponents())
+            {
+                Peripherals.MouseManager.mouseFocus.Remove(var_Component);
+                Peripherals.KeyboardManager.keyboardFocus.Remove(var_Component);
+            }
+        }
+
         public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
             base.draw(_GraphicsDevice, _SpriteBatch);

@@ -27,13 +27,11 @@ namespace GameLibrary.Gui
 		//TODO: Lässt sich bestimmt per Strategie machen ;)
 		public void addAtTop(Component _Component)
 		{
-			_Component.Bounds.X = this.Bounds.X;
-			_Component.Bounds.Y = this.Bounds.Y;
+            _Component.Bounds = new Rectangle(this.Bounds.X, this.Bounds.Y, _Component.Bounds.Width, _Component.Bounds.Height);
 
 			foreach (Component var_Component in this.Components)
 			{
-				var_Component.Bounds.X += _Component.Bounds.Width;
-				var_Component.Bounds.Y += _Component.Bounds.Height;
+                var_Component.Bounds = new Rectangle(var_Component.Bounds.X, var_Component.Bounds.Y + _Component.Bounds.Height, var_Component.Bounds.Width, var_Component.Bounds.Height);
 			}
 
 			this.add(_Component);
@@ -51,8 +49,7 @@ namespace GameLibrary.Gui
 				}
 			}
 
-			_Component.Bounds.X = this.Bounds.X;
-			_Component.Bounds.Y = var_PositionY;
+            _Component.Bounds = new Rectangle(this.Bounds.X, (int)var_PositionY, _Component.Bounds.Width, _Component.Bounds.Height);
 
 			this.add(_Component);
 		}
@@ -72,7 +69,7 @@ namespace GameLibrary.Gui
 			foreach (Component var_Component in this.Components)
 			{
 				// VLL auch mit isPressed ;) da mouse event öfters als einmal abegefeuert wird usw...
-				if (position.X >= var_Component.Bounds.Left && position.X <= var_Component.Bounds.Right && position.Y >= var_Component.Bounds.Top && position.Y <= var_Component.Bounds.Bottom)
+                if (_MousePosition.X >= var_Component.Bounds.Left && _MousePosition.X <= var_Component.Bounds.Right && _MousePosition.Y >= var_Component.Bounds.Top && _MousePosition.Y <= var_Component.Bounds.Bottom)
 				{
 					this.lastSelected = var_Component;
 				}

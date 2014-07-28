@@ -9,9 +9,9 @@ using GameLibrary.Gui.Menu;
 
 namespace GameLibrary.Gui
 {
-    public class ContainerManager
+    public class MenuManager
     {
-        public static ContainerManager containerManager = new ContainerManager();
+        public static MenuManager menuManager = new MenuManager();
 
         private Container activeContainer;
 
@@ -21,13 +21,17 @@ namespace GameLibrary.Gui
             set { activeContainer = value; }
         }
 
-        private ContainerManager()
+        private MenuManager()
         {
             this.setMenu(new StartMenu());
         }
 
         public void setMenu(Container _Menu)
         {
+            if(this.activeContainer!=null)
+            {
+                this.activeContainer.close();
+            }
             this.activeContainer = _Menu;
         }
     }

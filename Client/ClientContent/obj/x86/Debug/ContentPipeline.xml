@@ -262,6 +262,15 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\Background.xnb</Output>
       <Time>2014-07-24T12:02:24.5712517+02:00</Time>
     </Item>
+    <Item>
+      <Source>Object\Character\Char1_Big.png</Source>
+      <Name>Object\Character\Char1_Big</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Char1_Big.xnb</Output>
+      <Time>2014-07-28T12:11:34.9918731+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
