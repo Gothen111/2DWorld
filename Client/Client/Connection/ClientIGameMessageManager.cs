@@ -69,11 +69,8 @@ namespace Client.Connection
             {
                 if (GameLibrary.Connection.NetworkManager.client.ClientStatus == GameLibrary.Connection.EClientStatus.RequestedPlayerPosition)
                 {
-                    if (GameLibrary.Connection.NetworkManager.client.PlayerObject == null)
-                    {
-                        GameLibrary.Connection.NetworkManager.client.PlayerObject = message.PlayerObject;
-                        GameLibrary.Connection.NetworkManager.client.ClientStatus = GameLibrary.Connection.EClientStatus.RequestWorld;
-                    }
+                    GameLibrary.Connection.NetworkManager.client.PlayerObject = message.PlayerObject;
+                    GameLibrary.Connection.NetworkManager.client.ClientStatus = GameLibrary.Connection.EClientStatus.RequestWorld;
                 }
             }
         }
@@ -176,6 +173,7 @@ namespace Client.Connection
             var message = new UpdateObjectPositionMessage(_Im);
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
             if (GameLibrary.Model.Map.World.World.world != null)
             {
                 GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject)GameLibrary.Model.Map.World.World.world.getObject(message.Id);
@@ -202,16 +200,19 @@ namespace Client.Connection
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
-            GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject)GameLibrary.Model.Map.World.World.world.getObject(message.Id);
-            if (var_LivingObject != null)
+            if (GameLibrary.Model.Map.World.World.world != null)
             {
-                var_LivingObject.HealthPoints = message.Health;
-                var_LivingObject.MaxHealthPoints = message.MaxHealth;
-                var_LivingObject.damage(0);
-            }
-            else
-            {
-                GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Health wird nicht geupdatet");
+                GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject)GameLibrary.Model.Map.World.World.world.getObject(message.Id);
+                if (var_LivingObject != null)
+                {
+                    var_LivingObject.HealthPoints = message.Health;
+                    var_LivingObject.MaxHealthPoints = message.MaxHealth;
+                    var_LivingObject.damage(0);
+                }
+                else
+                {
+                    GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Health wird nicht geupdatet");
+                }
             }
         }
 

@@ -15,16 +15,35 @@ namespace GameLibrary.Gui.Menu
 {
     public class GameSurface : Container
     {
+        Component interfaceComponent;
+        Component healthComponent;
+        Component manaComponent;
 
         public GameSurface()
             :base()
         {
             this.Bounds = new Rectangle(0, 0, 1000, 1000); // TODO: Größe an Bildschirm anpassen!
+
+            this.AllowMultipleFocus = true;
+
+            this.healthComponent = new Component(new Rectangle(800 / 2 - 187 / 2 - 284, 500 - 188 - 7, 187, 188));
+            this.healthComponent.BackgroundGraphicPath = "Gui/Menu/GameSurface/Health";
+            this.add(this.healthComponent);
+
+            this.manaComponent = new Component(new Rectangle(800 / 2 - 187/2 + 285, 500 - 188 - 6, 187, 188));
+            this.manaComponent.BackgroundGraphicPath = "Gui/Menu/GameSurface/Mana";
+            this.add(this.manaComponent);
+
+            this.interfaceComponent = new Component(new Rectangle(800 / 2 - 767/2, 500-201, 767, 201));
+            this.interfaceComponent.BackgroundGraphicPath = "Gui/Menu/GameSurface/Interface";
+            this.add(this.interfaceComponent);
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)
         {
+            _SpriteBatch.Begin();
             base.draw(_GraphicsDevice, _SpriteBatch);
+            _SpriteBatch.End();
 
             _SpriteBatch.Begin(SpriteSortMode.Deferred,
                     BlendState.AlphaBlend, null, null, null, null,

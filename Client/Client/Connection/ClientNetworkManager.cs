@@ -135,7 +135,7 @@ namespace Client.Connection
                         break;
                     case EClientStatus.RequestPlayerPosition:
                         GameLibrary.Connection.NetworkManager.client.ClientStatus = EClientStatus.RequestedPlayerPosition;
-                        Event.EventList.Add(new Event(new RequestPlayerMessage("Fred"), GameMessageImportance.VeryImportant));
+                        Event.EventList.Add(new Event(new RequestPlayerMessage(GameLibrary.Connection.NetworkManager.client.PlayerObject), GameMessageImportance.VeryImportant));
                         break;
                     case EClientStatus.RequestWorld:
                         GameLibrary.Connection.NetworkManager.client.ClientStatus = EClientStatus.RequestedWorld;

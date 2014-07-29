@@ -271,6 +271,33 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Char1_Big.xnb</Output>
       <Time>2014-07-28T12:11:34.9918731+02:00</Time>
     </Item>
+    <Item>
+      <Source>Gui\Menu\GameSurface\Health.png</Source>
+      <Name>Gui\Menu\GameSurface\Health</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Health.xnb</Output>
+      <Time>2014-07-29T22:13:40.4558965+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Gui\Menu\GameSurface\Interface.png</Source>
+      <Name>Gui\Menu\GameSurface\Interface</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Interface.xnb</Output>
+      <Time>2014-07-29T22:13:40.4458965+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Gui\Menu\GameSurface\Mana.png</Source>
+      <Name>Gui\Menu\GameSurface\Mana</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Mana.xnb</Output>
+      <Time>2014-07-29T22:13:40.4258965+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

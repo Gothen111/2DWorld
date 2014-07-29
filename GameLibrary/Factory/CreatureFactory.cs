@@ -31,6 +31,20 @@ namespace GameLibrary.Factory
             return playerObject;
         }
 
+        public PlayerObject createPlayerObject(PlayerObject _PlayerObject)
+        {
+            PlayerObject playerObject = new PlayerObject();
+            playerObject.Scale = _PlayerObject.Scale;
+            playerObject.Velocity = new Vector3(0, 0, 0);
+            playerObject.Faction = _PlayerObject.Faction;
+            playerObject.Race = _PlayerObject.Race;
+            playerObject.Gender = _PlayerObject.Gender;
+            playerObject.Name = _PlayerObject.Name;
+            playerObject.GraphicPath = "Character/Char1_Small";
+
+            return playerObject;
+        }
+
         public NpcObject createNpcObject(RaceEnum objectRace, FactionEnum objectFaction, CreatureEnum objectType, GenderEnum objectGender)
         {
             NpcObject npcObject = new NpcObject();

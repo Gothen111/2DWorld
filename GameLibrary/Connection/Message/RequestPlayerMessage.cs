@@ -6,6 +6,8 @@ using System.Text;
 using Lidgren.Network;
 using Lidgren.Network.Xna;
 
+using GameLibrary.Model.Object;
+
 namespace GameLibrary.Connection.Message
 {
     public class RequestPlayerMessage : IGameMessage
@@ -17,9 +19,9 @@ namespace GameLibrary.Connection.Message
             this.Decode(im);
         }
 
-        public RequestPlayerMessage(String _PlayerName)
+        public RequestPlayerMessage(PlayerObject _PlayerObject)
         {
-            this.Name = _PlayerName;
+            this.PlayerObject = _PlayerObject;
             this.MessageTime = NetTime.Now;
         }
 
@@ -27,7 +29,7 @@ namespace GameLibrary.Connection.Message
 
         #region Properties
 
-        public String Name { get; set; }
+        public PlayerObject PlayerObject { get; set; }
 
         public double MessageTime { get; set; }
 
@@ -43,13 +45,13 @@ namespace GameLibrary.Connection.Message
 
         public void Decode(NetIncomingMessage im)
         {
-            this.Name = im.ReadString();
+            this.PlayerObject = Util.Serializer.DeserializeObjectFromString<PlayerObject>(im.ReadString());
             this.MessageTime = im.ReadDouble();
         }
 
         public void Encode(NetOutgoingMessage om)
         {
-            om.Write(this.Name);
+            om.Write(Util.Serializer.SerializeObjectToString(this.PlayerObject));
             om.Write(this.MessageTime);
         }
 

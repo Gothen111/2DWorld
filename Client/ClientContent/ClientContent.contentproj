@@ -239,12 +239,28 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Gui\Menu\GameSurface\" />
     <Folder Include="Gui\Menu\StartMenu\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Object\Character\Char1_Big.png">
       <Name>Char1_Big</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Gui\Menu\GameSurface\Health.png">
+      <Name>Health</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Gui\Menu\GameSurface\Interface.png">
+      <Name>Interface</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Gui\Menu\GameSurface\Mana.png">
+      <Name>Mana</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -81,6 +81,10 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/Background", "Gui/Menu/CharacterCreation/Background");
             loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/Plattform", "Gui/Menu/CharacterCreation/Plattform");
 
+            loadTexture(_ContentManager, "Gui/Menu/GameSurface/Interface", "Gui/Menu/GameSurface/Interface");
+            loadTexture(_ContentManager, "Gui/Menu/GameSurface/Health", "Gui/Menu/GameSurface/Health");
+            loadTexture(_ContentManager, "Gui/Menu/GameSurface/Mana", "Gui/Menu/GameSurface/Mana");
+
             loadTexture(_ContentManager, "Character/Char1_Big", "Object/Character/Char1_Big");
 
             Logger.Logger.LogInfo("Ressourcen wurden mit " + this.loadingErrorsCount + " Fehler(n) geladen");
