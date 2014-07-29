@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 
 using GameLibrary.Gui;
+using GameLibrary.Model.Object;
 
 namespace GameLibrary.Gui.Menu
 {
@@ -14,6 +15,8 @@ namespace GameLibrary.Gui.Menu
 		ListView charactersListView;
 		Button createNewCharacterButton;
 		Button connectToServerButton;
+
+        List<PlayerObject> charactersList;
 
 		public CharacterMenu()
             :base()
@@ -38,19 +41,37 @@ namespace GameLibrary.Gui.Menu
 			this.connectToServerButton.Action = openConnectToServerMenu;
 		}
 
-		//TODO: Lade Charactere aus Datei oä. und füge sie der Liste hinzu.
-		private void fillCharactersListView()
-		{
+        //TODO: Lade Charactere aus Datei oä. und füge sie der Liste hinzu.
+        private void loadCharactersFromFile(List<PlayerObject> _CharactersList)
+        {
+            PlayerObject var_PlayerObject = Factory.CreatureFactory.creatureFactory.createPlayerObject(Factory.FactoryEnums.RaceEnum.Human, Factory.FactoryEnums.FactionEnum.Beerdrinker, Factory.FactoryEnums.CreatureEnum.Farmer, Factory.FactoryEnums.GenderEnum.Male);
+            var_PlayerObject.Name = "Fred";
+            _CharactersList.Add(var_PlayerObject);
+        }
+
+        private void createTextFieldFromCharacter(ListView _CharactersListView, PlayerObject _PlayerObject)
+        {
             TextField var_TextField1 = new TextField(new Rectangle(0, 0, 289, 85));
             var_TextField1.IsTextEditAble = false;
-            var_TextField1.Text = "2";
-            this.charactersListView.addAtBottom(var_TextField1);
+            var_TextField1.Text = _PlayerObject.Name;
+            _CharactersListView.addAtBottom(var_TextField1);
+        }
 
-            TextField var_TextField2 = new TextField(new Rectangle(0, 0, 289, 85));
-            var_TextField2.IsTextEditAble = false;
-            var_TextField2.Text = "1";
-            this.charactersListView.addAtTop(var_TextField2);
-            
+        private void createTextFields(ListView _CharactersListView, List<PlayerObject> _CharactersList)
+        {
+            foreach (PlayerObject var_PlayerObject in _CharactersList)
+            {
+                this.createTextFieldFromCharacter(_CharactersListView, var_PlayerObject);
+            }
+        }
+	
+		private void fillCharactersListView()
+		{
+            this.charactersList = new List<PlayerObject>();
+
+            this.loadCharactersFromFile(this.charactersList);
+
+            this.createTextFields(this.charactersListView, this.charactersList);
 		}
 
 		public void openCreateCharacterMenu()
@@ -58,16 +79,28 @@ namespace GameLibrary.Gui.Menu
             MenuManager.menuManager.setMenu(new CharacterCreationMenu());
 		}
 
-		//TODO: Character noch "entnehmen", bzw als spieler character festlegen
 		private bool characterHasBeenChoosen()
 		{
-			return this.charactersListView.getSelectedComponent () != null ? true : false;
+			return this.charactersListView.getSelectedComponent() != null ? true : false;
 		}
+
+        private PlayerObject getPlayerObjectFromCharactersListView()
+        {
+            foreach (PlayerObject var_PlayerObject in this.charactersList)
+            {
+                if (((TextField)this.charactersListView.getSelectedComponent()).Text.Equals(var_PlayerObject.Name))
+                {
+                    return var_PlayerObject;
+                }
+            }
+            return null;
+        }
 
 		public void openConnectToServerMenu()
 		{
 			if (this.characterHasBeenChoosen()) 
 			{
+                GameLibrary.Connection.NetworkManager.client.PlayerObject = this.getPlayerObjectFromCharactersListView();
                 MenuManager.menuManager.setMenu(new ConnectToServerMenu());
 			}
 		}

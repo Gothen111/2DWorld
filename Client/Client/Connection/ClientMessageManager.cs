@@ -66,7 +66,7 @@ namespace Client.Connection
         /// </summary>
         public static void OnClientConnectToServer(IPEndPoint _IPEndPoint)
         {
-            GameLibrary.Connection.NetworkManager.client = new GameLibrary.Connection.Client(_IPEndPoint);
+            //GameLibrary.Connection.NetworkManager.client = new GameLibrary.Connection.Client();
             //Event.EventList.Add(new Event(new RequestPlayerMessage("Fred"), GameMessageImportance.VeryImportant));
         }
 

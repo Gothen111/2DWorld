@@ -19,6 +19,7 @@ namespace GameLibrary.Connection
             get { return iPEndPoint; }
             set { iPEndPoint = value; }
         }
+
         PlayerObject playerObject;
 
         public PlayerObject PlayerObject
@@ -35,9 +36,19 @@ namespace GameLibrary.Connection
             set { clientStatus = value; }
         }
 
+        /// <summary>Erzegt einen Clienten für den Server
+        /// <para>IPEndPoint _IPEndPoint</para>
+        /// </summary>
         public Client(IPEndPoint _IPEndPoint)
         {
             this.iPEndPoint = _IPEndPoint;
+            this.clientStatus = EClientStatus.Connected;
+        }
+
+        /// <summary>Erzeugt den Clienten für den Clienten
+        /// </summary>
+        public Client()
+        {
             this.clientStatus = EClientStatus.Connected;
         }
     }

@@ -47,6 +47,8 @@ namespace Client
             Configuration.isHost = false;
             Configuration.commandManager = new ClientCommandManager();
             Configuration.networkManager = new ClientNetworkManager();
+
+            GameLibrary.Connection.NetworkManager.client = new GameLibrary.Connection.Client();
         }
 
         /// <summary>
