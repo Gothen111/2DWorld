@@ -30,7 +30,7 @@ namespace GameLibrary.Gui
         {
             if(this.activeContainer!=null)
             {
-                this.activeContainer.close();
+                this.activeContainer.release();
             }
             this.activeContainer = _Menu;
         }

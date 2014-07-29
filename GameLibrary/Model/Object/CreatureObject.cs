@@ -45,12 +45,14 @@ namespace GameLibrary.Model.Object
         public CreatureObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
         {
-            this.equipment = (List<EquipmentObject>)info.GetValue("equipment", typeof(List<EquipmentObject>));
+            //this.equipment = (List<EquipmentObject>)info.GetValue("equipment", typeof(List<EquipmentObject>));
+            this.name = (String)info.GetValue("name", typeof(String));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            info.AddValue("equipment", equipment, typeof(List<EquipmentObject>));
+            //info.AddValue("equipment", equipment, typeof(List<EquipmentObject>));
+            info.AddValue("name", this.name, typeof(String));
 
             base.GetObjectData(info, ctxt);
         }

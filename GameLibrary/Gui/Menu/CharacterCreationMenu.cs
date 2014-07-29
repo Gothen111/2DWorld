@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.IO;
+
 using Microsoft.Xna.Framework;
 
 using GameLibrary.Gui;
+using GameLibrary.Model.Object;
 
 namespace GameLibrary.Gui.Menu
 {
@@ -39,22 +42,31 @@ namespace GameLibrary.Gui.Menu
 			this.createCharacterButton = new Button(new Rectangle(260, 380, 289, 85));
 			this.createCharacterButton.Text = "Accept";
 			this.add(this.createCharacterButton);
-			this.createCharacterButton.Action = openCharacterMenu;
+            this.createCharacterButton.Action = acceptCharacter;
         }
 
-		public void openCharacterMenu()
+        private void openCharacterMenu()
         {
             MenuManager.menuManager.setMenu(new CharacterMenu());
         }
 
-        public override List<Component> releaseComponents()
+        private void acceptCharacter()
         {
-            List<Component> var_Components = base.releaseComponents();
-            var_Components.Add(this.plattformComponent);
-            var_Components.Add(this.characterComponent);
-            var_Components.Add(this.playerNameTextField);
-            var_Components.Add(this.createCharacterButton);
-            return var_Components;
+            bool var_CreationProblem = false;
+
+            String var_Path = "Save/Characters/" + this.playerNameTextField.Text + ".sav";
+
+            if (File.Exists(var_Path))
+            {
+                var_CreationProblem = true;
+            }
+            if(!var_CreationProblem)
+            {
+                PlayerObject var_PlayerObject = Factory.CreatureFactory.creatureFactory.createPlayerObject(Factory.FactoryEnums.RaceEnum.Human, Factory.FactoryEnums.FactionEnum.Beerdrinker, Factory.FactoryEnums.CreatureEnum.Farmer, Factory.FactoryEnums.GenderEnum.Male);
+                var_PlayerObject.Name = this.playerNameTextField.Text;
+                Util.Serializer.SerializeObject(var_Path, var_PlayerObject);
+                this.openCharacterMenu();
+            }
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)

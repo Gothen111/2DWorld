@@ -52,17 +52,12 @@ namespace GameLibrary.Gui
                 this.components.Remove(_Component);
         }
 
-        public virtual List<Component> releaseComponents()
+        public override void release()
         {
-            return new List<Component>();
-        }
-
-        public void close()
-        {
-            foreach(Component var_Component in this.releaseComponents())
+            base.release();
+            foreach (Component var_Component in this.components)
             {
-                Peripherals.MouseManager.mouseFocus.Remove(var_Component);
-                Peripherals.KeyboardManager.keyboardFocus.Remove(var_Component);
+                var_Component.release();
             }
         }
 

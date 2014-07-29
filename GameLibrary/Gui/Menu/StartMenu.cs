@@ -32,13 +32,6 @@ namespace GameLibrary.Gui.Menu
             MenuManager.menuManager.setMenu(new CharacterMenu());
         }
 
-        public override List<Component> releaseComponents()
-        {
-            List<Component> var_Components = base.releaseComponents();
-            var_Components.Add(this.characterMenuButton);
-            return var_Components;
-        }
-
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)
         {
             _SpriteBatch.Begin();

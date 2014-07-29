@@ -160,6 +160,12 @@ namespace GameLibrary.Gui
 
         }
 
+        public virtual void release()
+        {
+            Peripherals.MouseManager.mouseFocus.Remove(this);
+            Peripherals.KeyboardManager.keyboardFocus.Remove(this);
+        }
+
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
             if (this.backgroundGraphicPath != null && !this.backgroundGraphicPath.Equals(""))

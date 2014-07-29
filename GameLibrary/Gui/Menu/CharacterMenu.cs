@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.IO;
+
 using Microsoft.Xna.Framework;
 
 using GameLibrary.Gui;
@@ -44,9 +46,20 @@ namespace GameLibrary.Gui.Menu
         //TODO: Lade Charactere aus Datei oä. und füge sie der Liste hinzu.
         private void loadCharactersFromFile(List<PlayerObject> _CharactersList)
         {
-            PlayerObject var_PlayerObject = Factory.CreatureFactory.creatureFactory.createPlayerObject(Factory.FactoryEnums.RaceEnum.Human, Factory.FactoryEnums.FactionEnum.Beerdrinker, Factory.FactoryEnums.CreatureEnum.Farmer, Factory.FactoryEnums.GenderEnum.Male);
-            var_PlayerObject.Name = "Fred";
-            _CharactersList.Add(var_PlayerObject);
+            String var_Path = "Save/Characters/";
+
+            if (!Directory.Exists(var_Path))
+            {
+                Directory.CreateDirectory(var_Path);
+            }
+
+            String[] var_Names = Directory.GetFiles(var_Path);
+
+            for (int i = 0; i < var_Names.Length; i++)
+            {
+                PlayerObject var_PlayerObject = (PlayerObject) Util.Serializer.DeSerializeObject(var_Names[i]);
+                _CharactersList.Add(var_PlayerObject);
+            }
         }
 
         private void createTextFieldFromCharacter(ListView _CharactersListView, PlayerObject _PlayerObject)
@@ -74,7 +87,7 @@ namespace GameLibrary.Gui.Menu
             this.createTextFields(this.charactersListView, this.charactersList);
 		}
 
-		public void openCreateCharacterMenu()
+		private void openCreateCharacterMenu()
 		{
             MenuManager.menuManager.setMenu(new CharacterCreationMenu());
 		}
@@ -96,7 +109,7 @@ namespace GameLibrary.Gui.Menu
             return null;
         }
 
-		public void openConnectToServerMenu()
+		private void openConnectToServerMenu()
 		{
 			if (this.characterHasBeenChoosen()) 
 			{
@@ -104,15 +117,6 @@ namespace GameLibrary.Gui.Menu
                 MenuManager.menuManager.setMenu(new ConnectToServerMenu());
 			}
 		}
-
-        public override List<Component> releaseComponents()
-        {
-            List<Component> var_Components = base.releaseComponents();
-            var_Components.Add(this.charactersListView);
-            var_Components.Add(this.createNewCharacterButton);
-            var_Components.Add(this.connectToServerButton);
-            return var_Components;
-        }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)
         {
