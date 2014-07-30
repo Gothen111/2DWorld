@@ -298,6 +298,15 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Mana.xnb</Output>
       <Time>2014-07-29T22:13:40.4258965+02:00</Time>
     </Item>
+    <Item>
+      <Source>Object\Character\CreatureState.png</Source>
+      <Name>Object\Character\CreatureState</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\CreatureState.xnb</Output>
+      <Time>2014-07-30T15:01:37.3422176+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

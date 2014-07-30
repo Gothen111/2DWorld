@@ -122,11 +122,14 @@ namespace GameLibrary.Model.Object
 
         public override float calculateDamage(float _DamageAmount)
         {
-            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            if (this.equipment != null)
             {
-                if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentArmor)
+                foreach (EquipmentObject var_EquipmentObject in this.equipment)
                 {
-                    _DamageAmount = _DamageAmount / ((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject).NormalArmor;
+                    if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentArmor)
+                    {
+                        _DamageAmount = _DamageAmount / ((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject).NormalArmor;
+                    }
                 }
             }
             return _DamageAmount;
@@ -138,8 +141,18 @@ namespace GameLibrary.Model.Object
             Vector3 var_DrawPositionExtra = Vector3.Zero;
             if(this.Animation != null)
                 var_DrawPositionExtra = this.Animation.drawPositionExtra();
-             Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
-             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], var_Position, Color.White);    
+             Vector2 var_PositionShadow = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
+             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], var_PositionShadow, Color.White);
+
+             Vector2 var_PositionState = new Vector2(this.Position.X, this.Position.Y) + new Vector2(-13, -7);
+             if (this is PlayerObject)
+             {
+                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/CreatureState"], var_PositionState, Color.DarkOrange);
+             }
+             else
+             {
+                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/CreatureState"], var_PositionState, Color.Red);
+             }
             base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
             this.drawEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
         }

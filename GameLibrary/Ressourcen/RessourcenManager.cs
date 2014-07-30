@@ -67,6 +67,7 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Character/Lifebar", "Object/Character/Lifebar");
 
             loadTexture(_ContentManager, "Character/Shadow", "Object/Character/Shadow");
+            loadTexture(_ContentManager, "Character/CreatureState", "Object/Character/CreatureState");
 
             loadTexture(_ContentManager, "Character/Cloth1", "Object/Character/Cloth1");
 

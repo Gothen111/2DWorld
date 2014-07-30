@@ -41,10 +41,6 @@ namespace GameLibrary.Gui.Menu
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)
         {
-            _SpriteBatch.Begin();
-            base.draw(_GraphicsDevice, _SpriteBatch);
-            _SpriteBatch.End();
-
             _SpriteBatch.Begin(SpriteSortMode.Deferred,
                     BlendState.AlphaBlend, null, null, null, null,
                     GameLibrary.Camera.Camera.camera.getMatrix());
@@ -70,6 +66,14 @@ namespace GameLibrary.Gui.Menu
             }
 
             _SpriteBatch.End();
+
+            _SpriteBatch.Begin();
+            //int var_Diff = (int)((GameLibrary.Connection.NetworkManager.client.PlayerObject.HealthPoints / GameLibrary.Connection.NetworkManager.client.PlayerObject.MaxHealthPoints) * this.healthComponent.Bounds.Height);
+            //this.healthComponent.SourceRectangle = new Rectangle(0, this.healthComponent.Bounds.Height - var_Diff, this.healthComponent.Bounds.Width, var_Diff);
+            //this.healthComponent.Bounds = new Rectangle(this.healthComponent.Bounds.X, this.healthComponent.Bounds.Y + this.healthComponent.SourceRectangle.Y, this.healthComponent.Bounds.Width, this.healthComponent.Bounds.Height);
+            base.draw(_GraphicsDevice, _SpriteBatch);
+            _SpriteBatch.End();
+
         }
     }
 }

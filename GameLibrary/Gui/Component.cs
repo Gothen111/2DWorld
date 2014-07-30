@@ -78,16 +78,34 @@ namespace GameLibrary.Gui
             set { backgroundGraphicPath = value; }
         }
 
+        private Rectangle sourceRectangle;
+
+        public Rectangle SourceRectangle
+        {
+            get { return sourceRectangle; }
+            set { sourceRectangle = value; }
+        }
+
+        private float scale;
+
+        public float Scale
+        {
+            get { return scale; }
+            set { scale = value; }
+        }
+
         public Component()
         {
             Peripherals.MouseManager.mouseFocus.Add(this);
             IsFocusAble = true;
             isVisible = true;
+            this.scale = 1.0f;
         }
 
         public Component(Rectangle _Bounds) : this()
         {
             this.bounds = _Bounds;
+            this.sourceRectangle = new Rectangle(0, 0, this.bounds.Width, this.bounds.Height);
         }
 
         public virtual bool mouseClicked(MouseEnum mouseButtonClicked, Vector2 position)
@@ -172,7 +190,7 @@ namespace GameLibrary.Gui
             {
                 if (!this.IsHovered)
                 {
-                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.sourceRectangle, Color.White, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
                 }
                 else
                 {

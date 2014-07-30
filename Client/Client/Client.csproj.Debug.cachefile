@@ -31,6 +31,7 @@ Content\Object\Character\Char1_Big.xnb
 Content\Gui\Menu\GameSurface\Health.xnb
 Content\Gui\Menu\GameSurface\Interface.xnb
 Content\Gui\Menu\GameSurface\Mana.xnb
+Content\Object\Character\CreatureState.xnb
 Content\Block\Wall.xnb
 Content\Block\WoodenPlank.xnb
 Content\Block\Layer2\Dirt.xnb
