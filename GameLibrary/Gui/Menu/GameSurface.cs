@@ -19,6 +19,8 @@ namespace GameLibrary.Gui.Menu
         Component healthComponent;
         Component manaComponent;
 
+        InventoryMenu inventoryMenu;
+
         public GameSurface()
             :base()
         {
@@ -37,6 +39,9 @@ namespace GameLibrary.Gui.Menu
             this.interfaceComponent = new Component(new Rectangle(800 / 2 - 767/2, 500-201, 767, 201));
             this.interfaceComponent.BackgroundGraphicPath = "Gui/Menu/GameSurface/Interface";
             this.add(this.interfaceComponent);
+
+            this.inventoryMenu = new InventoryMenu();
+            this.add(this.inventoryMenu);
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)

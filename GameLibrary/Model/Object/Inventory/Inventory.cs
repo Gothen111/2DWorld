@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace GameLibrary.Model.Object.Inventory
 {
-    public class Inventory
+    [Serializable()]
+    public class Inventory : ISerializable
     {
         private int maxItems;
 
@@ -29,6 +31,18 @@ namespace GameLibrary.Model.Object.Inventory
             this.items = new List<ItemObject>();
         }
 
+        public Inventory(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.maxItems = (int)info.GetValue("maxItems", typeof(int));
+            this.items = (List<ItemObject>)info.GetValue("items", typeof(List<ItemObject>));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            info.AddValue("maxItems", maxItems, typeof(int));
+            info.AddValue("items", items, typeof(List<ItemObject>));
+        }
+
         public void addItemObjectToInventory(ItemObject _ItemObject)
         {
             if (this.containsItemObject(_ItemObject))
@@ -50,7 +64,6 @@ namespace GameLibrary.Model.Object.Inventory
                 else
                 {
                     this.items.Add(_ItemObject);
-                    //TODO: Remove Item fom World
                     GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
                 }
             }

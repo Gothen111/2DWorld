@@ -307,6 +307,24 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\CreatureState.xnb</Output>
       <Time>2014-07-30T15:01:37.3422176+02:00</Time>
     </Item>
+    <Item>
+      <Source>Gui\Menu\Inventory\InventoryButton.png</Source>
+      <Name>Gui\Menu\Inventory\InventoryButton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryButton.xnb</Output>
+      <Time>2014-08-03T13:14:43.8009837+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Gui\Menu\Inventory\InventoryItemSpace.png</Source>
+      <Name>Gui\Menu\Inventory\InventoryItemSpace</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryItemSpace.xnb</Output>
+      <Time>2014-08-03T13:14:43.8009837+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

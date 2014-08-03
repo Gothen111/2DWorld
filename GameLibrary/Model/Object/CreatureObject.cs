@@ -46,12 +46,14 @@ namespace GameLibrary.Model.Object
             : base(info, ctxt)
         {
             //this.equipment = (List<EquipmentObject>)info.GetValue("equipment", typeof(List<EquipmentObject>));
+            this.inventory = (Inventory.Inventory)info.GetValue("inventory", typeof(Inventory.Inventory));
             this.name = (String)info.GetValue("name", typeof(String));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             //info.AddValue("equipment", equipment, typeof(List<EquipmentObject>));
+            info.AddValue("inventory", inventory, typeof(Inventory.Inventory));
             info.AddValue("name", this.name, typeof(String));
 
             base.GetObjectData(info, ctxt);
@@ -147,7 +149,7 @@ namespace GameLibrary.Model.Object
              Vector2 var_PositionState = new Vector2(this.Position.X, this.Position.Y) + new Vector2(-13, -7);
              if (this is PlayerObject)
              {
-                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/CreatureState"], var_PositionState, Color.DarkOrange);
+                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/CreatureState"], var_PositionState, Color.BlueViolet);//Color.DarkOrange);
              }
              else
              {

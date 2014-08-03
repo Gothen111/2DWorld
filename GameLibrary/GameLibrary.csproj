@@ -119,6 +119,7 @@
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
+    <Compile Include="Connection\Message\UpdateCreatureInventoryMessage.cs" />
     <Compile Include="Connection\Message\RemoveObjectMessage.cs" />
     <Compile Include="Connection\Message\RequestLivingObjectMessage.cs" />
     <Compile Include="Connection\Message\RequestRegionMessage.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Gui\Menu\GameSurface.cs" />
     <Compile Include="Gui\Checkbox.cs" />
     <Compile Include="Gui\Menu\CharacterCreationMenu.cs" />
+    <Compile Include="Gui\Menu\InventoryMenu.cs" />
     <Compile Include="Gui\Slider.cs" />
     <Compile Include="Gui\Menu\StartMenu.cs" />
     <Compile Include="Gui\TextField.cs" />

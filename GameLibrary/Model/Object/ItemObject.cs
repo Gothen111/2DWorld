@@ -80,8 +80,7 @@ namespace GameLibrary.Model.Object
                 {
                     ((CreatureObject)_CollideWith).Inventory.addItemObjectToInventory(this);
                 }
-            }
-           
+            }          
         }
     }
 }
