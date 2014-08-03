@@ -15,10 +15,12 @@ namespace GameLibrary.Gui.Menu
 {
     public class InventoryMenu : Container
     {
+        Container itemContainer;
+
         public InventoryMenu()
             :base()
         {
-            this.Bounds = new Rectangle(300, 0, 700, 1000); // TODO: Größe an Bildschirm anpassen!
+            this.Bounds = new Rectangle(500, 0, 700, 1000); // TODO: Größe an Bildschirm anpassen!
 
             this.AllowMultipleFocus = true;
 
@@ -36,18 +38,43 @@ namespace GameLibrary.Gui.Menu
                         var_ItemSpace.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
                         this.add(var_ItemSpace);
 
-                        //TODO: Das könnte auch in die draw methode noch rein!
-                        if (Connection.NetworkManager.client.PlayerObject.Inventory.Items.Count > y * 4 + x * 4)
-                        {
-                            Component var_Item = new Component(new Rectangle(this.Bounds.X + 36 * x, y * 36, 36, 36));
-                            var_Item.BackgroundGraphicPath = "Character/GoldCoin";
-                            this.add(var_Item);
-                        }
-
                         var_BackbackSize -= 1;
                     }
                 }
-            }            
+            }
+            this.itemContainer = new Container(this.Bounds);
+            this.checkInventoryItems();
+
+            this.add(this.itemContainer);
+        }
+
+        public void checkInventoryItems()
+        {
+            this.itemContainer.clear();
+
+            int var_BackbackSize = Connection.NetworkManager.client.PlayerObject.Inventory.MaxItems;
+
+            int var_SizeY = var_BackbackSize / 4 + var_BackbackSize % 4;
+
+            for (int y = 0; y < var_SizeY; y++)
+            {
+                for (int x = 0; x < 4; x++)
+                {
+                    if (var_BackbackSize > 0)
+                    {
+                        int var_ItemId = y * 4 + x;
+                        if (Connection.NetworkManager.client.PlayerObject.Inventory.Items.Count > var_ItemId)
+                        {
+                            TextField var_Item = new TextField(new Rectangle(this.Bounds.X + 36 * x + 8, y * 36 + 8, 16, 16));
+                            var_Item.BackgroundGraphicPath = Connection.NetworkManager.client.PlayerObject.Inventory.Items[var_ItemId].GraphicPath;
+                            var_Item.IsTextEditAble = false;
+                            var_Item.Text = Connection.NetworkManager.client.PlayerObject.Inventory.Items[var_ItemId].OnStack.ToString();
+                            this.itemContainer.add(var_Item);
+                        }
+                        var_BackbackSize -= 1;
+                    }
+                }
+            }
         }
     }
 }

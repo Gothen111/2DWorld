@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
+using GameLibrary.Connection;
 
 namespace GameLibrary.Model.Object
 {
@@ -135,6 +136,14 @@ namespace GameLibrary.Model.Object
                 }
             }
             return _DamageAmount;
+        }
+
+        public void addItemObjectToInventory(ItemObject _ItemObject)
+        {
+            if(this.inventory.addItemObjectToInventory(_ItemObject))
+            {
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
+            }
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)

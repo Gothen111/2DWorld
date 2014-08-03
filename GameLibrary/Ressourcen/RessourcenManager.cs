@@ -87,6 +87,7 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Gui/Menu/GameSurface/Mana", "Gui/Menu/GameSurface/Mana");
 
             loadTexture(_ContentManager, "Gui/Menu/Inventory/InventoryItemSpace", "Gui/Menu/Inventory/InventoryItemSpace");
+            loadTexture(_ContentManager, "Gui/Menu/Inventory/InventoryButton", "Gui/Menu/Inventory/InventoryButton");
 
             loadTexture(_ContentManager, "Character/Char1_Big", "Object/Character/Char1_Big");
 

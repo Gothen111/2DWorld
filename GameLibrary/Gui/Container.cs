@@ -61,17 +61,34 @@ namespace GameLibrary.Gui
             }
         }
 
+        public void clear()
+        {
+            this.components = new List<Component>();
+        }
+
+        public void setIsActive(bool _IsActive)
+        {
+            this.IsActive = _IsActive;
+            foreach (Component var_Component in this.components)
+            {
+                var_Component.IsActive = _IsActive;
+            }
+        }
+
         public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
             base.draw(_GraphicsDevice, _SpriteBatch);
 
-            if (this.BackgroundGraphicPath != null && !this.BackgroundGraphicPath.Equals(""))
+            if (this.IsActive && this.IsVisible)
             {
-                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.BackgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
-            }
-            foreach (Component var_Component in this.components)
-            {
-                var_Component.draw(_GraphicsDevice, _SpriteBatch);
+                if (this.BackgroundGraphicPath != null && !this.BackgroundGraphicPath.Equals(""))
+                {
+                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.BackgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                }
+                foreach (Component var_Component in this.components)
+                {
+                    var_Component.draw(_GraphicsDevice, _SpriteBatch);
+                }
             }
         }
     }

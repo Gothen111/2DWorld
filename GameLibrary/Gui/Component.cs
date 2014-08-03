@@ -94,12 +94,21 @@ namespace GameLibrary.Gui
             set { scale = value; }
         }
 
+        private bool isActive;
+
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { isActive = value; }
+        }
+
         public Component()
         {
             Peripherals.MouseManager.mouseFocus.Add(this);
             IsFocusAble = true;
             isVisible = true;
             this.scale = 1.0f;
+            this.isActive = true;
         }
 
         public Component(Rectangle _Bounds) : this()
@@ -159,12 +168,15 @@ namespace GameLibrary.Gui
 
         public virtual void onClick(MouseEnum mouseButton, Vector2 _MousePosition)
         {
-            this.IsFocused = true;
-            if (!GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Contains(this))
+            if (this.isActive)
             {
-                if (!allowMultipleFocus)
-                    GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Clear();
-                GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Add(this);
+                this.IsFocused = true;
+                if (!GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Contains(this))
+                {
+                    if (!allowMultipleFocus)
+                        GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Clear();
+                    GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Add(this);
+                }
             }
         }
 
@@ -188,38 +200,41 @@ namespace GameLibrary.Gui
         {
             if (this.backgroundGraphicPath != null && !this.backgroundGraphicPath.Equals(""))
             {
-                if (!this.IsHovered)
+                if(this.isActive && this.isVisible)
                 {
-                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.sourceRectangle, Color.White, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
-                }
-                else
-                {
-                    if (!this.isPressed)
+                    if (!this.IsHovered)
                     {
-                        try
-                        {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
-                        }
-                        catch (Exception e)
-                        {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
-                        }
+                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.sourceRectangle, Color.White, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
                     }
                     else
                     {
-                        try
-                        {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Pressed"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
-                        }
-                        catch (Exception e)
+                        if (!this.isPressed)
                         {
                             try
                             {
                                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
                             }
-                            catch (Exception f)
+                            catch (Exception e)
                             {
                                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Pressed"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                            }
+                            catch (Exception e)
+                            {
+                                try
+                                {
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                                }
+                                catch (Exception f)
+                                {
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                                }
                             }
                         }
                     }

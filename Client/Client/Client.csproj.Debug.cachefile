@@ -21,12 +21,11 @@ Content\Gui\TextField.xnb
 Content\Gui\Background.xnb
 Content\Gui\Button_Hover.xnb
 Content\Gui\Button_Pressed.xnb
-Content\Font\Arial.xnb
 Content\Particle\circle.xnb
 Content\Particle\diamond.xnb
 Content\Particle\star.xnb
-Content\Gui\Menu\CharacterCreation\Plattform.xnb
 Content\Gui\Menu\CharacterCreation\Background.xnb
+Content\Gui\Menu\CharacterCreation\Plattform.xnb
 Content\Object\Character\Char1_Big.xnb
 Content\Gui\Menu\GameSurface\Health.xnb
 Content\Gui\Menu\GameSurface\Interface.xnb
@@ -34,6 +33,7 @@ Content\Gui\Menu\GameSurface\Mana.xnb
 Content\Object\Character\CreatureState.xnb
 Content\Gui\Menu\Inventory\InventoryButton.xnb
 Content\Gui\Menu\Inventory\InventoryItemSpace.xnb
+Content\Font\Arial.xnb
 Content\Block\Wall.xnb
 Content\Block\WoodenPlank.xnb
 Content\Block\Layer2\Dirt.xnb

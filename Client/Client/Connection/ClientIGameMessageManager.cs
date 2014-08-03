@@ -54,6 +54,9 @@ namespace Client.Connection
                 case EIGameMessageType.RemoveObjectMessage:
                     handleRemoveObjectMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.UpdateCreatureInventoryMessage:
+                    handleUpdateCreatureInventoryMessage(_NetIncomingMessage);
+                    break;
 
             }
         }
@@ -212,6 +215,7 @@ namespace Client.Connection
                 else
                 {
                     GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Health wird nicht geupdatet");
+                    GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.RequestLivingObjectMessage(message.Id), GameLibrary.Connection.GameMessageImportance.UnImportant));
                 }
             }
         }
@@ -230,6 +234,27 @@ namespace Client.Connection
             else
             {
                 GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Wurde nicht gelöscht");
+            }
+        }
+
+        private static void handleUpdateCreatureInventoryMessage(NetIncomingMessage _Im)
+        {
+            var message = new UpdateCreatureInventoryMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Model.Object.Object var_Object = GameLibrary.Model.Map.World.World.world.getObject(message.Id);
+            if (var_Object != null)
+            {
+                if (var_Object is GameLibrary.Model.Object.CreatureObject)
+                {
+                    ((GameLibrary.Model.Object.CreatureObject)var_Object).Inventory = message.Inventory;
+                }
+            }
+            else
+            {
+                GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Inventar nicht geupdatet");
+                GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.RequestLivingObjectMessage(message.Id), GameLibrary.Connection.GameMessageImportance.UnImportant));
             }
         }
     }

@@ -43,41 +43,49 @@ namespace GameLibrary.Model.Object.Inventory
             info.AddValue("items", items, typeof(List<ItemObject>));
         }
 
-        public void addItemObjectToInventory(ItemObject _ItemObject)
+        public bool addItemObjectToInventory(ItemObject _ItemObject)
         {
-            if (this.containsItemObject(_ItemObject))
+            ItemObject var_ItemObject = getItemObjectEqual(_ItemObject);
+            if(var_ItemObject!=null)
             {
-                ItemObject var_ItemObject = getItemObjectEqual(_ItemObject);
                 if (addItemObjectToItemStack(var_ItemObject))
                 {
+                    GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
+                    return true;
                 }
                 else
                 {
-                    //TODO: Nehme Item nicht auf usw .... 
+                    //Nehme Item nicht auf usw .... 
+                    return false;
                 }
             }
             else
             {
                 if (this.isInventoryFull())
                 {
+                    return false;
                 }
                 else
                 {
                     this.items.Add(_ItemObject);
                     GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
+                    return true;
                 }
             }
         }
 
-        public bool containsItemObject(ItemObject _ItemObject)
-        {
-            //TODO: Gucke ob Item enthalten
-            return false;//items.Contains(_ItemObject);
-        }
-
         public ItemObject getItemObjectEqual(ItemObject _ItemObject)
         {
-            //TODO: Gebe gleiches Item anhand von x werten zurück
+            foreach (ItemObject var_ItemObject in this.items)
+            {
+                if (var_ItemObject.ItemEnum == _ItemObject.ItemEnum)
+                {
+                    if (var_ItemObject.OnStack + _ItemObject.OnStack < var_ItemObject.StackMax)
+                    {
+                        return var_ItemObject;
+                    }
+                }
+            }
             return null;
         }
 
@@ -97,7 +105,7 @@ namespace GameLibrary.Model.Object.Inventory
         {
             if (_ItemObject.OnStack < _ItemObject.StackMax)
             {
-                _ItemObject.OnStack += 1;
+                _ItemObject.OnStack += _ItemObject.OnStack;
                 return true;
             }
             else
@@ -105,7 +113,7 @@ namespace GameLibrary.Model.Object.Inventory
                 return false;
             }
         }
-        private bool removeItemObjectToItemStack(ItemObject _ItemObject)
+        private bool removeItemObjectFromItemStack(ItemObject _ItemObject)
         {
             _ItemObject.OnStack -= 1;
             if (_ItemObject.OnStack <= 0)

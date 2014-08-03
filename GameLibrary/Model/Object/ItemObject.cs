@@ -4,12 +4,21 @@ using System.Linq;
 using System.Text;
 
 using System.Runtime.Serialization;
+using GameLibrary.Factory.FactoryEnums;
 
 namespace GameLibrary.Model.Object
 {
     [Serializable()]
     public class ItemObject : AnimatedObject
     {
+        private ItemEnum itemEnum;
+
+        public ItemEnum ItemEnum
+        {
+            get { return itemEnum; }
+            set { itemEnum = value; }
+        }
+
         private bool stackAble;
 
         public bool StackAble
@@ -46,16 +55,18 @@ namespace GameLibrary.Model.Object
             :base()
         {
             this.onlyFromPlayerTakeAble = false;
+            this.onStack = 1;
         }
 
         public ItemObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
         {
-
+            this.onStack = (int)info.GetValue("onStack", typeof(int));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
+            info.AddValue("onStack", this.onStack, typeof(int));
             base.GetObjectData(info, ctxt);
         }
 
@@ -71,14 +82,14 @@ namespace GameLibrary.Model.Object
             {
                 if (_CollideWith is PlayerObject)
                 {
-                    ((PlayerObject)_CollideWith).Inventory.addItemObjectToInventory(this);
+                    ((PlayerObject)_CollideWith).addItemObjectToInventory(this);
                 }
             }
             else
             {
                 if (_CollideWith is CreatureObject)
                 {
-                    ((CreatureObject)_CollideWith).Inventory.addItemObjectToInventory(this);
+                    ((CreatureObject)_CollideWith).addItemObjectToInventory(this);
                 }
             }          
         }

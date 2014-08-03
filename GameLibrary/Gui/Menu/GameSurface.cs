@@ -19,6 +19,7 @@ namespace GameLibrary.Gui.Menu
         Component healthComponent;
         Component manaComponent;
 
+        Button inventoryButton;
         InventoryMenu inventoryMenu;
 
         public GameSurface()
@@ -40,8 +41,27 @@ namespace GameLibrary.Gui.Menu
             this.interfaceComponent.BackgroundGraphicPath = "Gui/Menu/GameSurface/Interface";
             this.add(this.interfaceComponent);
 
+            this.inventoryButton = new Button(new Rectangle(800 / 2, 500 - 141, 25, 25));
+            this.inventoryButton.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryButton";
+            this.inventoryButton.Action = inventoryButton_Click;
+            this.inventoryButton.IsTextEditAble = false;
+            this.add(this.inventoryButton);
+
             this.inventoryMenu = new InventoryMenu();
+            this.inventoryMenu.setIsActive(false);
             this.add(this.inventoryMenu);
+        }
+
+        private void inventoryButton_Click()
+        {
+            if (this.inventoryMenu.IsActive)
+            {
+                this.inventoryMenu.setIsActive(false);
+            }
+            else
+            {
+                this.inventoryMenu.setIsActive(true);
+            }
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)
@@ -71,6 +91,11 @@ namespace GameLibrary.Gui.Menu
             }
 
             _SpriteBatch.End();
+
+            if (this.inventoryMenu.IsActive)
+            {
+                this.inventoryMenu.checkInventoryItems();
+            }
 
             _SpriteBatch.Begin();
             //int var_Diff = (int)((GameLibrary.Connection.NetworkManager.client.PlayerObject.HealthPoints / GameLibrary.Connection.NetworkManager.client.PlayerObject.MaxHealthPoints) * this.healthComponent.Bounds.Height);

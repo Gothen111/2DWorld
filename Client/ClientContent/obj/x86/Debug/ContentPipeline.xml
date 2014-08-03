@@ -209,15 +209,6 @@
       <Time>2014-07-23T17:31:32.0009693+02:00</Time>
     </Item>
     <Item>
-      <Source>Font\Arial.spritefont</Source>
-      <Name>Font\Arial</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
-    </Item>
-    <Item>
       <Source>Particle\circle.png</Source>
       <Name>Particle\circle</Name>
       <Importer>TextureImporter</Importer>
@@ -245,15 +236,6 @@
       <Time>2014-07-23T17:41:53.8285757+02:00</Time>
     </Item>
     <Item>
-      <Source>Gui\Menu\CharacterCreation\Plattform.png</Source>
-      <Name>Gui\Menu\CharacterCreation\Plattform</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\Plattform.xnb</Output>
-      <Time>2014-07-24T12:04:40.2184426+02:00</Time>
-    </Item>
-    <Item>
       <Source>Gui\Menu\CharacterCreation\Background.png</Source>
       <Name>Gui\Menu\CharacterCreation\Background</Name>
       <Importer>TextureImporter</Importer>
@@ -261,6 +243,15 @@
       <Options>None</Options>
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\Background.xnb</Output>
       <Time>2014-07-24T12:02:24.5712517+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Gui\Menu\CharacterCreation\Plattform.png</Source>
+      <Name>Gui\Menu\CharacterCreation\Plattform</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\Plattform.xnb</Output>
+      <Time>2014-07-24T12:04:40.2184426+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Char1_Big.png</Source>
@@ -324,6 +315,15 @@
       <Options>None</Options>
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryItemSpace.xnb</Output>
       <Time>2014-08-03T13:14:43.8009837+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Font\Arial.spritefont</Source>
+      <Name>Font\Arial</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
+      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

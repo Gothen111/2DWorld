@@ -20,8 +20,9 @@ namespace GameLibrary.Factory
         public ItemObject createItemObject(ItemEnum _ItemEnum)
         {
             GameLibrary.Model.Object.ItemObject var_ItemObject = new ItemObject();
+            var_ItemObject.ItemEnum = _ItemEnum;
             var_ItemObject.Scale = 1;
-            var_ItemObject.Velocity = new Vector3(0, 0, 0);
+            var_ItemObject.Velocity = new Vector3(0, 0, 0);         
 
             switch (_ItemEnum)
             {
@@ -29,6 +30,7 @@ namespace GameLibrary.Factory
                     {
                         var_ItemObject.GraphicPath = "Character/GoldCoin";
                         var_ItemObject.Size = new Microsoft.Xna.Framework.Vector3(16, 16, 0);
+                        var_ItemObject.StackMax = 5;
                         var_ItemObject.OnlyFromPlayerTakeAble = true;
                         break;
                     }
