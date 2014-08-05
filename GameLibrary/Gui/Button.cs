@@ -24,6 +24,7 @@ namespace GameLibrary.Gui
         {
             this.TextAlign = TextAlign.Center;
 			this.BackgroundGraphicPath = "Gui/Button";
+            this.IsTextEditAble = false;
         }
 
         public Button(Rectangle _Bounds)
@@ -31,6 +32,7 @@ namespace GameLibrary.Gui
         {
             this.TextAlign = TextAlign.Center;
 			this.BackgroundGraphicPath = "Gui/Button";
+            this.IsTextEditAble = false;
         }
 
         public void StartAction()

@@ -325,6 +325,24 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
+    <Item>
+      <Source>Object\Item\Small\Cloth1.png</Source>
+      <Name>Object\Item\Small\Cloth1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Item\Small\Cloth1.xnb</Output>
+      <Time>2014-08-05T19:50:02.6238676+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Object\Item\Small\Sword1.png</Source>
+      <Name>Object\Item\Small\Sword1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Item\Small\Sword1.xnb</Output>
+      <Time>2014-08-05T19:50:02.6038676+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

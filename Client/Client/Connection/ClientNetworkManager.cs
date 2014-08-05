@@ -152,9 +152,13 @@ namespace Client.Connection
                         Event.EventList.Add(new Event(new RequestChunkMessage(var_Position), GameMessageImportance.VeryImportant));
                         break;
                     case EClientStatus.JoinedWorld:
+                        GameLibrary.Gui.MenuManager.menuManager.setMenu(new GameLibrary.Gui.Menu.GameSurface());
                         GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Connection.NetworkManager.client.PlayerObject);
+                        GameLibrary.Connection.NetworkManager.client.ClientStatus = EClientStatus.InWorld;
                         //GameLibrary.Camera.Camera.camera.setTarget(GameLibrary.Model.Map.World.World.world.getLivingObject(0));
                         //GameLibrary.Camera.Camera.camera.setPosition(new Microsoft.Xna.Framework.Vector3(0, 0, 0));
+                        break;
+                    case EClientStatus.InWorld:
                         break;
                 }
             }

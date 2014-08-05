@@ -38,7 +38,7 @@ namespace GameLibrary.Gui.Menu
         public void connectToServer()
         {
             Configuration.Configuration.networkManager.Start(this.serverIPTextField.Text, this.serverPortTextField.Text);
-            MenuManager.menuManager.setMenu(new GameSurface());
+            MenuManager.menuManager.setMenu(new LoadingMenu());
         }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)

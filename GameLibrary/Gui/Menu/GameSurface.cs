@@ -47,7 +47,7 @@ namespace GameLibrary.Gui.Menu
             this.inventoryButton.IsTextEditAble = false;
             this.add(this.inventoryButton);
 
-            this.inventoryMenu = new InventoryMenu();
+            this.inventoryMenu = new InventoryMenu(Connection.NetworkManager.client.PlayerObject);
             this.inventoryMenu.setIsActive(false);
             this.add(this.inventoryMenu);
         }
@@ -94,7 +94,7 @@ namespace GameLibrary.Gui.Menu
 
             if (this.inventoryMenu.IsActive)
             {
-                this.inventoryMenu.checkInventoryItems();
+                this.inventoryMenu.checkItems();
             }
 
             _SpriteBatch.Begin();

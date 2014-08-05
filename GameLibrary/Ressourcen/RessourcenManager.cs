@@ -91,6 +91,9 @@ namespace GameLibrary.Ressourcen
 
             loadTexture(_ContentManager, "Character/Char1_Big", "Object/Character/Char1_Big");
 
+            loadTexture(_ContentManager, "Object/Item/Small/Cloth1", "Object/Item/Small/Cloth1");
+            loadTexture(_ContentManager, "Object/Item/Small/Sword1", "Object/Item/Small/Sword1");
+
             Logger.Logger.LogInfo("Ressourcen wurden mit " + this.loadingErrorsCount + " Fehler(n) geladen");
         }
 

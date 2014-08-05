@@ -10,21 +10,48 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 using GameLibrary.Gui;
+using GameLibrary.Model.Object;
 
 namespace GameLibrary.Gui.Menu
 {
     public class InventoryMenu : Container
     {
+        CreatureObject inventoryOwner;
+
+        Container equipmentContainer;
+        Component weaponComponent;
+        Component armorComponent;
+
         Container itemContainer;
 
-        public InventoryMenu()
+        public InventoryMenu(CreatureObject _InventoryOwner)
             :base()
         {
+            this.inventoryOwner = _InventoryOwner;
+
             this.Bounds = new Rectangle(500, 0, 700, 1000); // TODO: Größe an Bildschirm anpassen!
 
             this.AllowMultipleFocus = true;
 
-            int var_BackbackSize = Connection.NetworkManager.client.PlayerObject.Inventory.MaxItems;
+            this.equipmentContainer = new Container(this.Bounds);
+
+            Component var_ItemSpaceWeapon = new Component(new Rectangle(this.Bounds.X, 0, 36, 36));
+            var_ItemSpaceWeapon.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
+            this.equipmentContainer.add(var_ItemSpaceWeapon);
+
+            this.weaponComponent = new Component(new Rectangle(this.Bounds.X, 0, 36, 36));
+            //this.equipmentContainer.add(this.weaponComponent);
+
+            Component var_ItemSpaceArmor = new Component(new Rectangle(this.Bounds.X, 36, 36, 36));
+            var_ItemSpaceArmor.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
+            this.equipmentContainer.add(var_ItemSpaceArmor);
+
+            this.armorComponent = new Component(new Rectangle(this.Bounds.X, 36, 36, 36));
+            //this.equipmentContainer.add(this.armorComponent);
+
+            this.add(this.equipmentContainer);
+
+            int var_BackbackSize = this.inventoryOwner.Inventory.MaxItems;
 
             int var_SizeY = var_BackbackSize / 4 + var_BackbackSize % 4;
 
@@ -34,7 +61,7 @@ namespace GameLibrary.Gui.Menu
                 {
                     if (var_BackbackSize > 0)
                     {
-                        Component var_ItemSpace = new Component(new Rectangle(this.Bounds.X + 36*x, y*36,36,36));
+                        Component var_ItemSpace = new Component(new Rectangle(this.Bounds.X + 36*x, 100 + y*36,36,36));
                         var_ItemSpace.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
                         this.add(var_ItemSpace);
 
@@ -43,36 +70,67 @@ namespace GameLibrary.Gui.Menu
                 }
             }
             this.itemContainer = new Container(this.Bounds);
-            this.checkInventoryItems();
+            this.checkItems();
 
             this.add(this.itemContainer);
         }
 
-        public void checkInventoryItems()
+        public void checkItems()
         {
-            this.itemContainer.clear();
+            this.checkInventoryItems();
+            this.checkEquipmentItems();
+            //TODO: Das gefällt mir ganz und gar nciht mit dem InventoryChanged = false; hier. es muss noch ne exta varialbe hier geben und das chang ein creatue geupdated ...
+            this.inventoryOwner.Inventory.InventoryChanged = false;         
+        }
 
-            int var_BackbackSize = Connection.NetworkManager.client.PlayerObject.Inventory.MaxItems;
-
-            int var_SizeY = var_BackbackSize / 4 + var_BackbackSize % 4;
-
-            for (int y = 0; y < var_SizeY; y++)
+        private void checkInventoryItems()
+        {
+            if (this.inventoryOwner.Inventory.InventoryChanged)
             {
-                for (int x = 0; x < 4; x++)
+                this.itemContainer.clear();
+
+                int var_BackbackSize = this.inventoryOwner.Inventory.MaxItems;
+
+                int var_SizeY = var_BackbackSize / 4 + var_BackbackSize % 4;
+
+                for (int y = 0; y < var_SizeY; y++)
                 {
-                    if (var_BackbackSize > 0)
+                    for (int x = 0; x < 4; x++)
                     {
-                        int var_ItemId = y * 4 + x;
-                        if (Connection.NetworkManager.client.PlayerObject.Inventory.Items.Count > var_ItemId)
+                        if (var_BackbackSize > 0)
                         {
-                            TextField var_Item = new TextField(new Rectangle(this.Bounds.X + 36 * x + 8, y * 36 + 8, 16, 16));
-                            var_Item.BackgroundGraphicPath = Connection.NetworkManager.client.PlayerObject.Inventory.Items[var_ItemId].GraphicPath;
-                            var_Item.IsTextEditAble = false;
-                            var_Item.Text = Connection.NetworkManager.client.PlayerObject.Inventory.Items[var_ItemId].OnStack.ToString();
-                            this.itemContainer.add(var_Item);
+                            int var_ItemId = y * 4 + x;
+                            if (this.inventoryOwner.Inventory.Items.Count > var_ItemId)
+                            {
+                                TextField var_Item = new TextField(new Rectangle(this.Bounds.X + 36 * x + 8, 100 + y * 36 + 8, 16, 16));
+                                var_Item.BackgroundGraphicPath = this.inventoryOwner.Inventory.Items[var_ItemId].GraphicPath;
+                                var_Item.IsTextEditAble = false;
+                                var_Item.Text = this.inventoryOwner.Inventory.Items[var_ItemId].OnStack.ToString();
+                                this.itemContainer.add(var_Item);
+                            }
+                            var_BackbackSize -= 1;
                         }
-                        var_BackbackSize -= 1;
                     }
+                }
+            }
+        }
+
+        private void checkEquipmentItems()
+        {
+            if (this.inventoryOwner.Inventory.InventoryChanged)
+            {
+                this.equipmentContainer.remove(this.weaponComponent);
+                if (this.inventoryOwner.getWeaponInHand() != null)
+                {
+                    this.weaponComponent.BackgroundGraphicPath = "Object/Item/Small/Sword1";
+                    this.equipmentContainer.add(this.weaponComponent);
+                }
+
+                this.equipmentContainer.remove(this.armorComponent);
+                if (this.inventoryOwner.getWearingArmor() != null)
+                {
+                    this.armorComponent.BackgroundGraphicPath = "Object/Item/Small/Cloth1";
+                    this.equipmentContainer.add(this.armorComponent);
                 }
             }
         }

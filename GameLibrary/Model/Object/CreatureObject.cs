@@ -46,14 +46,14 @@ namespace GameLibrary.Model.Object
         public CreatureObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
         {
-            //this.equipment = (List<EquipmentObject>)info.GetValue("equipment", typeof(List<EquipmentObject>));
+            this.equipment = (List<EquipmentObject>)info.GetValue("equipment", typeof(List<EquipmentObject>));
             this.inventory = (Inventory.Inventory)info.GetValue("inventory", typeof(Inventory.Inventory));
             this.name = (String)info.GetValue("name", typeof(String));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            //info.AddValue("equipment", equipment, typeof(List<EquipmentObject>));
+            info.AddValue("equipment", equipment, typeof(List<EquipmentObject>));
             info.AddValue("inventory", inventory, typeof(Inventory.Inventory));
             info.AddValue("name", this.name, typeof(String));
 
@@ -95,7 +95,7 @@ namespace GameLibrary.Model.Object
             this.swingWeapon();
         }
 
-        public void swingWeapon()
+        public GameLibrary.Model.Object.Equipment.EquipmentWeapon getWeaponInHand()
         {
             GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = null;
             foreach (EquipmentObject var_EquipmentObject in this.equipment)
@@ -105,6 +105,13 @@ namespace GameLibrary.Model.Object
                     var_EquipmentWeaponForAttack = ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject);
                 }
             }
+            return var_EquipmentWeaponForAttack;
+        }
+
+        public void swingWeapon()
+        {
+            GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = this.getWeaponInHand();
+
             if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady())
             {
                 List<Object> var_Objects = GameLibrary.Model.Map.World.World.world.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.Range, var_EquipmentWeaponForAttack.SearchFlags);
@@ -123,16 +130,27 @@ namespace GameLibrary.Model.Object
             }
         }
 
+        public GameLibrary.Model.Object.Equipment.EquipmentArmor getWearingArmor()
+        {
+            GameLibrary.Model.Object.Equipment.EquipmentArmor var_EquipmentArmor = null;
+            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            {
+                if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentArmor)
+                {
+                    var_EquipmentArmor = (GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject;
+                }
+            }
+            return var_EquipmentArmor;
+        }
+
         public override float calculateDamage(float _DamageAmount)
         {
             if (this.equipment != null)
             {
-                foreach (EquipmentObject var_EquipmentObject in this.equipment)
+                GameLibrary.Model.Object.Equipment.EquipmentArmor var_EquipmentArmor = this.getWearingArmor();
+                if (var_EquipmentArmor != null)
                 {
-                    if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentArmor)
-                    {
-                        _DamageAmount = _DamageAmount / ((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject).NormalArmor;
-                    }
+                    _DamageAmount = _DamageAmount / ((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentArmor).NormalArmor;
                 }
             }
             return _DamageAmount;

@@ -162,6 +162,7 @@
     <Compile Include="Gui\Checkbox.cs" />
     <Compile Include="Gui\Menu\CharacterCreationMenu.cs" />
     <Compile Include="Gui\Menu\InventoryMenu.cs" />
+    <Compile Include="Gui\Menu\LoadingMenu.cs" />
     <Compile Include="Gui\Slider.cs" />
     <Compile Include="Gui\Menu\StartMenu.cs" />
     <Compile Include="Gui\TextField.cs" />

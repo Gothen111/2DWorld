@@ -18,6 +18,7 @@ namespace GameLibrary.Connection
         RequestedChunk,
         JoinWorld,
         JoinedWorld,
+        InWorld,
         Disconnected
     }
 }
