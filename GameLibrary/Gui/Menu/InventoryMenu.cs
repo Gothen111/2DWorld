@@ -19,8 +19,8 @@ namespace GameLibrary.Gui.Menu
         CreatureObject inventoryOwner;
 
         Container equipmentContainer;
-        Component weaponComponent;
-        Component armorComponent;
+        TextField weaponComponent;
+        TextField armorComponent;
 
         Container itemContainer;
 
@@ -39,17 +39,15 @@ namespace GameLibrary.Gui.Menu
             var_ItemSpaceWeapon.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
             this.equipmentContainer.add(var_ItemSpaceWeapon);
 
-            this.weaponComponent = new Component(new Rectangle(this.Bounds.X, 0, 36, 36));
+            this.weaponComponent = new TextField(new Rectangle(this.Bounds.X, 0, 36, 36));
             //this.equipmentContainer.add(this.weaponComponent);
 
             Component var_ItemSpaceArmor = new Component(new Rectangle(this.Bounds.X, 36, 36, 36));
             var_ItemSpaceArmor.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
             this.equipmentContainer.add(var_ItemSpaceArmor);
 
-            this.armorComponent = new Component(new Rectangle(this.Bounds.X, 36, 36, 36));
+            this.armorComponent = new TextField(new Rectangle(this.Bounds.X, 36, 36, 36));
             //this.equipmentContainer.add(this.armorComponent);
-
-            this.add(this.equipmentContainer);
 
             int var_BackbackSize = this.inventoryOwner.Inventory.MaxItems;
 
@@ -71,8 +69,9 @@ namespace GameLibrary.Gui.Menu
             }
             this.itemContainer = new Container(this.Bounds);
             this.checkItems();
-
             this.add(this.itemContainer);
+
+            this.add(this.equipmentContainer);
         }
 
         public void checkItems()
@@ -106,6 +105,7 @@ namespace GameLibrary.Gui.Menu
                                 var_Item.BackgroundGraphicPath = this.inventoryOwner.Inventory.Items[var_ItemId].GraphicPath;
                                 var_Item.IsTextEditAble = false;
                                 var_Item.Text = this.inventoryOwner.Inventory.Items[var_ItemId].OnStack.ToString();
+                                var_Item.IsDragAndDropAble = true;
                                 this.itemContainer.add(var_Item);
                             }
                             var_BackbackSize -= 1;
@@ -123,6 +123,8 @@ namespace GameLibrary.Gui.Menu
                 if (this.inventoryOwner.getWeaponInHand() != null)
                 {
                     this.weaponComponent.BackgroundGraphicPath = "Object/Item/Small/Sword1";
+                    this.weaponComponent.IsTextEditAble = false;
+                    this.weaponComponent.IsDragAndDropAble = true;
                     this.equipmentContainer.add(this.weaponComponent);
                 }
 
@@ -130,6 +132,8 @@ namespace GameLibrary.Gui.Menu
                 if (this.inventoryOwner.getWearingArmor() != null)
                 {
                     this.armorComponent.BackgroundGraphicPath = "Object/Item/Small/Cloth1";
+                    this.armorComponent.IsTextEditAble = false;
+                    this.armorComponent.IsDragAndDropAble = true;
                     this.equipmentContainer.add(this.armorComponent);
                 }
             }

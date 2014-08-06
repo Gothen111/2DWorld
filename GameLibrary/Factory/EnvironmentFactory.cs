@@ -6,6 +6,8 @@ using System.Text;
 using GameLibrary.Factory.FactoryEnums;
 using GameLibrary.Model.Object;
 
+using GameLibrary.Model.Map.Region;
+
 namespace GameLibrary.Factory
 {
     public class EnvironmentFactory
@@ -16,7 +18,7 @@ namespace GameLibrary.Factory
         {
         }
 
-        public EnvironmentObject createEnvironmentObject(EnvironmentEnum objectType)
+        public EnvironmentObject createEnvironmentObject(RegionEnum _RegionEnum, EnvironmentEnum objectType)
         {
             EnvironmentObject environmentObject = new EnvironmentObject();
             environmentObject.StandartStandPositionX = 0;
@@ -25,13 +27,13 @@ namespace GameLibrary.Factory
             {
                 case EnvironmentEnum.Tree_Normal_1:
                     {
-                        environmentObject.GraphicPath = "Environment/Tree/Tree1";
+                        environmentObject.GraphicPath = "Region/" + _RegionEnum.ToString() + "/Block/Environment/Tree/Tree1";
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(64, 64, 0);
                         break;
                     }
                 case EnvironmentEnum.Flower_1:
                     {
-                        environmentObject.GraphicPath = "Environment/Flower/Flower1";
+                        environmentObject.GraphicPath = "Region/" + _RegionEnum.ToString() + "/Block/Environment/Flower/Flower1";
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(32, 32, 0);
                         environmentObject.StandartStandPositionX = Util.Random.GenerateGoodRandomNumber(0,9) * 32;
                         break;
@@ -50,7 +52,7 @@ namespace GameLibrary.Factory
                     }
                 case EnvironmentEnum.Chest:
                     {
-                        environmentObject.GraphicPath = "Environment/Chest/Chest";
+                        environmentObject.GraphicPath = "Region/" + _RegionEnum.ToString() + "/Block/Environment/Chest/Chest";
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(32, 48, 0);
                         environmentObject.StandartStandPositionX = 1*32;
                         environmentObject.Interactions.Add(new GameLibrary.Model.Object.Interaction.Interactions.ChestInteraction(environmentObject));
@@ -58,7 +60,7 @@ namespace GameLibrary.Factory
                     }
                 case EnvironmentEnum.FarmHouse1:
                     {
-                        environmentObject.GraphicPath = "Environment/Farm/FarmHouse1";
+                        environmentObject.GraphicPath = "Region/" + _RegionEnum.ToString() + "/Block/Environment/Farm/FarmHouse1";
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(370, 355, 0);
                         break;
                     }

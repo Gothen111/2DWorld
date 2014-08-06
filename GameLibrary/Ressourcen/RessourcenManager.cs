@@ -45,21 +45,23 @@ namespace GameLibrary.Ressourcen
 
             addFont("Arial", _ContentManager.Load<SpriteFont>("Font/Arial"));
 
-            loadTexture(_ContentManager, "Layer1/Gras", "Block/Layer1/Gras");
-            loadTexture(_ContentManager, "Layer1/Wall", "Block/Layer1/Wall");
-            loadTexture(_ContentManager, "Layer2/Gras", "Block/Layer2/Gras");
-            loadTexture(_ContentManager, "Layer2/Dirt", "Block/Layer2/Dirt");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Ground1", "Region/Grassland/Block/Layer1/Gras");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Wall", "Region/Grassland/Block/Layer1/Wall");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer2/Ground1", "Region/Grassland/Block/Layer2/Gras");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer2/Ground2", "Region/Grassland/Block/Layer2/Dirt");
 
-            loadTexture(_ContentManager, "Environment/Tree/Tree1", "Block/Environment/Tree/Tree1");
-            loadTexture(_ContentManager, "Environment/Tree/Tree1_Dead", "Block/Environment/Tree/Tree1_Dead");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Environment/Tree/Tree1", "Region/Grassland/Block/Environment/Tree/Tree1");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Environment/Tree/Tree1_Dead", "Region/Grassland/Block/Environment/Tree/Tree1_Dead");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Environment/Flower/Flower1", "Region/Grassland/Block/Environment/Flower/Flower1");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Environment/Chest/Chest", "Region/Grassland/Block/Environment/Chest/Chest");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Environment/Farm/FarmHouse1", "Region/Grassland/Block/Environment/Farm/FarmHouse1");
 
-            loadTexture(_ContentManager, "Environment/Flower/Flower1", "Block/Environment/Flower/Flower1");
+            loadTexture(_ContentManager, "Region/Snowland/Block/Layer1/Ground1", "Region/Snowland/Block/Layer1/Snow");
+            loadTexture(_ContentManager, "Region/Snowland/Block/Layer2/Ground1", "Region/Snowland/Block/Layer2/Gras");
+            loadTexture(_ContentManager, "Region/Snowland/Block/Layer2/Ground2", "Region/Snowland/Block/Layer2/Dirt");
 
-            loadTexture(_ContentManager, "Environment/Chest/Chest", "Block/Environment/Chest/Chest");
+            loadTexture(_ContentManager, "Region/Snowland/Block/Environment/Tree/Tree1", "Region/Snowland/Block/Environment/Tree/Tree1");
 
-            loadTexture(_ContentManager, "Environment/Farm/FarmHouse1", "Block/Environment/Farm/FarmHouse1");
-
-            loadTexture(_ContentManager, "Character/HumanFemale1", "Object/Character/HumanFemale1");
 
             loadTexture(_ContentManager, "Character/Char1_Small", "Object/Character/Char1_Small");
             loadTexture(_ContentManager, "Character/Char1_Small_Attack", "Object/Character/Char1_Small_Attack");

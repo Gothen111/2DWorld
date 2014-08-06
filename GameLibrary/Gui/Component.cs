@@ -153,7 +153,7 @@ namespace GameLibrary.Gui
             return false;
         }
 
-        public void mouseMoved(Vector2 position)
+        public virtual void mouseMoved(Vector2 position)
         {
             if (position.X >= bounds.Left && position.X <= bounds.Right && position.Y >= bounds.Top && position.Y <= bounds.Bottom)
             {

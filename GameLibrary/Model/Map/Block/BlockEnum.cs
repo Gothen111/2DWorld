@@ -15,7 +15,9 @@ namespace GameLibrary.Model.Map.Block
         Ice,
         Desert,
         Forest,
-        Wall
+        Wall,
+        Ground1,
+        Ground2
         //Water,
         //Lava,
         //Swamp

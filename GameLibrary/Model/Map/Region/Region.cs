@@ -42,20 +42,25 @@ namespace GameLibrary.Model.Map.Region
 
         private RegionEnum regionEnum;
 
-        public Region(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
+        public RegionEnum RegionEnum
+        {
+            get { return regionEnum; }
+        }
+
+        public Region(SerializationInfo info, StreamingContext ctxt) 
+            : base(info, ctxt)
         {
             this.id = (int)info.GetValue("id", typeof(int));
-            //this.chunks = (List<Chunk.Chunk>)info.GetValue("chunks", typeof(List<Chunk.Chunk>));
+            this.regionEnum = (RegionEnum)info.GetValue("regionEnum", typeof(int));
+
             this.chunks = new List<Chunk.Chunk>();
-            this.Position = (Vector2)info.GetValue("position", typeof(Vector2));
-            this.Size = (Vector2)info.GetValue("size", typeof(Vector2));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             base.GetObjectData(info, ctxt);
-            info.AddValue("id", this.id);
-            //info.AddValue("chunks", this.chunks, typeof(List<Chunk.Chunk>));
+            info.AddValue("id", this.id, typeof(int));
+            info.AddValue("regionEnum", this.regionEnum, typeof(int));
         }
 
         public Region(String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, RegionEnum _RegionEnum, World.World _ParentWorld)

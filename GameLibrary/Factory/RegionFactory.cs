@@ -24,6 +24,10 @@ namespace GameLibrary.Factory
                     {
                         return generateRegionGrassland(_Name, _PosX, _PosY, _ParentWorld);
                     }
+                case RegionEnum.Snowland:
+                    {
+                        return generateRegionSnowland(_Name, _PosX, _PosY, _ParentWorld);
+                    }
             }
             return null;
         }
@@ -34,7 +38,18 @@ namespace GameLibrary.Factory
 
             var_Result = new Region(_Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Grassland, _ParentWorld);
 
-            FarmFactory.farmFactory.generateFarms(var_Result, 1, 0);
+            //FarmFactory.farmFactory.generateFarms(var_Result, 1, 0);
+
+            Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
+
+            return var_Result;
+        }
+
+        private Region generateRegionSnowland(String _Name, int _PosX, int _PosY, World _ParentWorld)
+        {
+            Region var_Result;
+
+            var_Result = new Region(_Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Snowland, _ParentWorld);
 
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
 
@@ -49,14 +64,31 @@ namespace GameLibrary.Factory
             }
             else
             {
-                Logger.Logger.LogErr("RegionFactory->generateRegionGrassland(...) : Chunk kann der Region " + _Region.Name + " nicht hinzufügt werden!");
+                Logger.Logger.LogErr("RegionFactory->addChunkToRegion(...) : Chunk kann der Region " + _Region.Name + " nicht hinzufügt werden!");
             }
         }
 
         public Chunk createChunkInRegion(Region _Region, int _PosX, int _PosY)
         {
-            Chunk var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(RegionEnum.Grassland), _Region);
-            this.addChunkToRegion(_Region, _PosY , _PosY, var_Chunk);
+            Chunk var_Chunk = null;
+            switch (_Region.RegionEnum)
+            {
+                case RegionEnum.Grassland:
+                    {
+                        var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
+                        break;
+                    }
+                case RegionEnum.Snowland:
+                    {
+                        var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Snowland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
+                        break;
+                    }
+            }
+
+            if (var_Chunk != null)
+            {
+                this.addChunkToRegion(_Region, _PosY, _PosY, var_Chunk);
+            }   
 
             return var_Chunk;
         }

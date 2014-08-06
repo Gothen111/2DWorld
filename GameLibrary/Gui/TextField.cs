@@ -15,7 +15,7 @@ namespace GameLibrary.Gui
         Right
     }
 
-    public class TextField : Component
+    public class TextField : DragAndDrop
     {
         private String text;
 

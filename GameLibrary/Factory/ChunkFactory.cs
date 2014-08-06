@@ -24,6 +24,10 @@ namespace GameLibrary.Factory
                     {
                         return generateChunkGrassland(_PosX, _PosY, Chunk.chunkSizeX, Chunk.chunkSizeY, _Layer, _ParentRegion);
                     }
+                case ChunkEnum.Snowland:
+                    {
+                        return generateChunkSnowland(_PosX, _PosY, Chunk.chunkSizeX, Chunk.chunkSizeY, _Layer, _ParentRegion);
+                    }
             }
             return null;
         }
@@ -33,7 +37,7 @@ namespace GameLibrary.Factory
             Chunk var_Result;
 
             var_Result = new Chunk("Chunk", _PosX, _PosY, _SizeX, _SizeY, _ParentRegion);
-            this.fillChunkWithBlock(var_Result, BlockEnum.Gras);
+            this.fillChunkWithBlock(var_Result, BlockEnum.Ground1);
 
             var_Result.setAllNeighboursOfBlocks();
             //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
@@ -44,6 +48,26 @@ namespace GameLibrary.Factory
             generateNpc(var_Result);
 
             generateCoins(var_Result);
+
+            return var_Result;
+        }
+
+        private Chunk generateChunkSnowland(int _PosX, int _PosY, int _SizeX, int _SizeY, List<Enum> _Layer, Region _ParentRegion)
+        {
+            Chunk var_Result;
+
+            var_Result = new Chunk("Chunk", _PosX, _PosY, _SizeX, _SizeY, _ParentRegion);
+            this.fillChunkWithBlock(var_Result, BlockEnum.Ground1);
+
+            var_Result.setAllNeighboursOfBlocks();
+            //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
+            generateSecondLayer(var_Result, _Layer);
+            //generateFlowers(var_Result);
+            generateTrees(var_Result);
+            //generateWall(var_Result);
+            //generateNpc(var_Result);
+
+            //generateCoins(var_Result);
 
             return var_Result;
         }
@@ -259,7 +283,7 @@ namespace GameLibrary.Factory
             int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / Util.Random.GenerateGoodRandomNumber(1,5);
             for (int i = 0; i < var_Count; i++)
             {
-                GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Flower_1);
+                GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(((Region)_Chunk.Parent).RegionEnum,  EnvironmentEnum.Flower_1);
 
                 int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
                 int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
@@ -303,7 +327,7 @@ namespace GameLibrary.Factory
             int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Util.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
-                GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(EnvironmentEnum.Tree_Normal_1);
+                GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(((Region)_Chunk.Parent).RegionEnum, EnvironmentEnum.Tree_Normal_1);
 
                 int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
                 int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);

@@ -7,6 +7,7 @@ namespace GameLibrary.Model.Map.Chunk
 {
     public enum ChunkEnum
     {
-        Grassland
+        Grassland,
+        Snowland
     }
 }

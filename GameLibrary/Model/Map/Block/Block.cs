@@ -138,6 +138,8 @@ namespace GameLibrary.Model.Map.Block
                 var_Color = Color.Green;
             }
 
+            String var_RegionType = ((Region.Region)this.Parent.Parent).RegionEnum.ToString();
+
             BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
             while ((int)var_Layer < this.layer.Length)
             {
@@ -146,24 +148,24 @@ namespace GameLibrary.Model.Map.Block
                 {
                     if (var_Layer == BlockLayerEnum.Layer1)
                     {
-                        if (var_Enum == BlockEnum.Gras)
+                        if (var_Enum == BlockEnum.Ground1)
                         {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Gras"], var_DrawPosition, var_Color);
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/Layer1/Ground1"], var_DrawPosition, var_Color);
                         }
                         if (var_Enum == BlockEnum.Wall)
                         {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer1/Wall"], var_DrawPosition, var_Color);
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/Layer1/Wall"], var_DrawPosition, var_Color);
                         }
                     }
                     if (var_Layer == BlockLayerEnum.Layer2)
                     {
-                        if (var_Enum == BlockEnum.Gras)
+                        if (var_Enum == BlockEnum.Ground1)
                         {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Gras"], var_DrawPosition, var_Color);
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/Layer2/Ground1"], var_DrawPosition, var_Color);
                         }
-                        if (var_Enum == BlockEnum.Dirt)
+                        if (var_Enum == BlockEnum.Ground2)
                         {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Layer2/Dirt"], var_DrawPosition, var_Color);
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/Layer2/Ground2"], var_DrawPosition, var_Color);
                         }
                     }
                 }

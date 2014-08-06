@@ -133,7 +133,8 @@ namespace GameLibrary.Model.Map.World
 
         public Region.Region createRegionAt(int _PosX, int _PosY)
         {
-            return GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, _PosX, _PosY, RegionEnum.Grassland, this);
+            int var_RegionType = Util.Random.GenerateGoodRandomNumber(0, Enum.GetValues(typeof(RegionEnum)).Length);
+            return GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, _PosX, _PosY, (RegionEnum)var_RegionType, this);
         }
 
         #region drawing

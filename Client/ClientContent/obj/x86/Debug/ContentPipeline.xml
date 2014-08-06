@@ -2,102 +2,84 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>Block\Environment\Chest\Chest.png</Source>
-      <Name>Block\Environment\Chest\Chest</Name>
+      <Source>Region\Grassland\Block\Environment\Chest\Chest.png</Source>
+      <Name>Region\Grassland\Block\Environment\Chest\Chest</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Environment\Chest\Chest.xnb</Output>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Chest\Chest.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <Item>
-      <Source>Block\Environment\Farm\FarmHouse1.png</Source>
-      <Name>Block\Environment\Farm\FarmHouse1</Name>
+      <Source>Region\Grassland\Block\Environment\Farm\FarmHouse1.png</Source>
+      <Name>Region\Grassland\Block\Environment\Farm\FarmHouse1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Environment\Farm\FarmHouse1.xnb</Output>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Farm\FarmHouse1.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <Item>
-      <Source>Block\Environment\Flower\Flower1.png</Source>
-      <Name>Block\Environment\Flower\Flower1</Name>
+      <Source>Region\Grassland\Block\Environment\Flower\Flower1.png</Source>
+      <Name>Region\Grassland\Block\Environment\Flower\Flower1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Environment\Flower\Flower1.xnb</Output>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Flower\Flower1.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <Item>
-      <Source>Block\Environment\Tree\Tree1.png</Source>
-      <Name>Block\Environment\Tree\Tree1</Name>
+      <Source>Region\Grassland\Block\Environment\Tree\Tree1.png</Source>
+      <Name>Region\Grassland\Block\Environment\Tree\Tree1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Environment\Tree\Tree1.xnb</Output>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Tree\Tree1.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <Item>
-      <Source>Block\Environment\Tree\Tree1_Dead.png</Source>
-      <Name>Block\Environment\Tree\Tree1_Dead</Name>
+      <Source>Region\Grassland\Block\Environment\Tree\Tree1_Dead.png</Source>
+      <Name>Region\Grassland\Block\Environment\Tree\Tree1_Dead</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Environment\Tree\Tree1_Dead.xnb</Output>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Tree\Tree1_Dead.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <Item>
-      <Source>Block\Layer1\Gras.png</Source>
-      <Name>Block\Layer1\Gras</Name>
+      <Source>Region\Grassland\Block\Layer1\Gras.png</Source>
+      <Name>Region\Grassland\Block\Layer1\Gras</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Layer1\Gras.xnb</Output>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Gras.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <Item>
-      <Source>Block\Layer1\Wall.png</Source>
-      <Name>Block\Layer1\Wall</Name>
+      <Source>Region\Grassland\Block\Layer1\Wall.png</Source>
+      <Name>Region\Grassland\Block\Layer1\Wall</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Layer1\Wall.xnb</Output>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Wall.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <Item>
-      <Source>Block\Layer2\Dirt.png</Source>
-      <Name>Block\Layer2\Dirt</Name>
+      <Source>Region\Grassland\Block\Layer2\Dirt.png</Source>
+      <Name>Region\Grassland\Block\Layer2\Dirt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Layer2\Dirt.xnb</Output>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer2\Dirt.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <Item>
-      <Source>Block\Layer2\Gras.png</Source>
-      <Name>Block\Layer2\Gras</Name>
+      <Source>Region\Grassland\Block\Layer2\Gras.png</Source>
+      <Name>Region\Grassland\Block\Layer2\Gras</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Layer2\Gras.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Block\Wall.png</Source>
-      <Name>Block\Wall</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\Wall.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Block\WoodenPlank.png</Source>
-      <Name>Block\WoodenPlank</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Block\WoodenPlank.xnb</Output>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer2\Gras.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <Item>
@@ -317,15 +299,6 @@
       <Time>2014-08-03T13:14:43.8009837+02:00</Time>
     </Item>
     <Item>
-      <Source>Font\Arial.spritefont</Source>
-      <Name>Font\Arial</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
-    </Item>
-    <Item>
       <Source>Object\Item\Small\Cloth1.png</Source>
       <Name>Object\Item\Small\Cloth1</Name>
       <Importer>TextureImporter</Importer>
@@ -342,6 +315,51 @@
       <Options>None</Options>
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Item\Small\Sword1.xnb</Output>
       <Time>2014-08-05T19:50:02.6038676+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Region\Snowland\Block\Layer1\Snow.png</Source>
+      <Name>Region\Snowland\Block\Layer1\Snow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Layer1\Snow.xnb</Output>
+      <Time>2014-08-06T18:32:31.4154677+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Region\Snowland\Block\Layer2\Dirt.png</Source>
+      <Name>Region\Snowland\Block\Layer2\Dirt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Layer2\Dirt.xnb</Output>
+      <Time>2014-08-06T18:34:05.2964326+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Region\Snowland\Block\Layer2\Gras.png</Source>
+      <Name>Region\Snowland\Block\Layer2\Gras</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Layer2\Gras.xnb</Output>
+      <Time>2014-08-06T18:34:05.2808325+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Region\Snowland\Block\Environment\Tree\Tree1.png</Source>
+      <Name>Region\Snowland\Block\Environment\Tree\Tree1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Environment\Tree\Tree1.xnb</Output>
+      <Time>2014-08-06T18:35:53.3216642+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Font\Arial.spritefont</Source>
+      <Name>Font\Arial</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
+      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

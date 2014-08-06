@@ -7,6 +7,7 @@ namespace GameLibrary.Model.Map.Region
 {
     public enum RegionEnum
     {
-        Grassland
+        Grassland,
+        Snowland
     }
 }

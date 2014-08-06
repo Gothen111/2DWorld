@@ -125,8 +125,8 @@ namespace Client
             // TODO: Add your update logic here
 
 
-            particleEngine.EmitterLocation = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            particleEngine.Update(); // Remove
+            //particleEngine.EmitterLocation = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+            //particleEngine.Update(); // Remove
 
 
 
