@@ -219,9 +219,14 @@
     <Compile Include="Model\Object\Task\Tasks\StandTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\TaskPriority.cs" />
     <Compile Include="Model\Object\Task\Tasks\WalkRandomTask.cs" />
+    <Compile Include="Model\Path\AStar\AStarAlgorithm.cs" />
+    <Compile Include="Model\Path\AStar\COPY\AStarAlgorithm.cs" />
+    <Compile Include="Model\Path\AStar\COPY\PriorityQueue.cs" />
+    <Compile Include="Model\Path\Path.cs" />
+    <Compile Include="Model\Path\PathNode.cs" />
+    <Compile Include="Model\Path\AStar\PriorityQueue.cs" />
     <Compile Include="Model\Player\InputAction.cs" />
     <Compile Include="Model\Player\PlayerContoller.cs" />
-    <Compile Include="Model\Path\Path.cs" />
     <Compile Include="Model\Path\PathFinder.cs" />
     <Compile Include="Peripherals\KeyboardManager.cs" />
     <Compile Include="Peripherals\MouseManager.cs" />
@@ -243,6 +248,7 @@
     <Compile Include="Gui\Menu\ConnectToServerMenu.cs" />
     <Compile Include="Gui\ListView.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

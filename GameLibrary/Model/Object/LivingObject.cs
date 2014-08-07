@@ -86,20 +86,20 @@ namespace GameLibrary.Model.Object
 
         private LivingObjectTask currentTask;
 
-        private Path.Path path;
-
-        protected Path.Path Path
-        {
-            get { return path; }
-            set { path = value; }
-        }
-
         private bool canBeEffected; // Wie vergiften oder knockback usw.....
 
         public bool CanBeEffected
         {
             get { return canBeEffected; }
             set { canBeEffected = value; }
+        }
+
+        private Path.Path path;
+
+        public Path.Path Path
+        {
+            get { return path; }
+            set { path = value; }
         }
 
         public LivingObject()
@@ -112,10 +112,10 @@ namespace GameLibrary.Model.Object
             tasks = new List<LivingObjectTask>();
             aggroSystem = new Task.Aggro.AggroSystem<LivingObject>();
             MovementSpeed = 1f;
-            path = null; // ???
             currentTask = null;
             this.canBeEffected = true;
             this.interactions = new List<LivingObjectInteraction>();
+            this.path = null;
         }
 
         public LivingObject(SerializationInfo info, StreamingContext ctxt)

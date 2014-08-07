@@ -3,29 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Microsoft.Xna.Framework;
-
 namespace GameLibrary.Model.Path
 {
     public class Path
     {
-        Vector2 startPoint;
-        Vector2 currentPoint;
-        Vector2 endPoint;
+        private LinkedList<PathNode> pathNodes;
 
-        List<Vector2> wayToWalk;
-
-        public Path(Vector2 _StartPoint, Vector2 _EndPoint)
+        public LinkedList<PathNode> PathNodes
         {
-            this.startPoint = _StartPoint;
-            this.endPoint = _EndPoint;
-
-            this.generatePath();
+            get { return pathNodes; }
+            set { pathNodes = value; }
         }
 
-        private void generatePath()
+        public Path()
         {
-            this.wayToWalk = PathFinder.generatePath(this.startPoint, this.endPoint);
+        }
+
+        public Path(LinkedList<PathNode> _PathNodes)
+        {
+            this.pathNodes = _PathNodes;
         }
     }
 }

@@ -8,121 +8,107 @@ using Microsoft.Xna.Framework;
 using GameLibrary.Model.Map.World;
 using GameLibrary.Model.Map.Block;
 
+using GameLibrary.Model.Path.AStar;
+using GameLibrary.Model.Map.Region;
+using GameLibrary.Model.Map.Chunk;
+
 namespace GameLibrary.Model.Path
 {
+    public class MySolver<TPathNode, TUserContext> : AStarAlgorithm<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
+    {
+        protected override Double Heuristic(PathNode inStart, PathNode inEnd)
+        {
+            return Math.Abs(inStart.X - inEnd.X) + Math.Abs(inStart.Y - inEnd.Y);
+        }
+
+        protected override Double NeighborDistance(PathNode inStart, PathNode inEnd)
+        {
+            return Heuristic(inStart, inEnd);
+        }
+
+        public MySolver(TPathNode[,] inGrid)
+            : base(inGrid)
+        {
+        }
+    }
+
     public class PathFinder
     {
-        private enum Color
+        public static Path generatePath(Vector2 _StartPosition, Vector2 _EndPosition)
         {
-            White,
-            Grey,
-            Black
-        }
-        private class Field
-        {
-            public Color color;
-            public int distance;
-            public Field parent;
-
-            public Vector2 position;
-
-            public Field()
+            try
             {
-                this.color = Color.White;
-                this.distance = Int32.MaxValue;
-                this.parent = null;
+                int var_SizeX = 20;//(int)Math.Abs(_StartPosition.X - _EndPosition.X)/16 + 2;//20;
+                int var_SizeY = 20;//(int)Math.Abs(_StartPosition.Y - _EndPosition.Y)/16 + 2;//20;
 
-                this.position = Vector2.Zero;
-            }
-        }
+                int var_StartX = (int)((_StartPosition.X % (Region.regionSizeX * Chunk.chunkSizeX * Block.BlockSize)) % (Chunk.chunkSizeX * Block.BlockSize) / Block.BlockSize);
+                int var_StartY = (int)((_StartPosition.Y % (Region.regionSizeY * Chunk.chunkSizeY * Block.BlockSize)) % (Chunk.chunkSizeY * Block.BlockSize) / Block.BlockSize);          
 
-        private static int MaxToWalk = 5;
+                int var_TargetX = (int)((_EndPosition.X % (Region.regionSizeX * Chunk.chunkSizeX * Block.BlockSize)) % (Chunk.chunkSizeX * Block.BlockSize) / Block.BlockSize);
+                int var_TargetY = (int)((_EndPosition.Y % (Region.regionSizeY * Chunk.chunkSizeY * Block.BlockSize)) % (Chunk.chunkSizeY * Block.BlockSize) / Block.BlockSize);
 
-        public static List<Vector2> generatePath(Vector2 _StartPoint, Vector2 _EndPoint)
-        {
-            List<Vector2> var_List = new List<Vector2>();
+                var_TargetX = var_TargetX - var_StartX + var_SizeX/2;
+                var_TargetY = var_TargetY - var_StartX + var_SizeX/2;
 
-            Block var_StartBlock = World.world.getBlockAtPosition(_StartPoint.X, _StartPoint.Y);
-            Block var_EndBlock = World.world.getBlockAtPosition(_EndPoint.X, _EndPoint.Y);
+                PathNode[,] grid = new PathNode[var_SizeX, var_SizeY];
 
-            shortestWay(var_StartBlock, var_EndBlock);
-
-            return var_List;
-        }
-
-        private static List<Vector2> shortestWay(Block _StartBlock, Block _EndBlock)
-        {
-            List<Block> var_ListVisited = new List<Block>();
-            return shortestWayRekursive(var_ListVisited, _StartBlock, _EndBlock, new List<Vector2>());
-        }
-
-        private static List<Vector2> shortestWayRekursive(List<Block> _ListVisited, Block _CurrentBlock, Block _EndBlock, List<Vector2> _Way)
-        {
-            _ListVisited.Add(_CurrentBlock);
-            _Way.Add(_CurrentBlock.Position);
-
-            if(_CurrentBlock.Equals(_EndBlock))
-            {
-                return _Way;
-            }
-            
-            Block var_BlockRight = (Block)_CurrentBlock.RightNeighbour;
-            Block var_BlockLeft = (Block)_CurrentBlock.LeftNeighbour;
-            Block var_BlockTop = (Block)_CurrentBlock.TopNeighbour;
-            Block var_BlockBottom = (Block)_CurrentBlock.BottomNeighbour;
-
-            if (_EndBlock.Position.X > _CurrentBlock.Position.X)
-            {
-                if (!_ListVisited.Contains(var_BlockRight))
+                for (int x = 0; x < var_SizeX; x++)
                 {
-                    if (var_BlockRight.IsWalkAble)
+                    for (int y = 0; y < var_SizeY; y++)
                     {
-                        shortestWayRekursive(_ListVisited, var_BlockRight, _EndBlock, new List<Vector2>(_Way));
+                        int var_X = (int)_StartPosition.X + (-var_SizeX / 2 + x) * Block.BlockSize;
+                        int var_Y = (int)_StartPosition.Y + (-var_SizeX / 2 + y) * Block.BlockSize;
+
+                        Block var_Block = World.world.getBlockAtCoordinate(var_X, var_Y);
+                        if (var_Block != null)
+                        {
+                            grid[x, y] = new PathNode()
+                            {
+                                IsWall = !var_Block.IsWalkAble,
+                                X = (int)var_Block.Position.X,
+                                Y = (int)var_Block.Position.Y,
+                                block = var_Block,
+                            };
+                        }
+                        else
+                        {
+                            grid[x, y] = new PathNode()
+                            {
+                                IsWall = true,
+                                X = var_X,
+                                Y = var_Y,
+                                block = null,
+                            };
+                        }
                     }
                 }
-            }
 
-            else if (_EndBlock.Position.X < _CurrentBlock.Position.X)
-            {
-                if (!_ListVisited.Contains(var_BlockLeft))
+                MySolver<PathNode, System.Object> aStar = new MySolver<PathNode, System.Object>(grid);
+
+                /*for (int x = 0; x < var_SizeX; x++)
                 {
-                    if (var_BlockLeft.IsWalkAble)
+                    for (int y = 0; y < var_SizeY; y++)
                     {
-                        shortestWayRekursive(_ListVisited, var_BlockLeft, _EndBlock, new List<Vector2>(_Way));
+                        if (grid[x, y].IsWall)
+                        {
+                            Console.Write("x");
+                        }
+                        else
+                        {
+                            Console.Write("-");
+                        }
                     }
-                }
-            }
+                    Console.WriteLine();
+                }*/
 
-            if (_EndBlock.Position.Y > _CurrentBlock.Position.Y)
+                return new Path(aStar.Search(new Vector2(var_SizeX / 2, var_SizeY / 2), new Vector2(var_TargetX, var_TargetY), null));
+            }
+            catch (Exception ex)
             {
-                if (!_ListVisited.Contains(var_BlockBottom))
-                {
-                    if (var_BlockBottom.IsWalkAble)
-                    {
-                        shortestWayRekursive(_ListVisited, var_BlockBottom, _EndBlock, new List<Vector2>(_Way));
-                    }
-                }
+                Logger.Logger.LogErr(ex.ToString());
             }
 
-            if (_EndBlock.Position.Y < _CurrentBlock.Position.Y)
-            {
-                if (!_ListVisited.Contains(var_BlockTop))
-                {
-                    if (var_BlockTop.IsWalkAble)
-                    {
-                        shortestWayRekursive(_ListVisited, var_BlockTop, _EndBlock, new List<Vector2>(_Way));
-                    }
-                }
-            }
-
-
-            /*
-             * 
-             * 
-             */
-
-            // TODO: PATHFINDER fertig machen! Rekusions abbruch usw .. 
-            return new List<Vector2>();
+            return null;
         }
     }
 }

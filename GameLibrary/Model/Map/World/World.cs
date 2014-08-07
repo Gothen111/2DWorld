@@ -121,7 +121,7 @@ namespace GameLibrary.Model.Map.World
             return null;
         }
 
-        public Block.Block getBlockAtPosition(float _PosX, float _PosY)
+        public Block.Block getBlockAtCoordinate(float _PosX, float _PosY)
         {
             Chunk.Chunk var_Chunk = World.world.getChunkAtPosition(_PosX, _PosY);
             if (var_Chunk != null)

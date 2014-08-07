@@ -64,6 +64,9 @@ namespace GameLibrary.Model.Object.Task.Tasks
                 }
                 else
                 {
+
+                    //GameLibrary.Model.Path.Path var_Path = GameLibrary.Model.Path.PathFinder.generatePath(new Microsoft.Xna.Framework.Vector2(0, 0), new Microsoft.Xna.Framework.Vector2(32 * 16, 32 * 18));
+
                     List<Object> var_Objects = Model.Map.World.World.world.getObjectsInRange(this.TaskOwner.Position, this.TaskOwner.AggroRange);
                     var_Objects.Remove(this.TaskOwner);
                     if (var_Objects.Count > 0)

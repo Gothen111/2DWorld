@@ -135,7 +135,6 @@ namespace GameLibrary.Gui
 
         public virtual bool mouseReleased(MouseEnum mouseButtonReleased, Vector2 position)
         {
-            Logger.Logger.LogInfo("X: " + position.X + " Y: " + position.Y);
             if (position.X >= bounds.Left && position.X <= bounds.Right && position.Y >= bounds.Top && position.Y <= bounds.Bottom)
             {
                 if (this.isPressed)
