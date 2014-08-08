@@ -43,7 +43,7 @@ namespace GameLibrary.Factory
             generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             //generateSecondLayer(var_Result, _Layer);
             //generateFlowers(var_Result);
-            //generateTrees(var_Result);
+            generateTrees(var_Result);
             //generateWall(var_Result);
             generateNpc(var_Result);
 
@@ -340,7 +340,11 @@ namespace GameLibrary.Factory
                 if (var_Block.IsWalkAble)
                 {
                     var_Block.Objects.Add(var_EnvironmentObject);
+                    var_EnvironmentObject.CurrentBlock = var_Block;
                     ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_EnvironmentObject);
+
+                    //TODO: Das stimmt natürlich nicht ganz ;) aber erst mal für den AStar...
+                    //var_Block.IsWalkAble = false;
                 }
             }
         }

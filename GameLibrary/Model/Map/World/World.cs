@@ -276,7 +276,6 @@ namespace GameLibrary.Model.Map.World
 
         public void removeObjectFromWorld(Object.Object _Object)
         {
-            //TODO: Client informieren!
             quadTree.Remove(_Object);
             if (_Object.CurrentBlock != null)
             {
@@ -482,9 +481,16 @@ namespace GameLibrary.Model.Map.World
             this.updatePlayerObjectsNeighborhood();
 
             //TODO: Mache Kopie der Liste!!!! Falls objekte steben usw ;)
-            foreach (Object.Object var_Object in this.objectsToUpdate)
+            try
             {
-                var_Object.update();
+                foreach (Object.Object var_Object in this.objectsToUpdate)
+                {
+                    var_Object.update();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
         }
 

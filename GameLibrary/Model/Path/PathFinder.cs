@@ -64,7 +64,7 @@ namespace GameLibrary.Model.Path
                         {
                             grid[x, y] = new PathNode()
                             {
-                                IsWall = !var_Block.IsWalkAble,
+                                IsWall = !var_Block.IsWalkAble || (var_Block.Objects.Count > 0 && x != var_SizeX / 2 && y != var_SizeY / 2),
                                 X = x,
                                 Y = y,
                                 block = var_Block,
@@ -92,6 +92,10 @@ namespace GameLibrary.Model.Path
                         if (grid[x, y].IsWall)
                         {
                             Console.Write("x");
+                        }
+                        else if (x == 10 && y == 10)
+                        {
+                            Console.Write("o");
                         }
                         else
                         {

@@ -73,7 +73,7 @@ namespace GameLibrary.Model.Path
 
         public void moveOnPath(LivingObject _LivingObject)
         {
-            if (!this.finished)
+            if (!this.finished && this.pathNodes != null)
             {
                 if (this.currentNode == null)
                 {

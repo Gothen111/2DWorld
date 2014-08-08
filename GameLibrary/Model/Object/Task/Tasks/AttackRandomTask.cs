@@ -169,6 +169,15 @@ namespace GameLibrary.Model.Object.Task.Tasks
                     }
                 }
                 */
+                
+                if (Vector3.Distance(this.TaskOwner.Position, this.target.Position) <= 35)
+                {
+                    if (attackSpeed <= 0)
+                    {
+                        this.TaskOwner.attack();
+                        this.attackSpeed = this.attackSpeedMax;
+                    }
+                }
             }
         }
     }

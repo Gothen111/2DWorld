@@ -328,8 +328,10 @@ namespace GameLibrary.Model.Object
                 {
                     Texture2D texture = Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath + "_Dead"];
                     this.GraphicPath = this.GraphicPath + "_Dead";
-                    this.CurrentBlock.objectsPreEnviorment.Add(this);
-                    this.CurrentBlock.removeObject(this);
+                    Model.Map.World.World.world.removeObjectFromWorld(this);
+                    //TODO: PreEnviornment
+                    //this.CurrentBlock.objectsPreEnviorment.Add(this);
+                    //this.CurrentBlock.removeObject(this);
                 }
                 catch (Exception e)
                 {
