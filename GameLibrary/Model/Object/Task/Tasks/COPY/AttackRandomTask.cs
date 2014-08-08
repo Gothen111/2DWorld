@@ -8,7 +8,7 @@ using GameLibrary.Model.Map.World;
 using GameLibrary.Model.Map.Chunk;
 using GameLibrary.Commands.CommandTypes;
 
-namespace GameLibrary.Model.Object.Task.Tasks
+namespace GameLibrary.Model.Object.Task.Tasks.COPY
 {
     public class AttackRandomTask : LivingObjectTask
     {
@@ -18,10 +18,6 @@ namespace GameLibrary.Model.Object.Task.Tasks
         private int attackSpeedMax = 50;
 
         private float updateTarget = 40;
-        private float updateTargetMax = 40;
-
-        private float updatePathToTarget = 0;
-        private float updatePathToTargetMax = 50;
 
         private bool wantToDoTaskCheck = true;
         private float updateWantToDo = 20;
@@ -60,11 +56,11 @@ namespace GameLibrary.Model.Object.Task.Tasks
 
             this.attackSpeed -= 1;
 
-            if (this.target == null)
+            if (target == null)
             {
-                if (this.updateTarget > 0)
+                if (updateTarget > 0)
                 {
-                    this.updateTarget--;
+                    updateTarget--;
                 }
                 else
                 {
@@ -88,7 +84,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
                     }
                     var_Objects.Clear();
                     this.target = this.TaskOwner.AggroSystem.getTarget();
-                    this.updateTarget = this.updateTargetMax;
+                    updateTarget = 50;
                 }
             }
             else
@@ -124,21 +120,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
                     target = null;
                     return;
                 }
-                if (this.updatePathToTarget > 0)
-                {
-                    this.updatePathToTarget--;
-                }
-                else
-                {                   
-                    this.TaskOwner.Path = GameLibrary.Model.Path.PathFinder.generatePath(new Vector2(this.TaskOwner.Position.X, this.TaskOwner.Position.Y), new Vector2(this.target.Position.X, this.target.Position.Y));
-                    if (this.TaskOwner.Path != null)
-                    {
 
-                    }
-                    this.updatePathToTarget = this.updatePathToTargetMax;
-                }
-
-                /*
                 this.TaskOwner.MoveRight = false;
                 this.TaskOwner.MoveLeft = false;
                 this.TaskOwner.MoveDown = false;
@@ -168,7 +150,6 @@ namespace GameLibrary.Model.Object.Task.Tasks
                         this.attackSpeed = this.attackSpeedMax;
                     }
                 }
-                */
             }
         }
     }

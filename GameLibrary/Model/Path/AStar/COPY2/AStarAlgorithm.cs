@@ -18,7 +18,7 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
-namespace GameLibrary.Model.Path.AStar
+namespace GameLibrary.Model.Path.AStar.COPY2
 {
     public interface IPathNode<TUserContext>
     {
@@ -33,7 +33,7 @@ namespace GameLibrary.Model.Path.AStar
     /// <summary>
     /// Uses about 50 MB for a 1024x1024 grid.
     /// </summary>
-    public class SpatialAStar<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
+    public class AStarAlgorithm<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
     {
         private OpenCloseMap m_ClosedSet;
         private OpenCloseMap m_OpenSet;
@@ -82,7 +82,7 @@ namespace GameLibrary.Model.Path.AStar
             }
         }
 
-        public SpatialAStar(TPathNode[,] inGrid)
+        public AStarAlgorithm(TPathNode[,] inGrid)
         {
             SearchSpace = inGrid;
             Width = inGrid.GetLength(0);
@@ -134,10 +134,10 @@ namespace GameLibrary.Model.Path.AStar
         /// Returns null, if no path is found. Start- and End-Node are included in returned path. The user context
         /// is passed to IsWalkable().
         /// </summary>
-        public LinkedList<TPathNode> Search(System.Drawing.Point inStartNode, System.Drawing.Point inEndNode, TUserContext inUserContext)
+        public LinkedList<TPathNode> Search(Vector2 inStartNode, Vector2 inEndNode, TUserContext inUserContext)
         {
-            PathNode startNode = m_SearchSpace[inStartNode.X, inStartNode.Y];
-            PathNode endNode = m_SearchSpace[inEndNode.X, inEndNode.Y];
+            PathNode startNode = m_SearchSpace[(int)inStartNode.X, (int)inStartNode.Y];
+            PathNode endNode = m_SearchSpace[(int)inEndNode.X, (int)inEndNode.Y];
 
             //System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             //watch.Start();
@@ -145,7 +145,7 @@ namespace GameLibrary.Model.Path.AStar
             if (startNode == endNode)
                 return new LinkedList<TPathNode>(new TPathNode[] { startNode.UserContext });
 
-            PathNode[] neighborNodes = new PathNode[8]; // TODO: Aus 4 Richtungen mach 8
+            PathNode[] neighborNodes = new PathNode[4]; // TODO: Aus 4 Richtungen mach 8
 
             m_ClosedSet.Clear();
             m_OpenSet.Clear();
@@ -280,7 +280,7 @@ namespace GameLibrary.Model.Path.AStar
 
             //TODO: Aus 4 mach 8. Also Schräge noch mit rein. Später ^^
 
-            if ((x > 0) && (y > 0))
+            /*if ((x > 0) && (y > 0))
                 inNeighbors[0] = m_SearchSpace[x - 1, y - 1];
             else
                 inNeighbors[0] = null;
@@ -318,7 +318,28 @@ namespace GameLibrary.Model.Path.AStar
             if ((x < Width - 1) && (y < Height - 1))
                 inNeighbors[7] = m_SearchSpace[x + 1, y + 1];
             else
-                inNeighbors[7] = null;
+                inNeighbors[7] = null;*/
+
+
+            if (y > 0)
+                inNeighbors[0] = m_SearchSpace[x, y - 1];
+            else
+                inNeighbors[0] = null;
+
+            if (x > 0)
+                inNeighbors[1] = m_SearchSpace[x - 1, y];
+            else
+                inNeighbors[1] = null;
+
+            if (x < Width - 1)
+                inNeighbors[2] = m_SearchSpace[x + 1, y];
+            else
+                inNeighbors[2] = null;
+
+            if (y < Height - 1)
+                inNeighbors[3] = m_SearchSpace[x, y + 1];
+            else
+                inNeighbors[3] = null;
         }
 
         private class OpenCloseMap

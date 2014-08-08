@@ -14,7 +14,7 @@ using GameLibrary.Model.Map.Chunk;
 
 namespace GameLibrary.Model.Path
 {
-    public class MySolver<TPathNode, TUserContext> : AStarAlgorithm<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
+    public class MySolver<TPathNode, TUserContext> : SpatialAStar<TPathNode, TUserContext> where TPathNode : IPathNode<TUserContext>
     {
         protected override Double Heuristic(PathNode inStart, PathNode inEnd)
         {
@@ -48,7 +48,7 @@ namespace GameLibrary.Model.Path
                 int var_TargetY = (int)((_EndPosition.Y % (Region.regionSizeY * Chunk.chunkSizeY * Block.BlockSize)) % (Chunk.chunkSizeY * Block.BlockSize) / Block.BlockSize);
 
                 var_TargetX = var_TargetX - var_StartX + var_SizeX/2;
-                var_TargetY = var_TargetY - var_StartX + var_SizeX/2;
+                var_TargetY = var_TargetY - var_StartY + var_SizeY/2;
 
                 PathNode[,] grid = new PathNode[var_SizeX, var_SizeY];
 
@@ -65,8 +65,8 @@ namespace GameLibrary.Model.Path
                             grid[x, y] = new PathNode()
                             {
                                 IsWall = !var_Block.IsWalkAble,
-                                X = (int)var_Block.Position.X,
-                                Y = (int)var_Block.Position.Y,
+                                X = x,
+                                Y = y,
                                 block = var_Block,
                             };
                         }
@@ -75,8 +75,8 @@ namespace GameLibrary.Model.Path
                             grid[x, y] = new PathNode()
                             {
                                 IsWall = true,
-                                X = var_X,
-                                Y = var_Y,
+                                X = x,
+                                Y = y,
                                 block = null,
                             };
                         }
@@ -101,7 +101,7 @@ namespace GameLibrary.Model.Path
                     Console.WriteLine();
                 }*/
 
-                return new Path(aStar.Search(new Vector2(var_SizeX / 2, var_SizeY / 2), new Vector2(var_TargetX, var_TargetY), null));
+                return new Path(aStar.Search(new System.Drawing.Point(var_SizeX / 2, var_SizeY / 2), new System.Drawing.Point(var_TargetX, var_TargetY), null));
             }
             catch (Exception ex)
             {

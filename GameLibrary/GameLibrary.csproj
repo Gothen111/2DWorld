@@ -87,6 +87,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -216,10 +217,13 @@
     <Compile Include="Model\Object\Task\Aggro\AggroSystem.cs" />
     <Compile Include="Model\Object\Task\LivingObjectTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\AttackRandomTask.cs" />
+    <Compile Include="Model\Object\Task\Tasks\COPY\AttackRandomTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\StandTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\TaskPriority.cs" />
     <Compile Include="Model\Object\Task\Tasks\WalkRandomTask.cs" />
     <Compile Include="Model\Path\AStar\AStarAlgorithm.cs" />
+    <Compile Include="Model\Path\AStar\COPY2\AStarAlgorithm.cs" />
+    <Compile Include="Model\Path\AStar\COPY2\PriorityQueue.cs" />
     <Compile Include="Model\Path\AStar\COPY\AStarAlgorithm.cs" />
     <Compile Include="Model\Path\AStar\COPY\PriorityQueue.cs" />
     <Compile Include="Model\Path\Path.cs" />

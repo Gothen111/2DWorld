@@ -107,7 +107,7 @@ namespace GameLibrary.Model.Object
         {
             this.healthPoints = 20;
             this.maxHealthPoints = 20;
-            this.aggroRange = 200;
+            this.aggroRange = 300;
             this.isDead = false;
             tasks = new List<LivingObjectTask>();
             aggroSystem = new Task.Aggro.AggroSystem<LivingObject>();
@@ -165,6 +165,10 @@ namespace GameLibrary.Model.Object
             {
                 this.updateAggroSystem();
                 this.doTasks();
+                if (this.path != null)
+                {
+                    this.path.moveOnPath(this);
+                }
             }
         }
 
