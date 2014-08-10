@@ -70,12 +70,14 @@ namespace GameLibrary.Model.Object
         public ItemObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
         {
+            this.itemEnum = (ItemEnum)info.GetValue("itemEnum", typeof(int));
             this.onStack = (int)info.GetValue("onStack", typeof(int));
             this.positionInInventory = (int)info.GetValue("positionInInventory", typeof(int));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
+            info.AddValue("itemEnum", this.itemEnum, typeof(int));
             info.AddValue("onStack", this.onStack, typeof(int));
             info.AddValue("positionInInventory", this.positionInInventory, typeof(int));
             base.GetObjectData(info, ctxt);
