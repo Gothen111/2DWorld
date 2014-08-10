@@ -55,6 +55,24 @@ namespace GameLibrary.Model.Object.Inventory
             info.AddValue("inventoryChanged", inventoryChanged, typeof(bool));
         }
 
+        private int getFreePlace()
+        {
+            if(!this.isInventoryFull())
+            {
+                List<int> var_FreeSpace = new List<int>();
+                for (int i = 0; i < this.maxItems; i++)
+                {
+                    var_FreeSpace.Add(i);
+                }
+                foreach (ItemObject var_ItemObject in this.items)
+                {
+                    var_FreeSpace.Remove(var_ItemObject.PositionInInventory);
+                }
+                return var_FreeSpace[0]; //First
+            }
+            return -1;
+        }
+
         public bool addItemObjectToInventory(ItemObject _ItemObject)
         {
             ItemObject var_ItemObject = getItemObjectEqual(_ItemObject);
@@ -80,6 +98,7 @@ namespace GameLibrary.Model.Object.Inventory
                 }
                 else
                 {
+                    _ItemObject.PositionInInventory = this.getFreePlace();
                     this.items.Add(_ItemObject);
                     GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
                     this.inventoryChanged = true;

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameLibrary.Gui
 {
-    public class Container : Component
+    public class Container : DragAndDrop
     {
         private List<Component> components;
 
@@ -73,6 +73,44 @@ namespace GameLibrary.Gui
             {
                 var_Component.IsActive = _IsActive;
             }
+        }
+
+        //Basiert darauf das Objekte die zuletzt drauf kommen weiter oben sind. In der Ansicht!
+        //TODO: Iteriere vll rückwärts ;) Also top down statt bottom up
+        public override Component getTopComponent(Vector2 _Position)
+        {
+            Component var_Result = null;
+            foreach (Component var_Component in this.components)
+            {
+                if (var_Component is DragAndDrop)
+                {
+                    if (!((DragAndDrop)var_Component).IsDraged)
+                    {
+                        if (var_Component.IsActive)
+                        {
+                            if (var_Component.IsInBounds(_Position))
+                            {
+                                var_Result = var_Component;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (var_Component.IsActive)
+                    {
+                        if (var_Component.IsInBounds(_Position))
+                        {
+                            var_Result = var_Component;
+                        }
+                    }
+                }
+            }
+            if (var_Result != null)
+            {
+                return var_Result.getTopComponent(_Position);
+            }
+            return this;
         }
 
         public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)

@@ -22,6 +22,15 @@ namespace GameLibrary.Gui
             set { bounds = value; }
         }
 
+        public bool IsInBounds(Vector2 _Position)
+        {
+            if (_Position.X >= bounds.Left && _Position.X <= bounds.Right && _Position.Y >= bounds.Top && _Position.Y <= bounds.Bottom)
+            {
+                return true;
+            }
+            return false;
+        }
+
         private bool isFocusAble;
 
         public bool IsFocusAble
@@ -102,6 +111,16 @@ namespace GameLibrary.Gui
             set { isActive = value; }
         }
 
+        /*private bool allowsDropIn;
+
+        public bool AllowsDropIn
+        {
+            get { return allowsDropIn; }
+            set { allowsDropIn = value; }
+        }*/
+
+        //protected Component parent;
+
         public Component()
         {
             Peripherals.MouseManager.mouseFocus.Add(this);
@@ -109,12 +128,16 @@ namespace GameLibrary.Gui
             isVisible = true;
             this.scale = 1.0f;
             this.isActive = true;
+            //this.allowsDropIn = false;
+            //this.parent = null;
         }
 
-        public Component(Rectangle _Bounds) : this()
+        public Component(Rectangle _Bounds) //, Component _Parent
+            : this()
         {
             this.bounds = _Bounds;
             this.sourceRectangle = new Rectangle(0, 0, this.bounds.Width, this.bounds.Height);
+            //this.parent = _Parent;
         }
 
         public virtual bool mouseClicked(MouseEnum mouseButtonClicked, Vector2 position)
@@ -193,6 +216,16 @@ namespace GameLibrary.Gui
         {
             Peripherals.MouseManager.mouseFocus.Remove(this);
             Peripherals.KeyboardManager.keyboardFocus.Remove(this);
+        }
+
+        public virtual Component getTopComponent(Vector2 _Position)
+        {
+            return this;
+        }
+
+        public virtual bool componentIsDropedIn(Component _Component)
+        {
+            return true;
         }
 
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)

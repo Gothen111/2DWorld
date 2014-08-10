@@ -51,6 +51,9 @@ namespace Server.Connection
                 case EIGameMessageType.RequestLivingObjectMessage:
                     handleRequestLivingObjectMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.UpdateCreatureInventoryMessage:
+                    handleUpdateCreatureInventoryMessage(_NetIncomingMessage);
+                    break;
             }
         }
 
@@ -180,6 +183,22 @@ namespace Server.Connection
             else
             {
                 GameLibrary.Logger.Logger.LogErr("ServerIGameMessageManager->handleRequestLivingObjectMessage(...) LivingObject mit Id " + message.Id + " existiert nicht!");
+            }
+        }
+
+        private static void handleUpdateCreatureInventoryMessage(NetIncomingMessage _Im)
+        {
+            var message = new UpdateCreatureInventoryMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Model.Object.Object var_Object = GameLibrary.Model.Map.World.World.world.getObject(message.Id);
+            if (var_Object != null)
+            {
+                if (var_Object is GameLibrary.Model.Object.CreatureObject)
+                {
+                    ((GameLibrary.Model.Object.CreatureObject)var_Object).Inventory = message.Inventory;
+                }
             }
         }
     }

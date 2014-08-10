@@ -51,22 +51,33 @@ namespace GameLibrary.Model.Object
             set { onlyFromPlayerTakeAble = value; }
         }
 
+        private int positionInInventory;
+
+        public int PositionInInventory
+        {
+            get { return positionInInventory; }
+            set { positionInInventory = value; }
+        }
+
         public ItemObject()
             :base()
         {
             this.onlyFromPlayerTakeAble = false;
             this.onStack = 1;
+            this.positionInInventory = -1;
         }
 
         public ItemObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
         {
             this.onStack = (int)info.GetValue("onStack", typeof(int));
+            this.positionInInventory = (int)info.GetValue("positionInInventory", typeof(int));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("onStack", this.onStack, typeof(int));
+            info.AddValue("positionInInventory", this.positionInInventory, typeof(int));
             base.GetObjectData(info, ctxt);
         }
 

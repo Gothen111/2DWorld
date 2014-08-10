@@ -20,6 +20,11 @@ namespace GameLibrary.Gui
 
         private bool isDraged;
 
+        public bool IsDraged
+        {
+            get { return isDraged; }
+        }
+
         public DragAndDrop()
             : base()
         {
@@ -34,6 +39,21 @@ namespace GameLibrary.Gui
             this.isDraged = false;
         }
 
+        public virtual void onDrag(Vector2 _Position)
+        {
+        }
+
+        public virtual bool onDrop(Vector2 _Position)
+        {
+            if(MenuManager.menuManager.ActiveContainer!=null)
+            {
+                Component var_Menu = MenuManager.menuManager.ActiveContainer;
+                Component var_TopComponent = var_Menu.getTopComponent(_Position);
+                return var_TopComponent.componentIsDropedIn(this);
+            }
+            return false;
+        }
+
         public override void onClick(UserInterface.MouseEnum.MouseEnum mouseButton, Vector2 _MousePosition)
         {
             base.onClick(mouseButton, _MousePosition);
@@ -41,11 +61,15 @@ namespace GameLibrary.Gui
             {
                 if (!this.isDraged)
                 {
-                    this.isDraged = true;
+                    this.onDrag(_MousePosition);
+                    this.isDraged = true;                   
                 }
                 else
                 {
-                    this.isDraged = false;
+                    if (this.onDrop(_MousePosition))
+                    {
+                        this.isDraged = false;
+                    }
                 }
             }
         }

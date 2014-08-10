@@ -43,11 +43,11 @@ namespace GameLibrary.Factory
             generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             //generateSecondLayer(var_Result, _Layer);
             //generateFlowers(var_Result);
-            generateTrees(var_Result);
+            //generateTrees(var_Result);
             //generateWall(var_Result);
-            generateNpc(var_Result);
+            //generateNpc(var_Result);
 
-            //generateCoins(var_Result);
+            generateCoins(var_Result);
 
             return var_Result;
         }

@@ -49,6 +49,8 @@ namespace GameLibrary.Gui.Menu
             this.armorComponent = new TextField(new Rectangle(this.Bounds.X, 36, 36, 36));
             //this.equipmentContainer.add(this.armorComponent);
 
+            this.itemContainer = new Container(this.Bounds);
+
             int var_BackbackSize = this.inventoryOwner.Inventory.MaxItems;
 
             int var_SizeY = var_BackbackSize / 4 + var_BackbackSize % 4;
@@ -57,28 +59,31 @@ namespace GameLibrary.Gui.Menu
             {
                 for (int x = 0; x < 4; x++)
                 {
+                    int var_ItemId = y * 4 + x;
                     if (var_BackbackSize > 0)
                     {
-                        Component var_ItemSpace = new Component(new Rectangle(this.Bounds.X + 36*x, 100 + y*36,36,36));
+                        /*Component var_ItemSpace = new Component(new Rectangle(this.Bounds.X + 36*x, 100 + y*36,36,36));
                         var_ItemSpace.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
-                        this.add(var_ItemSpace);
+                        this.add(var_ItemSpace);*/
+
+                        InventoryField var_InventoryField = new InventoryField(this.inventoryOwner, var_ItemId, new Rectangle(this.Bounds.X + 36 * x, 100 + y * 36, 36, 36));
+                        this.itemContainer.add(var_InventoryField);
 
                         var_BackbackSize -= 1;
                     }
                 }
             }
-            this.itemContainer = new Container(this.Bounds);
+           
             this.checkItems();
-            this.add(this.itemContainer);
-
             this.add(this.equipmentContainer);
+            this.add(this.itemContainer);         
         }
 
         public void checkItems()
         {
             this.checkInventoryItems();
             this.checkEquipmentItems();
-            //TODO: Das gefällt mir ganz und gar nciht mit dem InventoryChanged = false; hier. es muss noch ne exta varialbe hier geben und das chang ein creatue geupdated ...
+            //TODO: Das gefällt mir ganz und gar nicht mit dem InventoryChanged = false; hier. es muss noch ne exta varialbe hier geben und das chang ein creatue geupdated ...
             this.inventoryOwner.Inventory.InventoryChanged = false;         
         }
 
@@ -86,7 +91,7 @@ namespace GameLibrary.Gui.Menu
         {
             if (this.inventoryOwner.Inventory.InventoryChanged)
             {
-                this.itemContainer.clear();
+                /*this.itemContainer.clear();
 
                 int var_BackbackSize = this.inventoryOwner.Inventory.MaxItems;
 
@@ -111,7 +116,30 @@ namespace GameLibrary.Gui.Menu
                             var_BackbackSize -= 1;
                         }
                     }
+                }*/
+
+                foreach (InventoryField var_InventoryField in this.itemContainer.Components)
+                {
+                    var_InventoryField.removeItem();
+                    var_InventoryField.clear();
                 }
+
+                foreach(ItemObject var_ItemObject in this.inventoryOwner.Inventory.Items)
+                {
+                    foreach (InventoryField var_InventoryField in this.itemContainer.Components)
+                    {
+                        if (var_ItemObject.PositionInInventory == var_InventoryField.FieldId)
+                        {
+                            var_InventoryField.setItem(var_ItemObject);
+                            break;
+                        }
+                    }
+                }
+                foreach (InventoryField var_InventoryField in this.itemContainer.Components)
+                {
+                    Console.WriteLine(var_InventoryField.FieldId + " : " + var_InventoryField.Components.Count);
+                }
+
             }
         }
 
