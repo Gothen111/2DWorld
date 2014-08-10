@@ -64,11 +64,11 @@ namespace GameLibrary.Gui
             this.item.ItemObject.PositionInInventory = this.fieldId;
 
             this.add(this.item);
-            this.inventoryOwner.Inventory.InventoryChanged = true;
+            //this.inventoryOwner.Inventory.InventoryChanged = true;
             //Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.inventoryOwner.Id, this.inventoryOwner.Inventory), GameMessageImportance.VeryImportant));
         }
 
-        private void itemDroped(ItemObject _ItemObject)
+        private void itemDropedIn(ItemObject _ItemObject)
         {
             this.inventoryOwner.Inventory.itemDropedInInventory(inventoryOwner, _ItemObject, this.fieldId);
             this.inventoryOwner.Inventory.InventoryChanged = true;
@@ -82,7 +82,7 @@ namespace GameLibrary.Gui
                 if (this.item == null || this.Components.Contains(this.item))
                 {
                     //this.setItem(((InventoryItem)_Component).ItemObject);
-                    this.itemDroped(((InventoryItem)_Component).ItemObject);
+                    this.itemDropedIn(((InventoryItem)_Component).ItemObject);
                     return true;
                 }
             }

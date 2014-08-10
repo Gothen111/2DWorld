@@ -265,6 +265,10 @@ namespace GameLibrary.Model.Map.World
                             quadTree = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
                         quadTree.Insert(_Object);
                     }
+                    if (Configuration.Configuration.isHost)
+                    {
+                        Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectMessage(_Object), GameMessageImportance.VeryImportant));
+                    }
                 }
             }
             else

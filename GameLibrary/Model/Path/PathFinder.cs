@@ -62,9 +62,28 @@ namespace GameLibrary.Model.Path
                         Block var_Block = World.world.getBlockAtCoordinate(var_X, var_Y);
                         if (var_Block != null)
                         {
+                            // TODO: Das Problem noch fixxen, falls object in/auf mauer/Wall! WEil dann ommt n komischer pfad ;)
+                            bool var_IsWall = false;
+                            if (!var_Block.IsWalkAble)
+                            {
+                                var_IsWall = true;
+                            }
+                            else if (var_Block.Objects.Count > 0)
+                            {
+                                var_IsWall = true;
+                                if (x == var_SizeX / 2 && y == var_SizeY / 2)
+                                {
+                                    var_IsWall = false;
+                                }
+                                if (x == var_TargetX && y == var_TargetY)
+                                {
+                                    var_IsWall = false;
+                                }
+                            }
                             grid[x, y] = new PathNode()
                             {
-                                IsWall = !var_Block.IsWalkAble || (var_Block.Objects.Count > 0 && x != var_SizeX / 2 && y != var_SizeY / 2),
+                                // (PROBLEM, ziel ist auch auf not walkable also als mauer markiert!;)) meh oder weniger gefixxt .. 
+                                IsWall = var_IsWall,//!var_Block.IsWalkAble || (var_Block.Objects.Count > 0 && x != var_SizeX / 2 && y != var_SizeY / 2 && x != var_TargetX && y != var_TargetY),
                                 X = x,
                                 Y = y,
                                 block = var_Block,
@@ -85,17 +104,18 @@ namespace GameLibrary.Model.Path
 
                 MySolver<PathNode, System.Object> aStar = new MySolver<PathNode, System.Object>(grid);
 
-                /*for (int x = 0; x < var_SizeX; x++)
+                /*for (int y = 0; y < var_SizeY; y++)
                 {
-                    for (int y = 0; y < var_SizeY; y++)
+                    for (int x = 0; x < var_SizeY; x++)
                     {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        if (x == 10 && y == 10)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
                         if (grid[x, y].IsWall)
                         {
                             Console.Write("x");
-                        }
-                        else if (x == 10 && y == 10)
-                        {
-                            Console.Write("o");
                         }
                         else
                         {

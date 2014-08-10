@@ -16,7 +16,13 @@ namespace GameLibrary.Gui.Menu
 {
     public class InventoryMenu : Container
     {
-        CreatureObject inventoryOwner;
+        private CreatureObject inventoryOwner;
+
+        public CreatureObject InventoryOwner
+        {
+            get { return inventoryOwner; }
+            set { inventoryOwner = value; }
+        }
 
         Container equipmentContainer;
         TextField weaponComponent;

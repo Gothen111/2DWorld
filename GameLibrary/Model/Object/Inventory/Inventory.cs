@@ -192,8 +192,8 @@ namespace GameLibrary.Model.Object.Inventory
             }
         }
 
-        //Dient nur zum wechseln! Ohne Senden!
-        public void changeItemPosition(int _OldPosition, int _NewPosition)
+        //Dient nur zum wechseln! Ohne Senden! EHER für host
+        public void changeItemPosition(CreatureObject _InventoryOwner, int _OldPosition, int _NewPosition)
         {
             ItemObject var_ItemToChange = null;
 
@@ -208,8 +208,31 @@ namespace GameLibrary.Model.Object.Inventory
 
             if (var_ItemToChange != null)
             {
-                //TODO: Gucke ob an __NewPosition kein objekt!
-                var_ItemToChange.PositionInInventory = _NewPosition;
+                if (_NewPosition == -1)
+                {
+                    this.items.Remove(var_ItemToChange);
+                    var_ItemToChange.PositionInInventory = _NewPosition;
+                    var_ItemToChange.Position = new Microsoft.Xna.Framework.Vector3(40, 40, 0) + _InventoryOwner.Position;
+                    GameLibrary.Model.Map.World.World.world.addObject(var_ItemToChange);
+                }
+                else
+                {
+                    //TODO: Gucke ob an __NewPosition kein objekt!
+                    var_ItemToChange.PositionInInventory = _NewPosition;
+                }
+            }
+        }
+
+        public void dropItem(CreatureObject _InventoryOwner, ItemObject _ItemObject)
+        {
+            this.items.Remove(_ItemObject);
+            this.InventoryChanged = true;
+            if (Configuration.Configuration.isHost)
+            {
+            }
+            else
+            {
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureInventoryItemPositionChangeMessage(_InventoryOwner.Id, _ItemObject.PositionInInventory, -1), GameMessageImportance.VeryImportant));
             }
         }
     }

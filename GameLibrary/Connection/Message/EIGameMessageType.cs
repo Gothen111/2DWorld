@@ -13,7 +13,7 @@ namespace GameLibrary.Connection.Message
         RequestPlayerMessage,
         UpdatePlayerMessage,
         PlayerCommandMessage,
-        UpdateLivingObjectMessage,
+        UpdateObjectMessage,
         UpdateObjectPositionMessage,
         UpdateObjectHealthMessage,
         RequestChunkMessage,

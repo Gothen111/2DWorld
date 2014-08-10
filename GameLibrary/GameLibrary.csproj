@@ -134,7 +134,7 @@
     <Compile Include="Connection\Message\PlayerCommandMessage.cs" />
     <Compile Include="Connection\Message\RequestPlayerMessage.cs" />
     <Compile Include="Connection\Message\UpdateChunkMessage.cs" />
-    <Compile Include="Connection\Message\UpdateLivingObjectMessage.cs" />
+    <Compile Include="Connection\Message\UpdateObjectMessage.cs" />
     <Compile Include="Connection\Message\UpdatePlayerMessage.cs" />
     <Compile Include="Connection\NetworkManager.cs" />
     <Compile Include="Factory\BehaviourFactory.cs" />

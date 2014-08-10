@@ -178,7 +178,7 @@ namespace Server.Connection
             GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject) GameLibrary.Model.Map.World.World.world.getObject(message.Id);
             if (var_LivingObject != null)
             {
-                Configuration.networkManager.SendMessageToClient(new UpdateLivingObjectMessage(var_LivingObject), var_Client);
+                Configuration.networkManager.SendMessageToClient(new UpdateObjectMessage(var_LivingObject), var_Client);
             }
             else
             {
@@ -197,7 +197,7 @@ namespace Server.Connection
             {
                 if (var_Object is GameLibrary.Model.Object.CreatureObject)
                 {
-                    ((GameLibrary.Model.Object.CreatureObject)var_Object).Inventory.changeItemPosition(message.OldPosition, message.NewPosition);
+                    ((GameLibrary.Model.Object.CreatureObject)var_Object).Inventory.changeItemPosition((GameLibrary.Model.Object.CreatureObject)var_Object, message.OldPosition, message.NewPosition);
                 }
             }
         }

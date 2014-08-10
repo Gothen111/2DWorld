@@ -42,8 +42,8 @@ namespace Client.Connection
                 case EIGameMessageType.UpdateRegionMessage:
                     handleUpdateRegionMessage(_NetIncomingMessage);
                     break;
-                case EIGameMessageType.UpdateLivingObjectMessage:
-                    handleUpdateLivingObjectMessage(_NetIncomingMessage);
+                case EIGameMessageType.UpdateObjectMessage:
+                    handleUpdateObjectMessage(_NetIncomingMessage);
                     break;
                 case EIGameMessageType.UpdateObjectPositionMessage:
                     handleUpdateObjectPositionMessage(_NetIncomingMessage);
@@ -155,19 +155,19 @@ namespace Client.Connection
             }
         }
 
-        private static void handleUpdateLivingObjectMessage(NetIncomingMessage _Im)
+        private static void handleUpdateObjectMessage(NetIncomingMessage _Im)
         {
-            var message = new UpdateLivingObjectMessage(_Im);
+            var message = new UpdateObjectMessage(_Im);
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
             if (GameLibrary.Model.Map.World.World.world != null)
             {
-                GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject)(GameLibrary.Model.Map.World.World.world.getObject(message.Id) ?? GameLibrary.Model.Map.World.World.world.addObject(GameLibrary.Util.Serializer.DeserializeObjectFromString<GameLibrary.Model.Object.LivingObject>(message.Content)));//CreatureFactory.creatureFactory.createNpcObject(message.Id, RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male));
-                var_LivingObject.Position = var_LivingObject.Position;
-                var_LivingObject.MoveUp = message.MoveUp;
+                GameLibrary.Model.Object.Object var_Object = (GameLibrary.Model.Object.Object)(GameLibrary.Model.Map.World.World.world.getObject(message.Id) ?? GameLibrary.Model.Map.World.World.world.addObject(message.Object));//CreatureFactory.creatureFactory.createNpcObject(message.Id, RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male));
+                var_Object.Position = message.Position;
+                /*var_LivingObject.MoveUp = message.MoveUp;
                 var_LivingObject.MoveDown = message.MoveDown;
                 var_LivingObject.MoveLeft = message.MoveLeft;
-                var_LivingObject.MoveRight = message.MoveRight;
+                var_LivingObject.MoveRight = message.MoveRight;*/
             }
         }
 

@@ -64,6 +64,19 @@ namespace GameLibrary.Gui.Menu
             }
         }
 
+        public override bool componentIsDropedIn(Component _Component)
+        {
+            base.componentIsDropedIn(_Component);
+            if (_Component is InventoryItem)
+            {             
+                //Iteriere durch alle inventory menus in surface oä....
+                this.inventoryMenu.InventoryOwner.Inventory.dropItem(this.inventoryMenu.InventoryOwner, ((InventoryItem)_Component).ItemObject);
+                ((InventoryItem)_Component).ItemObject.PositionInInventory = -1;
+                return true;
+            }
+            return false;
+        }
+
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)
         {
             _SpriteBatch.Begin(SpriteSortMode.Deferred,
