@@ -51,8 +51,8 @@ namespace Server.Connection
                 case EIGameMessageType.RequestLivingObjectMessage:
                     handleRequestLivingObjectMessage(_NetIncomingMessage);
                     break;
-                case EIGameMessageType.UpdateCreatureInventoryMessage:
-                    handleUpdateCreatureInventoryMessage(_NetIncomingMessage);
+                case EIGameMessageType.CreatureInventoryItemPositionChangeMessage:
+                    handleCreatureInventoryItemPositionChangeMessage(_NetIncomingMessage);
                     break;
             }
         }
@@ -186,9 +186,9 @@ namespace Server.Connection
             }
         }
 
-        private static void handleUpdateCreatureInventoryMessage(NetIncomingMessage _Im)
+        private static void handleCreatureInventoryItemPositionChangeMessage(NetIncomingMessage _Im)
         {
-            var message = new UpdateCreatureInventoryMessage(_Im);
+            var message = new CreatureInventoryItemPositionChangeMessage(_Im);
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
@@ -197,7 +197,7 @@ namespace Server.Connection
             {
                 if (var_Object is GameLibrary.Model.Object.CreatureObject)
                 {
-                    ((GameLibrary.Model.Object.CreatureObject)var_Object).Inventory = message.Inventory;
+                    ((GameLibrary.Model.Object.CreatureObject)var_Object).Inventory.changeItemPosition(message.OldPosition, message.NewPosition);
                 }
             }
         }

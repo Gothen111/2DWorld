@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using GameLibrary.Connection;
 
 namespace GameLibrary.Model.Object.Inventory
 {
@@ -78,7 +79,7 @@ namespace GameLibrary.Model.Object.Inventory
             ItemObject var_ItemObject = getItemObjectEqual(_ItemObject);
             if(var_ItemObject!=null)
             {
-                if (addItemObjectToItemStack(var_ItemObject))
+                if (addItemObjectToItemStack(var_ItemObject, _ItemObject))
                 {
                     GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
                     this.inventoryChanged = true;
@@ -134,11 +135,11 @@ namespace GameLibrary.Model.Object.Inventory
             }
         }
 
-        private bool addItemObjectToItemStack(ItemObject _ItemObject)
+        private bool addItemObjectToItemStack(ItemObject _ItemObject, ItemObject _AddItemObject)
         {
-            if (_ItemObject.OnStack < _ItemObject.StackMax)
+            if (_ItemObject.OnStack < _ItemObject.StackMax + _AddItemObject.OnStack)
             {
-                _ItemObject.OnStack += _ItemObject.OnStack;
+                _ItemObject.OnStack += _AddItemObject.OnStack;
                 return true;
             }
             else
@@ -154,6 +155,62 @@ namespace GameLibrary.Model.Object.Inventory
                 this.items.Remove(_ItemObject);
             }
             return true;
+        }
+
+        public void itemDropedInInventory(CreatureObject _InventoryOwner, ItemObject _ItemObject, int _NewPosition)
+        {
+            if (this.items.Contains(_ItemObject))
+            {
+                this.changeItemPosition(_InventoryOwner, _ItemObject, _NewPosition);
+            }
+            else
+            {
+                //TODO: Kommt wohl von wo anders... anderes Inventar usw..
+            }
+        }
+
+        //Sendet Änderung zum clienten bzw. server.
+        public void changeItemPosition(CreatureObject _InventoryOwner, ItemObject _ItemObject, int _NewPosition)
+        {
+            int var_OldPosition = _ItemObject.PositionInInventory;
+            _ItemObject.PositionInInventory = _NewPosition;
+            if (var_OldPosition == _NewPosition)
+            {
+
+            }
+            else
+            {
+                //Sende jeweilige Änderung
+                if (Configuration.Configuration.isHost)
+                {
+
+                }
+                else
+                {
+                    Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureInventoryItemPositionChangeMessage(_InventoryOwner.Id, var_OldPosition, _NewPosition), GameMessageImportance.VeryImportant));
+                }
+            }
+        }
+
+        //Dient nur zum wechseln! Ohne Senden!
+        public void changeItemPosition(int _OldPosition, int _NewPosition)
+        {
+            ItemObject var_ItemToChange = null;
+
+            foreach (ItemObject var_ItemObject in this.items)
+            {
+                if (var_ItemObject.PositionInInventory == _OldPosition)
+                {
+                    var_ItemToChange = var_ItemObject;
+                    break;
+                }
+            }
+
+            if (var_ItemToChange != null)
+            {
+                //TODO: Gucke ob an __NewPosition kein objekt!
+                var_ItemToChange.PositionInInventory = _NewPosition;
+            }
         }
     }
 }

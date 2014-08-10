@@ -120,6 +120,7 @@
     <Compile Include="Connection\Event.cs" />
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
+    <Compile Include="Connection\Message\CreatureInventoryItemPositionChangeMessage.cs" />
     <Compile Include="Connection\Message\UpdateCreatureInventoryMessage.cs" />
     <Compile Include="Connection\Message\RemoveObjectMessage.cs" />
     <Compile Include="Connection\Message\RequestLivingObjectMessage.cs" />

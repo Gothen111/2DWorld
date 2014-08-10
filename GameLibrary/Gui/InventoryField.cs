@@ -65,7 +65,13 @@ namespace GameLibrary.Gui
 
             this.add(this.item);
             this.inventoryOwner.Inventory.InventoryChanged = true;
-            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.inventoryOwner.Id, this.inventoryOwner.Inventory), GameMessageImportance.VeryImportant));
+            //Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.inventoryOwner.Id, this.inventoryOwner.Inventory), GameMessageImportance.VeryImportant));
+        }
+
+        private void itemDroped(ItemObject _ItemObject)
+        {
+            this.inventoryOwner.Inventory.itemDropedInInventory(inventoryOwner, _ItemObject, this.fieldId);
+            this.inventoryOwner.Inventory.InventoryChanged = true;
         }
 
         public override bool componentIsDropedIn(Component _Component)
@@ -75,7 +81,8 @@ namespace GameLibrary.Gui
             {
                 if (this.item == null || this.Components.Contains(this.item))
                 {
-                    this.setItem(((InventoryItem)_Component).ItemObject);
+                    //this.setItem(((InventoryItem)_Component).ItemObject);
+                    this.itemDroped(((InventoryItem)_Component).ItemObject);
                     return true;
                 }
             }
