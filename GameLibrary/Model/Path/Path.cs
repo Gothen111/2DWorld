@@ -5,6 +5,7 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 using GameLibrary.Model.Object;
+using GameLibrary.Model.Map.Block;
 
 namespace GameLibrary.Model.Path
 {
@@ -71,7 +72,7 @@ namespace GameLibrary.Model.Path
             return var_Result;
         }
 
-        public void moveOnPath(LivingObject _LivingObject)
+        /*public void moveOnPath(LivingObject _LivingObject)
         {
             if (!this.finished && this.pathNodes != null)
             {
@@ -123,6 +124,55 @@ namespace GameLibrary.Model.Path
                 if (this.currentNode == null)
                 {
                     this.finished = true;
+                }
+            }
+        }*/
+        public void moveOnPath(LivingObject _LivingObject)
+        {
+            if (!this.finished && this.pathNodes != null)
+            {
+                if (_LivingObject.CurrentBlock != null)
+                {
+                    PathNode var_NextNode = this.getNextNode();
+                    if (var_NextNode != null)
+                    {
+                        if (this.isInRange(new Vector2(_LivingObject.Position.X, _LivingObject.Position.Y), new Vector2(var_NextNode.block.Position.X + 16, var_NextNode.block.Position.Y + 16), (int)_LivingObject.MovementSpeed*15))
+                        {
+                            var_NextNode = this.extractFirst();
+                        }
+
+                        if (var_NextNode != null)
+                        {
+                            _LivingObject.MoveRight = false;
+                            _LivingObject.MoveLeft = false;
+                            _LivingObject.MoveDown = false;
+                            _LivingObject.MoveUp = false;
+                            if (var_NextNode.block.Position.X + 16  > _LivingObject.Position.X)
+                            {
+                                _LivingObject.MoveRight = true;
+                            }
+                            else if (var_NextNode.block.Position.X + 16 < _LivingObject.Position.X)
+                            {
+                                _LivingObject.MoveLeft = true;
+                            }
+                            if (var_NextNode.block.Position.Y + 16 > _LivingObject.Position.Y)
+                            {
+                                _LivingObject.MoveDown = true;
+                            }
+                            else if (var_NextNode.block.Position.Y + 16 < _LivingObject.Position.Y)
+                            {
+                                _LivingObject.MoveUp = true;
+                            }
+                        }
+                        else
+                        {
+                            this.finished = true;
+                        }
+                    }
+                    else
+                    {
+                        this.finished = true;
+                    }
                 }
             }
         }

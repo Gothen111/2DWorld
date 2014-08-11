@@ -104,7 +104,9 @@ namespace GameLibrary.Model.Path
 
                 MySolver<PathNode, System.Object> aStar = new MySolver<PathNode, System.Object>(grid);
 
-                /*for (int y = 0; y < var_SizeY; y++)
+                Path var_Result = new Path(aStar.Search(new System.Drawing.Point(var_SizeX / 2, var_SizeY / 2), new System.Drawing.Point(var_TargetX, var_TargetY), null));
+
+                for (int y = 0; y < var_SizeY; y++)
                 {
                     for (int x = 0; x < var_SizeY; x++)
                     {
@@ -112,6 +114,13 @@ namespace GameLibrary.Model.Path
                         if (x == 10 && y == 10)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
+                        }
+                        foreach(PathNode var_PathNode in var_Result.PathNodes)
+                        {
+                            if (var_PathNode.X == x && var_PathNode.Y == y)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                            }
                         }
                         if (grid[x, y].IsWall)
                         {
@@ -123,9 +132,9 @@ namespace GameLibrary.Model.Path
                         }
                     }
                     Console.WriteLine();
-                }*/
+                }
 
-                return new Path(aStar.Search(new System.Drawing.Point(var_SizeX / 2, var_SizeY / 2), new System.Drawing.Point(var_TargetX, var_TargetY), null));
+                return var_Result;
             }
             catch (Exception ex)
             {

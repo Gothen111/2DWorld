@@ -23,24 +23,36 @@ namespace GameLibrary.Model.Map.World
 
         private List<Region.Region> regions;
 
-        private QuadTree<Object.Object> quadTree;
+        private QuadTree<Object.Object> quadTreeObject;
 
-        public QuadTree<Object.Object> QuadTree
+        public QuadTree<Object.Object> QuadTreeObject
         {
-            get { return quadTree; }
-            set { quadTree = value; }
+            get { return quadTreeObject; }
+            set { quadTreeObject = value; }
         }
+
+        private QuadTree<Object.Object> quadTreeEnvironmentObject;
+
+        public QuadTree<Object.Object> QuadTreeEnvironmentObject
+        {
+            get { return quadTreeEnvironmentObject; }
+            set { quadTreeEnvironmentObject = value; }
+        }
+
+
 
         private List<PlayerObject> playerObjects;
 
         private List<Object.Object> objectsToUpdate;
+
+        //private List<Object.Object> environmentObjectToDraw;
 
         #endregion
         #region Constructors
         public World()
             :base()
         {
-            this.quadTree = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+            this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
         }
 
         public World(SerializationInfo info, StreamingContext ctxt) : this()
@@ -60,7 +72,7 @@ namespace GameLibrary.Model.Map.World
             regions = new List<Region.Region>();
             if (Configuration.Configuration.isHost)
             {
-                quadTree = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+                this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
             }
 
             this.playerObjects = new List<PlayerObject>();
@@ -202,9 +214,17 @@ namespace GameLibrary.Model.Map.World
 
                 foreach (AnimatedObject var_AnimatedObject in var_Objects)
                 {
-                    //TODO: Objekte müssen abhänig von position gemalt werden! also ne layerdepth bekommen!
                     var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
                 }
+
+                /*List<Object.Object> var_EnviornmentObjects = this.environmentObjectToDraw; // = this.getObjectsInRange(_Target.Position, 400);
+
+                var_EnviornmentObjects.Sort(new Ressourcen.ObjectPositionComparer());
+
+                foreach (AnimatedObject var_AnimatedObject in var_EnviornmentObjects)
+                {
+                    var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
+                }*/
 
                 //TODO: preenvionmentobjekte brauchen n exta quadtree zum malen.
                 if (_Target.CurrentBlock != null)
@@ -261,9 +281,9 @@ namespace GameLibrary.Model.Map.World
                     block.addObject(_Object);
                     if (insertInQuadTree)
                     {
-                        if (quadTree == null)
-                            quadTree = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
-                        quadTree.Insert(_Object);
+                        if (this.quadTreeObject == null)
+                            this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+                        this.quadTreeObject.Insert(_Object);
                     }
                     if (Configuration.Configuration.isHost)
                     {
@@ -280,7 +300,7 @@ namespace GameLibrary.Model.Map.World
 
         public void removeObjectFromWorld(Object.Object _Object)
         {
-            quadTree.Remove(_Object);
+            this.quadTreeObject.Remove(_Object);
             if (_Object.CurrentBlock != null)
             {
                 _Object.CurrentBlock.removeObject(_Object);
@@ -295,16 +315,26 @@ namespace GameLibrary.Model.Map.World
 
         public List<Object.Object> getObjectsInRange(Vector3 _Position, float _Range)
         {
-            return getObjectsInRange(_Position, _Range, new List<SearchFlags.Searchflag>());
+            return getObjectsInRange(_Position, this.quadTreeObject.Root, _Range, new List<SearchFlags.Searchflag>());
         }
 
         public List<Object.Object> getObjectsInRange(Vector3 _Position, float _Range, List<SearchFlags.Searchflag> _SearchFlags)
+        {
+            return getObjectsInRange(_Position, this.quadTreeObject.Root, _Range, _SearchFlags);
+        }
+
+        public List<Object.Object> getObjectsInRange(Vector3 _Position, QuadTree<Object.Object>.QuadNode currentNode, float _Range)
+        {
+            return getObjectsInRange(_Position, currentNode, _Range, new List<SearchFlags.Searchflag>());
+        }
+
+        public List<Object.Object> getObjectsInRange(Vector3 _Position, QuadTree<Object.Object>.QuadNode currentNode, float _Range, List<SearchFlags.Searchflag> _SearchFlags)
         {
             Util.Circle circle = new Util.Circle(_Position, _Range);
             List<Object.Object> result = new List<Object.Object>();
             Rectangle surroundingRectangle = new Rectangle((int)(circle.Position.X - circle.Radius), (int)(circle.Position.Y - circle.Radius), (int)(circle.Radius * 2), (int)(circle.Radius * 2));
 
-            getObjectsInRange(surroundingRectangle, this.quadTree.Root, result, _SearchFlags);
+            getObjectsInRange(surroundingRectangle, this.quadTreeObject.Root, result, _SearchFlags);
             List<Object.Object> toRemove = new List<Object.Object>();
             foreach (Object.Object var_Object in result)
             {
@@ -328,7 +358,7 @@ namespace GameLibrary.Model.Map.World
         public List<Object.Object> getObjectsColliding(Rectangle bounds, List<SearchFlags.Searchflag> _SearchFlags)
         {
             List<Object.Object> result = new List<Object.Object>();
-            getObjectsColliding(bounds, this.QuadTree.Root, result, _SearchFlags);
+            getObjectsColliding(bounds, this.quadTreeObject.Root, result, _SearchFlags);
             return result;
         }
 
@@ -357,7 +387,7 @@ namespace GameLibrary.Model.Map.World
                 }
                 return;
             }
-            if (currentNode.Equals(quadTree.Root))
+            if (currentNode.Equals(this.quadTreeObject.Root))
             {
                 addAllObjectsInRange(currentNode, bounds, result, _SearchFlags);
             }
@@ -382,7 +412,7 @@ namespace GameLibrary.Model.Map.World
                 addAllObjectsInRange(currentNode, bounds, result, _SearchFlags);
                 return;
             }
-            if (currentNode.Equals(quadTree.Root))
+            if (currentNode.Equals(this.quadTreeObject.Root))
             {
                 addAllObjectsInRange(currentNode, bounds, result, _SearchFlags);
             }
@@ -481,6 +511,7 @@ namespace GameLibrary.Model.Map.World
             base.update();
 
             this.objectsToUpdate = new List<Object.Object>();
+            //this.environmentObjectToDraw = new List<Object.Object>();
 
             this.updatePlayerObjectsNeighborhood();
 
@@ -654,6 +685,8 @@ namespace GameLibrary.Model.Map.World
                     this.objectsToUpdate.Add(var_Object);
                 }
             }
+
+            //this.environmentObjectToDraw = this.getObjectsInRange(_PlayerObject.Position, this.quadTreeEnvironmentObject.Root, 400); 
         }
         #endregion
 
@@ -685,9 +718,9 @@ namespace GameLibrary.Model.Map.World
 
         public Object.Object getObject(int _Id)
         {
-            if (this.quadTree != null)
+            if (this.quadTreeObject != null)
             {
-                foreach (QuadTree<Object.Object>.QuadNode var_QuadNode in this.quadTree.GetAllNodes())
+                foreach (QuadTree<Object.Object>.QuadNode var_QuadNode in this.quadTreeObject.GetAllNodes())
                 {
                     foreach (Object.Object var_Object in var_QuadNode.Objects)
                     {

@@ -35,6 +35,21 @@ namespace GameLibrary.Model.Object
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
         {
+            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.ItemIconGraphicPath], new Microsoft.Xna.Framework.Vector2(this.Position.X, this.Position.Y), this.Animation.sourceRectangle(), this.Animation.drawColor(), 0f, Microsoft.Xna.Framework.Vector2.Zero, new Microsoft.Xna.Framework.Vector2(this.Scale, this.Scale), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1.0f);
+        }
+
+        public virtual void drawWearingEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
+        {
+            try
+            {
+                if (this.Animation != null && !this.Animation.graphicPath().Equals(""))
+                {
+                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath], new Microsoft.Xna.Framework.Vector2(this.Position.X, this.Position.Y), this.Animation.sourceRectangle(), this.Animation.drawColor(), 0f, Microsoft.Xna.Framework.Vector2.Zero, new Microsoft.Xna.Framework.Vector2(this.Scale, this.Scale), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1.0f);
+                }
+            }
+            catch (Exception e)
+            {
+            }
         }
     }
 }

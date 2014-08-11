@@ -41,16 +41,17 @@ namespace GameLibrary.Factory
 
             var_Result.setAllNeighboursOfBlocks();
             generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
-            //generateSecondLayer(var_Result, _Layer);
+            generateSecondLayer(var_Result, _Layer);
             //generateFlowers(var_Result);
             generateTrees(var_Result);
             //generateWall(var_Result);
-            //if (var_Result.Id == 0)
-            //{
+            if (var_Result.Id == 0)
+            {
                 generateNpc(var_Result);
-            //}
+            }
 
             //generateCoins(var_Result);
+            //generateStuff(var_Result);
 
             return var_Result;
         }
@@ -320,7 +321,7 @@ namespace GameLibrary.Factory
                 {
                     var_Block.Objects.Add(var_NpcObject);
                     var_NpcObject.CurrentBlock = var_Block;
-                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_NpcObject);
+                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTreeObject.Insert(var_NpcObject);
                 }
             }
         }
@@ -344,7 +345,7 @@ namespace GameLibrary.Factory
                 {
                     var_Block.Objects.Add(var_EnvironmentObject);
                     var_EnvironmentObject.CurrentBlock = var_Block;
-                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_EnvironmentObject);
+                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTreeObject.Insert(var_EnvironmentObject);
 
                     //TODO: Das stimmt natürlich nicht ganz ;) aber erst mal für den AStar...
                     //var_Block.IsWalkAble = false;
@@ -368,7 +369,28 @@ namespace GameLibrary.Factory
                 if (var_Block.IsWalkAble)
                 {
                     var_Block.Objects.Add(var_itemObject);
-                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTree.Insert(var_itemObject);
+                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTreeObject.Insert(var_itemObject);
+                }
+            }
+        }
+
+        private void generateStuff(Chunk _Chunk)
+        {
+            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Util.Random.GenerateGoodRandomNumber(1, 5);
+            for (int i = 0; i < var_Count; i++)
+            {
+                GameLibrary.Model.Object.ItemObject var_itemObject = EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(WeaponEnum.Sword);
+
+                int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+
+                var_itemObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
+
+                Block var_Block = _Chunk.getBlockAtCoordinate(var_itemObject.Position.X, var_itemObject.Position.Y);
+                if (var_Block.IsWalkAble)
+                {
+                    var_Block.Objects.Add(var_itemObject);
+                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTreeObject.Insert(var_itemObject);
                 }
             }
         }

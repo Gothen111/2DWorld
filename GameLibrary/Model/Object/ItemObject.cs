@@ -59,6 +59,14 @@ namespace GameLibrary.Model.Object
             set { positionInInventory = value; }
         }
 
+        private String itemIconGraphicPath;
+
+        public String ItemIconGraphicPath
+        {
+            get { return itemIconGraphicPath; }
+            set { itemIconGraphicPath = value; }
+        }
+
         public ItemObject()
             :base()
         {
@@ -73,6 +81,7 @@ namespace GameLibrary.Model.Object
             this.itemEnum = (ItemEnum)info.GetValue("itemEnum", typeof(int));
             this.onStack = (int)info.GetValue("onStack", typeof(int));
             this.positionInInventory = (int)info.GetValue("positionInInventory", typeof(int));
+            this.itemIconGraphicPath = (String)info.GetValue("itemIconGraphicPath", typeof(String));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -80,6 +89,7 @@ namespace GameLibrary.Model.Object
             info.AddValue("itemEnum", this.itemEnum, typeof(int));
             info.AddValue("onStack", this.onStack, typeof(int));
             info.AddValue("positionInInventory", this.positionInInventory, typeof(int));
+            info.AddValue("itemIconGraphicPath", this.itemIconGraphicPath, typeof(String));
             base.GetObjectData(info, ctxt);
         }
 

@@ -7,6 +7,8 @@ namespace GameLibrary.Factory.FactoryEnums
 {
     public enum ItemEnum
     {
-        GoldCoin
+        GoldCoin,
+        Weapon,
+        Armor
     }
 }

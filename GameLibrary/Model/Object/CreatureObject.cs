@@ -196,7 +196,7 @@ namespace GameLibrary.Model.Object
             {
                 var_EquipmentObject.Position = new Vector3(var_Position, 0);
                 var_EquipmentObject.Animation = this.Animation;
-                var_EquipmentObject.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
+                var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
             }
         }
     }

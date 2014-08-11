@@ -55,7 +55,7 @@ namespace GameLibrary.Gui
 
         public void setItem(ItemObject _ItemObject)
         {
-            this.item = new InventoryItem(new Rectangle(this.Bounds.X + 8, this.Bounds.Y + 8, 16, 16));
+            this.item = new InventoryItem(new Rectangle(this.Bounds.X + (int)(this.Bounds.Width - _ItemObject.Size.X) / 2, this.Bounds.Y + (int)(this.Bounds.Height - _ItemObject.Size.Y) / 2, (int)_ItemObject.Size.X, (int)_ItemObject.Size.Y));
             this.item.BackgroundGraphicPath = _ItemObject.GraphicPath;
             this.item.IsTextEditAble = false;
             this.item.Text = _ItemObject.OnStack.ToString();
