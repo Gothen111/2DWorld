@@ -132,7 +132,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
                 {
 
 
-                    System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+                    /*System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
 
                     float var_TimeAStar = 0;
                     float var_TimeJPS = 0;
@@ -164,6 +164,11 @@ namespace GameLibrary.Model.Object.Task.Tasks
 
                     Console.WriteLine("Time AStar: " + var_TimeAStar + "MS : Time JPS: " +var_TimeJPS);
                     //AStar scheint schneller. VLL mal beides kombinieren :) AStar+JPS
+                    //Bzw JPS noch optmieren :/
+                     */
+
+                    this.TaskOwner.Path = GameLibrary.Model.Path.PathFinderAStar.generatePath(new Vector2(this.TaskOwner.Position.X, this.TaskOwner.Position.Y), new Vector2(this.target.Position.X, this.target.Position.Y));
+                        
                     
                     if (this.TaskOwner.Path != null)
                     {
