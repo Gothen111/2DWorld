@@ -129,8 +129,42 @@ namespace GameLibrary.Model.Object.Task.Tasks
                     this.updatePathToTarget--;
                 }
                 else
-                {                   
-                    this.TaskOwner.Path = GameLibrary.Model.Path.PathFinder.generatePath(new Vector2(this.TaskOwner.Position.X, this.TaskOwner.Position.Y), new Vector2(this.target.Position.X, this.target.Position.Y));
+                {
+
+
+                    System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+
+                    float var_TimeAStar = 0;
+                    float var_TimeJPS = 0;
+
+                    int var_Count = 50;
+
+                    watch.Start();
+                    {
+                        for (int i = 0; i < var_Count; i++)
+                        {
+                            this.TaskOwner.Path = GameLibrary.Model.Path.PathFinderAStar.generatePath(new Vector2(this.TaskOwner.Position.X, this.TaskOwner.Position.Y), new Vector2(this.target.Position.X, this.target.Position.Y));
+                        }
+                    }
+                    watch.Stop();
+
+                    var_TimeAStar = watch.ElapsedMilliseconds;// / var_Count;
+
+                    watch = new System.Diagnostics.Stopwatch();
+                    watch.Start();
+                    {
+                        for (int i = 0; i < var_Count; i++)
+                        {
+                            this.TaskOwner.Path = GameLibrary.Model.Path.PathFinderJPS.generatePath(new Vector2(this.TaskOwner.Position.X, this.TaskOwner.Position.Y), new Vector2(this.target.Position.X, this.target.Position.Y));
+                        }
+                    }
+                    watch.Stop();
+
+                    var_TimeJPS = watch.ElapsedMilliseconds;// / var_Count;
+
+                    Console.WriteLine("Time AStar: " + var_TimeAStar + "MS : Time JPS: " +var_TimeJPS);
+                    //AStar scheint schneller. VLL mal beides kombinieren :) AStar+JPS
+                    
                     if (this.TaskOwner.Path != null)
                     {
 

@@ -32,7 +32,7 @@ namespace GameLibrary.Model.Path
         }
     }
 
-    public class PathFinder
+    public class PathFinderAStar
     {
         public static Path generatePath(Vector2 _StartPosition, Vector2 _EndPosition)
         {
@@ -106,7 +106,7 @@ namespace GameLibrary.Model.Path
 
                 Path var_Result = new Path(aStar.Search(new System.Drawing.Point(var_SizeX / 2, var_SizeY / 2), new System.Drawing.Point(var_TargetX, var_TargetY), null));
 
-                for (int y = 0; y < var_SizeY; y++)
+                /*for (int y = 0; y < var_SizeY; y++)
                 {
                     for (int x = 0; x < var_SizeY; x++)
                     {
@@ -132,7 +132,7 @@ namespace GameLibrary.Model.Path
                         }
                     }
                     Console.WriteLine();
-                }
+                }*/
 
                 return var_Result;
             }
