@@ -41,9 +41,9 @@ namespace GameLibrary.Factory
 
             var_Result.setAllNeighboursOfBlocks();
             generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
-            //generateSecondLayer(var_Result, _Layer);
-            //generateFlowers(var_Result);
-            //generateTrees(var_Result);
+            generateSecondLayer(var_Result, _Layer);
+            generateFlowers(var_Result);
+            generateTrees(var_Result);
             //generateWall(var_Result);
             if (var_Result.Id == 0)
             {
@@ -293,12 +293,15 @@ namespace GameLibrary.Factory
                 int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
+                var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left, var_EnvironmentObject.DrawBounds.Bottom, var_EnvironmentObject.DrawBounds.Width, 20));
 
                 Block var_Block = _Chunk.getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y);
 
                 if (var_Block.IsWalkAble && var_Block.Layer[1] == BlockEnum.Nothing)
                 {
-                    var_Block.objectsPreEnviorment.Add(var_EnvironmentObject);
+                    var_Block.ObjectsPreEnviorment.Add(var_EnvironmentObject);
+                    var_EnvironmentObject.CurrentBlock = var_Block;
+                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTreeEnvironmentObject.Insert(var_EnvironmentObject);
                 }
             }
         }

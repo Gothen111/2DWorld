@@ -35,7 +35,13 @@ namespace GameLibrary.Model.Map.Block
             set { objects = value; }
         }
 
-        public List<Object.Object> objectsPreEnviorment;
+        private List<Object.Object> objectsPreEnviorment;
+
+        public List<Object.Object> ObjectsPreEnviorment
+        {
+            get { return objectsPreEnviorment; }
+            set { objectsPreEnviorment = value; }
+        }
 
         private bool isWalkAble;
 

@@ -196,5 +196,21 @@ namespace GameLibrary.Model.Map.Chunk
             }
             return result;
         }
+
+        public List<Object.Object> getAllEnvironmentObjectsInChunk()
+        {
+            List<Object.Object> result = new List<Object.Object>();
+            for (int x = 0; x < this.Size.X; x++)
+            {
+                for (int y = 0; y < this.Size.Y; y++)
+                {
+                    foreach (Object.Object var_Object in this.getBlockAtPosition(x, y).ObjectsPreEnviorment)
+                    {
+                        result.Add(var_Object);
+                    }
+                }
+            }
+            return result;
+        }
     }
 }

@@ -135,6 +135,14 @@ namespace Client.Connection
                     GameLibrary.Model.Map.World.World.world.addObject(var_Object);
                 }
             }
+            foreach (GameLibrary.Model.Object.Object var_Object in message.Chunk.getAllEnvironmentObjectsInChunk())
+            {
+                //if (GameLibrary.Model.Map.World.World.world.getObject(var_Object.Id) == null)
+                //{
+                    //GameLibrary.Model.Map.World.World.world.addObject(var_Object);
+                GameLibrary.Model.Map.World.World.world.QuadTreeEnvironmentObject.Insert(var_Object);
+                //}
+            }
 
             if (GameLibrary.Connection.NetworkManager.client != null)
             {

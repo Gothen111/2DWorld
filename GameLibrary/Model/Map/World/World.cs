@@ -45,14 +45,18 @@ namespace GameLibrary.Model.Map.World
 
         private List<Object.Object> objectsToUpdate;
 
-        //private List<Object.Object> environmentObjectToDraw;
+        private List<Object.Object> environmentObjectToDraw;
 
         #endregion
         #region Constructors
         public World()
             :base()
         {
-            this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+            //if (Configuration.Configuration.isHost)
+            //{
+                this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+                this.quadTreeEnvironmentObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+            //}          
         }
 
         public World(SerializationInfo info, StreamingContext ctxt) : this()
@@ -66,14 +70,11 @@ namespace GameLibrary.Model.Map.World
         }
 
         public World(String _Name)
+            :this()
         {
             this.Name = _Name;
 
             regions = new List<Region.Region>();
-            if (Configuration.Configuration.isHost)
-            {
-                this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
-            }
 
             this.playerObjects = new List<PlayerObject>();
 
@@ -208,6 +209,19 @@ namespace GameLibrary.Model.Map.World
         {
             if (_Target != null)
             {
+
+
+                List<Object.Object> var_EnviornmentObjects = ((Chunk.Chunk)_Target.CurrentBlock.Parent).getAllEnvironmentObjectsInChunk();// this.environmentObjectToDraw; // = this.getObjectsInRange(_Target.Position, 400);
+
+                var_EnviornmentObjects.Sort(new Ressourcen.ObjectPositionComparer());
+
+                foreach (AnimatedObject var_AnimatedObject in var_EnviornmentObjects)
+                {
+                    var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
+                }
+
+
+
                 List<Object.Object> var_Objects = this.objectsToUpdate; // = this.getObjectsInRange(_Target.Position, 400);
 
                 var_Objects.Sort(new Ressourcen.ObjectPositionComparer());
@@ -217,14 +231,7 @@ namespace GameLibrary.Model.Map.World
                     var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
                 }
 
-                /*List<Object.Object> var_EnviornmentObjects = this.environmentObjectToDraw; // = this.getObjectsInRange(_Target.Position, 400);
-
-                var_EnviornmentObjects.Sort(new Ressourcen.ObjectPositionComparer());
-
-                foreach (AnimatedObject var_AnimatedObject in var_EnviornmentObjects)
-                {
-                    var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
-                }*/
+                
 
                 //TODO: preenvionmentobjekte brauchen n exta quadtree zum malen.
                 if (_Target.CurrentBlock != null)
@@ -281,8 +288,6 @@ namespace GameLibrary.Model.Map.World
                     block.addObject(_Object);
                     if (insertInQuadTree)
                     {
-                        if (this.quadTreeObject == null)
-                            this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
                         this.quadTreeObject.Insert(_Object);
                     }
                     if (Configuration.Configuration.isHost)
@@ -511,7 +516,7 @@ namespace GameLibrary.Model.Map.World
             base.update();
 
             this.objectsToUpdate = new List<Object.Object>();
-            //this.environmentObjectToDraw = new List<Object.Object>();
+            this.environmentObjectToDraw = new List<Object.Object>();
 
             this.updatePlayerObjectsNeighborhood();
 
@@ -686,7 +691,8 @@ namespace GameLibrary.Model.Map.World
                 }
             }
 
-            //this.environmentObjectToDraw = this.getObjectsInRange(_PlayerObject.Position, this.quadTreeEnvironmentObject.Root, 400); 
+            //TODO:Noch die foeach schleife machen damit nix doppelt ;) bzw. nur client quatsch oder so :D
+            this.environmentObjectToDraw = this.getObjectsInRange(_PlayerObject.Position, this.quadTreeEnvironmentObject.Root, 400); 
         }
         #endregion
 
