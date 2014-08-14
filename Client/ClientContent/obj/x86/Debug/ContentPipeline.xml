@@ -353,6 +353,15 @@
       <Time>2014-08-06T18:35:53.3216642+02:00</Time>
     </Item>
     <Item>
+      <Source>Gui\Menu\Inventory\InventoryMenu.png</Source>
+      <Name>Gui\Menu\Inventory\InventoryMenu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryMenu.xnb</Output>
+      <Time>2014-08-14T11:33:43.7500331+02:00</Time>
+    </Item>
+    <Item>
       <Source>Font\Arial.spritefont</Source>
       <Name>Font\Arial</Name>
       <Importer>FontDescriptionImporter</Importer>

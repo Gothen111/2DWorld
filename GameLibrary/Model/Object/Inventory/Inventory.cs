@@ -36,7 +36,7 @@ namespace GameLibrary.Model.Object.Inventory
 
         public Inventory()
         {
-            this.maxItems = 10;
+            this.maxItems = 12;
             this.items = new List<ItemObject>();
             this.inventoryChanged = true;
         }
@@ -166,6 +166,7 @@ namespace GameLibrary.Model.Object.Inventory
             else
             {
                 //TODO: Kommt wohl von wo anders... anderes Inventar usw..
+                //this.addItemObjectToInventory(_ItemObject);
             }
         }
 

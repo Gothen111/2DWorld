@@ -50,7 +50,7 @@ namespace GameLibrary.Factory
                 generateNpc(var_Result);
             }
 
-            //generateCoins(var_Result);
+            generateCoins(var_Result);
             //generateStuff(var_Result);
 
             return var_Result;
@@ -293,7 +293,7 @@ namespace GameLibrary.Factory
                 int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
-                var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left, var_EnvironmentObject.DrawBounds.Bottom, var_EnvironmentObject.DrawBounds.Width, 20));
+                //var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left, var_EnvironmentObject.DrawBounds.Bottom, var_EnvironmentObject.DrawBounds.Width, 20));
 
                 Block var_Block = _Chunk.getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y);
 
@@ -302,6 +302,8 @@ namespace GameLibrary.Factory
                     var_Block.ObjectsPreEnviorment.Add(var_EnvironmentObject);
                     var_EnvironmentObject.CurrentBlock = var_Block;
                     ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTreeEnvironmentObject.Insert(var_EnvironmentObject);
+                    //Chunk ist noch null ;) in der world.... da noch nicht hinzugefügt
+                    //((Model.Map.World.World)_Chunk.Parent.Parent).addPreEnvironmentObject(var_EnvironmentObject);
                 }
             }
         }

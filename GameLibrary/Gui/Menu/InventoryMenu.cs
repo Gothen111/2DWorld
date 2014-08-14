@@ -25,8 +25,8 @@ namespace GameLibrary.Gui.Menu
         }
 
         Container equipmentContainer;
-        TextField weaponComponent;
-        TextField armorComponent;
+        EquipmentField weaponComponent;
+        EquipmentField armorComponent;
 
         Container itemContainer;
 
@@ -35,25 +35,27 @@ namespace GameLibrary.Gui.Menu
         {
             this.inventoryOwner = _InventoryOwner;
 
-            this.Bounds = new Rectangle(500, 0, 700, 1000); // TODO: Größe an Bildschirm anpassen!
+            this.Bounds = new Rectangle(475, 0, 700, 1000); // TODO: Größe an Bildschirm anpassen!
 
             this.AllowMultipleFocus = true;
 
+            this.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryMenu";
+
             this.equipmentContainer = new Container(this.Bounds);
 
-            Component var_ItemSpaceWeapon = new Component(new Rectangle(this.Bounds.X, 0, 36, 36));
+            /*Component var_ItemSpaceWeapon = new Component(new Rectangle(this.Bounds.X + 33, this.Bounds.Y + 174, 36, 36));
             var_ItemSpaceWeapon.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
-            this.equipmentContainer.add(var_ItemSpaceWeapon);
+            this.equipmentContainer.add(var_ItemSpaceWeapon);*/
 
-            this.weaponComponent = new TextField(new Rectangle(this.Bounds.X, 0, 36, 36));
-            //this.equipmentContainer.add(this.weaponComponent);
+            this.weaponComponent = new EquipmentField(this.inventoryOwner, 0, Factory.FactoryEnums.ItemEnum.Weapon, new Rectangle(this.Bounds.X + 33, this.Bounds.Y + 174, 36, 36));
+            this.equipmentContainer.add(this.weaponComponent);
 
-            Component var_ItemSpaceArmor = new Component(new Rectangle(this.Bounds.X, 36, 36, 36));
+            /*Component var_ItemSpaceArmor = new Component(new Rectangle(this.Bounds.X + 148, this.Bounds.Y + 182, 36, 36));
             var_ItemSpaceArmor.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
-            this.equipmentContainer.add(var_ItemSpaceArmor);
+            this.equipmentContainer.add(var_ItemSpaceArmor);*/
 
-            this.armorComponent = new TextField(new Rectangle(this.Bounds.X, 36, 36, 36));
-            //this.equipmentContainer.add(this.armorComponent);
+            this.armorComponent = new EquipmentField(this.inventoryOwner, 0, Factory.FactoryEnums.ItemEnum.Armor, new Rectangle(this.Bounds.X + 148, this.Bounds.Y + 182, 36, 36));
+            this.equipmentContainer.add(this.armorComponent);
 
             this.itemContainer = new Container(this.Bounds);
 
@@ -68,11 +70,7 @@ namespace GameLibrary.Gui.Menu
                     int var_ItemId = y * 4 + x;
                     if (var_BackbackSize > 0)
                     {
-                        /*Component var_ItemSpace = new Component(new Rectangle(this.Bounds.X + 36*x, 100 + y*36,36,36));
-                        var_ItemSpace.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
-                        this.add(var_ItemSpace);*/
-
-                        InventoryField var_InventoryField = new InventoryField(this.inventoryOwner, var_ItemId, new Rectangle(this.Bounds.X + 36 * x, 100 + y * 36, 36, 36));
+                        InventoryField var_InventoryField = new InventoryField(this.inventoryOwner, var_ItemId, new Rectangle(this.Bounds.X + 92 + 36 * x, this.Bounds.Y + 306 + y * 36, 36, 36));
                         this.itemContainer.add(var_InventoryField);
 
                         var_BackbackSize -= 1;
@@ -97,33 +95,6 @@ namespace GameLibrary.Gui.Menu
         {
             if (this.inventoryOwner.Inventory.InventoryChanged)
             {
-                /*this.itemContainer.clear();
-
-                int var_BackbackSize = this.inventoryOwner.Inventory.MaxItems;
-
-                int var_SizeY = var_BackbackSize / 4 + var_BackbackSize % 4;
-
-                for (int y = 0; y < var_SizeY; y++)
-                {
-                    for (int x = 0; x < 4; x++)
-                    {
-                        if (var_BackbackSize > 0)
-                        {
-                            int var_ItemId = y * 4 + x;
-                            if (this.inventoryOwner.Inventory.Items.Count > var_ItemId)
-                            {
-                                TextField var_Item = new TextField(new Rectangle(this.Bounds.X + 36 * x + 8, 100 + y * 36 + 8, 16, 16));
-                                var_Item.BackgroundGraphicPath = this.inventoryOwner.Inventory.Items[var_ItemId].GraphicPath;
-                                var_Item.IsTextEditAble = false;
-                                var_Item.Text = this.inventoryOwner.Inventory.Items[var_ItemId].OnStack.ToString();
-                                var_Item.IsDragAndDropAble = true;
-                                this.itemContainer.add(var_Item);
-                            }
-                            var_BackbackSize -= 1;
-                        }
-                    }
-                }*/
-
                 foreach (InventoryField var_InventoryField in this.itemContainer.Components)
                 {
                     var_InventoryField.removeItem();
@@ -153,22 +124,18 @@ namespace GameLibrary.Gui.Menu
         {
             if (this.inventoryOwner.Inventory.InventoryChanged)
             {
-                this.equipmentContainer.remove(this.weaponComponent);
+                this.weaponComponent.removeItem();
+                this.weaponComponent.clear();
                 if (this.inventoryOwner.getWeaponInHand() != null)
                 {
-                    this.weaponComponent.BackgroundGraphicPath = "Object/Item/Small/Sword1";
-                    this.weaponComponent.IsTextEditAble = false;
-                    this.weaponComponent.IsDragAndDropAble = true;
-                    this.equipmentContainer.add(this.weaponComponent);
+                    this.weaponComponent.setItem(this.inventoryOwner.getWeaponInHand());
                 }
 
-                this.equipmentContainer.remove(this.armorComponent);
+                this.armorComponent.removeItem();
+                this.armorComponent.clear();
                 if (this.inventoryOwner.getWearingArmor() != null)
                 {
-                    this.armorComponent.BackgroundGraphicPath = "Object/Item/Small/Cloth1";
-                    this.armorComponent.IsTextEditAble = false;
-                    this.armorComponent.IsDragAndDropAble = true;
-                    this.equipmentContainer.add(this.armorComponent);
+                    this.armorComponent.setItem(this.inventoryOwner.getWearingArmor());
                 }
             }
         }

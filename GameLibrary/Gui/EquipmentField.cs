@@ -13,9 +13,11 @@ using GameLibrary.Gui;
 using GameLibrary.Model.Object;
 using GameLibrary.Connection;
 
+using GameLibrary.Factory.FactoryEnums;
+
 namespace GameLibrary.Gui
 {
-    public class InventoryField : Container
+    public class EquipmentField : Container
     {
         private CreatureObject inventoryOwner;
 
@@ -27,16 +29,26 @@ namespace GameLibrary.Gui
             set { fieldId = value; }
         }
 
+        private ItemEnum acceptedItem;
+
+        public ItemEnum AcceptedItem
+        {
+            get { return acceptedItem; }
+            set { acceptedItem = value; }
+        }
+
         //Component itemSpace;
 
         InventoryItem item;
 
-        public InventoryField(CreatureObject _InventoryOwner, int _FieldId, Rectangle _Bounds)
+        public EquipmentField(CreatureObject _InventoryOwner, int _FieldId, ItemEnum _AcceptedItem, Rectangle _Bounds)
             :base(_Bounds)
         {
             this.inventoryOwner = _InventoryOwner;
 
             this.fieldId = _FieldId;
+
+            this.acceptedItem = _AcceptedItem;
 
             /*this.itemSpace = new Component(new Rectangle(this.Bounds.X, this.Bounds.Y, this.Bounds.Width, this.Bounds.Height));
             this.itemSpace.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
@@ -70,8 +82,8 @@ namespace GameLibrary.Gui
 
         private void itemDropedIn(ItemObject _ItemObject)
         {
-            this.inventoryOwner.Inventory.itemDropedInInventory(inventoryOwner, _ItemObject, this.fieldId);
-            this.inventoryOwner.Inventory.InventoryChanged = true;
+            //this.inventoryOwner.Inventory.itemDropedInInventory(inventoryOwner, _ItemObject, this.fieldId);
+            //this.inventoryOwner.Inventory.InventoryChanged = true;
         }
 
         public override bool componentIsDropedIn(Component _Component)

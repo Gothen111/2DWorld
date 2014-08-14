@@ -121,6 +121,7 @@
     <Compile Include="Connection\Message\EIGameMessageType.cs" />
     <Compile Include="Connection\Message\IGameMessage.cs" />
     <Compile Include="Connection\Message\CreatureInventoryItemPositionChangeMessage.cs" />
+    <Compile Include="Connection\Message\UpdatePreEnvironmentObjectMessage.cs" />
     <Compile Include="Connection\Message\UpdateCreatureInventoryMessage.cs" />
     <Compile Include="Connection\Message\RemoveObjectMessage.cs" />
     <Compile Include="Connection\Message\RequestLivingObjectMessage.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Gui\DragAndDrop.cs" />
     <Compile Include="Gui\InventoryField.cs" />
     <Compile Include="Gui\InventoryItem.cs" />
+    <Compile Include="Gui\EquipmentField.cs" />
     <Compile Include="Gui\MenuManager.cs" />
     <Compile Include="Gui\ContainerStrategy\OverlayStrategy.cs" />
     <Compile Include="Gui\ContainerStrategy\Strategy.cs" />
@@ -186,6 +188,11 @@
     <Compile Include="Model\Map\Region\Region.cs" />
     <Compile Include="Model\Map\Region\RegionDependency.cs" />
     <Compile Include="Model\Map\Region\RegionEnum.cs" />
+    <Compile Include="Model\Map\World\World.Player.cs" />
+    <Compile Include="Model\Map\World\World.Update.cs" />
+    <Compile Include="Model\Map\World\World.Collision.cs" />
+    <Compile Include="Model\Map\World\World.Objects.cs" />
+    <Compile Include="Model\Map\World\World.Childs.cs" />
     <Compile Include="Model\Map\World\SearchFlags\DeadFlag.cs" />
     <Compile Include="Model\Map\World\SearchFlags\FactionFlag.cs" />
     <Compile Include="Model\Map\World\SearchFlags\IsDamagedFlag.cs" />
@@ -194,6 +201,7 @@
     <Compile Include="Model\Map\World\SearchFlags\RaceFlag.cs" />
     <Compile Include="Model\Map\World\SearchFlags\Searchflag.cs" />
     <Compile Include="Model\Map\World\World.cs" />
+    <Compile Include="Model\Map\World\World.Draw.cs" />
     <Compile Include="Model\Object\AnimatedObject.cs" />
     <Compile Include="Model\Object\Animation\AnimatedObjectAnimation.cs" />
     <Compile Include="Model\Object\Animation\Animations\AttackAnimation.cs" />
