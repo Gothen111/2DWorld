@@ -79,7 +79,6 @@ namespace GameLibrary.Model.Object.Task.Aggro
                 float oldAggro = aggroItems[unit];
                 removeUnit(unit);
                 addUnit(unit, oldAggro * modifier);
-                sortDictionary();
             }
         }
 

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace GameLibrary.Model.Behaviour
 {
+    [Serializable()]
     abstract public class Behaviour<E, T>
     {
         protected List<BehaviourItem<E>> behaviour;
@@ -17,6 +19,18 @@ namespace GameLibrary.Model.Behaviour
         public Behaviour(T _type) : this()
         {
             this.type = _type;
+        }
+
+        public Behaviour(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.behaviour = (List<BehaviourItem<E>>)info.GetValue("behaviourMember", typeof(List<BehaviourItem<E>>));
+            this.type = (T)info.GetValue("type", typeof(T));
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            info.AddValue("behaviourMember", this.behaviour, typeof(List<BehaviourItem<E>>));
+            info.AddValue("type", this.Type, typeof(T));
         }
 
         public List<BehaviourItem<E>> BehaviourMember

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace GameLibrary.Model.Behaviour
 {
+    [Serializable()]
     public class BehaviourItem <E>
     {
         protected E item;
@@ -27,6 +29,18 @@ namespace GameLibrary.Model.Behaviour
         {
             item = _item;
             value = _value;
+        }
+
+        public BehaviourItem(SerializationInfo info, StreamingContext ctxt)
+        {
+            this.item = (E)info.GetValue("item", typeof(E));
+            this.value = (int)info.GetValue("value", typeof(int));
+        }
+
+        public override void BehaviourItem(SerializationInfo info, StreamingContext ctxt)
+        {
+            info.AddValue("item", this.item, typeof(E));
+            info.AddValue("value", this.value, typeof(int));
         }
     }
 }

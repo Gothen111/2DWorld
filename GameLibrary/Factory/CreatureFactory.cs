@@ -55,8 +55,8 @@ namespace GameLibrary.Factory
             npcObject.Gender = objectGender;
             npcObject.Name = NameFactory.getName(objectType, objectGender);
             npcObject.GraphicPath = "Character/Char1_Small";
-            npcObject.Tasks.Add(new Model.Object.Task.Tasks.AttackRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Attack_Random));
-            //npcObject.Tasks.Add(new Model.Object.Task.Tasks.WalkRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Walk_Random));
+            //npcObject.Tasks.Add(new Model.Object.Task.Tasks.AttackRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Attack_Random));
+            npcObject.Tasks.Add(new Model.Object.Task.Tasks.WalkRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Walk_Random));
 
             return npcObject;
         }

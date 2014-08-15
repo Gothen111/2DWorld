@@ -38,7 +38,6 @@ Content\Region\Snowland\Block\Layer2\Dirt.xnb
 Content\Region\Snowland\Block\Layer2\Gras.xnb
 Content\Region\Snowland\Block\Environment\Tree\Tree1.xnb
 Content\Gui\Menu\Inventory\InventoryMenu.xnb
-Content\Font\Arial.xnb
 Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Bottom.xnb
 Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Center.xnb
 Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner1.xnb
@@ -52,3 +51,4 @@ Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner1.xnb
 Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner2.xnb
 Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner3.xnb
 Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner4.xnb
+Content\Font\Arial.xnb

@@ -28,12 +28,13 @@ namespace GameLibrary.Model.Object
         public FactionObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
         {
-
+            this.faction = (Faction)info.GetValue("faction", typeof(Faction));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             base.GetObjectData(info, ctxt);
+            info.AddValue("faction", this.faction, typeof(Faction));
         }
 
         public override void update()

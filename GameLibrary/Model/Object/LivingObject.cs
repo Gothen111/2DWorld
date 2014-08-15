@@ -58,10 +58,8 @@ namespace GameLibrary.Model.Object
             set { aggroRange = value; }
         }
 
-        [System.Xml.Serialization.XmlIgnoreAttribute]
         private Task.Aggro.AggroSystem<LivingObject> aggroSystem;
 
-        [System.Xml.Serialization.XmlIgnoreAttribute]
         public Task.Aggro.AggroSystem<LivingObject> AggroSystem
         {
             get { return aggroSystem; }
