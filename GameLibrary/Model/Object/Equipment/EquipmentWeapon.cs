@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
+using Microsoft.Xna.Framework;
+
 using GameLibrary.Factory.FactoryEnums;
 
 namespace GameLibrary.Model.Object.Equipment
@@ -35,33 +37,18 @@ namespace GameLibrary.Model.Object.Equipment
             set { searchFlags = value; }
         }
 
-        private int range;
+        private List<Attack.Attack> attacks;
 
-        public int Range
+        public List<Attack.Attack> Attacks
         {
-            get { return range; }
-            set { range = value; }
-        }
-
-        private float attackSpeed;
-
-        public float AttackSpeed
-        {
-            get { return attackSpeed; }
-            set { attackSpeed = value; }
-        }
-
-        private float attackSpeedMax;
-
-        public float AttackSpeedMax
-        {
-            get { return attackSpeedMax; }
-            set { attackSpeedMax = value; }
+            get { return attacks; }
+            set { attacks = value; }
         }
 
         public EquipmentWeapon()
         {
             searchFlags = new List<Map.World.SearchFlags.Searchflag>();
+            attacks = new List<Attack.Attack>();
         }
 
         public EquipmentWeapon(SerializationInfo info, StreamingContext ctxt)
@@ -70,11 +57,10 @@ namespace GameLibrary.Model.Object.Equipment
             this.weaponEnum = (WeaponEnum)info.GetValue("weaponEnum", typeof(WeaponEnum));
 
             this.normalDamage = (int)info.GetValue("normalDamage", typeof(int));
-            this.range = (int)info.GetValue("range", typeof(int));
-            this.attackSpeed = (float)info.GetValue("attackSpeed", typeof(float));
-            this.attackSpeedMax = (float)info.GetValue("attackSpeedMax", typeof(float));
 
             this.searchFlags = (List<Map.World.SearchFlags.Searchflag>)info.GetValue("searchFlags", typeof(List<Map.World.SearchFlags.Searchflag>));
+
+            this.attacks = (List<Attack.Attack>)info.GetValue("attacks", typeof(List<Attack.Attack>));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -82,31 +68,55 @@ namespace GameLibrary.Model.Object.Equipment
             info.AddValue("weaponEnum", weaponEnum, typeof(WeaponEnum));
 
             info.AddValue("normalDamage", normalDamage, typeof(int));
-            info.AddValue("range", range, typeof(int));
-            info.AddValue("attackSpeed", range, typeof(float));
-            info.AddValue("attackSpeedMax", range, typeof(float));
 
             info.AddValue("searchFlags", this.searchFlags, typeof(List<Map.World.SearchFlags.Searchflag>));
+
+            info.AddValue("attacks", this.attacks, typeof(List<Attack.Attack>));
 
             base.GetObjectData(info, ctxt);
         }
 
         public override void update()
         {
-            if (attackSpeed < attackSpeedMax)
+            foreach (Attack.Attack var_Attack in this.attacks)
+                var_Attack.update();
+        }
+
+        public bool isAttackReady(Attack.AttackType _AttackType)
+        {
+            foreach (Attack.Attack var_Attack in this.attacks)
             {
-                attackSpeed++;
+                if (var_Attack.isAttackReady() && var_Attack.AttackType.Equals(_AttackType))
+                    return true;
             }
+            return false;
         }
 
-        public Boolean isAttackReady()
+        public bool executeAttack(Attack.AttackType _AttackType)
         {
-            return attackSpeed >= attackSpeedMax;
+            foreach (Attack.Attack var_Attack in this.attacks)
+            {
+                if (var_Attack.isAttackReady() && var_Attack.AttackType.Equals(_AttackType))
+                {
+                    var_Attack.executeAttack();
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public void attack()
+        public Attack.Attack getAttack(Attack.AttackType _AttackType)
         {
-            attackSpeed = 0;
+            foreach (Attack.Attack var_Attack in this.attacks)
+            {
+                if (var_Attack.AttackType.Equals(_AttackType))
+                {
+                    return var_Attack;
+                }
+            }
+            Logger.Logger.LogErr("Keine Waffe für Typ " + _AttackType.ToString() + " festgelegt.");
+            return null;
         }
+
     }
 }
