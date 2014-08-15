@@ -40,14 +40,15 @@ namespace GameLibrary.Factory
             this.fillChunkWithBlock(var_Result, BlockEnum.Ground1);
 
             var_Result.setAllNeighboursOfBlocks();
-            generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
-            generateSecondLayer(var_Result, _Layer);
-            generateFlowers(var_Result);
-            generateTrees(var_Result);
+            //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
+            //generateSecondLayer(var_Result, _Layer);
+            //generateFlowers(var_Result);
+            //generateTrees(var_Result);
             //generateWall(var_Result);
             if (var_Result.Id == 0)
             {
-                generateNpc(var_Result);
+                //generateNpc(var_Result);
+                //generateHeightMap(var_Result);
             }
 
             generateCoins(var_Result);
@@ -436,5 +437,204 @@ namespace GameLibrary.Factory
                 }
             }
         }*/
+
+        private void generateHeightMap(Chunk _Chunk)
+        {
+            int var_Min = 0;
+            int var_Max = 10;
+            int var_RandomRange = 5;
+
+            float[,] var_HeightMap = new float[(int)_Chunk.Size.X, (int)_Chunk.Size.Y];
+
+            for (int x = 0; x < var_HeightMap.GetLength(0); x++)
+            {
+                for (int y = 0; y < var_HeightMap.GetLength(1); y++)
+                {
+                    var_HeightMap[x, y] = var_Min + Util.Random.GenerateGoodRandomNumber(0, var_RandomRange);
+                }
+            }
+
+            for (int x = 0; x < var_HeightMap.GetLength(0); x++)
+            {
+                for (int y = 0; y < var_HeightMap.GetLength(1); y++)
+                {
+                    float var_Add = 0;
+                    if (x - 1 >= 0)
+                    {
+                        var_Add += var_HeightMap[x - 1, y];
+                    }
+                    if (x + 1 < var_HeightMap.GetLength(0))
+                    {
+                        var_Add += var_HeightMap[x + 1, y];
+                    }
+                    if (y - 1 >= 0)
+                    {
+                        var_Add += var_HeightMap[x, y - 1];
+                    }
+                    if (y + 1 < var_HeightMap.GetLength(1))
+                    {
+                        var_Add += var_HeightMap[x, y + 1];
+                    }
+                    var_HeightMap[x, y] = var_Add/4 + Util.Random.GenerateGoodRandomNumber(0, var_RandomRange) / 2;
+                    if (var_HeightMap[x, y] > var_Max)
+                    {
+                        var_HeightMap[x, y] = var_Max;
+                    }
+
+                    if (var_HeightMap[x, y] >= 3)
+                    {
+                        Block var_Block = _Chunk.getBlockAtPosition(x, y);
+                        var_Block.Height = 1;
+                    }
+                }
+            }
+
+            for (int x = 0; x < var_HeightMap.GetLength(0); x++)
+            {
+                for (int y = 0; y < var_HeightMap.GetLength(1); y++)
+                {
+                    if (var_HeightMap[x, y] >= 3)
+                    {
+                        Block var_Block = _Chunk.getBlockAtPosition(x, y);
+                        var_Block.Height = 1;
+
+                        if (var_Block.RightNeighbour != null)
+                        {
+                            if (((Block)var_Block.RightNeighbour).Height < var_Block.Height)
+                            {
+                                var_Block.Layer[0] = BlockEnum.Hill1_Right;
+                            }
+                        }
+
+                        if (var_Block.LeftNeighbour != null)
+                        {
+                            if (((Block)var_Block.LeftNeighbour).Height < var_Block.Height)
+                            {
+                                var_Block.Layer[0] = BlockEnum.Hill1_Left;
+                            }
+                        }
+
+                        if (var_Block.TopNeighbour != null)
+                        {
+                            if (((Block)var_Block.TopNeighbour).Height < var_Block.Height)
+                            {
+                                _Chunk.getBlockAtPosition(x, y).Layer[0] = BlockEnum.Hill1_Top;
+                                if (var_Block.LeftNeighbour != null)
+                                {
+                                    if (((Block)var_Block.LeftNeighbour).Height < var_Block.Height)
+                                    {
+                                        var_Block.Layer[0] = BlockEnum.Hill1_Corner1;
+                                    }
+                                }
+                                if (var_Block.RightNeighbour != null)
+                                {
+                                    if (((Block)var_Block.RightNeighbour).Height < var_Block.Height)
+                                    {
+                                        var_Block.Layer[0] = BlockEnum.Hill1_Corner2;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (var_Block.BottomNeighbour != null)
+                        {
+                            if (((Block)var_Block.BottomNeighbour).Height < var_Block.Height)
+                            {
+                                _Chunk.getBlockAtPosition(x, y).Layer[0] = BlockEnum.Hill1_Bottom;
+                                if (var_Block.LeftNeighbour != null)
+                                {
+                                    if (((Block)var_Block.LeftNeighbour).Height < var_Block.Height)
+                                    {
+                                        var_Block.Layer[0] = BlockEnum.Hill1_Corner4;
+                                    }
+                                }
+                                if (var_Block.RightNeighbour != null)
+                                {
+                                    if (((Block)var_Block.RightNeighbour).Height < var_Block.Height)
+                                    {
+                                        var_Block.Layer[0] = BlockEnum.Hill1_Corner3;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (var_Block.Layer[0] == BlockEnum.Ground1)
+                        {
+                            var_Block.Layer[0] = BlockEnum.Hill1_Center;
+                        }
+                    }
+                }
+            }
+
+            for (int x = 0; x < var_HeightMap.GetLength(0); x++)
+            {
+                for (int y = 0; y < var_HeightMap.GetLength(1); y++)
+                {
+                    if (var_HeightMap[x, y] >= 3)
+                    {
+                        Block var_Block = _Chunk.getBlockAtPosition(x, y);
+
+                        if (var_Block.BottomNeighbour != null)
+                        {
+                            if (((Block)var_Block.BottomNeighbour).Layer[0] == BlockEnum.Hill1_Right)
+                            {
+                                if (var_Block.RightNeighbour != null)
+                                {
+                                    if (((Block)var_Block.RightNeighbour).Layer[0] == BlockEnum.Hill1_Bottom)
+                                    {
+                                        var_Block.Layer[0] = BlockEnum.Hill1_InsideCorner1;
+                                    }
+                                }
+                            }
+                            if (((Block)var_Block.BottomNeighbour).Layer[0] == BlockEnum.Hill1_Left)
+                            {
+                                if (var_Block.LeftNeighbour != null)
+                                {
+                                    if (((Block)var_Block.LeftNeighbour).Layer[0] == BlockEnum.Hill1_Bottom)
+                                    {
+                                        var_Block.Layer[0] = BlockEnum.Hill1_InsideCorner2;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (var_Block.TopNeighbour != null)
+                        {
+                            if (((Block)var_Block.TopNeighbour).Layer[0] == BlockEnum.Hill1_Left)
+                            {
+                                if (var_Block.LeftNeighbour != null)
+                                {
+                                    if (((Block)var_Block.LeftNeighbour).Layer[0] == BlockEnum.Hill1_Top)
+                                    {
+                                        var_Block.Layer[0] = BlockEnum.Hill1_InsideCorner3;
+                                    }
+                                }
+                            }
+
+                            if (((Block)var_Block.TopNeighbour).Layer[0] == BlockEnum.Hill1_Right)
+                            {
+                                if (var_Block.RightNeighbour != null)
+                                {
+                                    if (((Block)var_Block.RightNeighbour).Layer[0] == BlockEnum.Hill1_Top)
+                                    {
+                                        var_Block.Layer[0] = BlockEnum.Hill1_InsideCorner4;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //AUSGABE
+            for (int y = 0; y < var_HeightMap.GetLength(1); y++)
+            {
+                for (int x = 0; x < var_HeightMap.GetLength(0); x++)
+                {
+                    Console.Write( (int)var_HeightMap[x, y] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }

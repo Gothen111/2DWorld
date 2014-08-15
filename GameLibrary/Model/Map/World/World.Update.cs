@@ -202,7 +202,7 @@ namespace GameLibrary.Model.Map.World
             if (!Configuration.Configuration.isHost)
             {
                 //TODO:Noch die foeach schleife machen damit nix doppelt ;) bzw. nur client quatsch oder so :D
-                this.environmentObjectToDraw = this.getObjectsInRange(_PlayerObject.Position, this.quadTreeEnvironmentObject.Root, 400);
+                //this.environmentObjectToDraw = this.getObjectsInRange(_PlayerObject.Position, this.quadTreeEnvironmentObject.Root, 400);
             }
         }
         #endregion

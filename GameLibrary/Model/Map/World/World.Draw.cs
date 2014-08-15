@@ -22,7 +22,7 @@ namespace GameLibrary.Model.Map.World
         {
             if (_Target != null)
             {
-                if (_Target.CurrentBlock != null)
+                /*if (_Target.CurrentBlock != null)
                 {
                     Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_Target.CurrentBlock.Parent;
                     var_ChunkMid.drawBlocks(_GraphicsDevice, _SpriteBatch);
@@ -68,7 +68,24 @@ namespace GameLibrary.Model.Map.World
                         }
                         var_ChunkBottom.drawBlocks(_GraphicsDevice, _SpriteBatch);
                     }
+                }*/
+
+
+                int var_DrawSizeX = 30;
+                int var_DrawSizeY = 30;
+
+                for (int x = 0; x < var_DrawSizeX; x++)
+                {
+                    for (int y = 0; y < var_DrawSizeY; y++)
+                    {
+                        Block.Block var_Block = this.getBlockAtCoordinate(_Target.CurrentBlock.Position.X + (-var_DrawSizeX / 2 + x) * Block.Block.BlockSize, _Target.CurrentBlock.Position.Y + (-var_DrawSizeY / 2 + y) * Block.Block.BlockSize);
+                        if (var_Block != null)
+                        {
+                            var_Block.drawBlock(_GraphicsDevice, _SpriteBatch);
+                        }
+                    }
                 }
+
             }
         }
 

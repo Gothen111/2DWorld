@@ -51,6 +51,15 @@ namespace GameLibrary.Model.Map.Block
             set { isWalkAble = value; }
         }
 
+        private int height;
+
+        public int Height
+        {
+            get { return height; }
+            set { height = value; }
+        }
+
+
         public Block(int _PosX, int _PosY, BlockEnum _BlockEnum, Chunk.Chunk _ParentChunk)
             :base()
         {
@@ -63,6 +72,7 @@ namespace GameLibrary.Model.Map.Block
             objectsPreEnviorment = new List<Object.Object>();
 
             this.isWalkAble = true;
+            this.height = 0;
         }
 
         public Block(SerializationInfo info, StreamingContext ctxt) 
@@ -72,6 +82,7 @@ namespace GameLibrary.Model.Map.Block
             //TODO: Alle Objekttypen müssen serialisierbar gemacht werden
             this.objects = (List<Object.Object>)info.GetValue("objects", typeof(List<Object.Object>));
             this.objectsPreEnviorment = (List<Object.Object>)info.GetValue("objectsPreEnviorment", typeof(List<Object.Object>));
+            this.height = (int)info.GetValue("height", typeof(int));
 
             //this.objects = new List<Object.LivingObject>();
             //this.objectsPreEnviorment = new List<Object.LivingObject>();
@@ -83,6 +94,7 @@ namespace GameLibrary.Model.Map.Block
             info.AddValue("layer", this.layer, typeof(BlockEnum[]));
             info.AddValue("objects", this.objects, this.objects.GetType());
             info.AddValue("objectsPreEnviorment", this.objectsPreEnviorment, this.objectsPreEnviorment.GetType());
+            info.AddValue("height", this.height, typeof(int));
         }
 
         public void setLayerAt(Enum _Enum, BlockLayerEnum _Id)
@@ -147,7 +159,7 @@ namespace GameLibrary.Model.Map.Block
             String var_RegionType = ((Region.Region)this.Parent.Parent).RegionEnum.ToString();
 
             BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
-            while ((int)var_Layer < this.layer.Length)
+            /*while ((int)var_Layer < this.layer.Length)
             {
                 BlockEnum var_Enum = this.layer[(int)var_Layer];
                 if (var_Enum != BlockEnum.Nothing)
@@ -176,7 +188,19 @@ namespace GameLibrary.Model.Map.Block
                     }
                 }
                 var_Layer += 1;
+            }*/
+
+
+            while ((int)var_Layer < this.layer.Length)
+            {
+                BlockEnum var_Enum = this.layer[(int)var_Layer];
+                if (var_Enum != BlockEnum.Nothing)
+                {
+                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/" + var_Layer + "/" + var_Enum], var_DrawPosition, var_Color);
+                }
+                var_Layer += 1;
             }
+
         }
 
         public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)

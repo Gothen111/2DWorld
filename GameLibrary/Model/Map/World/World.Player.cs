@@ -17,7 +17,7 @@ namespace GameLibrary.Model.Map.World
 {
     public partial class World
     {
-        #region
+        #region Player
 
         public PlayerObject getPlayerObject(int _Id)
         {

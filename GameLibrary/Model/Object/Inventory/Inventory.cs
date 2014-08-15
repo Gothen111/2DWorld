@@ -101,7 +101,10 @@ namespace GameLibrary.Model.Object.Inventory
                 {
                     _ItemObject.PositionInInventory = this.getFreePlace();
                     this.items.Add(_ItemObject);
-                    GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
+                    if (GameLibrary.Model.Map.World.World.world.getObject(_ItemObject.Id) != null)
+                    {
+                        GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
+                    }
                     this.inventoryChanged = true;
                     return true;
                 }

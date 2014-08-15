@@ -100,6 +100,7 @@ namespace GameLibrary.Model.Map.World
 
         public void removeObjectFromWorld(Object.Object _Object)
         {
+            //TODO: Gucke ob element auch vorhanden ;)
             this.quadTreeObject.Remove(_Object);
             if (_Object.CurrentBlock != null)
             {

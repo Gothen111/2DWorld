@@ -98,7 +98,6 @@ namespace GameLibrary.Gui.Menu
                 foreach (InventoryField var_InventoryField in this.itemContainer.Components)
                 {
                     var_InventoryField.removeItem();
-                    var_InventoryField.clear();
                 }
 
                 foreach(ItemObject var_ItemObject in this.inventoryOwner.Inventory.Items)
@@ -125,14 +124,12 @@ namespace GameLibrary.Gui.Menu
             if (this.inventoryOwner.Inventory.InventoryChanged)
             {
                 this.weaponComponent.removeItem();
-                this.weaponComponent.clear();
                 if (this.inventoryOwner.getWeaponInHand() != null)
                 {
                     this.weaponComponent.setItem(this.inventoryOwner.getWeaponInHand());
                 }
 
                 this.armorComponent.removeItem();
-                this.armorComponent.clear();
                 if (this.inventoryOwner.getWearingArmor() != null)
                 {
                     this.armorComponent.setItem(this.inventoryOwner.getWearingArmor());

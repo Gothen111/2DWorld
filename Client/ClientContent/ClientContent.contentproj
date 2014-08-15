@@ -318,6 +318,75 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Bottom.png">
+      <Name>GrasHill1_Bottom</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Center.png">
+      <Name>GrasHill1_Center</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner1.png">
+      <Name>GrasHill1_Corner1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner2.png">
+      <Name>GrasHill1_Corner2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner3.png">
+      <Name>GrasHill1_Corner3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner4.png">
+      <Name>GrasHill1_Corner4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Left.png">
+      <Name>GrasHill1_Left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Right.png">
+      <Name>GrasHill1_Right</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Top.png">
+      <Name>GrasHill1_Top</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner1.png">
+      <Name>GrasHill1_InsideCorner1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner2.png">
+      <Name>GrasHill1_InsideCorner2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner3.png">
+      <Name>GrasHill1_InsideCorner3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner4.png">
+      <Name>GrasHill1_InsideCorner4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

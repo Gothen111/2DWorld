@@ -50,6 +50,20 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Region/Grassland/Block/Layer2/Ground1", "Region/Grassland/Block/Layer2/Gras");
             loadTexture(_ContentManager, "Region/Grassland/Block/Layer2/Ground2", "Region/Grassland/Block/Layer2/Dirt");
 
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Center", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Center");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Corner1", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Corner1");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Corner2", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Corner2");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Corner3", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Corner3");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Corner4", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Corner4");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Left", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Left");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Right", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Right");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Top", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Top");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Bottom", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Bottom");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_InsideCorner1", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_InsideCorner1");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_InsideCorner2", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_InsideCorner2");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_InsideCorner3", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_InsideCorner3");
+            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_InsideCorner4", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_InsideCorner4");
+
             loadTexture(_ContentManager, "Region/Grassland/Block/Environment/Tree/Tree1", "Region/Grassland/Block/Environment/Tree/Tree1");
             loadTexture(_ContentManager, "Region/Grassland/Block/Environment/Tree/Tree1_Dead", "Region/Grassland/Block/Environment/Tree/Tree1_Dead");
             loadTexture(_ContentManager, "Region/Grassland/Block/Environment/Flower/Flower1", "Region/Grassland/Block/Environment/Flower/Flower1");
