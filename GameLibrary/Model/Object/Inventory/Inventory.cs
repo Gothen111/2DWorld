@@ -81,7 +81,10 @@ namespace GameLibrary.Model.Object.Inventory
             {
                 if (addItemObjectToItemStack(var_ItemObject, _ItemObject))
                 {
-                    GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
+                    if (GameLibrary.Model.Map.World.World.world.getObject(_ItemObject.Id) != null)
+                    {
+                        GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
+                    }
                     this.inventoryChanged = true;
                     return true;
                 }
@@ -99,16 +102,26 @@ namespace GameLibrary.Model.Object.Inventory
                 }
                 else
                 {
-                    _ItemObject.PositionInInventory = this.getFreePlace();
-                    this.items.Add(_ItemObject);
-                    if (GameLibrary.Model.Map.World.World.world.getObject(_ItemObject.Id) != null)
-                    {
-                        GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
-                    }
+                    this.addItemObjectToInventoryAt(_ItemObject, this.getFreePlace());
                     this.inventoryChanged = true;
                     return true;
                 }
             }
+        }
+
+        public bool addItemObjectToInventoryAt(ItemObject _ItemObject, int _Position)
+        {
+            if (!this.isInventoryFull())
+            {
+                _ItemObject.PositionInInventory = _Position;
+                this.items.Add(_ItemObject);
+                if (GameLibrary.Model.Map.World.World.world.getObject(_ItemObject.Id) != null)
+                {
+                    GameLibrary.Model.Map.World.World.world.removeObjectFromWorld(_ItemObject);
+                }
+                return true;
+            }
+            return false;
         }
 
         public ItemObject getItemObjectEqual(ItemObject _ItemObject)
@@ -170,6 +183,20 @@ namespace GameLibrary.Model.Object.Inventory
             {
                 //TODO: Kommt wohl von wo anders... anderes Inventar usw..
                 //this.addItemObjectToInventory(_ItemObject);
+                if (_InventoryOwner.Equipment.Contains(_ItemObject))
+                {
+                    //Sende jeweilige Änderung
+                    if (Configuration.Configuration.isHost)
+                    {
+
+                    }
+                    else
+                    {
+                        Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureEquipmentToInventoryMessage(_InventoryOwner.Id, _ItemObject.PositionInInventory, _NewPosition), GameMessageImportance.VeryImportant));
+                    }
+                    //_InventoryOwner.Equipment.Remove((EquipmentObject)_ItemObject);
+                    //this.addItemObjectToInventory(_ItemObject);
+                }
             }
         }
 

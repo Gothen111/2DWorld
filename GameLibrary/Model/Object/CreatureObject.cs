@@ -22,7 +22,7 @@ namespace GameLibrary.Model.Object
 
         private List<EquipmentObject> equipment;
 
-        protected List<EquipmentObject> Equipment
+        public List<EquipmentObject> Equipment
         {
             get { return equipment; }
             set { equipment = value; }
@@ -103,6 +103,7 @@ namespace GameLibrary.Model.Object
                 if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentWeapon)
                 {
                     var_EquipmentWeaponForAttack = ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject);
+                    var_EquipmentWeaponForAttack.PositionInInventory = 0;
                 }
             }
             return var_EquipmentWeaponForAttack;
@@ -138,6 +139,7 @@ namespace GameLibrary.Model.Object
                 if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentArmor)
                 {
                     var_EquipmentArmor = (GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject;
+                    var_EquipmentArmor.PositionInInventory = 1;
                 }
             }
             return var_EquipmentArmor;
@@ -166,13 +168,48 @@ namespace GameLibrary.Model.Object
             }
         }
 
-        /*public void setItemFromEquipmentToInventory(EquipmentObject _EquipmentObject)
+        public void setItemFromEquipmentToInventory(int _EquipmentPosition, int _InventoryPosition)
         {
+            EquipmentObject var_ToRemove = null;
+            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            {
+                if (var_EquipmentObject.PositionInInventory == _EquipmentPosition)
+                {
+                    if (this.inventory.addItemObjectToInventoryAt(var_EquipmentObject, _InventoryPosition))
+                    {
+                        var_ToRemove = var_EquipmentObject;
+                    }
+                }
+            }
+            if (var_ToRemove != null)
+            {
+                this.equipment.Remove(var_ToRemove);
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureEquipmentMessage(this.Id, this), GameMessageImportance.VeryImportant));                    
+            }
         }
 
-        public void setItemFromInventoryToEquipment()
+        public void setItemFromInventoryToEquipment(int _InventoryPosition, int _EquipmentPosition)
         {
-        }*/
+            ItemObject var_ToRemove = null;
+            foreach (ItemObject var_ItemObject in this.inventory.Items)
+            {
+                if (var_ItemObject.PositionInInventory == _InventoryPosition)
+                {
+                    if (var_ItemObject is EquipmentObject)
+                    {
+                        this.equipment.Add((EquipmentObject)var_ItemObject);
+                        var_ToRemove = var_ItemObject;
+                    }
+                }
+            }
+            if (var_ToRemove != null)
+            {
+                this.inventory.Items.Remove(var_ToRemove);
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureEquipmentMessage(this.Id, this), GameMessageImportance.VeryImportant));                    
+            }
+        }
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
         {

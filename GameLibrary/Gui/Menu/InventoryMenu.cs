@@ -54,10 +54,10 @@ namespace GameLibrary.Gui.Menu
             var_ItemSpaceArmor.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
             this.equipmentContainer.add(var_ItemSpaceArmor);*/
 
-            this.armorComponent = new EquipmentField(this.inventoryOwner, 0, Factory.FactoryEnums.ItemEnum.Armor, new Rectangle(this.Bounds.X + 148, this.Bounds.Y + 182, 36, 36));
+            this.armorComponent = new EquipmentField(this.inventoryOwner, 1, Factory.FactoryEnums.ItemEnum.Armor, new Rectangle(this.Bounds.X + 148, this.Bounds.Y + 182, 36, 36));
             this.equipmentContainer.add(this.armorComponent);
 
-            this.itemContainer = new Container(this.Bounds);
+            this.itemContainer = new Container(new Rectangle(this.Bounds.X, this.Bounds.Y + 300, this.Bounds.Width, this.Bounds.Height));
 
             int var_BackbackSize = this.inventoryOwner.Inventory.MaxItems;
 

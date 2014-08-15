@@ -83,6 +83,13 @@ namespace GameLibrary.Gui
 
         private void itemDropedIn(ItemObject _ItemObject)
         {
+            //TODO: Gucke ob Item aus anderem Equipment slot kommt
+            if (_ItemObject.PositionInInventory != -1)
+            {
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureInventoryToEquipmentMessage(this.inventoryOwner.Id, _ItemObject.PositionInInventory, this.fieldId), GameMessageImportance.VeryImportant));
+        
+                //this.inventoryOwner.setItemFromInventoryToEquipment(_ItemObject);
+            }
             //this.inventoryOwner.Inventory.itemDropedInInventory(inventoryOwner, _ItemObject, this.fieldId);
             //this.inventoryOwner.Inventory.InventoryChanged = true;
         }
@@ -92,6 +99,7 @@ namespace GameLibrary.Gui
             base.componentIsDropedIn(_Component);
             if(_Component is InventoryItem)
             {
+                //TODO: Überürufe welcher typ :D ob wawffe oder ücstung usw
                 if (this.item == null || this.Components.Contains(this.item))
                 {
                     //this.setItem(((InventoryItem)_Component).ItemObject);

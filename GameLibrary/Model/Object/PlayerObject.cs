@@ -15,6 +15,9 @@ namespace GameLibrary.Model.Object
         {
             this.addEquipmentObject(GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.Chest));
             this.addEquipmentObject(GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword));
+
+            this.getWeaponInHand().PositionInInventory = 0;
+            this.getWearingArmor().PositionInInventory = 1;
         }
 
         public PlayerObject(SerializationInfo info, StreamingContext ctxt)

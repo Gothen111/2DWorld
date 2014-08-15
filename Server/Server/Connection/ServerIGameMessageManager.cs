@@ -54,6 +54,12 @@ namespace Server.Connection
                 case EIGameMessageType.CreatureInventoryItemPositionChangeMessage:
                     handleCreatureInventoryItemPositionChangeMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.CreatureEquipmentToInventoryMessage:
+                    handleCreatureEquipmentToInventoryMessage(_NetIncomingMessage);
+                    break;
+                case EIGameMessageType.CreatureInventoryToEquipmentMessage:
+                    handleCreatureInventoryToEquipmentMessage(_NetIncomingMessage);
+                    break;
             }
         }
 
@@ -198,6 +204,38 @@ namespace Server.Connection
                 if (var_Object is GameLibrary.Model.Object.CreatureObject)
                 {
                     ((GameLibrary.Model.Object.CreatureObject)var_Object).Inventory.changeItemPosition((GameLibrary.Model.Object.CreatureObject)var_Object, message.OldPosition, message.NewPosition);
+                }
+            }
+        }
+
+        private static void handleCreatureEquipmentToInventoryMessage(NetIncomingMessage _Im)
+        {
+            var message = new CreatureEquipmentToInventoryMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Model.Object.Object var_Object = GameLibrary.Model.Map.World.World.world.getObject(message.Id);
+            if (var_Object != null)
+            {
+                if (var_Object is GameLibrary.Model.Object.CreatureObject)
+                {
+                    ((GameLibrary.Model.Object.CreatureObject)var_Object).setItemFromEquipmentToInventory(message.EquipmentPosition, message.InventoryPosition);
+                }
+            }
+        }
+
+        private static void handleCreatureInventoryToEquipmentMessage(NetIncomingMessage _Im)
+        {
+            var message = new CreatureInventoryToEquipmentMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Model.Object.Object var_Object = GameLibrary.Model.Map.World.World.world.getObject(message.Id);
+            if (var_Object != null)
+            {
+                if (var_Object is GameLibrary.Model.Object.CreatureObject)
+                {
+                    ((GameLibrary.Model.Object.CreatureObject)var_Object).setItemFromInventoryToEquipment(message.InventoryPosition, message.EquipmentPosition);
                 }
             }
         }

@@ -23,6 +23,9 @@ namespace GameLibrary.Connection.Message
         RemoveObjectMessage,
         UpdateCreatureInventoryMessage,
         CreatureInventoryItemPositionChangeMessage,
-        UpdatePreEnvironmentObjectMessage
+        UpdatePreEnvironmentObjectMessage,
+        CreatureEquipmentToInventoryMessage,
+        CreatureInventoryToEquipmentMessage,
+        UpdateCreatureEquipmentMessage
     }
 }
