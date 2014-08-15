@@ -10,6 +10,7 @@ namespace GameLibrary.Factory.FactoryEnums
         Human,
         Orc,
         Troll,
-        Ogre
+        Ogre,
+        Goblin
     }
 }

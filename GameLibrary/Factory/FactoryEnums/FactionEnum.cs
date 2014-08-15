@@ -9,6 +9,7 @@ namespace GameLibrary.Factory.FactoryEnums
     {
         Beerdrinker,
         Castle_Test,
-        Castle_Test2
+        Castle_Test2,
+        Hostile
     }
 }
