@@ -27,7 +27,7 @@ namespace GameLibrary.Model.Behaviour
             this.type = (T)info.GetValue("type", typeof(T));
         }
 
-        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("behaviourMember", this.behaviour, typeof(List<BehaviourItem<E>>));
             info.AddValue("type", this.Type, typeof(T));

@@ -37,7 +37,7 @@ namespace GameLibrary.Model.Behaviour
             this.value = (int)info.GetValue("value", typeof(int));
         }
 
-        public override void BehaviourItem(SerializationInfo info, StreamingContext ctxt)
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("item", this.item, typeof(E));
             info.AddValue("value", this.value, typeof(int));
