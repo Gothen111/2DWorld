@@ -54,9 +54,23 @@ namespace GameLibrary.Factory
             npcObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
             npcObject.Gender = objectGender;
             npcObject.Name = NameFactory.getName(objectType, objectGender);
-            npcObject.GraphicPath = "Character/Char1_Small";
-            //npcObject.Tasks.Add(new Model.Object.Task.Tasks.AttackRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Attack_Random));
-            npcObject.Tasks.Add(new Model.Object.Task.Tasks.WalkRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Walk_Random));
+            switch (objectRace)
+            {
+                case RaceEnum.Ogre:
+                    {
+                        npcObject.GraphicPath = "Character/Ogre1";
+                        npcObject.Size = new Vector3(80, 96, 0);
+                        //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
+                        break;
+                    }
+                case RaceEnum.Human:
+                    {
+                        npcObject.GraphicPath = "Character/Char1_Small";
+                        break;
+                    }
+            }
+            npcObject.Tasks.Add(new Model.Object.Task.Tasks.AttackRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Attack_Random));
+            //npcObject.Tasks.Add(new Model.Object.Task.Tasks.WalkRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Walk_Random));
 
             return npcObject;
         }

@@ -109,6 +109,11 @@ namespace GameLibrary.Model.Map.World
 
                 List<Object.Object> var_Objects = this.objectsToUpdate; // = this.getObjectsInRange(_Target.Position, 400);
 
+                if (!(_Target is PlayerObject))
+                {
+                    var_Objects = this.getObjectsInRange(_Target.Position, 400);
+                }
+
                 var_Objects.Sort(new Ressourcen.ObjectPositionComparer());
 
                 foreach (AnimatedObject var_AnimatedObject in var_Objects)

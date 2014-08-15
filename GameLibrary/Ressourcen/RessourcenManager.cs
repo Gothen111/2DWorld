@@ -80,6 +80,8 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Character/Char1_Small", "Object/Character/Char1_Small");
             loadTexture(_ContentManager, "Character/Char1_Small_Attack", "Object/Character/Char1_Small_Attack");
 
+            loadTexture(_ContentManager, "Character/Ogre1", "Object/Character/Ogre1");
+
             loadTexture(_ContentManager, "Character/Lifebar", "Object/Character/Lifebar");
 
             loadTexture(_ContentManager, "Character/Shadow", "Object/Character/Shadow");
