@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
+using GameLibrary.Connection;
 
 namespace GameLibrary.Model.Object
 {
@@ -45,13 +46,15 @@ namespace GameLibrary.Model.Object
         public CreatureObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
         {
-            //this.equipment = (List<EquipmentObject>)info.GetValue("equipment", typeof(List<EquipmentObject>));
+            this.equipment = (List<EquipmentObject>)info.GetValue("equipment", typeof(List<EquipmentObject>));
+            this.inventory = (Inventory.Inventory)info.GetValue("inventory", typeof(Inventory.Inventory));
             this.name = (String)info.GetValue("name", typeof(String));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            //info.AddValue("equipment", equipment, typeof(List<EquipmentObject>));
+            info.AddValue("equipment", equipment, typeof(List<EquipmentObject>));
+            info.AddValue("inventory", inventory, typeof(Inventory.Inventory));
             info.AddValue("name", this.name, typeof(String));
 
             base.GetObjectData(info, ctxt);
@@ -91,8 +94,8 @@ namespace GameLibrary.Model.Object
             base.attack();
             this.swingWeapon(Model.Object.Equipment.Attack.AttackType.Front);
         }
-
-        public void swingWeapon(Equipment.Attack.AttackType _AttackType)
+        
+        public GameLibrary.Model.Object.Equipment.EquipmentWeapon getWeaponInHand()
         {
             GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = null;
             foreach (EquipmentObject var_EquipmentObject in this.equipment)
@@ -102,8 +105,15 @@ namespace GameLibrary.Model.Object
                     var_EquipmentWeaponForAttack = ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject);
                 }
             }
+            return var_EquipmentWeaponForAttack;
+        }
+
+
+        public void swingWeapon(Equipment.Attack.AttackType _AttackType)
+        {
+            GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = this.getWeaponInHand();
             if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady(_AttackType))
-            {
+	    {
                 List<Object> var_Objects = GameLibrary.Model.Map.World.World.world.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.getAttack(_AttackType).Range, var_EquipmentWeaponForAttack.SearchFlags);
                 var_Objects.Remove(this);
                 foreach (Object var_Object in var_Objects)
@@ -120,20 +130,49 @@ namespace GameLibrary.Model.Object
             }
         }
 
+        public GameLibrary.Model.Object.Equipment.EquipmentArmor getWearingArmor()
+        {
+            GameLibrary.Model.Object.Equipment.EquipmentArmor var_EquipmentArmor = null;
+            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            {
+                if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentArmor)
+                {
+                    var_EquipmentArmor = (GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject;
+                }
+            }
+            return var_EquipmentArmor;
+        }
+
+
+
         public override float calculateDamage(float _DamageAmount)
         {
             if (this.equipment != null)
             {
-                foreach (EquipmentObject var_EquipmentObject in this.equipment)
+                GameLibrary.Model.Object.Equipment.EquipmentArmor var_EquipmentArmor = this.getWearingArmor();
+                if (var_EquipmentArmor != null)
                 {
-                    if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentArmor)
-                    {
-                        _DamageAmount = _DamageAmount / ((float)((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject).NormalArmor);
-                    }
+                    _DamageAmount = _DamageAmount / ((float)((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject).NormalArmor);
                 }
             }
             return _DamageAmount;
         }
+
+        public void addItemObjectToInventory(ItemObject _ItemObject)
+        {
+            if(this.inventory.addItemObjectToInventory(_ItemObject))
+            {
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
+            }
+        }
+
+        /*public void setItemFromEquipmentToInventory(EquipmentObject _EquipmentObject)
+        {
+        }
+
+        public void setItemFromInventoryToEquipment()
+        {
+        }*/
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
         {
@@ -141,8 +180,18 @@ namespace GameLibrary.Model.Object
             Vector3 var_DrawPositionExtra = Vector3.Zero;
             if(this.Animation != null)
                 var_DrawPositionExtra = this.Animation.drawPositionExtra();
-             Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
-             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], var_Position, Color.White);    
+             Vector2 var_PositionShadow = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
+             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], var_PositionShadow, Color.White);
+
+             Vector2 var_PositionState = new Vector2(this.Position.X, this.Position.Y) + new Vector2(-13, -7);
+             if (this is PlayerObject)
+             {
+                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/CreatureState"], var_PositionState, Color.BlueViolet);//Color.DarkOrange);
+             }
+             else
+             {
+                 _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/CreatureState"], var_PositionState, Color.Red);
+             }
             base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
             this.drawEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
         }
@@ -157,7 +206,7 @@ namespace GameLibrary.Model.Object
             {
                 var_EquipmentObject.Position = new Vector3(var_Position, 0);
                 var_EquipmentObject.Animation = this.Animation;
-                var_EquipmentObject.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
+                var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
             }
         }
     }
