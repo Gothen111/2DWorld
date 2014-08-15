@@ -26,13 +26,12 @@ namespace GameLibrary.Model.Object
         public RaceObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
         {
-            this.race = (Race)info.GetValue("race", typeof(Race));
+            
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             base.GetObjectData(info, ctxt);
-            info.AddValue("race", this.race, typeof(Race));
         }
 
         public override void update()
