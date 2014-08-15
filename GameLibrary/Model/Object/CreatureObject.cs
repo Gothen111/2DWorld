@@ -152,7 +152,7 @@ namespace GameLibrary.Model.Object
                 GameLibrary.Model.Object.Equipment.EquipmentArmor var_EquipmentArmor = this.getWearingArmor();
                 if (var_EquipmentArmor != null)
                 {
-                    _DamageAmount = _DamageAmount / ((float)((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject).NormalArmor);
+                    _DamageAmount = _DamageAmount / ((float)((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentArmor).NormalArmor);
                 }
             }
             return _DamageAmount;

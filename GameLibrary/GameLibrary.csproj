@@ -212,6 +212,8 @@
     <Compile Include="Model\Object\CreatureObject.cs" />
     <Compile Include="Model\Object\EnvironmentObject.cs" />
     <Compile Include="Model\Object\EquipmentObject.cs" />
+    <Compile Include="Model\Object\Equipment\Attack\Attack.cs" />
+    <Compile Include="Model\Object\Equipment\Attack\AttackType.cs" />
     <Compile Include="Model\Object\Equipment\EquipmentWeapon.cs" />
     <Compile Include="Model\Object\Equipment\EquipmentArmor.cs" />
     <Compile Include="Model\Object\FactionObject.cs" />
