@@ -38,7 +38,7 @@ namespace GameLibrary.Gui.Menu
             this.add(this.characterComponent);
 
 
-            this.bodyColorPicker = new Container(new Rectangle(500, 50, 170, 190));
+            this.bodyColorPicker = new Container(new Rectangle(500, 50, 300, 300));
             this.createColors();
             this.add(this.bodyColorPicker);
 
@@ -54,7 +54,7 @@ namespace GameLibrary.Gui.Menu
 
         private void createColors()
         {
-            int y = 0;
+            /*int y = 0;
             for (int x = 0; x < 10; x++)
             {
                 for (; y < 5; y++)
@@ -72,6 +72,42 @@ namespace GameLibrary.Gui.Menu
                     this.bodyColorPicker.add(var_ColorComponent);
                 }
                 y = 0;
+            }*/
+            for (int y = 0; y < 10; y++)
+            {
+                for (int x = 0; x < y; x++)
+                {
+                    Component var_ColorComponent = new Component(new Rectangle(this.bodyColorPicker.Bounds.X + x * 16 + (y % 2) * 8, this.bodyColorPicker.Bounds.Y + y * 13, 16, 17));
+                    var_ColorComponent.BackgroundGraphicPath = "Gui/Menu/CharacterCreation/ColorField";
+                    var_ColorComponent.ComponentColor = new Color(255 - (y * 25 + x * 25) / 2, y * 25 - x * 25, (y * 25 + x * 25) / 2);
+                    //var_ColorComponent.ComponentColor = new Color((125-x*12, y * 25 - x * 25, (y * 25 + x * 25) / 2);
+                    //Console.Write(var_ColorComponent.ComponentColor.B + " | ");
+                    this.bodyColorPicker.add(var_ColorComponent);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        /*public override void mouseMoved(Vector2 position)
+        {
+            base.mouseMoved(position);
+            if (this.bodyColorPicker.IsInBounds(position))
+            {
+                Component var_Top = this.bodyColorPicker.getTopComponent(position);
+                this.characterComponent.ComponentColor = var_Top.ComponentColor;
+            }
+        }*/
+
+        public override void onClick(UserInterface.MouseEnum.MouseEnum mouseButton, Vector2 _MousePosition)
+        {
+            base.onClick(mouseButton, _MousePosition);
+            if (mouseButton == UserInterface.MouseEnum.MouseEnum.Left)
+            {
+                if (this.bodyColorPicker.IsInBounds(_MousePosition))
+                {
+                    Component var_Top = this.bodyColorPicker.getTopComponent(_MousePosition);
+                    this.characterComponent.ComponentColor = var_Top.ComponentColor;
+                }
             }
         }
 
