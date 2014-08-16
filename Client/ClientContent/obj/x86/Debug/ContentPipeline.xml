@@ -496,6 +496,15 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
+    <Item>
+      <Source>Gui\Menu\CharacterCreation\ColorField.png</Source>
+      <Name>Gui\Menu\CharacterCreation\ColorField</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\ColorField.xnb</Output>
+      <Time>2014-08-16T15:42:05.383912+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

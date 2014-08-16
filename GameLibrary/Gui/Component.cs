@@ -121,6 +121,14 @@ namespace GameLibrary.Gui
 
         //protected Component parent;
 
+        private Color componentColor;
+
+        public Color ComponentColor
+        {
+            get { return componentColor; }
+            set { componentColor = value; }
+        }
+
         public Component()
         {
             Peripherals.MouseManager.mouseFocus.Add(this);
@@ -130,6 +138,7 @@ namespace GameLibrary.Gui
             this.isActive = true;
             //this.allowsDropIn = false;
             //this.parent = null;
+            this.componentColor = Color.White;
         }
 
         public Component(Rectangle _Bounds) //, Component _Parent
@@ -236,7 +245,7 @@ namespace GameLibrary.Gui
                 {
                     if (!this.IsHovered)
                     {
-                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.sourceRectangle, Color.White, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
+                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.sourceRectangle, this.componentColor, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
                     }
                     else
                     {
@@ -244,28 +253,28 @@ namespace GameLibrary.Gui
                         {
                             try
                             {
-                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
                             }
                             catch (Exception e)
                             {
-                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
                             }
                         }
                         else
                         {
                             try
                             {
-                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Pressed"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Pressed"], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
                             }
                             catch (Exception e)
                             {
                                 try
                                 {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
                                 }
                                 catch (Exception f)
                                 {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), Color.White);
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
                                 }
                             }
                         }
