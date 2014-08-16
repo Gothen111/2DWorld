@@ -9,5 +9,7 @@
 *.psess
 *.vsmdi
 *.xml
+*.sav
+*.force
 !/Lidgren.Network.dll
 !/Lidgren.Network.Xna.dll
