@@ -172,6 +172,8 @@ namespace Server.Connection
                     GameLibrary.Configuration.Configuration.commandManager.handleAttackCommand(var_PlayerObject);
                     break;
             }
+            //TODO: Hier nochmal überlegen :/ ob man das hier sendet. damit keine animation o ä hängt
+            GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)var_PlayerObject), GameLibrary.Connection.GameMessageImportance.VeryImportant));
         }
         private static void handleRequestLivingObjectMessage(NetIncomingMessage _Im)
         {

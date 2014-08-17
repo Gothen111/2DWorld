@@ -74,7 +74,7 @@ namespace Client.Commands
 
         public override void handleAttackCommand(LivingObject actor)
         {
-            actor.attackLivingObject(null, 0); //TODO: Noch Response einbauen, dass Attackanimation nur dann gestartet wird, wenn ein Objekt getroffen wurde
+            actor.attack();//actor.attackLivingObject(null, 0); //TODO: Noch Response einbauen, dass Attackanimation nur dann gestartet wird, wenn ein Objekt getroffen wurde
             Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.AttackCommand), GameMessageImportance.VeryImportant));
         }
     }
