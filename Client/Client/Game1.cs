@@ -13,6 +13,8 @@ using GameLibrary.Configuration;
 using GameLibrary.Connection;
 using GameLibrary.Util;
 
+using GameLibrary.Setting;
+
 using Client.Commands;
 using Client.Connection;
 
@@ -50,6 +52,8 @@ namespace Client
             Configuration.isHost = false;
             Configuration.commandManager = new ClientCommandManager();
             Configuration.networkManager = new ClientNetworkManager();
+
+            Setting.logInstance = "Log/ClientLog-" + DateTime.Now.ToShortDateString() + "-" + DateTime.Now.ToShortTimeString().Replace(":", ".") + ".txt";
 
             GameLibrary.Connection.NetworkManager.client = new GameLibrary.Connection.Client();
         }

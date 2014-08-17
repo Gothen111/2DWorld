@@ -106,6 +106,14 @@ namespace GameLibrary.Model.Object
             set { standartStandPositionX = value; }
         }
 
+        private Color objectDrawColor;
+
+        public Color ObjectDrawColor
+        {
+            get { return objectDrawColor; }
+            set { objectDrawColor = value; }
+        }
+
         public AnimatedObject() : base()
         {
             this.scale = 1f;
@@ -117,6 +125,8 @@ namespace GameLibrary.Model.Object
 
             this.standartStandPositionX = 0;
             this.movementSpeed = 1.0f;
+
+            this.objectDrawColor = Color.White;
         }
 
         public AnimatedObject(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
@@ -131,6 +141,8 @@ namespace GameLibrary.Model.Object
             this.animation = new Animation.Animations.StandAnimation(this);
 
             this.standartStandPositionX = (int)info.GetValue("standartStandPositionX", typeof(int));
+
+            this.objectDrawColor = (Color)info.GetValue("objectDrawColor", typeof(Color));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -143,6 +155,8 @@ namespace GameLibrary.Model.Object
             info.AddValue("graphicPath", this.graphicPath, typeof(String));
 
             info.AddValue("standartStandPositionX", this.standartStandPositionX, typeof(int));
+
+            info.AddValue("objectDrawColor", this.objectDrawColor, typeof(Color));
 
             base.GetObjectData(info, ctxt);
         }
@@ -286,7 +300,21 @@ namespace GameLibrary.Model.Object
 
             if (this.animation != null && !this.animation.graphicPath().Equals(""))
             {
-                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), this.animation.drawColor(), 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, 1.0f);
+                //TODO: va_DrawColor richtig bestimmen :/
+                //Color var_DrawColor = new Color((this.animation.drawColor().R + this.objectDrawColor.R) / 2, (this.animation.drawColor().G + this.objectDrawColor.G) / 2, (this.animation.drawColor().B + this.objectDrawColor.B) / 2);
+                Color var_DrawColor = this.objectDrawColor;
+                if (this.animation.drawColor() != Color.White)
+                {
+                    var_DrawColor = Color.Lerp(this.objectDrawColor, this.animation.drawColor(), 0.1f);
+                }
+                try
+                {
+                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), var_DrawColor, 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, 1.0f);
+                }
+                catch (Exception e)
+                {
+                    //Logger.Logger.LogErr(this.animation.graphicPath() + " nicht gefunden!");
+                }
             }
         }
 

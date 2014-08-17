@@ -266,6 +266,7 @@
     <Compile Include="Ressourcen\Font\EFont.cs" />
     <Compile Include="Ressourcen\ObjectPositionComparer.cs" />
     <Compile Include="Ressourcen\RessourcenManager.cs" />
+    <Compile Include="Setting\Setting.cs" />
     <Compile Include="UserInterface\KeyboardListener.cs" />
     <Compile Include="UserInterface\MouseEnum\MouseEnum.cs" />
     <Compile Include="UserInterface\MouseListener.cs" />

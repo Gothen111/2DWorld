@@ -505,6 +505,42 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
+    <Item>
+      <Source>Object\Character\BodyMale.png</Source>
+      <Name>Object\Character\BodyMale</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\BodyMale.xnb</Output>
+      <Time>2014-08-17T14:16:40.1332651+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Object\Character\BodyFemale.png</Source>
+      <Name>Object\Character\BodyFemale</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\BodyFemale.xnb</Output>
+      <Time>2014-08-17T15:12:54.5210825+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Object\Character\GoldenArmor.png</Source>
+      <Name>Object\Character\GoldenArmor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\GoldenArmor.xnb</Output>
+      <Time>2014-08-17T15:31:28.667591+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Object\Character\Sword.png</Source>
+      <Name>Object\Character\Sword</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Sword.xnb</Output>
+      <Time>2014-08-17T15:46:07.7296294+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

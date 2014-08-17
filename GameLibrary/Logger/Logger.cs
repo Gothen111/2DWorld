@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
+using GameLibrary.Setting;
+
 namespace GameLibrary.Logger
 {
     public class Logger
     {
         private static int LogLevel = 2;
         private static bool OnlyError = false;
-        private static string filePath = "log.txt";
+        //private static string filePath = "log.txt";
 
         public static void LogErr(String _Msg)
         {
@@ -63,21 +65,22 @@ namespace GameLibrary.Logger
             LogInfo(_Msg, false);
         }
 
-        public static void writeToConsole(String _Type, String _Message)
+        private static void writeToConsole(String _Type, String _Message)
         {
-            if (filePath.Equals("") || !GameLibrary.Configuration.Configuration.isHost)
+            /*if (Setting.Setting.logInstance.Equals("") || !GameLibrary.Configuration.Configuration.isHost)
             {
                 Console.WriteLine(_Type + " : " + _Message);
             }
             else
             {
                 saveToFile(_Type, _Message);
-            }
+            }*/
+            saveToFile(_Type, _Message);
         }
 
-        public static void saveToFile(String _Type, String _Message)
+        private static void saveToFile(String _Type, String _Message)
         {
-            StreamWriter writer = new StreamWriter(File.Open(filePath, FileMode.Append));
+            StreamWriter writer = new StreamWriter(File.Open(Setting.Setting.logInstance, FileMode.Append));
             writer.WriteLine("<Date>" + DateTime.Now.TimeOfDay + "</Date>");
             writer.WriteLine("<Type>" + _Type + "</Type>");
             writer.WriteLine("<Message>" + _Message + "</Message>");

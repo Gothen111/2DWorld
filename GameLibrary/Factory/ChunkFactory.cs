@@ -47,7 +47,7 @@ namespace GameLibrary.Factory
             //generateWall(var_Result);
             //if (var_Result.Id == 0)
             //{
-                //generateNpc(var_Result);
+                generateNpc(var_Result);
                 //generateHeightMap(var_Result);
             //}
 

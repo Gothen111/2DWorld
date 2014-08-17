@@ -39,18 +39,18 @@ namespace GameLibrary.Factory
                 case WeaponEnum.Sword:
                     {
                         equipmentWeaponObject.ItemEnum = ItemEnum.Weapon;
-                        equipmentWeaponObject.NormalDamage = 2;
+                        equipmentWeaponObject.NormalDamage = 4;
                         equipmentWeaponObject.WeaponEnum = _WeaponEnum;
                         Model.Object.Equipment.Attack.Attack var_Attack = new Model.Object.Equipment.Attack.Attack(50, 1.0f, 60.0f, Model.Object.Equipment.Attack.AttackType.Front);
                         equipmentWeaponObject.Attacks.Add(var_Attack);
-                        equipmentWeaponObject.GraphicPath = "Object/Item/Small/Sword1";
+                        equipmentWeaponObject.GraphicPath = "Character/Sword";
                         equipmentWeaponObject.ItemIconGraphicPath = "Object/Item/Small/Sword1";
                         //equipmentWeaponObject.SearchFlags.Add(new GameLibrary.Model.Map.World.SearchFlags.());
                         break;
                     }
                 case WeaponEnum.Spear:
                     {
-                        equipmentWeaponObject.NormalDamage = 1;
+                        equipmentWeaponObject.NormalDamage = 2;
                         equipmentWeaponObject.WeaponEnum = _WeaponEnum;
                         Model.Object.Equipment.Attack.Attack var_Attack = new Model.Object.Equipment.Attack.Attack(80, 1.0f, 30.0f, Model.Object.Equipment.Attack.AttackType.Front);
                         equipmentWeaponObject.Attacks.Add(var_Attack);
@@ -78,17 +78,22 @@ namespace GameLibrary.Factory
             equipmentArmorObject.Velocity = new Vector3(0, 0, 0);
             equipmentArmorObject.StackMax = 1;
             equipmentArmorObject.Size = new Microsoft.Xna.Framework.Vector3(32, 32, 0);
+            equipmentArmorObject.ArmorEnum = _ArmorEnum;
 
             switch (_ArmorEnum)
             {
                 case ArmorEnum.Chest:
                     {
-                        equipmentArmorObject.NormalArmor = 5;
-                        equipmentArmorObject.ArmorEnum = _ArmorEnum;
+                        equipmentArmorObject.NormalArmor = 1;
                         equipmentArmorObject.ItemIconGraphicPath = "Object/Item/Small/Cloth1";
                         equipmentArmorObject.GraphicPath = "Character/Cloth1";
                         break;
                     }
+                case ArmorEnum.GoldenArmor:
+                    equipmentArmorObject.NormalArmor = 10;
+                        equipmentArmorObject.ItemIconGraphicPath = "Object/Item/Small/Cloth1";
+                        equipmentArmorObject.GraphicPath = "Character/GoldenArmor";
+                    break;
             }
 
             return equipmentArmorObject;

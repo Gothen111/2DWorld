@@ -21,6 +21,11 @@ namespace GameLibrary.Gui.Menu
 
         Container bodyColorPicker;
 
+        Button maleButton;
+        Button femaleButton;
+
+        PlayerObject playerObject;
+
         public CharacterCreationMenu()
             :base()
         {
@@ -33,14 +38,26 @@ namespace GameLibrary.Gui.Menu
             this.plattformComponent.BackgroundGraphicPath = "Gui/Menu/CharacterCreation/Plattform";
             this.add(this.plattformComponent);
 
-            this.characterComponent = new Component(new Rectangle(320, 50, 170, 190));
-            this.characterComponent.BackgroundGraphicPath = "Character/Char1_Big";
+            this.createCharacter(Factory.FactoryEnums.GenderEnum.Male);
+
+            this.characterComponent = new Component(new Rectangle(350, 100, 96, 128));//new Component(new Rectangle(320, 50, 170, 190));
+            this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;//"Character/BodyMale";//"Character/Char1_Big";
             this.add(this.characterComponent);
 
 
-            this.bodyColorPicker = new Container(new Rectangle(500, 50, 300, 300));
+            this.bodyColorPicker = new Container(new Rectangle(530, 50, 300, 300));
             this.createColors();
             this.add(this.bodyColorPicker);
+
+            this.maleButton = new Button(new Rectangle(0, 50, 289, 85));
+            this.maleButton.Text = "Male";
+            this.maleButton.Action = this.selectedMale;
+            this.add(this.maleButton);
+
+            this.femaleButton = new Button(new Rectangle(0, 50+85, 289, 85));
+            this.femaleButton.Text = "Female";
+            this.femaleButton.Action = this.selectedFemale;
+            this.add(this.femaleButton);
 
 			this.playerNameTextField = new TextField(new Rectangle(260, 280, 289, 85));
 			this.playerNameTextField.Text = "Name";
@@ -88,15 +105,27 @@ namespace GameLibrary.Gui.Menu
             }
         }
 
-        /*public override void mouseMoved(Vector2 position)
+        public override void mouseMoved(Vector2 position)
         {
             base.mouseMoved(position);
             if (this.bodyColorPicker.IsInBounds(position))
             {
                 Component var_Top = this.bodyColorPicker.getTopComponent(position);
-                this.characterComponent.ComponentColor = var_Top.ComponentColor;
+                if (var_Top != this.bodyColorPicker)
+                {
+                    this.characterComponent.ComponentColor = var_Top.ComponentColor;
+                }
             }
-        }*/
+            else
+            {
+                this.characterComponent.ComponentColor = this.playerObject.ObjectDrawColor;
+            }
+        }
+
+        private void createCharacter(Factory.FactoryEnums.GenderEnum _GenderEnum)
+        {
+            this.playerObject = Factory.CreatureFactory.creatureFactory.createPlayerObject(Factory.FactoryEnums.RaceEnum.Human, Factory.FactoryEnums.FactionEnum.Beerdrinker, Factory.FactoryEnums.CreatureEnum.Commandant, _GenderEnum);
+        }
 
         public override void onClick(UserInterface.MouseEnum.MouseEnum mouseButton, Vector2 _MousePosition)
         {
@@ -107,8 +136,20 @@ namespace GameLibrary.Gui.Menu
                 {
                     Component var_Top = this.bodyColorPicker.getTopComponent(_MousePosition);
                     this.characterComponent.ComponentColor = var_Top.ComponentColor;
+                    this.playerObject.ObjectDrawColor = var_Top.ComponentColor;
                 }
             }
+        }
+
+        private void selectedMale()
+        {
+            this.createCharacter(Factory.FactoryEnums.GenderEnum.Male);
+            this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;
+        }
+        private void selectedFemale()
+        {
+            this.createCharacter(Factory.FactoryEnums.GenderEnum.Female);
+            this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;
         }
 
         private void openCharacterMenu()
@@ -128,9 +169,8 @@ namespace GameLibrary.Gui.Menu
             }
             if(!var_CreationProblem)
             {
-                PlayerObject var_PlayerObject = Factory.CreatureFactory.creatureFactory.createPlayerObject(Factory.FactoryEnums.RaceEnum.Human, Factory.FactoryEnums.FactionEnum.Beerdrinker, Factory.FactoryEnums.CreatureEnum.Farmer, Factory.FactoryEnums.GenderEnum.Male);
-                var_PlayerObject.Name = this.playerNameTextField.Text;
-                Util.Serializer.SerializeObject(var_Path, var_PlayerObject);
+                this.playerObject.Name = this.playerNameTextField.Text;
+                Util.Serializer.SerializeObject(var_Path, this.playerObject);
                 this.openCharacterMenu();
             }
         }

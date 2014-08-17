@@ -22,6 +22,8 @@ using GameLibrary.Ressourcen;
 using GameLibrary.Configuration;
 using GameLibrary.Connection;
 
+using GameLibrary.Setting;
+
 using Server.Connection;
 
 namespace Server
@@ -44,6 +46,8 @@ namespace Server
             Configuration.isHost = true;
             Configuration.commandManager = new Commands.ServerCommandManager();
             Configuration.networkManager = new ServerNetworkManager();
+
+            Setting.logInstance = "Log/ServerLog-" + DateTime.Now.ToShortDateString() + "-" + DateTime.Now.ToShortTimeString().Replace(":",".") + ".txt";
 
             this.IsMouseVisible = true;
         }

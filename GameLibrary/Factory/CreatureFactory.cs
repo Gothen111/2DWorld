@@ -26,7 +26,31 @@ namespace GameLibrary.Factory
             playerObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
             playerObject.Gender = objectGender;
             playerObject.Name = NameFactory.getName(objectType, objectGender);
-            playerObject.GraphicPath = "Character/Char1_Small";
+            //playerObject.GraphicPath = "Character/Char1_Small";
+
+            switch (objectRace)
+            {
+                case RaceEnum.Ogre:
+                    {
+                        playerObject.GraphicPath = "Character/Ogre1";
+                        playerObject.Size = new Vector3(80, 96, 0);
+                        //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
+                        break;
+                    }
+                case RaceEnum.Human:
+                    {
+                        switch (objectGender)
+                        {
+                            case GenderEnum.Male:
+                                playerObject.GraphicPath = "Character/BodyMale";
+                                break;
+                            case GenderEnum.Female:
+                                playerObject.GraphicPath = "Character/BodyFemale";
+                                break;
+                        }
+                        break;
+                    }
+            }
 
             return playerObject;
         }
@@ -40,7 +64,8 @@ namespace GameLibrary.Factory
             playerObject.Race = _PlayerObject.Race;
             playerObject.Gender = _PlayerObject.Gender;
             playerObject.Name = _PlayerObject.Name;
-            playerObject.GraphicPath = "Character/Char1_Small";
+            playerObject.GraphicPath = _PlayerObject.GraphicPath; //"Character/Char1_Small";
+            playerObject.ObjectDrawColor = _PlayerObject.ObjectDrawColor;
 
             return playerObject;
         }
@@ -65,7 +90,15 @@ namespace GameLibrary.Factory
                     }
                 case RaceEnum.Human:
                     {
-                        npcObject.GraphicPath = "Character/Char1_Small";
+                        switch (objectGender)
+                        {
+                            case GenderEnum.Male:
+                                npcObject.GraphicPath = "Character/BodyMale";
+                                break;
+                            case GenderEnum.Female:
+                                npcObject.GraphicPath = "Character/BodyFemale";
+                                break;
+                        }
                         break;
                     }
             }
