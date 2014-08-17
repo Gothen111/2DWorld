@@ -80,6 +80,15 @@ namespace GameLibrary.Logger
 
         private static void saveToFile(String _Type, String _Message)
         {
+            if (!File.Exists(Setting.Setting.logInstance))
+            {
+                String[] directories = Setting.Setting.logInstance.Split('/');
+                String result = "";
+                for (int x = 0; x < directories.Length - 1; x++)
+                    result += directories[x];
+                Directory.CreateDirectory(result);
+                File.Create(Setting.Setting.logInstance).Close();
+            }
             StreamWriter writer = new StreamWriter(File.Open(Setting.Setting.logInstance, FileMode.Append));
             writer.WriteLine("<Date>" + DateTime.Now.TimeOfDay + "</Date>");
             writer.WriteLine("<Type>" + _Type + "</Type>");
