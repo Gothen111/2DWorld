@@ -58,9 +58,11 @@ namespace GameLibrary.Model.Object.Body
         {
             //this.hair = new BodyPart(new Vector3(0,-10,0), this.BodyColor, "");
             this.body = new BodyPart(new Vector3(0, 0, 0), this.BodyColor, "");
+            this.armLeft = new BodyPart(new Vector3(0, 0, 0), this.BodyColor, "");
 
             //this.BodyParts.Add(this.hair);
             this.BodyParts.Add(this.body);
+            this.BodyParts.Add(this.armLeft);
         }
 
         public BodyHuman(SerializationInfo info, StreamingContext ctxt)
@@ -71,6 +73,12 @@ namespace GameLibrary.Model.Object.Body
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             base.GetObjectData(info, ctxt);
+        }
+
+        public void setEquipmentObjectLeftHand(EquipmentObject _EquipmentObject)
+        {
+            this.armLeft.Equipment.Clear();
+            this.armLeft.Equipment.Add(_EquipmentObject);
         }
 
         public override void stopWalk()

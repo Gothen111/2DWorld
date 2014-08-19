@@ -236,7 +236,8 @@ namespace GameLibrary.Model.Object
             foreach (EquipmentObject var_EquipmentObject in this.equipment)
             {
                 var_EquipmentObject.Position = new Vector3(var_Position, 0);
-                var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
+                var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, _Color);
+                //var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
             }
         }
     }

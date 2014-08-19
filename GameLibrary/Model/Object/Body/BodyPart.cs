@@ -77,6 +77,14 @@ namespace GameLibrary.Model.Object.Body
             set { scale = value; }
         }
 
+        private List<EquipmentObject> equipment;
+
+        public List<EquipmentObject> Equipment
+        {
+            get { return equipment; }
+            set { equipment = value; }
+        }
+
         public BodyPart(Vector3 _Position, Color _Color, String _TexturePath)
         {
             this.position = _Position;
@@ -86,6 +94,7 @@ namespace GameLibrary.Model.Object.Body
             this.animation = new Animation.Animations.StandAnimation(this);
             this.scale = 1.0f;
             this.size = new Vector3(32, 32, 0);
+            this.equipment = new List<EquipmentObject>();
         }
 
         public BodyPart(SerializationInfo info, StreamingContext ctxt)
@@ -113,11 +122,24 @@ namespace GameLibrary.Model.Object.Body
             this.animation.update();
         }
 
+        private void drawEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector2 _BodyCenter)
+        {
+            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            {
+                var_EquipmentObject.Position = new Vector3(_BodyCenter, 0);
+                var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, this.color);
+            }
+        }
+
         public virtual void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector2 _BodyCenter)
         {
             Vector2 var_Position = new Vector2(this.position.X + _BodyCenter.X, this.position.Y + _BodyCenter.Y);
             Color var_DrawColor = this.color;
-            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), var_DrawColor, 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, 1.0f);
+            if (!this.animation.graphicPath().Equals(""))
+            {
+                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), var_DrawColor, 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, 1.0f);
+            }
+            this.drawEquipment(_GraphicsDevice, _SpriteBatch, _BodyCenter);
         }
     }
 }
