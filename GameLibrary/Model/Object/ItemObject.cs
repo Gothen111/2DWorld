@@ -5,6 +5,7 @@ using System.Text;
 
 using System.Runtime.Serialization;
 using GameLibrary.Factory.FactoryEnums;
+using Microsoft.Xna.Framework;
 
 namespace GameLibrary.Model.Object
 {
@@ -115,6 +116,11 @@ namespace GameLibrary.Model.Object
                     ((CreatureObject)_CollideWith).addItemObjectToInventory(this);
                 }
             }          
+        }
+
+        public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
+        {
+            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.ItemIconGraphicPath], new Microsoft.Xna.Framework.Vector2(this.Position.X, this.Position.Y), new Rectangle(0, 0, (int)this.Size.X, (int)this.Size.Y), _Color, 0f, Microsoft.Xna.Framework.Vector2.Zero, new Microsoft.Xna.Framework.Vector2(this.Scale, this.Scale), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1.0f);
         }
     }
 }

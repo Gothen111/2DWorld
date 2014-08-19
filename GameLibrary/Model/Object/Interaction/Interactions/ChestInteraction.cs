@@ -36,7 +36,7 @@ namespace GameLibrary.Model.Object.Interaction.Interactions
 
         private void openChest()
         {
-            this.InteractionOwner.Animation = new GameLibrary.Model.Object.Animation.Animations.OpenChestAnimation(this.InteractionOwner);
+            //this.InteractionOwner.Animation = new GameLibrary.Model.Object.Animation.Animations.OpenChestAnimation(this.InteractionOwner);
             this.isOpen = true;
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using GameLibrary.Model.Object.Body;
 
 namespace GameLibrary.Model.Object.Animation.Animations
 {
@@ -17,8 +18,8 @@ namespace GameLibrary.Model.Object.Animation.Animations
 
         }
 
-        public OpenChestAnimation(AnimatedObject _AnimationOwner)
-            : base(_AnimationOwner, 0, 20)
+        public OpenChestAnimation(BodyPart _BodyPart)
+            : base(_BodyPart, 0, 20)
         {
             this.chestOpen = false;
             this.currentFrame = 0;
@@ -51,7 +52,7 @@ namespace GameLibrary.Model.Object.Animation.Animations
         }
         public override Rectangle sourceRectangle()
         {
-            return new Rectangle(this.AnimationOwner.StandartStandPositionX, (int)(this.currentFrame * this.AnimationOwner.Size.Y), (int)this.AnimationOwner.Size.X, (int)this.AnimationOwner.Size.Y);
+            return new Rectangle((int)this.BodyPart.StandartTextureShift.X, (int)(this.currentFrame * this.BodyPart.Size.Y), (int)this.BodyPart.Size.X, (int)this.BodyPart.Size.Y);
         }
     }
 }

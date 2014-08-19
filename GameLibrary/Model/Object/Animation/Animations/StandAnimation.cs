@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using GameLibrary.Model.Object.Body;
 
 namespace GameLibrary.Model.Object.Animation.Animations
 {
@@ -14,7 +15,8 @@ namespace GameLibrary.Model.Object.Animation.Animations
 
         }
 
-        public StandAnimation(AnimatedObject _AnimationOwner) : base(_AnimationOwner, -1, -1)
+        public StandAnimation(BodyPart _BodyPart)
+            : base(_BodyPart, -1, -1)
         {
 
         }

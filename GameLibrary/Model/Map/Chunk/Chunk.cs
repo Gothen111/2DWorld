@@ -147,28 +147,6 @@ namespace GameLibrary.Model.Map.Chunk
             return null;
         }
 
-        public void drawBlocks(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
-        {
-            for (int x = 0; x < this.Size.X; x++)
-            {
-                for (int y = 0; y < this.Size.Y; y++)
-                {
-                    this.getBlockAtPosition(x, y).drawBlock(_GraphicsDevice, _SpriteBatch);
-                }
-            }
-        }
-
-        public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
-        {
-            for (int x = 0; x < this.Size.X; x++)
-            {
-                for (int y = 0; y < this.Size.Y; y++)
-                {
-                    this.getBlockAtPosition(x, y).drawObjects(_GraphicsDevice, _SpriteBatch);
-                }
-            }
-        }
-
         public override void update()
         {
             base.update();

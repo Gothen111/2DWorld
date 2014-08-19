@@ -214,10 +214,7 @@ namespace GameLibrary.Model.Object
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
         {
             //TODO: An das Attribut Scale anpassen
-            Vector3 var_DrawPositionExtra = Vector3.Zero;
-            if(this.Animation != null)
-                var_DrawPositionExtra = this.Animation.drawPositionExtra();
-             Vector2 var_PositionShadow = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
+            Vector2 var_PositionShadow = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X / 2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y);
              _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], var_PositionShadow, Color.White);
 
              Vector2 var_PositionState = new Vector2(this.Position.X, this.Position.Y) + new Vector2(-13, -7);
@@ -235,14 +232,10 @@ namespace GameLibrary.Model.Object
 
         private void drawEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
         {
-            Vector3 var_DrawPositionExtra = Vector3.Zero;
-            if (this.Animation != null)
-                var_DrawPositionExtra = this.Animation.drawPositionExtra();
-            Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X / 2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
+            Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X / 2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y);
             foreach (EquipmentObject var_EquipmentObject in this.equipment)
             {
                 var_EquipmentObject.Position = new Vector3(var_Position, 0);
-                var_EquipmentObject.Animation = this.Animation;
                 var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
             }
         }

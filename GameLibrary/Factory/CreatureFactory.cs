@@ -6,6 +6,7 @@ using System.Text;
 using GameLibrary.Model.Object;
 using GameLibrary.Factory.FactoryEnums;
 using Microsoft.Xna.Framework;
+using GameLibrary.Model.Object.Body;
 
 namespace GameLibrary.Factory
 {
@@ -32,20 +33,22 @@ namespace GameLibrary.Factory
             {
                 case RaceEnum.Ogre:
                     {
-                        playerObject.GraphicPath = "Character/Ogre1";
+                        playerObject.Body = new BodyHuman();
+                        //npcObject.GraphicPath = "Character/Ogre1";
                         playerObject.Size = new Vector3(80, 96, 0);
                         //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
                         break;
                     }
                 case RaceEnum.Human:
                     {
+                        playerObject.Body = new BodyHuman();
                         switch (objectGender)
                         {
                             case GenderEnum.Male:
-                                playerObject.GraphicPath = "Character/BodyMale";
+                                ((BodyHuman)playerObject.Body).Body.TexturePath = "Character/BodyMale";
                                 break;
                             case GenderEnum.Female:
-                                playerObject.GraphicPath = "Character/BodyFemale";
+                                ((BodyHuman)playerObject.Body).Body.TexturePath = "Character/BodyFemale";
                                 break;
                         }
                         break;
@@ -57,14 +60,14 @@ namespace GameLibrary.Factory
 
         public PlayerObject createPlayerObject(PlayerObject _PlayerObject)
         {
-            PlayerObject playerObject = new PlayerObject();
+            PlayerObject playerObject = this.createPlayerObject(RaceEnum.Human, FactionEnum.Beerdrinker, CreatureEnum.Archer, GenderEnum.Male);
             playerObject.Scale = _PlayerObject.Scale;
             playerObject.Velocity = new Vector3(0, 0, 0);
             playerObject.Faction = _PlayerObject.Faction;
             playerObject.Race = _PlayerObject.Race;
             playerObject.Gender = _PlayerObject.Gender;
             playerObject.Name = _PlayerObject.Name;
-            playerObject.GraphicPath = _PlayerObject.GraphicPath; //"Character/Char1_Small";
+            //playerObject.GraphicPath = _PlayerObject.GraphicPath; //"Character/Char1_Small";
             playerObject.ObjectDrawColor = _PlayerObject.ObjectDrawColor;
 
             return playerObject;
@@ -83,20 +86,22 @@ namespace GameLibrary.Factory
             {
                 case RaceEnum.Ogre:
                     {
-                        npcObject.GraphicPath = "Character/Ogre1";
+                        npcObject.Body = new BodyHuman();
+                        //npcObject.GraphicPath = "Character/Ogre1";
                         npcObject.Size = new Vector3(80, 96, 0);
                         //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
                         break;
                     }
                 case RaceEnum.Human:
                     {
+                        npcObject.Body = new BodyHuman();
                         switch (objectGender)
                         {
                             case GenderEnum.Male:
-                                npcObject.GraphicPath = "Character/BodyMale";
+                                ((BodyHuman)npcObject.Body).Body.TexturePath = "Character/BodyMale";
                                 break;
                             case GenderEnum.Female:
-                                npcObject.GraphicPath = "Character/BodyFemale";
+                                ((BodyHuman)npcObject.Body).Body.TexturePath = "Character/BodyFemale";
                                 break;
                         }
                         break;

@@ -8,12 +8,21 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using GameLibrary.Model.Object.ObjectEnums;
+using GameLibrary.Model.Object.Body;
 
 namespace GameLibrary.Model.Object
 {
     [Serializable()]
     public class AnimatedObject: Object
     {
+        private Body.Body body;
+
+        public Body.Body Body
+        {
+            get { return body; }
+            set { body = value; }
+        }
+
         private float scale;
 
         public float Scale
@@ -27,29 +36,17 @@ namespace GameLibrary.Model.Object
         public DirectionEnum DirectionEnum
         {
             get { return directionEnum; }
-            set { directionEnum = value; }
-        }
-
-        private String graphicPath;
-
-        public String GraphicPath
-        {
-            get { return graphicPath; }
-            set { graphicPath = value; }
+            set { 
+                    
+                    directionEnum = value; 
+                }
         }
 
         public Rectangle DrawBounds
         {
             get
             {
-                if (this.animation != null)
-                {
-                    return new Rectangle((int)(this.Position.X + this.animation.drawPositionExtra().X - this.Size.X / 2), (int)(this.Position.Y + this.animation.drawPositionExtra().Y - this.Size.Y), (int)this.Size.X, (int)this.Size.Y);
-                }
-                else
-                {
-                    return this.Bounds;
-                }
+                return new Rectangle((int)(this.Position.X - this.Size.X / 2), (int)(this.Position.Y - this.Size.Y), (int)this.Size.X, (int)this.Size.Y);
             }
         }
 
@@ -90,22 +87,6 @@ namespace GameLibrary.Model.Object
             set { moveDown = value; }
         }
 
-        private Animation.AnimatedObjectAnimation animation;
-
-        public Animation.AnimatedObjectAnimation Animation
-        {
-            get { return animation; }
-            set { animation = value; }
-        }
-
-        private int standartStandPositionX;
-
-        public int StandartStandPositionX
-        {
-            get { return standartStandPositionX; }
-            set { standartStandPositionX = value; }
-        }
-
         private Color objectDrawColor;
 
         public Color ObjectDrawColor
@@ -116,14 +97,10 @@ namespace GameLibrary.Model.Object
 
         public AnimatedObject() : base()
         {
+            this.body = new Body.Body();
             this.scale = 1f;
             this.Size = new Vector3(32, 32, 0);
-            if (this.animation == null)
-            {
-                this.animation = new Animation.Animations.StandAnimation(this);
-            }
 
-            this.standartStandPositionX = 0;
             this.movementSpeed = 1.0f;
 
             this.objectDrawColor = Color.White;
@@ -136,11 +113,7 @@ namespace GameLibrary.Model.Object
 
             this.directionEnum = (DirectionEnum)info.GetValue("directionEnum", typeof(DirectionEnum));
 
-            this.graphicPath = (String)info.GetValue("graphicPath", typeof(String));
-
-            this.animation = new Animation.Animations.StandAnimation(this);
-
-            this.standartStandPositionX = (int)info.GetValue("standartStandPositionX", typeof(int));
+            this.body = (Body.Body)info.GetValue("body", typeof(Body.Body));
 
             this.objectDrawColor = (Color)info.GetValue("objectDrawColor", typeof(Color));
         }
@@ -152,9 +125,7 @@ namespace GameLibrary.Model.Object
 
             info.AddValue("directionEnum", this.directionEnum, typeof(DirectionEnum));
 
-            info.AddValue("graphicPath", this.graphicPath, typeof(String));
-
-            info.AddValue("standartStandPositionX", this.standartStandPositionX, typeof(int));
+            info.AddValue("body", this.body, typeof(Body.Body));
 
             info.AddValue("objectDrawColor", this.objectDrawColor, typeof(Color));
 
@@ -164,14 +135,15 @@ namespace GameLibrary.Model.Object
         public override void update()
         {
             base.update();
-            if (this.animation != null)
+            this.body.update();
+            /*if (this.animation != null)
             {
                 this.animation.update();
                 if (this.animation.finishedAnimation() || this.Velocity.Equals(Vector3.Zero))// && !(this.animation is Animation.Animations.MoveAnimation || this.Velocity != Vector3.Zero))
                 {
                     this.animation = new Animation.Animations.StandAnimation(this);
                 }
-            }
+            }*/
             this.move();          
         }
 
@@ -249,40 +221,63 @@ namespace GameLibrary.Model.Object
 
             if (this.Velocity.X != 0 || this.Velocity.Y != 0)
             {
-                if (this.animation is Animation.Animations.MoveAnimation)
-                {
-                }
-                else
-                {
-                    if (this.animation.finishedAnimation())
-                    {
-                        this.animation = new Animation.Animations.MoveAnimation(this);
-                    }
-                }
+                this.body.walk(this.Velocity);
+                this.updateMovementDirection();
             }
             else
             {
+                this.body.stopWalk();
             }
         }
 
-        public void ChangeDirection(Vector3 _TargetPosition)
+        private void updateMovementDirection()
         {
-            if (_TargetPosition.X < this.Position.X)
+            if (this.Velocity.X == 0 && this.Velocity.Y == 0)
             {
-                this.directionEnum = ObjectEnums.DirectionEnum.Left;
+
             }
-            else if (_TargetPosition.X > this.Position.X)
+            if (this.Velocity.X == 0)
             {
-                this.directionEnum = ObjectEnums.DirectionEnum.Right;
+                if (this.Velocity.Y < 0)
+                {
+                    this.DirectionEnum = ObjectEnums.DirectionEnum.Top;
+                }
+                else if (this.Velocity.Y > 0)
+                {
+                    this.DirectionEnum = ObjectEnums.DirectionEnum.Down;
+                }
             }
-            else if (_TargetPosition.Y < this.Position.Y)
+            else if (this.Velocity.X < 0)
             {
-                this.directionEnum = ObjectEnums.DirectionEnum.Top;
+                this.DirectionEnum = ObjectEnums.DirectionEnum.Left;
+                if (Math.Abs(this.Velocity.X) < Math.Abs(this.Velocity.Y))
+                {
+                    if (this.Velocity.Y < 0)
+                    {
+                        this.DirectionEnum = ObjectEnums.DirectionEnum.Top;
+                    }
+                    else if (this.Velocity.Y > 0)
+                    {
+                        this.DirectionEnum = ObjectEnums.DirectionEnum.Down;
+                    }
+                }
             }
-            else if (_TargetPosition.Y > this.Position.Y)
+            else if (this.Velocity.X > 0)
             {
-                this.directionEnum = ObjectEnums.DirectionEnum.Down;
+                this.DirectionEnum = ObjectEnums.DirectionEnum.Right;
+                if (Math.Abs(this.Velocity.X) < Math.Abs(this.Velocity.Y))
+                {
+                    if (this.Velocity.Y < 0)
+                    {
+                        this.DirectionEnum = ObjectEnums.DirectionEnum.Top;
+                    }
+                    else if (this.Velocity.Y > 0)
+                    {
+                        this.DirectionEnum = ObjectEnums.DirectionEnum.Down;
+                    }
+                }
             }
+            this.body.setDirection(this.directionEnum);
         }
 
         public virtual void onCollide(AnimatedObject _CollideWith)
@@ -292,34 +287,20 @@ namespace GameLibrary.Model.Object
 
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
         {
-            Vector3 var_DrawPositionExtra = Vector3.Zero;
-            if(this.animation != null)
-                var_DrawPositionExtra = this.animation.drawPositionExtra();
             //TODO: An das Attribut Scale anpassen
-            Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y) + new Vector2(var_DrawPositionExtra.X, var_DrawPositionExtra.Y);
+            Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y);
 
-            if (this.animation != null && !this.animation.graphicPath().Equals(""))
+            /*if (this.animation.drawColor() != Color.White)
             {
-                //TODO: va_DrawColor richtig bestimmen :/
-                //Color var_DrawColor = new Color((this.animation.drawColor().R + this.objectDrawColor.R) / 2, (this.animation.drawColor().G + this.objectDrawColor.G) / 2, (this.animation.drawColor().B + this.objectDrawColor.B) / 2);
-                Color var_DrawColor = this.objectDrawColor;
-                if (this.animation.drawColor() != Color.White)
-                {
-                    var_DrawColor = Color.Lerp(this.objectDrawColor, this.animation.drawColor(), 0.1f);
-                }
-                try
-                {
-                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.animation.graphicPath()], var_Position, this.animation.sourceRectangle(), var_DrawColor, 0f, Vector2.Zero, new Vector2(this.scale, this.scale), SpriteEffects.None, 1.0f);
-                }
-                catch (Exception e)
-                {
-                    //Logger.Logger.LogErr(this.animation.graphicPath() + " nicht gefunden!");
-                }
-            }
+                var_DrawColor = Color.Lerp(this.objectDrawColor, this.animation.drawColor(), 0.1f);
+            }*/
+
+            this.body.draw(_GraphicsDevice, _SpriteBatch, var_Position);
         }
 
         public void checkChangedBlock()
         {
+            //TODO: Methode vebessern, über world get block usw ... vll ;) vll ist das ja auch nicht schneller :D
             if (this.CurrentBlock != null)
             {
                 int var_BlockPosX = (int)this.CurrentBlock.Position.X / Map.Block.Block.BlockSize;

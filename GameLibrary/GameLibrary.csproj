@@ -212,6 +212,9 @@
     <Compile Include="Model\Object\Animation\Animations\OpenChestAnimation.cs" />
     <Compile Include="Model\Object\Animation\Animations\StandAnimation.cs" />
     <Compile Include="Model\Object\Animation\Animations\TakeDamageAnimation.cs" />
+    <Compile Include="Model\Object\Body\Body.cs" />
+    <Compile Include="Model\Object\Body\BodyHuman.cs" />
+    <Compile Include="Model\Object\Body\BodyPart.cs" />
     <Compile Include="Model\Object\CreatureObject.cs" />
     <Compile Include="Model\Object\EnvironmentObject.cs" />
     <Compile Include="Model\Object\EquipmentObject.cs" />

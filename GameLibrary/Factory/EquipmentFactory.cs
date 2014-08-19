@@ -43,7 +43,7 @@ namespace GameLibrary.Factory
                         equipmentWeaponObject.WeaponEnum = _WeaponEnum;
                         Model.Object.Equipment.Attack.Attack var_Attack = new Model.Object.Equipment.Attack.Attack(50, 1.0f, 60.0f, Model.Object.Equipment.Attack.AttackType.Front);
                         equipmentWeaponObject.Attacks.Add(var_Attack);
-                        equipmentWeaponObject.GraphicPath = "Character/Sword";
+                        //equipmentWeaponObject.GraphicPath = "Character/Sword";
                         equipmentWeaponObject.ItemIconGraphicPath = "Object/Item/Small/Sword1";
                         //equipmentWeaponObject.SearchFlags.Add(new GameLibrary.Model.Map.World.SearchFlags.());
                         break;
@@ -86,13 +86,13 @@ namespace GameLibrary.Factory
                     {
                         equipmentArmorObject.NormalArmor = 1;
                         equipmentArmorObject.ItemIconGraphicPath = "Object/Item/Small/Cloth1";
-                        equipmentArmorObject.GraphicPath = "Character/Cloth1";
+                        //equipmentArmorObject.GraphicPath = "Character/Cloth1";
                         break;
                     }
                 case ArmorEnum.GoldenArmor:
                     equipmentArmorObject.NormalArmor = 10;
                         equipmentArmorObject.ItemIconGraphicPath = "Object/Item/Small/Cloth1";
-                        equipmentArmorObject.GraphicPath = "Character/GoldenArmor";
+                        //equipmentArmorObject.GraphicPath = "Character/GoldenArmor";
                     break;
             }
 

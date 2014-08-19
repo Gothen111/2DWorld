@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using GameLibrary.Model.Object.Body;
 
 namespace GameLibrary.Model.Object.Animation
 {
     public class AnimatedObjectAnimation
     {
-        private AnimatedObject animationOwner;
+        private BodyPart bodyPart;
 
-        internal AnimatedObject AnimationOwner
+        public BodyPart BodyPart
         {
-            get { return animationOwner; }
-            set { animationOwner = value; }
+            get { return bodyPart; }
+            set { bodyPart = value; }
         }
 
         private int animation;
@@ -37,9 +38,9 @@ namespace GameLibrary.Model.Object.Animation
 
         }
 
-        public AnimatedObjectAnimation(AnimatedObject _AnimationOwner, int _Animation, int _AnimationMax)
+        public AnimatedObjectAnimation(BodyPart _BodyPart, int _Animation, int _AnimationMax)
         {
-            this.animationOwner = _AnimationOwner;
+            this.bodyPart = _BodyPart;
             this.animation = _Animation;
             this.animationMax = _AnimationMax;
             this.onStartAnimation();
@@ -72,24 +73,24 @@ namespace GameLibrary.Model.Object.Animation
 
         public virtual String graphicPath()
         {
-            return this.animationOwner.GraphicPath;
+            return this.bodyPart.TexturePath;
         }
 
         public int directionDrawY()
         {
-            if (this.animationOwner.DirectionEnum == ObjectEnums.DirectionEnum.Down)
+            if (this.bodyPart.Direction == ObjectEnums.DirectionEnum.Down)
             {
                 return 0;
             }
-            else if (this.animationOwner.DirectionEnum == ObjectEnums.DirectionEnum.Left)
+            else if (this.bodyPart.Direction == ObjectEnums.DirectionEnum.Left)
             {
                 return 1;
             }
-            else if (this.animationOwner.DirectionEnum == ObjectEnums.DirectionEnum.Right)
+            else if (this.bodyPart.Direction == ObjectEnums.DirectionEnum.Right)
             {
                 return 2;
             }
-            else if (this.animationOwner.DirectionEnum == ObjectEnums.DirectionEnum.Top)
+            else if (this.bodyPart.Direction == ObjectEnums.DirectionEnum.Top)
             {
                 return 3;
             }
@@ -99,7 +100,7 @@ namespace GameLibrary.Model.Object.Animation
 
         public virtual Rectangle sourceRectangle()
         {
-            return new Rectangle(this.animationOwner.StandartStandPositionX, this.directionDrawY() * (int)this.animationOwner.Size.Y, (int)this.animationOwner.Size.X, (int)this.animationOwner.Size.Y);
+            return new Rectangle((int)this.bodyPart.StandartTextureShift.X, this.directionDrawY() * (int)this.bodyPart.Size.Y, (int)this.bodyPart.Size.X, (int)this.bodyPart.Size.Y);
         }
     }
 }

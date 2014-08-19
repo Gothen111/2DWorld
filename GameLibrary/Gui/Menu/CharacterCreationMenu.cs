@@ -41,7 +41,7 @@ namespace GameLibrary.Gui.Menu
             this.createCharacter(Factory.FactoryEnums.GenderEnum.Male);
 
             this.characterComponent = new Component(new Rectangle(350, 100, 96, 128));//new Component(new Rectangle(320, 50, 170, 190));
-            this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;//"Character/BodyMale";//"Character/Char1_Big";
+            //this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;//"Character/BodyMale";//"Character/Char1_Big";
             this.add(this.characterComponent);
 
 
@@ -144,12 +144,12 @@ namespace GameLibrary.Gui.Menu
         private void selectedMale()
         {
             this.createCharacter(Factory.FactoryEnums.GenderEnum.Male);
-            this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;
+            //this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;
         }
         private void selectedFemale()
         {
             this.createCharacter(Factory.FactoryEnums.GenderEnum.Female);
-            this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;
+            //this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;
         }
 
         private void openCharacterMenu()

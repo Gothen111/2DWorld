@@ -274,19 +274,13 @@ namespace GameLibrary.Model.Object
 
         public void attackLivingObject(LivingObject _Target, int _Damage)
         {
-            this.Animation = new Animation.Animations.AttackAnimation(this);
+            //this.Animation = new Animation.Animations.AttackAnimation(this);
             if(Configuration.Configuration.isHost)
                 _Target.onAttacked(this, _Damage);
         }
 
         public void MoveWithoutDirectionChange(Vector3 _TargetPosition)
         {
-            this.Position = _TargetPosition;
-        }
-
-        public void Move(Vector3 _TargetPosition)
-        {
-            ChangeDirection(_TargetPosition);
             this.Position = _TargetPosition;
         }
 
@@ -324,8 +318,8 @@ namespace GameLibrary.Model.Object
                 this.isDead = true;
                 try
                 {
-                    Texture2D texture = Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath + "_Dead"];
-                    this.GraphicPath = this.GraphicPath + "_Dead";
+                    //Texture2D texture = Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath + "_Dead"];
+                    //this.GraphicPath = this.GraphicPath + "_Dead";
                     Model.Map.World.World.world.removeObjectFromWorld(this);
                     //TODO: PreEnviornment
                     /*Model.Map.World.World.world.
@@ -344,10 +338,10 @@ namespace GameLibrary.Model.Object
             }
             else
             {
-                if (this.canBeEffected)
+                /*if (this.canBeEffected)
                 {
                     this.Animation = new GameLibrary.Model.Object.Animation.Animations.TakeDamageAnimation(this);
-                }
+                }*/
             }
         }
 
@@ -369,9 +363,9 @@ namespace GameLibrary.Model.Object
 
                 try
                 {
-                    Rectangle lifebarBounds = new Rectangle((int)(this.Position.X + Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath].Bounds.Width / 2 - lifebarWidth / 2 - this.Size.X / 2), (int)(this.Position.Y - 5 - this.Size.Y), (int)lifebarWidth / 2, lifebar.Bounds.Height / 2);
+                    /*Rectangle lifebarBounds = new Rectangle((int)(this.Position.X + Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath].Bounds.Width / 2 - lifebarWidth / 2 - this.Size.X / 2), (int)(this.Position.Y - 5 - this.Size.Y), (int)lifebarWidth / 2, lifebar.Bounds.Height / 2);
 
-                    _SpriteBatch.Draw(lifebar, lifebarBounds, Color.White);
+                    _SpriteBatch.Draw(lifebar, lifebarBounds, Color.White);*/
                 }
                 catch (Exception e)
                 {

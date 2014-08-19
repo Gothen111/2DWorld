@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using GameLibrary.Model.Object.Body;
 
 namespace GameLibrary.Model.Object.Animation.Animations
 {
@@ -16,8 +17,8 @@ namespace GameLibrary.Model.Object.Animation.Animations
 
         }
 
-        public AttackAnimation(AnimatedObject _AnimationOwner)
-            : base(_AnimationOwner, 0, 10)
+        public AttackAnimation(BodyPart _BodyPart)
+            : base(_BodyPart, 0, 10)
         {
             this.currentFrame = 0;
         }

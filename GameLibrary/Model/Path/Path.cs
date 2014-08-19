@@ -18,9 +18,6 @@ namespace GameLibrary.Model.Path
             get { return pathNodes; }
             set { pathNodes = value; }
         }
-
-        private PathNode currentNode;
-
         private bool finished;
 
         public Path()
@@ -51,7 +48,7 @@ namespace GameLibrary.Model.Path
         private PathNode extractFirst()
         {
             PathNode var_PathNode = null;
-            if(this.pathNodes.Count>0)
+            if(this.pathNodes.Count > 0)
             {
                 var_PathNode = this.getNextNode();
                 this.removeFirst();

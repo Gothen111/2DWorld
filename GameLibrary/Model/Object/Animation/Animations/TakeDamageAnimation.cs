@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using GameLibrary.Model.Object.Body;
 
 namespace GameLibrary.Model.Object.Animation.Animations
 {
@@ -14,7 +15,8 @@ namespace GameLibrary.Model.Object.Animation.Animations
 
         }
 
-        public TakeDamageAnimation(AnimatedObject _AnimationOwner) : base(_AnimationOwner, 0, 20)
+        public TakeDamageAnimation(BodyPart _BodyPart)
+            : base(_BodyPart, 0, 20)
         {
 
         }
