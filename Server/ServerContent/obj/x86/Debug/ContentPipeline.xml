@@ -7,15 +7,15 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>D:\Programmieren\Projekte\Github\2DWorld\Server\ServerContent\</RootDirectory>
-      <LoggerRootDirectory>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\Programmieren\Projekte\Github\2DWorld\Server\ServerContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>D:\Programmieren\Projekte\Github\2DWorld\Server\Server\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Server\ServerContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Server\Server\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Server\ServerContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Server\Server\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2012-11-04T16:08:38.9272236+01:00</Value>
+        <Value>2014-06-01T17:04:22.0720363+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

@@ -29,7 +29,7 @@ namespace GameLibrary.Gui.Menu
 
             this.AllowMultipleFocus = true;
 
-            this.healthComponent = new Component(new Rectangle(800 / 2 - 187 / 2 - 284, 500 - 188 - 7, 187, 188));
+            this.healthComponent = new Healthbar(new Rectangle(800 / 2 - 187 / 2 - 284, 500 - 188 - 7, 187, 188));
             this.healthComponent.BackgroundGraphicPath = "Gui/Menu/GameSurface/Health";
             this.add(this.healthComponent);
 
