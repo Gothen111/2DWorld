@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 using GameLibrary.Gui;
 using GameLibrary.Model.Object;
+using GameLibrary.Model.Object.Body;
 
 namespace GameLibrary.Gui.Menu
 {
@@ -48,14 +49,26 @@ namespace GameLibrary.Gui.Menu
             this.equipmentContainer.add(var_ItemSpaceWeapon);*/
 
             this.weaponComponent = new EquipmentField(this.inventoryOwner, 0, Factory.FactoryEnums.ItemEnum.Weapon, new Rectangle(this.Bounds.X + 33, this.Bounds.Y + 174, 36, 36));
-            this.equipmentContainer.add(this.weaponComponent);
+            //this.equipmentContainer.add(this.weaponComponent);
 
             /*Component var_ItemSpaceArmor = new Component(new Rectangle(this.Bounds.X + 148, this.Bounds.Y + 182, 36, 36));
             var_ItemSpaceArmor.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
             this.equipmentContainer.add(var_ItemSpaceArmor);*/
 
             this.armorComponent = new EquipmentField(this.inventoryOwner, 1, Factory.FactoryEnums.ItemEnum.Armor, new Rectangle(this.Bounds.X + 148, this.Bounds.Y + 182, 36, 36));
-            this.equipmentContainer.add(this.armorComponent);
+            //this.equipmentContainer.add(this.armorComponent);
+
+            int var_Count = this.inventoryOwner.Body.BodyParts.Count;
+
+            for (int y = 0; y < var_Count; y++)
+            {
+                EquipmentField var_EquipmentField = new EquipmentField(this.inventoryOwner, this.inventoryOwner.Body.BodyParts[y].Id, Factory.FactoryEnums.ItemEnum.Weapon, new Rectangle(this.Bounds.X, this.Bounds.Y + y*36, 36, 36));
+                this.equipmentContainer.add(var_EquipmentField);
+            }
+
+
+
+
 
             this.itemContainer = new Container(new Rectangle(this.Bounds.X, this.Bounds.Y + 300, this.Bounds.Width, this.Bounds.Height));
 
@@ -121,9 +134,34 @@ namespace GameLibrary.Gui.Menu
 
         private void checkEquipmentItems()
         {
+            // Nur für n spieler :D und gehen wir aus das erst mal spieler nur human sein kann
             if (this.inventoryOwner.Inventory.InventoryChanged)
             {
-                this.weaponComponent.removeItem();
+                foreach (EquipmentField var_EquipmentField in this.equipmentContainer.Components)
+                {
+                    foreach (BodyPart var_BodyPart in this.inventoryOwner.Body.BodyParts)
+                    {
+                        if (var_EquipmentField.FieldId == var_BodyPart.Id)
+                        {
+                            var_EquipmentField.removeItem();
+                            if (var_BodyPart.Equipment != null)
+                            {
+                                var_EquipmentField.setItem(var_BodyPart.Equipment);
+                            }
+                        }
+                    }
+                }
+
+
+                //BodyHuman var_HumanBody = this.inventoryOwner.Body as BodyHuman;
+
+                /*this.weaponComponent.removeItem();
+                if (var_HumanBody.getEquipmentObjectLeftHand() != null)
+                {
+                    this.weaponComponent.setItem(var_HumanBody.getEquipmentObjectLeftHand());
+                }*/
+
+                /*this.weaponComponent.removeItem();
                 if (this.inventoryOwner.getWeaponInHand() != null)
                 {
                     this.weaponComponent.setItem(this.inventoryOwner.getWeaponInHand());
@@ -133,7 +171,7 @@ namespace GameLibrary.Gui.Menu
                 if (this.inventoryOwner.getWearingArmor() != null)
                 {
                     this.armorComponent.setItem(this.inventoryOwner.getWearingArmor());
-                }
+                }*/
             }
         }
     }

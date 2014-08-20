@@ -541,6 +541,15 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
       <Time>2014-06-12T17:38:48.8006555+02:00</Time>
     </Item>
+    <Item>
+      <Source>Object\Character\Hair1.png</Source>
+      <Name>Object\Character\Hair1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Hair1.xnb</Output>
+      <Time>2014-08-20T19:45:41.079007+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

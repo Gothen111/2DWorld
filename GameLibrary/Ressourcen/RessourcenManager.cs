@@ -120,6 +120,8 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Character/GoldenArmor", "Object/Character/GoldenArmor");
             loadTexture(_ContentManager, "Character/Sword", "Object/Character/Sword");
 
+            loadTexture(_ContentManager, "Character/Hair1", "Object/Character/Hair1");
+
             Logger.Logger.LogInfo("Ressourcen wurden mit " + this.loadingErrorsCount + " Fehler(n) geladen");
         }
 

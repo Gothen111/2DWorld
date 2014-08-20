@@ -20,13 +20,13 @@ namespace GameLibrary.Model.Object
             set { inventory = value; }
         }
 
-        private List<EquipmentObject> equipment;
+        /*private List<EquipmentObject> equipment;
 
         public List<EquipmentObject> Equipment
         {
             get { return equipment; }
             set { equipment = value; }
-        }
+        }*/
         //protected Armor armor;
         //protected Skill skill;
         private String name;
@@ -39,21 +39,18 @@ namespace GameLibrary.Model.Object
 
         public CreatureObject()
         {
-            this.equipment = new List<EquipmentObject>();
             this.inventory = new Inventory.Inventory();
         }
 
         public CreatureObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
-        {
-            this.equipment = (List<EquipmentObject>)info.GetValue("equipment", typeof(List<EquipmentObject>));
+        { 
             this.inventory = (Inventory.Inventory)info.GetValue("inventory", typeof(Inventory.Inventory));
             this.name = (String)info.GetValue("name", typeof(String));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            info.AddValue("equipment", equipment, typeof(List<EquipmentObject>));
             info.AddValue("inventory", inventory, typeof(Inventory.Inventory));
             info.AddValue("name", this.name, typeof(String));
 
@@ -63,10 +60,10 @@ namespace GameLibrary.Model.Object
         public override void update()
         {
             base.update();
-            updateEquippment();
+            //updateEquippment();
         }
 
-        public void updateEquippment()
+        /*public void updateEquippment()
         {
             if (this.equipment != null)
             {
@@ -82,12 +79,12 @@ namespace GameLibrary.Model.Object
             {
                 this.equipment = new List<EquipmentObject>();
             }
-        }
+        }*/
 
-        public void addEquipmentObject(EquipmentObject _EquipmentObject)
+        /*public void addEquipmentObject(EquipmentObject _EquipmentObject)
         {
             this.equipment.Add(_EquipmentObject);
-        }
+        }*/
 
         public override void attack()
         {
@@ -95,7 +92,7 @@ namespace GameLibrary.Model.Object
             this.swingWeapon(Model.Object.Equipment.Attack.AttackType.Front);
         }
         
-        public GameLibrary.Model.Object.Equipment.EquipmentWeapon getWeaponInHand()
+        /*public GameLibrary.Model.Object.Equipment.EquipmentWeapon getWeaponInHand()
         {
             GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = null;
             foreach (EquipmentObject var_EquipmentObject in this.equipment)
@@ -107,12 +104,12 @@ namespace GameLibrary.Model.Object
                 }
             }
             return var_EquipmentWeaponForAttack;
-        }
+        }*/
 
 
         public void swingWeapon(Equipment.Attack.AttackType _AttackType)
         {
-            GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = this.getWeaponInHand();
+            GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = null;// this.getWeaponInHand();
             if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady(_AttackType))
 	    {
                 List<Object> var_Objects = GameLibrary.Model.Map.World.World.world.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.getAttack(_AttackType).Range, var_EquipmentWeaponForAttack.SearchFlags);
@@ -131,7 +128,7 @@ namespace GameLibrary.Model.Object
             }
         }
 
-        public GameLibrary.Model.Object.Equipment.EquipmentArmor getWearingArmor()
+        /*public GameLibrary.Model.Object.Equipment.EquipmentArmor getWearingArmor()
         {
             GameLibrary.Model.Object.Equipment.EquipmentArmor var_EquipmentArmor = null;
             foreach (EquipmentObject var_EquipmentObject in this.equipment)
@@ -143,20 +140,20 @@ namespace GameLibrary.Model.Object
                 }
             }
             return var_EquipmentArmor;
-        }
+        }*/
 
 
 
         public override float calculateDamage(float _DamageAmount)
         {
-            if (this.equipment != null)
+            /*if (this.equipment != null)
             {
                 GameLibrary.Model.Object.Equipment.EquipmentArmor var_EquipmentArmor = this.getWearingArmor();
                 if (var_EquipmentArmor != null)
                 {
                     _DamageAmount = _DamageAmount / ((float)((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentArmor).NormalArmor);
                 }
-            }
+            }*/
             return _DamageAmount;
         }
 
@@ -170,8 +167,8 @@ namespace GameLibrary.Model.Object
 
         public void setItemFromEquipmentToInventory(int _EquipmentPosition, int _InventoryPosition)
         {
-            EquipmentObject var_ToRemove = null;
-            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            EquipmentObject var_ToRemove = this.Body.getEquipmentAt(_EquipmentPosition);
+            /*foreach (EquipmentObject var_EquipmentObject in this.equipment)
             {
                 if (var_EquipmentObject.PositionInInventory == _EquipmentPosition)
                 {
@@ -180,13 +177,21 @@ namespace GameLibrary.Model.Object
                         var_ToRemove = var_EquipmentObject;
                     }
                 }
+            }*/
+
+            if (this.inventory.addItemObjectToInventoryAt(var_ToRemove, _InventoryPosition))
+            {
+                this.Body.removeEquipment(var_ToRemove);
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateAnimatedObjectBodyMessage(this.Id, this.Body), GameMessageImportance.VeryImportant));                    
             }
-            if (var_ToRemove != null)
+
+            /*if (var_ToRemove != null)
             {
                 this.equipment.Remove(var_ToRemove);
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureEquipmentMessage(this.Id, this), GameMessageImportance.VeryImportant));                    
-            }
+            }*/
         }
 
         public void setItemFromInventoryToEquipment(int _InventoryPosition, int _EquipmentPosition)
@@ -198,7 +203,8 @@ namespace GameLibrary.Model.Object
                 {
                     if (var_ItemObject is EquipmentObject)
                     {
-                        this.equipment.Add((EquipmentObject)var_ItemObject);
+                        //this.equipment.Add((EquipmentObject)var_ItemObject);
+                        this.Body.setEquipmentObject((EquipmentObject)var_ItemObject);
                         var_ToRemove = var_ItemObject;
                     }
                 }
@@ -207,7 +213,7 @@ namespace GameLibrary.Model.Object
             {
                 this.inventory.Items.Remove(var_ToRemove);
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureEquipmentMessage(this.Id, this), GameMessageImportance.VeryImportant));                    
+                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateAnimatedObjectBodyMessage(this.Id, this.Body), GameMessageImportance.VeryImportant));                    
             }
         }
 
@@ -227,18 +233,6 @@ namespace GameLibrary.Model.Object
                  _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/CreatureState"], var_PositionState, Color.Red);
              }
             base.draw(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
-            this.drawEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
-        }
-
-        private void drawEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
-        {
-            Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X / 2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y);
-            foreach (EquipmentObject var_EquipmentObject in this.equipment)
-            {
-                var_EquipmentObject.Position = new Vector3(var_Position, 0);
-                var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, _Color);
-                //var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, _DrawPositionExtra, _Color);
-            }
         }
     }
 }

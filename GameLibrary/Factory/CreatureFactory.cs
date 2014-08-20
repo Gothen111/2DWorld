@@ -27,14 +27,13 @@ namespace GameLibrary.Factory
             playerObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
             playerObject.Gender = objectGender;
             playerObject.Name = NameFactory.getName(objectType, objectGender);
-            //playerObject.GraphicPath = "Character/Char1_Small";
 
             switch (objectRace)
             {
                 case RaceEnum.Ogre:
                     {
                         playerObject.Body = new BodyHuman();
-                        //npcObject.GraphicPath = "Character/Ogre1";
+                        ((BodyHuman)playerObject.Body).MainBody.TexturePath = "Character/Ogre1";
                         playerObject.Size = new Vector3(80, 96, 0);
                         //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
                         break;
@@ -45,16 +44,26 @@ namespace GameLibrary.Factory
                         switch (objectGender)
                         {
                             case GenderEnum.Male:
-                                ((BodyHuman)playerObject.Body).Body.TexturePath = "Character/BodyMale";
+                                ((BodyHuman)playerObject.Body).MainBody.TexturePath = "Character/BodyMale";
                                 break;
                             case GenderEnum.Female:
-                                ((BodyHuman)playerObject.Body).Body.TexturePath = "Character/BodyFemale";
+                                ((BodyHuman)playerObject.Body).MainBody.TexturePath = "Character/BodyFemale";
                                 break;
                         }
                         break;
                     }
             }
 
+            EquipmentObject var_EquipmentObject_Armor = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.GoldenArmor);
+            var_EquipmentObject_Armor.PositionInInventory = 0;
+
+            playerObject.Body.setEquipmentObject(var_EquipmentObject_Armor);
+
+            EquipmentObject var_EquipmentObject_Sword = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword);
+            var_EquipmentObject_Sword.PositionInInventory = 1;
+
+            playerObject.Body.setEquipmentObject(var_EquipmentObject_Sword);
+           
             return playerObject;
         }
 
@@ -67,7 +76,6 @@ namespace GameLibrary.Factory
             playerObject.Race = _PlayerObject.Race;
             playerObject.Gender = _PlayerObject.Gender;
             playerObject.Name = _PlayerObject.Name;
-            //playerObject.GraphicPath = _PlayerObject.GraphicPath; //"Character/Char1_Small";
             playerObject.ObjectDrawColor = _PlayerObject.ObjectDrawColor;
 
             return playerObject;
@@ -87,7 +95,7 @@ namespace GameLibrary.Factory
                 case RaceEnum.Ogre:
                     {
                         npcObject.Body = new BodyHuman();
-                        //npcObject.GraphicPath = "Character/Ogre1";
+                        ((BodyHuman)npcObject.Body).MainBody.TexturePath = "Character/Ogre1";
                         npcObject.Size = new Vector3(80, 96, 0);
                         //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
                         break;
@@ -98,10 +106,10 @@ namespace GameLibrary.Factory
                         switch (objectGender)
                         {
                             case GenderEnum.Male:
-                                ((BodyHuman)npcObject.Body).Body.TexturePath = "Character/BodyMale";
+                                ((BodyHuman)npcObject.Body).MainBody.TexturePath = "Character/BodyMale";
                                 break;
                             case GenderEnum.Female:
-                                ((BodyHuman)npcObject.Body).Body.TexturePath = "Character/BodyFemale";
+                                ((BodyHuman)npcObject.Body).MainBody.TexturePath = "Character/BodyFemale";
                                 break;
                         }
                         break;

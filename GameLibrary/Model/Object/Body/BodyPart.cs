@@ -77,15 +77,23 @@ namespace GameLibrary.Model.Object.Body
             set { scale = value; }
         }
 
-        private List<EquipmentObject> equipment;
+        private EquipmentObject equipment;
 
-        public List<EquipmentObject> Equipment
+        public EquipmentObject Equipment
         {
             get { return equipment; }
             set { equipment = value; }
         }
 
-        public BodyPart(Vector3 _Position, Color _Color, String _TexturePath)
+        private int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
+        public BodyPart(int _Id, Vector3 _Position, Color _Color, String _TexturePath)
         {
             this.position = _Position;
             this.color = _Color;
@@ -94,7 +102,8 @@ namespace GameLibrary.Model.Object.Body
             this.animation = new Animation.Animations.StandAnimation(this);
             this.scale = 1.0f;
             this.size = new Vector3(32, 32, 0);
-            this.equipment = new List<EquipmentObject>();
+            this.equipment = null;
+            this.id = _Id;
         }
 
         public BodyPart(SerializationInfo info, StreamingContext ctxt)
@@ -104,6 +113,8 @@ namespace GameLibrary.Model.Object.Body
             this.texturePath = (String)info.GetValue("texturePath", typeof(String));
             this.scale = (float)info.GetValue("scale", typeof(float));
             this.size = (Vector3)info.GetValue("size", typeof(Vector3));
+            this.equipment = (EquipmentObject)info.GetValue("equipment", typeof(EquipmentObject));
+            this.id = (int)info.GetValue("id", typeof(int));
 
             this.animation = new Animation.Animations.StandAnimation(this);
         }
@@ -115,6 +126,8 @@ namespace GameLibrary.Model.Object.Body
             info.AddValue("texturePath", this.texturePath, typeof(String));
             info.AddValue("scale", this.scale, typeof(float));
             info.AddValue("size", this.size, typeof(Vector3));
+            info.AddValue("equipment", this.equipment, typeof(EquipmentObject));
+            info.AddValue("id", this.id, typeof(int));
         }
 
         public virtual void update()
@@ -122,12 +135,25 @@ namespace GameLibrary.Model.Object.Body
             this.animation.update();
         }
 
+        public virtual bool setEquipmentObject(EquipmentObject _EquipmentObject)
+        {
+            if (this.equipment != null)
+            {
+                return false;
+            }
+            else
+            {
+                this.equipment = _EquipmentObject;
+                return true;
+            }
+        }
+
         private void drawEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector2 _BodyCenter)
         {
-            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            if(this.equipment != null)
             {
-                var_EquipmentObject.Position = new Vector3(_BodyCenter, 0);
-                var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, this.color);
+                this.equipment.Position = new Vector3(_BodyCenter, 0);
+                this.equipment.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, this.color, this.animation);
             }
         }
 

@@ -183,7 +183,7 @@ namespace GameLibrary.Model.Object.Inventory
             {
                 //TODO: Kommt wohl von wo anders... anderes Inventar usw..
                 //this.addItemObjectToInventory(_ItemObject);
-                if (_InventoryOwner.Equipment.Contains(_ItemObject))
+                /*if (_InventoryOwner.Equipment.Contains(_ItemObject))
                 {
                     //Sende jeweilige Änderung
                     if (Configuration.Configuration.isHost)
@@ -196,7 +196,7 @@ namespace GameLibrary.Model.Object.Inventory
                     }
                     //_InventoryOwner.Equipment.Remove((EquipmentObject)_ItemObject);
                     //this.addItemObjectToInventory(_ItemObject);
-                }
+                }*/
             }
         }
 

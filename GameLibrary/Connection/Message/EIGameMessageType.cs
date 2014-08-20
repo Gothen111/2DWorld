@@ -26,6 +26,6 @@ namespace GameLibrary.Connection.Message
         UpdatePreEnvironmentObjectMessage,
         CreatureEquipmentToInventoryMessage,
         CreatureInventoryToEquipmentMessage,
-        UpdateCreatureEquipmentMessage
+        UpdateAnimatedObjectBodyMessage
     }
 }

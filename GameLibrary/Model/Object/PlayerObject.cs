@@ -13,11 +13,11 @@ namespace GameLibrary.Model.Object
     {
         public PlayerObject() :base()
         {
-            this.addEquipmentObject(GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.GoldenArmor));
+            /*this.addEquipmentObject(GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.GoldenArmor));
             this.addEquipmentObject(GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword));
 
             this.getWeaponInHand().PositionInInventory = 0;
-            this.getWearingArmor().PositionInInventory = 1;
+            this.getWearingArmor().PositionInInventory = 1;*/
         }
 
         public PlayerObject(SerializationInfo info, StreamingContext ctxt)

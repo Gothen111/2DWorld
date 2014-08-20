@@ -34,11 +34,11 @@ namespace GameLibrary.Model.Object
             base.update();
         }
 
-        public virtual void drawWearingEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Color _Color)
+        public virtual void drawWearingEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Color _Color, Animation.AnimatedObjectAnimation _Animation)
         {
             try
             {
-                //_SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.GraphicPath], new Microsoft.Xna.Framework.Vector2(this.Position.X, this.Position.Y), this.Animation.sourceRectangle(), this.Animation.drawColor(), 0f, Microsoft.Xna.Framework.Vector2.Zero, new Microsoft.Xna.Framework.Vector2(this.Scale, this.Scale), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1.0f);
+                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.Body.MainBody.TexturePath], new Microsoft.Xna.Framework.Vector2(this.Position.X, this.Position.Y), _Animation.sourceRectangle(), _Animation.drawColor(), 0f, Microsoft.Xna.Framework.Vector2.Zero, new Microsoft.Xna.Framework.Vector2(this.Scale, this.Scale), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 1.0f);
             }
             catch (Exception e)
             {

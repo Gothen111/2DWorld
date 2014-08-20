@@ -60,8 +60,8 @@ namespace Client.Connection
                 case EIGameMessageType.UpdatePreEnvironmentObjectMessage:
                     handleUpdatePreEnvironmentObjectMessage(_NetIncomingMessage);
                     break;
-                case EIGameMessageType.UpdateCreatureEquipmentMessage:
-                    handleUpdateCreatureEquipmentMessage(_NetIncomingMessage);
+                case EIGameMessageType.UpdateAnimatedObjectBodyMessage:
+                    handleUpdateAnimatedObjectBodyMessage(_NetIncomingMessage);
                     break;
 
             }
@@ -283,9 +283,9 @@ namespace Client.Connection
             }
         }
 
-        private static void handleUpdateCreatureEquipmentMessage(NetIncomingMessage _Im)
+        private static void handleUpdateAnimatedObjectBodyMessage(NetIncomingMessage _Im)
         {
-            var message = new UpdateCreatureEquipmentMessage(_Im);
+            var message = new UpdateAnimatedObjectBodyMessage(_Im);
 
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
@@ -294,7 +294,7 @@ namespace Client.Connection
             {
                 if (var_Object is GameLibrary.Model.Object.CreatureObject)
                 {
-                    ((GameLibrary.Model.Object.CreatureObject)var_Object).Equipment = message.CreatureObject.Equipment;
+                    ((GameLibrary.Model.Object.CreatureObject)var_Object).Body = message.Body;
                 }
             }
             else

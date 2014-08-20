@@ -123,7 +123,7 @@
     <Compile Include="Connection\Message\CreatureInventoryItemPositionChangeMessage.cs" />
     <Compile Include="Connection\Message\CreatureEquipmentToInventoryMessage.cs" />
     <Compile Include="Connection\Message\CreatureInventoryToEquipmentMessage.cs" />
-    <Compile Include="Connection\Message\UpdateCreatureEquipmentMessage.cs" />
+    <Compile Include="Connection\Message\UpdateAnimatedObjectBodyMessage.cs" />
     <Compile Include="Connection\Message\UpdatePreEnvironmentObjectMessage.cs" />
     <Compile Include="Connection\Message\UpdateCreatureInventoryMessage.cs" />
     <Compile Include="Connection\Message\RemoveObjectMessage.cs" />

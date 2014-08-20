@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using GameLibrary.Model.Object.ObjectEnums;
+using GameLibrary.Model.Object.Animation.Animations;
 
 
 namespace GameLibrary.Model.Object.Body
@@ -29,30 +30,52 @@ namespace GameLibrary.Model.Object.Body
             set { bodyColor = value; }
         }
 
+        private BodyPart mainBody;
+
+        public BodyPart MainBody
+        {
+            get { return mainBody; }
+            set { mainBody = value; }
+        }
+
         public Body()
         {         
             this.bodyParts = new List<BodyPart>();
             this.bodyColor = Color.White;
+
+            this.mainBody = new BodyPart(0, new Vector3(0, 0, 0), this.BodyColor, "");
+            this.bodyParts.Add(this.mainBody);
         }
 
         public Body(SerializationInfo info, StreamingContext ctxt)
         {
-            this.bodyParts = (List<BodyPart>)info.GetValue("bodyParts", typeof(List<BodyPart>));
+            this.bodyParts = new List<BodyPart>();
+            this.mainBody = (BodyPart)info.GetValue("mainBody", typeof(BodyPart));
+            this.bodyParts.Add(this.mainBody);
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            info.AddValue("bodyParts", this.bodyParts, typeof(List<BodyPart>));
+            info.AddValue("mainBody", this.mainBody, typeof(BodyPart));
         }
 
         public virtual void stopWalk()
         {
-
+            this.mainBody.Animation = new StandAnimation(this.mainBody);
         }
 
         public virtual void walk(Vector3 _Velocity)
         {
-
+            if (this.mainBody.Animation is MoveAnimation)
+            {
+            }
+            else
+            {
+                if (this.mainBody.Animation.finishedAnimation())
+                {
+                    this.mainBody.Animation = new MoveAnimation(this.mainBody, _Velocity);
+                }
+            }
         }
 
         public virtual void attack()
@@ -66,6 +89,43 @@ namespace GameLibrary.Model.Object.Body
             {
                 var_BodyPart.Direction = _Direction;
             }
+        }
+
+        public virtual EquipmentObject getEquipmentAt(int _EquipmentPosition)
+        {
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                if (var_BodyPart.Id == _EquipmentPosition)
+                {
+                    return var_BodyPart.Equipment;
+                }
+            }
+            return null;
+        }
+
+        public virtual bool setEquipmentObject(EquipmentObject _EquipmentObject)
+        {
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                if (var_BodyPart.Id == _EquipmentObject.PositionInInventory)
+                {
+                    var_BodyPart.setEquipmentObject(_EquipmentObject);
+                }
+            }
+            return false;
+        }
+
+        public virtual bool removeEquipment(EquipmentObject _EquipmentObject)
+        {
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                if (var_BodyPart.Equipment.Equals(_EquipmentObject))
+                {
+                    var_BodyPart.Equipment = null;
+                    return true;
+                }
+            }
+            return false;
         }
 
         public virtual void update()
