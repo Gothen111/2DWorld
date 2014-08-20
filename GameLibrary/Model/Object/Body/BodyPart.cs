@@ -124,10 +124,13 @@ namespace GameLibrary.Model.Object.Body
 
         private void drawEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector2 _BodyCenter)
         {
-            foreach (EquipmentObject var_EquipmentObject in this.equipment)
+            if (this.equipment != null)
             {
-                var_EquipmentObject.Position = new Vector3(_BodyCenter, 0);
-                var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, this.color);
+                foreach (EquipmentObject var_EquipmentObject in this.equipment)
+                {
+                    var_EquipmentObject.Position = new Vector3(_BodyCenter, 0);
+                    var_EquipmentObject.drawWearingEquipment(_GraphicsDevice, _SpriteBatch, this.color);
+                }
             }
         }
 

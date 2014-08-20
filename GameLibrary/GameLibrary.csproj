@@ -161,6 +161,7 @@
     <Compile Include="Gui\Component.cs" />
     <Compile Include="Gui\Container.cs" />
     <Compile Include="Gui\DragAndDrop.cs" />
+    <Compile Include="Gui\Healthbar.cs" />
     <Compile Include="Gui\InventoryField.cs" />
     <Compile Include="Gui\InventoryItem.cs" />
     <Compile Include="Gui\EquipmentField.cs" />

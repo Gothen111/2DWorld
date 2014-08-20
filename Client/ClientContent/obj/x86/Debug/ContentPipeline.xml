@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Chest\Chest.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Chest\Chest.xnb</Output>
+      <Time>2014-08-15T19:10:49.8150178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Environment\Farm\FarmHouse1.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Farm\FarmHouse1.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Farm\FarmHouse1.xnb</Output>
+      <Time>2014-08-15T19:10:49.8180178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Environment\Flower\Flower1.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Flower\Flower1.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Flower\Flower1.xnb</Output>
+      <Time>2014-08-15T19:10:49.8190178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Environment\Tree\Tree1.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Tree\Tree1.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Tree\Tree1.xnb</Output>
+      <Time>2014-08-15T19:10:49.8190178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Environment\Tree\Tree1_Dead.png</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Tree\Tree1_Dead.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Environment\Tree\Tree1_Dead.xnb</Output>
+      <Time>2014-08-15T19:10:49.8200178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Gras.png</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Gras.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Gras.xnb</Output>
+      <Time>2014-08-15T19:10:49.8210178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Wall.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Wall.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Wall.xnb</Output>
+      <Time>2014-08-15T19:10:49.8280178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer2\Dirt.png</Source>
@@ -70,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer2\Dirt.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer2\Dirt.xnb</Output>
+      <Time>2014-08-15T19:10:49.8290178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer2\Gras.png</Source>
@@ -79,8 +79,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer2\Gras.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer2\Gras.xnb</Output>
+      <Time>2014-08-15T19:10:49.8290178+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Char1_Small.png</Source>
@@ -88,8 +88,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Char1_Small.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Char1_Small.xnb</Output>
+      <Time>2014-06-01T17:12:36.1630363+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Char1_Small_Attack.png</Source>
@@ -97,8 +97,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Char1_Small_Attack.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Char1_Small_Attack.xnb</Output>
+      <Time>2014-06-01T17:12:36.1640363+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\HumanFemale1.png</Source>
@@ -106,8 +106,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\HumanFemale1.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\HumanFemale1.xnb</Output>
+      <Time>2014-06-01T17:12:36.1650363+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Lifebar.png</Source>
@@ -115,8 +115,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Lifebar.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Lifebar.xnb</Output>
+      <Time>2014-06-01T17:12:36.1650363+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Shadow.png</Source>
@@ -124,8 +124,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Shadow.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Shadow.xnb</Output>
+      <Time>2014-06-01T17:12:36.1660363+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Cloth1.png</Source>
@@ -133,8 +133,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Cloth1.xnb</Output>
-      <Time>2014-07-06T17:26:24.0860043+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Cloth1.xnb</Output>
+      <Time>2014-07-20T18:20:50.7784226+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\GoldCoin.png</Source>
@@ -142,8 +142,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\GoldCoin.xnb</Output>
-      <Time>2014-07-14T17:56:24.6137062+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\GoldCoin.xnb</Output>
+      <Time>2014-07-20T18:20:50.7794226+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Button.png</Source>
@@ -151,8 +151,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Button.xnb</Output>
-      <Time>2014-07-21T22:52:07.1913784+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Button.xnb</Output>
+      <Time>2014-07-21T23:03:21.940626+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\TextField.png</Source>
@@ -160,8 +160,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\TextField.xnb</Output>
-      <Time>2014-07-21T22:59:37.2307474+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\TextField.xnb</Output>
+      <Time>2014-07-21T23:03:21.941626+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Background.png</Source>
@@ -169,8 +169,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Background.xnb</Output>
-      <Time>2014-07-21T23:21:12.0389273+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Background.xnb</Output>
+      <Time>2014-07-21T23:40:17.125626+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Button_Hover.png</Source>
@@ -178,8 +178,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Button_Hover.xnb</Output>
-      <Time>2014-07-23T17:27:53.6474943+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Button_Hover.xnb</Output>
+      <Time>2014-07-29T20:27:58.237+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Button_Pressed.png</Source>
@@ -187,8 +187,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Button_Pressed.xnb</Output>
-      <Time>2014-07-23T17:31:32.0009693+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Button_Pressed.xnb</Output>
+      <Time>2014-07-29T20:27:58.238+02:00</Time>
     </Item>
     <Item>
       <Source>Particle\circle.png</Source>
@@ -196,8 +196,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Particle\circle.xnb</Output>
-      <Time>2014-07-23T17:41:53.8425765+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Particle\circle.xnb</Output>
+      <Time>2014-07-29T20:27:58.25+02:00</Time>
     </Item>
     <Item>
       <Source>Particle\diamond.png</Source>
@@ -205,8 +205,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Particle\diamond.xnb</Output>
-      <Time>2014-07-23T17:41:53.8445766+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Particle\diamond.xnb</Output>
+      <Time>2014-07-29T20:27:58.25+02:00</Time>
     </Item>
     <Item>
       <Source>Particle\star.png</Source>
@@ -214,8 +214,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Particle\star.xnb</Output>
-      <Time>2014-07-23T17:41:53.8285757+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Particle\star.xnb</Output>
+      <Time>2014-07-29T20:27:58.251+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Menu\CharacterCreation\Background.png</Source>
@@ -223,8 +223,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\Background.xnb</Output>
-      <Time>2014-07-24T12:02:24.5712517+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\Background.xnb</Output>
+      <Time>2014-07-29T20:27:58.247+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Menu\CharacterCreation\Plattform.png</Source>
@@ -232,8 +232,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\Plattform.xnb</Output>
-      <Time>2014-07-24T12:04:40.2184426+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\Plattform.xnb</Output>
+      <Time>2014-07-29T20:27:58.248+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Char1_Big.png</Source>
@@ -241,8 +241,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Char1_Big.xnb</Output>
-      <Time>2014-07-28T12:11:34.9918731+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Char1_Big.xnb</Output>
+      <Time>2014-07-29T20:27:58.249+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Menu\GameSurface\Health.png</Source>
@@ -250,8 +250,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Health.xnb</Output>
-      <Time>2014-07-29T22:13:40.4558965+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Health.xnb</Output>
+      <Time>2014-07-29T22:44:19.7666+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Menu\GameSurface\Interface.png</Source>
@@ -259,8 +259,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Interface.xnb</Output>
-      <Time>2014-07-29T22:13:40.4458965+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Interface.xnb</Output>
+      <Time>2014-07-29T22:44:19.7676+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Menu\GameSurface\Mana.png</Source>
@@ -268,8 +268,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Mana.xnb</Output>
-      <Time>2014-07-29T22:13:40.4258965+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\GameSurface\Mana.xnb</Output>
+      <Time>2014-07-29T22:44:19.7686+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\CreatureState.png</Source>
@@ -277,8 +277,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\CreatureState.xnb</Output>
-      <Time>2014-07-30T15:01:37.3422176+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\CreatureState.xnb</Output>
+      <Time>2014-08-15T19:10:49.8100178+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Menu\Inventory\InventoryButton.png</Source>
@@ -286,8 +286,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryButton.xnb</Output>
-      <Time>2014-08-03T13:14:43.8009837+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryButton.xnb</Output>
+      <Time>2014-08-15T19:10:49.8080178+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Menu\Inventory\InventoryItemSpace.png</Source>
@@ -295,8 +295,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryItemSpace.xnb</Output>
-      <Time>2014-08-03T13:14:43.8009837+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryItemSpace.xnb</Output>
+      <Time>2014-08-15T19:10:49.8090178+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Item\Small\Cloth1.png</Source>
@@ -304,8 +304,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Item\Small\Cloth1.xnb</Output>
-      <Time>2014-08-05T19:50:02.6238676+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Item\Small\Cloth1.xnb</Output>
+      <Time>2014-08-15T19:10:49.8110178+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Item\Small\Sword1.png</Source>
@@ -313,8 +313,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Item\Small\Sword1.xnb</Output>
-      <Time>2014-08-05T19:50:02.6038676+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Item\Small\Sword1.xnb</Output>
+      <Time>2014-08-15T19:10:49.8120178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Snowland\Block\Layer1\Snow.png</Source>
@@ -322,8 +322,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Layer1\Snow.xnb</Output>
-      <Time>2014-08-06T18:32:31.4154677+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Layer1\Snow.xnb</Output>
+      <Time>2014-08-15T19:10:49.8320178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Snowland\Block\Layer2\Dirt.png</Source>
@@ -331,8 +331,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Layer2\Dirt.xnb</Output>
-      <Time>2014-08-06T18:34:05.2964326+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Layer2\Dirt.xnb</Output>
+      <Time>2014-08-15T19:10:49.8330178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Snowland\Block\Layer2\Gras.png</Source>
@@ -340,8 +340,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Layer2\Gras.xnb</Output>
-      <Time>2014-08-06T18:34:05.2808325+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Layer2\Gras.xnb</Output>
+      <Time>2014-08-15T19:10:49.8370178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Snowland\Block\Environment\Tree\Tree1.png</Source>
@@ -349,8 +349,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Environment\Tree\Tree1.xnb</Output>
-      <Time>2014-08-06T18:35:53.3216642+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Snowland\Block\Environment\Tree\Tree1.xnb</Output>
+      <Time>2014-08-15T19:10:49.8310178+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Menu\Inventory\InventoryMenu.png</Source>
@@ -358,8 +358,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryMenu.xnb</Output>
-      <Time>2014-08-14T11:33:43.7500331+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\Inventory\InventoryMenu.xnb</Output>
+      <Time>2014-08-15T19:10:49.8100178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_Bottom.png</Source>
@@ -367,8 +367,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Bottom.xnb</Output>
-      <Time>2014-08-15T16:10:40.9268709+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Bottom.xnb</Output>
+      <Time>2014-08-15T19:10:49.8220178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_Center.png</Source>
@@ -376,8 +376,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Center.xnb</Output>
-      <Time>2014-08-15T16:10:40.9268709+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Center.xnb</Output>
+      <Time>2014-08-15T19:10:49.8220178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner1.png</Source>
@@ -385,8 +385,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner1.xnb</Output>
-      <Time>2014-08-15T16:10:40.9268709+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner1.xnb</Output>
+      <Time>2014-08-15T19:10:49.8230178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner2.png</Source>
@@ -394,8 +394,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner2.xnb</Output>
-      <Time>2014-08-15T16:10:40.9268709+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner2.xnb</Output>
+      <Time>2014-08-15T19:10:49.8230178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner3.png</Source>
@@ -403,8 +403,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner3.xnb</Output>
-      <Time>2014-08-15T16:10:40.9268709+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner3.xnb</Output>
+      <Time>2014-08-15T19:10:49.8240178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner4.png</Source>
@@ -412,8 +412,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner4.xnb</Output>
-      <Time>2014-08-15T16:10:40.9368709+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner4.xnb</Output>
+      <Time>2014-08-15T19:10:49.8240178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_Left.png</Source>
@@ -421,8 +421,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Left.xnb</Output>
-      <Time>2014-08-15T16:10:40.9368709+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Left.xnb</Output>
+      <Time>2014-08-15T19:10:49.8270178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_Right.png</Source>
@@ -430,8 +430,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Right.xnb</Output>
-      <Time>2014-08-15T16:10:40.9368709+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Right.xnb</Output>
+      <Time>2014-08-15T19:10:49.8270178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_Top.png</Source>
@@ -439,8 +439,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Top.xnb</Output>
-      <Time>2014-08-15T16:10:40.9368709+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_Top.xnb</Output>
+      <Time>2014-08-15T19:10:49.8270178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner1.png</Source>
@@ -448,8 +448,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner1.xnb</Output>
-      <Time>2014-08-15T17:24:32.4547098+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner1.xnb</Output>
+      <Time>2014-08-15T19:10:49.8250178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner2.png</Source>
@@ -457,8 +457,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner2.xnb</Output>
-      <Time>2014-08-15T17:24:32.4647098+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner2.xnb</Output>
+      <Time>2014-08-15T19:10:49.8250178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner3.png</Source>
@@ -466,8 +466,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner3.xnb</Output>
-      <Time>2014-08-15T17:24:31.8947091+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner3.xnb</Output>
+      <Time>2014-08-15T19:10:49.8260178+02:00</Time>
     </Item>
     <Item>
       <Source>Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner4.png</Source>
@@ -475,8 +475,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner4.xnb</Output>
-      <Time>2014-08-15T17:24:32.4147098+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner4.xnb</Output>
+      <Time>2014-08-15T19:10:49.8260178+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Ogre1.png</Source>
@@ -484,8 +484,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Ogre1.xnb</Output>
-      <Time>2014-08-15T21:05:21.3317391+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Ogre1.xnb</Output>
+      <Time>2014-08-15T22:13:19.0508178+02:00</Time>
     </Item>
     <Item>
       <Source>Gui\Menu\CharacterCreation\ColorField.png</Source>
@@ -493,8 +493,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\ColorField.xnb</Output>
-      <Time>2014-08-16T15:42:05.383912+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Gui\Menu\CharacterCreation\ColorField.xnb</Output>
+      <Time>2014-08-17T20:40:31.8021442+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\BodyMale.png</Source>
@@ -502,8 +502,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\BodyMale.xnb</Output>
-      <Time>2014-08-17T14:16:40.1332651+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\BodyMale.xnb</Output>
+      <Time>2014-08-17T20:40:31.8071442+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\BodyFemale.png</Source>
@@ -511,8 +511,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\BodyFemale.xnb</Output>
-      <Time>2014-08-17T15:12:54.5210825+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\BodyFemale.xnb</Output>
+      <Time>2014-08-17T20:40:31.8031442+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\GoldenArmor.png</Source>
@@ -520,8 +520,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\GoldenArmor.xnb</Output>
-      <Time>2014-08-17T15:31:28.667591+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\GoldenArmor.xnb</Output>
+      <Time>2014-08-17T20:40:31.8081442+02:00</Time>
     </Item>
     <Item>
       <Source>Object\Character\Sword.png</Source>
@@ -529,8 +529,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Sword.xnb</Output>
-      <Time>2014-08-17T15:46:07.7296294+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\Sword.xnb</Output>
+      <Time>2014-08-17T20:40:31.8091442+02:00</Time>
     </Item>
     <Item>
       <Source>Font\Arial.spritefont</Source>
@@ -538,8 +538,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
-      <Time>2014-06-12T17:38:48.8006555+02:00</Time>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Font\Arial.xnb</Output>
+      <Time>2014-06-01T17:12:36.1620363+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -547,39 +547,39 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>D:\Programmieren\Projekte\Github\2DWorld\Client\ClientContent\</RootDirectory>
-      <LoggerRootDirectory>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\Programmieren\Projekte\Github\2DWorld\Client\ClientContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\ClientContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\ClientContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Key>c:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Key>c:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Key>c:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Key>c:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Key>c:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Key>c:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2012-11-04T16:08:38.9272236+01:00</Value>
+        <Value>2014-06-01T17:04:22.0720363+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
