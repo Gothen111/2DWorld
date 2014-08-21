@@ -213,20 +213,27 @@ namespace GameLibrary.Model.Map.World
         {
             Util.Circle circle = new Util.Circle(_Position, _Range);
             List<Object.Object> result = new List<Object.Object>();
-            Rectangle surroundingRectangle = new Rectangle((int)(circle.Position.X - circle.Radius), (int)(circle.Position.Y - circle.Radius), (int)(circle.Radius * 2), (int)(circle.Radius * 2));
-
-            getObjectsInRange(surroundingRectangle, currentNode/*this.quadTreeObject.Root*/, result, _SearchFlags);
-            List<Object.Object> toRemove = new List<Object.Object>();
-            foreach (Object.Object var_Object in result)
+            if (currentNode != null)
             {
-                if (Vector3.Distance(var_Object.Position, _Position) > _Range) //TODO: Mit CollisionBounds berechnen, ob Object im Kreis liegt
+                Rectangle surroundingRectangle = new Rectangle((int)(circle.Position.X - circle.Radius), (int)(circle.Position.Y - circle.Radius), (int)(circle.Radius * 2), (int)(circle.Radius * 2));
+
+                getObjectsInRange(surroundingRectangle, currentNode/*this.quadTreeObject.Root*/, result, _SearchFlags);
+                List<Object.Object> toRemove = new List<Object.Object>();
+                foreach (Object.Object var_Object in result)
                 {
-                    toRemove.Add(var_Object);
+                    if (Vector3.Distance(var_Object.Position, _Position) > _Range) //TODO: Mit CollisionBounds berechnen, ob Object im Kreis liegt
+                    {
+                        toRemove.Add(var_Object);
+                    }
+                }
+                foreach (Object.Object var_Object in toRemove)
+                {
+                    result.Remove(var_Object);
                 }
             }
-            foreach (Object.Object var_Object in toRemove)
+            else
             {
-                result.Remove(var_Object);
+                Logger.Logger.LogErr("getObjectsInRage(currentNode ist null, wahrscheinlich Root eines Quadtrees");
             }
             return result;
         }

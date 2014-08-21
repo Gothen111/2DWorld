@@ -10,6 +10,9 @@ using Microsoft.Xna.Framework;
 using GameLibrary.Gui;
 using GameLibrary.Model.Object;
 
+
+using System.Reflection;
+
 namespace GameLibrary.Gui.Menu
 {
 	public class CharacterMenu : Container
@@ -57,8 +60,16 @@ namespace GameLibrary.Gui.Menu
 
             for (int i = 0; i < var_Names.Length; i++)
             {
-                PlayerObject var_PlayerObject = (PlayerObject) Util.Serializer.DeSerializeObject(var_Names[i]);
-                _CharactersList.Add(var_PlayerObject);
+                try
+                {
+                    PlayerObject var_PlayerObject = (PlayerObject)Util.Serializer.DeSerializeObject(var_Names[i]);
+                    _CharactersList.Add(var_PlayerObject);
+                }
+                catch (TargetInvocationException e)
+                {
+                    //TODO: Soll veraltete Player-Datei gelöscht werden oder konvertiert, o.ä.?!
+                    File.Delete(var_Names[i]);
+                }
             }
         }
 

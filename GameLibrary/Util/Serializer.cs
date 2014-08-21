@@ -11,22 +11,27 @@ namespace GameLibrary.Util
     {
         public static void SerializeObject(string filename, ISerializable objectToSerialize)
         {
-            Stream stream = File.Open(filename, FileMode.Create);
-            var gZipStream = new GZipStream(stream, CompressionMode.Compress);
-
-            BinaryFormatter bFormatter = new BinaryFormatter();
-            bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
-            stream.Close();
+            using (Stream stream = File.Open(filename, FileMode.Create))
+            {
+                using (var gZipStream = new GZipStream(stream, CompressionMode.Compress))
+                {
+                    BinaryFormatter bFormatter = new BinaryFormatter();
+                    bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
+                }
+            }
         }
 
         public static ISerializable DeSerializeObject(string filename)
         {
             ISerializable objectToSerialize;
-            Stream stream = File.Open(filename, FileMode.Open);
-            var gZipStream = new GZipStream(stream, CompressionMode.Decompress);
-            BinaryFormatter bFormatter = new BinaryFormatter();
-            objectToSerialize = (ISerializable)bFormatter.Deserialize(gZipStream.BaseStream);
-            stream.Close();
+            using (Stream stream = File.Open(filename, FileMode.Open))
+            {
+                using (var gZipStream = new GZipStream(stream, CompressionMode.Decompress))
+                {
+                    BinaryFormatter bFormatter = new BinaryFormatter();
+                    objectToSerialize = (ISerializable)bFormatter.Deserialize(gZipStream.BaseStream);
+                }
+            }
             return objectToSerialize;
         }
 
