@@ -83,15 +83,7 @@ namespace GameLibrary.Gui
 
         private void itemDropedIn(ItemObject _ItemObject)
         {
-            //TODO: Gucke ob Item aus anderem Equipment slot kommt
-            if (_ItemObject.PositionInInventory != -1)
-            {
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureInventoryToEquipmentMessage(this.inventoryOwner.Id, _ItemObject.PositionInInventory, this.fieldId), GameMessageImportance.VeryImportant));
-        
-                //this.inventoryOwner.setItemFromInventoryToEquipment(_ItemObject);
-            }
-            //this.inventoryOwner.Inventory.itemDropedInInventory(inventoryOwner, _ItemObject, this.fieldId);
-            //this.inventoryOwner.Inventory.InventoryChanged = true;
+            this.inventoryOwner.guiSetItemToEquipment(_ItemObject, this.fieldId);
         }
 
         public override bool componentIsDropedIn(Component _Component)

@@ -111,6 +111,7 @@ namespace GameLibrary.Model.Object.Body
             this.position = (Vector3)info.GetValue("position", typeof(Vector3));
             this.color = (Color)info.GetValue("color", typeof(Color));
             this.texturePath = (String)info.GetValue("texturePath", typeof(String));
+            this.standartTextureShift = (Vector2)info.GetValue("standartTextureShift", typeof(Vector2));
             this.scale = (float)info.GetValue("scale", typeof(float));
             this.size = (Vector3)info.GetValue("size", typeof(Vector3));
             this.equipment = (EquipmentObject)info.GetValue("equipment", typeof(EquipmentObject));
@@ -124,6 +125,7 @@ namespace GameLibrary.Model.Object.Body
             info.AddValue("position", this.position, typeof(Vector3));
             info.AddValue("color", this.color, typeof(Color));
             info.AddValue("texturePath", this.texturePath, typeof(String));
+            info.AddValue("standartTextureShift", this.standartTextureShift, typeof(Vector2));
             info.AddValue("scale", this.scale, typeof(float));
             info.AddValue("size", this.size, typeof(Vector3));
             info.AddValue("equipment", this.equipment, typeof(EquipmentObject));
@@ -133,6 +135,10 @@ namespace GameLibrary.Model.Object.Body
         public virtual void update()
         {
             this.animation.update();
+            if (this.equipment != null)
+            {
+                this.equipment.update();
+            }
         }
 
         public virtual bool setEquipmentObject(EquipmentObject _EquipmentObject)
@@ -147,6 +153,14 @@ namespace GameLibrary.Model.Object.Body
                 return true;
             }
         }
+
+        /*public void setAnimation(Animation.AnimatedObjectAnimation _Animation)
+        {
+            this.animation = _Animation;
+            if(this.equipment!=null)
+            {
+                this.equipment.A
+        }*/
 
         private void drawEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector2 _BodyCenter)
         {

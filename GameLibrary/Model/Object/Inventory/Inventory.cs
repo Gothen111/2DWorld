@@ -197,6 +197,17 @@ namespace GameLibrary.Model.Object.Inventory
                     //_InventoryOwner.Equipment.Remove((EquipmentObject)_ItemObject);
                     //this.addItemObjectToInventory(_ItemObject);
                 }*/
+                if (_ItemObject is EquipmentObject)
+                {
+                    if (_InventoryOwner.Body.containsEquipmentObject((EquipmentObject)_ItemObject))
+                    {
+                        Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureEquipmentToInventoryMessage(_InventoryOwner.Id, _ItemObject.PositionInInventory, _NewPosition), GameMessageImportance.VeryImportant));
+                    }
+                    else
+                    {
+                        //_InventoryOwner enthält das Equip nicht im Body. Kommt woanders her!
+                    }
+                }
             }
         }
 

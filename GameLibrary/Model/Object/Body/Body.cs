@@ -78,9 +78,35 @@ namespace GameLibrary.Model.Object.Body
             }
         }
 
-        public virtual void attack()
+        public Equipment.EquipmentWeapon attack()
         {
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                if (var_BodyPart.Equipment != null)
+                {
+                    if (var_BodyPart.Equipment is Equipment.EquipmentWeapon)
+                    {
+                        return (Equipment.EquipmentWeapon)var_BodyPart.Equipment;
+                    }
+                }
+            }
+            return null;
+        }
 
+        public int getDefence()
+        {
+            int var_Result = 1;
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                if (var_BodyPart.Equipment != null)
+                {
+                    if (var_BodyPart.Equipment is Equipment.EquipmentArmor)
+                    {
+                        var_Result += ((Equipment.EquipmentArmor)var_BodyPart.Equipment).NormalArmor;
+                    }
+                }
+            }
+            return var_Result;
         }
 
         public virtual void setDirection(DirectionEnum _Direction)
@@ -103,6 +129,18 @@ namespace GameLibrary.Model.Object.Body
             return null;
         }
 
+        public virtual bool containsEquipmentObject(EquipmentObject _EquipmentObject)
+        {
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                if (var_BodyPart.Equipment == _EquipmentObject)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public virtual bool setEquipmentObject(EquipmentObject _EquipmentObject)
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
@@ -119,10 +157,13 @@ namespace GameLibrary.Model.Object.Body
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
-                if (var_BodyPart.Equipment.Equals(_EquipmentObject))
+                if(var_BodyPart.Equipment!=null)
                 {
-                    var_BodyPart.Equipment = null;
-                    return true;
+                    if (var_BodyPart.Equipment.Equals(_EquipmentObject))
+                    {
+                        var_BodyPart.Equipment = null;
+                        return true;
+                    }
                 }
             }
             return false;

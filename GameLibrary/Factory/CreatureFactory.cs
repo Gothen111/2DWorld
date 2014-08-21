@@ -118,6 +118,17 @@ namespace GameLibrary.Factory
             npcObject.Tasks.Add(new Model.Object.Task.Tasks.AttackRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Attack_Random));
             //npcObject.Tasks.Add(new Model.Object.Task.Tasks.WalkRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Walk_Random));
 
+            EquipmentObject var_EquipmentObject_Armor = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.Chest);
+            var_EquipmentObject_Armor.PositionInInventory = 0;
+
+            npcObject.Body.setEquipmentObject(var_EquipmentObject_Armor);
+
+            EquipmentObject var_EquipmentObject_Sword = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword);
+            var_EquipmentObject_Sword.PositionInInventory = 1;
+
+            npcObject.Body.setEquipmentObject(var_EquipmentObject_Sword);
+
+
             return npcObject;
         }
     }

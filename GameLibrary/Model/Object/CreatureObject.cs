@@ -20,13 +20,6 @@ namespace GameLibrary.Model.Object
             set { inventory = value; }
         }
 
-        /*private List<EquipmentObject> equipment;
-
-        public List<EquipmentObject> Equipment
-        {
-            get { return equipment; }
-            set { equipment = value; }
-        }*/
         //protected Armor armor;
         //protected Skill skill;
         private String name;
@@ -60,31 +53,7 @@ namespace GameLibrary.Model.Object
         public override void update()
         {
             base.update();
-            //updateEquippment();
         }
-
-        /*public void updateEquippment()
-        {
-            if (this.equipment != null)
-            {
-                foreach (EquipmentObject var_EquipmentObject in this.equipment)
-                {
-                    if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentWeapon)
-                    {
-                        ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject).update();
-                    }
-                }
-            }
-            else
-            {
-                this.equipment = new List<EquipmentObject>();
-            }
-        }*/
-
-        /*public void addEquipmentObject(EquipmentObject _EquipmentObject)
-        {
-            this.equipment.Add(_EquipmentObject);
-        }*/
 
         public override void attack()
         {
@@ -109,7 +78,7 @@ namespace GameLibrary.Model.Object
 
         public void swingWeapon(Equipment.Attack.AttackType _AttackType)
         {
-            GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = null;// this.getWeaponInHand();
+            GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = this.Body.attack();//null;// this.getWeaponInHand();
             if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady(_AttackType))
 	    {
                 List<Object> var_Objects = GameLibrary.Model.Map.World.World.world.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.getAttack(_AttackType).Range, var_EquipmentWeaponForAttack.SearchFlags);
@@ -154,6 +123,9 @@ namespace GameLibrary.Model.Object
                     _DamageAmount = _DamageAmount / ((float)((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentArmor).NormalArmor);
                 }
             }*/
+
+            _DamageAmount = _DamageAmount / ((float)this.Body.getDefence());
+
             return _DamageAmount;
         }
 
@@ -165,33 +137,40 @@ namespace GameLibrary.Model.Object
             }
         }
 
+        public void guiSetItemToInventory(ItemObject _ItemObject, int _FieldId)
+        {
+            this.inventory.itemDropedInInventory(this, _ItemObject, _FieldId);
+            this.inventory.InventoryChanged = true;
+        }
+
         public void setItemFromEquipmentToInventory(int _EquipmentPosition, int _InventoryPosition)
         {
             EquipmentObject var_ToRemove = this.Body.getEquipmentAt(_EquipmentPosition);
-            /*foreach (EquipmentObject var_EquipmentObject in this.equipment)
-            {
-                if (var_EquipmentObject.PositionInInventory == _EquipmentPosition)
-                {
-                    if (this.inventory.addItemObjectToInventoryAt(var_EquipmentObject, _InventoryPosition))
-                    {
-                        var_ToRemove = var_EquipmentObject;
-                    }
-                }
-            }*/
-
             if (this.inventory.addItemObjectToInventoryAt(var_ToRemove, _InventoryPosition))
             {
                 this.Body.removeEquipment(var_ToRemove);
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateAnimatedObjectBodyMessage(this.Id, this.Body), GameMessageImportance.VeryImportant));                    
             }
+        }
 
-            /*if (var_ToRemove != null)
+        public void guiSetItemToEquipment(ItemObject _ItemObject, int _FieldId)
+        {
+            if (_ItemObject.PositionInInventory != -1)
             {
-                this.equipment.Remove(var_ToRemove);
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureEquipmentMessage(this.Id, this), GameMessageImportance.VeryImportant));                    
-            }*/
+                if(this.inventory.Items.Contains(_ItemObject))
+                {
+                    Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureInventoryToEquipmentMessage(this.Id, _ItemObject.PositionInInventory, _FieldId), GameMessageImportance.VeryImportant));
+                }
+                else
+                {
+                    //Kommt nicht aus dem Inventar, sondern woadners he. Aus anderem Inv., ode Equip.
+                }
+            }
+            else
+            {
+                // Kommt aus der world ;)
+            }
         }
 
         public void setItemFromInventoryToEquipment(int _InventoryPosition, int _EquipmentPosition)
@@ -204,6 +183,7 @@ namespace GameLibrary.Model.Object
                     if (var_ItemObject is EquipmentObject)
                     {
                         //this.equipment.Add((EquipmentObject)var_ItemObject);
+                        var_ItemObject.PositionInInventory = _EquipmentPosition;
                         this.Body.setEquipmentObject((EquipmentObject)var_ItemObject);
                         var_ToRemove = var_ItemObject;
                     }

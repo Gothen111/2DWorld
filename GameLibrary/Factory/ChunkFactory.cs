@@ -40,10 +40,10 @@ namespace GameLibrary.Factory
             this.fillChunkWithBlock(var_Result, BlockEnum.Ground1);
 
             var_Result.setAllNeighboursOfBlocks();
-            //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
+            generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             generateSecondLayer(var_Result, _Layer);
             generateFlowers(var_Result);
-            //generateTrees(var_Result);
+            generateTrees(var_Result);
             //generateWall(var_Result);
             //if (var_Result.Id == 0)
             //{
@@ -314,7 +314,7 @@ namespace GameLibrary.Factory
             int var_Count = 20;
             for (int i = 0; i < var_Count; i++)
             {
-                GameLibrary.Model.Object.NpcObject var_NpcObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Beerdrinker, CreatureEnum.Archer, GenderEnum.Female);
+                GameLibrary.Model.Object.NpcObject var_NpcObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Beerdrinker, CreatureEnum.Archer, GenderEnum.Male);
 
                 int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
                 int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);

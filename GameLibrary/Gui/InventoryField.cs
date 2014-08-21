@@ -71,8 +71,9 @@ namespace GameLibrary.Gui
 
         private void itemDropedIn(ItemObject _ItemObject)
         {
-            this.inventoryOwner.Inventory.itemDropedInInventory(inventoryOwner, _ItemObject, this.fieldId);
-            this.inventoryOwner.Inventory.InventoryChanged = true;
+            this.inventoryOwner.guiSetItemToInventory(_ItemObject, this.fieldId);
+            //this.inventoryOwner.Inventory.itemDropedInInventory(inventoryOwner, _ItemObject, this.fieldId);
+            //this.inventoryOwner.Inventory.InventoryChanged = true;
         }
 
         public override bool componentIsDropedIn(Component _Component)

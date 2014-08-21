@@ -28,7 +28,7 @@ namespace GameLibrary.Factory
             {
                 case ItemEnum.GoldCoin:
                     {
-                        //var_ItemObject.GraphicPath = "Character/GoldCoin";
+                        var_ItemObject.Body.MainBody.TexturePath = "Character/GoldCoin";
                         var_ItemObject.ItemIconGraphicPath = "Character/GoldCoin";
                         var_ItemObject.Size = new Microsoft.Xna.Framework.Vector3(16, 16, 0);
                         var_ItemObject.StackMax = 5;
