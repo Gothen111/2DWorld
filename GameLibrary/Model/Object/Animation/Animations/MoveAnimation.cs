@@ -24,6 +24,7 @@ namespace GameLibrary.Model.Object.Animation.Animations
         {
             this.currentFrame = 0;
             this.velocity = _Velocity;
+            //Console.WriteLine("NewMove");
         }
 
         public override void update()
@@ -45,7 +46,10 @@ namespace GameLibrary.Model.Object.Animation.Animations
                 {
                     var_Speed = 1;
                 }
-                this.Animation = (int)(this.AnimationMax / var_Speed / 1.8f);
+
+                //Console.WriteLine(this.currentFrame);
+
+                this.Animation = (int)(this.AnimationMax / var_Speed * (this.BodyPart.Size.Y/35));
             }
         }
 

@@ -35,6 +35,7 @@ namespace GameLibrary.Factory
                         playerObject.Body = new BodyHuman();
                         ((BodyHuman)playerObject.Body).MainBody.TexturePath = "Character/Ogre1";
                         playerObject.Size = new Vector3(80, 96, 0);
+                        playerObject.Body.setSize(new Vector3(80, 96, 0));
                         //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
                         break;
                     }
@@ -50,20 +51,23 @@ namespace GameLibrary.Factory
                                 ((BodyHuman)playerObject.Body).MainBody.TexturePath = "Character/BodyFemale";
                                 break;
                         }
+
+                        ((BodyHuman)playerObject.Body).Hair.TexturePath = "Character/Hair1";
+
+                        EquipmentObject var_EquipmentObject_Armor = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.GoldenArmor);
+                        var_EquipmentObject_Armor.PositionInInventory = 0;
+
+                        playerObject.Body.setEquipmentObject(var_EquipmentObject_Armor);
+
+                        EquipmentObject var_EquipmentObject_Sword = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword);
+                        var_EquipmentObject_Sword.PositionInInventory = 1;
+
+                        playerObject.Body.setEquipmentObject(var_EquipmentObject_Sword);
+
                         break;
                     }
             }
 
-            EquipmentObject var_EquipmentObject_Armor = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.GoldenArmor);
-            var_EquipmentObject_Armor.PositionInInventory = 0;
-
-            playerObject.Body.setEquipmentObject(var_EquipmentObject_Armor);
-
-            EquipmentObject var_EquipmentObject_Sword = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword);
-            var_EquipmentObject_Sword.PositionInInventory = 1;
-
-            playerObject.Body.setEquipmentObject(var_EquipmentObject_Sword);
-           
             return playerObject;
         }
 
@@ -76,7 +80,7 @@ namespace GameLibrary.Factory
             playerObject.Race = _PlayerObject.Race;
             playerObject.Gender = _PlayerObject.Gender;
             playerObject.Name = _PlayerObject.Name;
-            playerObject.ObjectDrawColor = _PlayerObject.ObjectDrawColor;
+            playerObject.Body.setColor(_PlayerObject.Body.BodyColor);
 
             return playerObject;
         }
@@ -97,6 +101,7 @@ namespace GameLibrary.Factory
                         npcObject.Body = new BodyHuman();
                         ((BodyHuman)npcObject.Body).MainBody.TexturePath = "Character/Ogre1";
                         npcObject.Size = new Vector3(80, 96, 0);
+                        npcObject.Body.setSize(new Vector3(80, 96, 0));
                         //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
                         break;
                     }
@@ -112,22 +117,22 @@ namespace GameLibrary.Factory
                                 ((BodyHuman)npcObject.Body).MainBody.TexturePath = "Character/BodyFemale";
                                 break;
                         }
+
+                        EquipmentObject var_EquipmentObject_Armor = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.Chest);
+                        var_EquipmentObject_Armor.PositionInInventory = 0;
+
+                        npcObject.Body.setEquipmentObject(var_EquipmentObject_Armor);
+
+                        EquipmentObject var_EquipmentObject_Sword = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword);
+                        var_EquipmentObject_Sword.PositionInInventory = 1;
+
+                        npcObject.Body.setEquipmentObject(var_EquipmentObject_Sword);
+
                         break;
                     }
             }
             npcObject.Tasks.Add(new Model.Object.Task.Tasks.AttackRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Attack_Random));
             //npcObject.Tasks.Add(new Model.Object.Task.Tasks.WalkRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Walk_Random));
-
-            EquipmentObject var_EquipmentObject_Armor = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.Chest);
-            var_EquipmentObject_Armor.PositionInInventory = 0;
-
-            npcObject.Body.setEquipmentObject(var_EquipmentObject_Armor);
-
-            EquipmentObject var_EquipmentObject_Sword = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword);
-            var_EquipmentObject_Sword.PositionInInventory = 1;
-
-            npcObject.Body.setEquipmentObject(var_EquipmentObject_Sword);
-
 
             return npcObject;
         }

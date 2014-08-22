@@ -42,12 +42,12 @@ namespace GameLibrary.Factory
             var_Result.setAllNeighboursOfBlocks();
             generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             generateSecondLayer(var_Result, _Layer);
-            generateFlowers(var_Result);
-            generateTrees(var_Result);
+            //generateFlowers(var_Result);
+            //generateTrees(var_Result);
             //generateWall(var_Result);
             //if (var_Result.Id == 0)
             //{
-                generateNpc(var_Result);
+                //generateNpc(var_Result);
                 //generateHeightMap(var_Result);
             //}
 
@@ -66,7 +66,7 @@ namespace GameLibrary.Factory
 
             var_Result.setAllNeighboursOfBlocks();
             //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
-            //generateSecondLayer(var_Result, _Layer);
+            generateSecondLayer(var_Result, _Layer);
             //generateFlowers(var_Result);
             //generateTrees(var_Result);
             //generateWall(var_Result);

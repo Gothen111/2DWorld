@@ -20,5 +20,19 @@ namespace GameLibrary.Model.Object.Animation.Animations
         {
 
         }
+
+        //TODO: Problem, man braucht wahrscheinlich 2 standanimationenne, einmal fpü enviomnet und einmal für creature...
+        /*
+        public override Rectangle sourceRectangle()
+        {
+            if (this.BodyPart.StandartTextureShift.X != 0)
+            {
+                return base.sourceRectangle();
+            }
+            else
+            {
+                return new Rectangle((int)this.BodyPart.Size.X, this.directionDrawY() * (int)this.BodyPart.Size.Y, (int)this.BodyPart.Size.X, (int)this.BodyPart.Size.Y);
+            }      
+        }*/
     }
 }

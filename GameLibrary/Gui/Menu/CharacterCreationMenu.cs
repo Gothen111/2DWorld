@@ -40,10 +40,12 @@ namespace GameLibrary.Gui.Menu
 
             this.createCharacter(Factory.FactoryEnums.GenderEnum.Male);
 
-            this.characterComponent = new Component(new Rectangle(350, 100, 96, 128));//new Component(new Rectangle(320, 50, 170, 190));
-            //this.characterComponent.BackgroundGraphicPath = this.playerObject.GraphicPath;//"Character/BodyMale";//"Character/Char1_Big";
-            this.add(this.characterComponent);
-
+            /*this.characterComponent = new Component(new Rectangle(350, 100, 96, 128));//new Component(new Rectangle(320, 50, 170, 190));
+            this.characterComponent.BackgroundGraphicPath = this.playerObject.Body.MainBody.TexturePath;//"Character/BodyMale";//"Character/Char1_Big";
+            int var_SizeX = (int)this.playerObject.Body.MainBody.Size.X;
+            int var_SizeY = (int)this.playerObject.Body.MainBody.Size.Y;
+            this.characterComponent.SourceRectangle = new Rectangle(var_SizeX, 0, var_SizeX, var_SizeY);
+            this.add(this.characterComponent);*/
 
             this.bodyColorPicker = new Container(new Rectangle(530, 50, 300, 300));
             this.createColors();
@@ -113,18 +115,20 @@ namespace GameLibrary.Gui.Menu
                 Component var_Top = this.bodyColorPicker.getTopComponent(position);
                 if (var_Top != this.bodyColorPicker)
                 {
-                    this.characterComponent.ComponentColor = var_Top.ComponentColor;
+                    //this.characterComponent.ComponentColor = var_Top.ComponentColor;
                 }
             }
             else
             {
-                this.characterComponent.ComponentColor = this.playerObject.ObjectDrawColor;
+                //this.characterComponent.ComponentColor = this.playerObject.ObjectDrawColor;
             }
         }
 
         private void createCharacter(Factory.FactoryEnums.GenderEnum _GenderEnum)
         {
             this.playerObject = Factory.CreatureFactory.creatureFactory.createPlayerObject(Factory.FactoryEnums.RaceEnum.Human, Factory.FactoryEnums.FactionEnum.Beerdrinker, Factory.FactoryEnums.CreatureEnum.Commandant, _GenderEnum);
+            this.playerObject.Body.stopWalk();
+            this.playerObject.Position = new Vector3(400, 220, 0);
         }
 
         public override void onClick(UserInterface.MouseEnum.MouseEnum mouseButton, Vector2 _MousePosition)
@@ -135,8 +139,8 @@ namespace GameLibrary.Gui.Menu
                 if (this.bodyColorPicker.IsInBounds(_MousePosition))
                 {
                     Component var_Top = this.bodyColorPicker.getTopComponent(_MousePosition);
-                    this.characterComponent.ComponentColor = var_Top.ComponentColor;
-                    this.playerObject.ObjectDrawColor = var_Top.ComponentColor;
+                    //this.characterComponent.ComponentColor = var_Top.ComponentColor;
+                    this.playerObject.Body.setColor(var_Top.ComponentColor);
                 }
             }
         }
@@ -179,6 +183,7 @@ namespace GameLibrary.Gui.Menu
         {
             _SpriteBatch.Begin();
             base.draw(_GraphicsDevice, _SpriteBatch);
+            this.playerObject.draw(_GraphicsDevice, _SpriteBatch, Vector3.Zero, Color.White);
             _SpriteBatch.End();
         }
     }

@@ -48,7 +48,7 @@ namespace GameLibrary.Model.Object.Body
         public BodyHuman()
             : base()
         {
-            this.hair = new BodyPart(2, new Vector3(0, 0, 0), this.BodyColor, "Character/Hair1");  
+            this.hair = new BodyPart(2, new Vector3(0, 0, 0), this.BodyColor, "");  
             this.armLeft = new BodyPart(1, new Vector3(0, 0, 0), this.BodyColor, "");
 
             this.BodyParts.Add(this.hair);

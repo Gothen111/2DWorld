@@ -52,11 +52,13 @@ namespace GameLibrary.Model.Object.Body
             this.bodyParts = new List<BodyPart>();
             this.mainBody = (BodyPart)info.GetValue("mainBody", typeof(BodyPart));
             this.bodyParts.Add(this.mainBody);
+            this.bodyColor = (Color)info.GetValue("bodyColor", typeof(Color));
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("mainBody", this.mainBody, typeof(BodyPart));
+            info.AddValue("bodyColor", this.bodyColor, typeof(Color));
         }
 
         public virtual void stopWalk()
@@ -167,6 +169,23 @@ namespace GameLibrary.Model.Object.Body
                 }
             }
             return false;
+        }
+
+        public virtual void setColor(Color _Color)
+        {
+            this.bodyColor = _Color;
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                var_BodyPart.Color = _Color;
+            }
+        }
+
+        public virtual void setSize(Vector3 _Size)
+        {
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                var_BodyPart.Size = _Size;
+            }
         }
 
         public virtual void update()

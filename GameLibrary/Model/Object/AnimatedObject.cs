@@ -87,14 +87,6 @@ namespace GameLibrary.Model.Object
             set { moveDown = value; }
         }
 
-        private Color objectDrawColor;
-
-        public Color ObjectDrawColor
-        {
-            get { return objectDrawColor; }
-            set { objectDrawColor = value; }
-        }
-
         public AnimatedObject() : base()
         {
             this.body = new Body.Body();
@@ -102,8 +94,6 @@ namespace GameLibrary.Model.Object
             this.Size = new Vector3(32, 32, 0);
 
             this.movementSpeed = 1.0f;
-
-            this.objectDrawColor = Color.White;
         }
 
         public AnimatedObject(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
@@ -114,8 +104,6 @@ namespace GameLibrary.Model.Object
             this.directionEnum = (DirectionEnum)info.GetValue("directionEnum", typeof(DirectionEnum));
 
             this.body = (Body.Body)info.GetValue("body", typeof(Body.Body));
-
-            this.objectDrawColor = (Color)info.GetValue("objectDrawColor", typeof(Color));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -126,8 +114,6 @@ namespace GameLibrary.Model.Object
             info.AddValue("directionEnum", this.directionEnum, typeof(DirectionEnum));
 
             info.AddValue("body", this.body, typeof(Body.Body));
-
-            info.AddValue("objectDrawColor", this.objectDrawColor, typeof(Color));
 
             base.GetObjectData(info, ctxt);
         }
@@ -157,36 +143,39 @@ namespace GameLibrary.Model.Object
             
             Map.Block.Block var_Block = this.CurrentBlock;
 
-            if ((int)var_PositionBlockSizeOld.X < (int)var_PositionBlockSizeNew.X)
+            if (Configuration.Configuration.isHost)
             {
-                var_Block = (Map.Block.Block)this.CurrentBlock.RightNeighbour;
-                if (var_Block == null || !var_Block.IsWalkAble)
+                if ((int)var_PositionBlockSizeOld.X < (int)var_PositionBlockSizeNew.X)
                 {
-                    var_X = 0;
+                    var_Block = (Map.Block.Block)this.CurrentBlock.RightNeighbour;
+                    if (var_Block == null || !var_Block.IsWalkAble)
+                    {
+                        var_X = 0;
+                    }
                 }
-            }
-            else if ((int)var_PositionBlockSizeOld.X > (int)var_PositionBlockSizeNew.X)
-            {
-                var_Block = (Map.Block.Block)this.CurrentBlock.LeftNeighbour;
-                if (var_Block == null || !var_Block.IsWalkAble)
+                else if ((int)var_PositionBlockSizeOld.X > (int)var_PositionBlockSizeNew.X)
                 {
-                    var_X = 0;
+                    var_Block = (Map.Block.Block)this.CurrentBlock.LeftNeighbour;
+                    if (var_Block == null || !var_Block.IsWalkAble)
+                    {
+                        var_X = 0;
+                    }
                 }
-            }
-            if ((int)var_PositionBlockSizeOld.Y < (int)var_PositionBlockSizeNew.Y)
-            {
-                var_Block = (Map.Block.Block)this.CurrentBlock.BottomNeighbour;
-                if (var_Block == null || !var_Block.IsWalkAble)
+                if ((int)var_PositionBlockSizeOld.Y < (int)var_PositionBlockSizeNew.Y)
                 {
-                    var_Y = 0;
+                    var_Block = (Map.Block.Block)this.CurrentBlock.BottomNeighbour;
+                    if (var_Block == null || !var_Block.IsWalkAble)
+                    {
+                        var_Y = 0;
+                    }
                 }
-            }
-            else if ((int)var_PositionBlockSizeOld.Y > (int)var_PositionBlockSizeNew.Y)
-            {
-                var_Block = (Map.Block.Block)this.CurrentBlock.TopNeighbour;
-                if (var_Block == null || !var_Block.IsWalkAble)
+                else if ((int)var_PositionBlockSizeOld.Y > (int)var_PositionBlockSizeNew.Y)
                 {
-                    var_Y = 0;
+                    var_Block = (Map.Block.Block)this.CurrentBlock.TopNeighbour;
+                    if (var_Block == null || !var_Block.IsWalkAble)
+                    {
+                        var_Y = 0;
+                    }
                 }
             }
 

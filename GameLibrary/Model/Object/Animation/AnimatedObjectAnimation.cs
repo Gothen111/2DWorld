@@ -100,9 +100,6 @@ namespace GameLibrary.Model.Object.Animation
 
         public virtual Rectangle sourceRectangle()
         {
-            if (this.bodyPart.StandartTextureShift.X != 0)
-            {
-            }
             return new Rectangle((int)this.bodyPart.StandartTextureShift.X, this.directionDrawY() * (int)this.bodyPart.Size.Y, (int)this.bodyPart.Size.X, (int)this.bodyPart.Size.Y);
         }
     }

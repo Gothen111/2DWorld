@@ -28,8 +28,8 @@ namespace GameLibrary.Factory
                 case EnvironmentEnum.Tree_Normal_1:
                     {
                         environmentObject.Body.MainBody.TexturePath = "Region/" + _RegionEnum.ToString() + "/Block/Environment/Tree/Tree1";
-                        environmentObject.Body.MainBody.Size = new Microsoft.Xna.Framework.Vector3(64, 64, 0);
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(64, 64, 0);
+                        environmentObject.Body.setSize(new Microsoft.Xna.Framework.Vector3(64, 64, 0));
                         break;
                     }
                 case EnvironmentEnum.Flower_1:
