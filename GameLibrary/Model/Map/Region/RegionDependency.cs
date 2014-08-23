@@ -23,6 +23,11 @@ namespace GameLibrary.Model.Map.Region
             var_Layer_Snowland.Add(Block.BlockEnum.Ground1);
             var_Layer_Snowland.Add(Block.BlockEnum.Ground2);
             this.layer.Add(RegionEnum.Snowland, var_Layer_Snowland);
+
+            List<Enum> var_Layer_Lavaland = new List<Enum>();
+            var_Layer_Lavaland.Add(Block.BlockEnum.Ground1);
+            var_Layer_Lavaland.Add(Block.BlockEnum.Ground2);
+            this.layer.Add(RegionEnum.Lavaland, var_Layer_Lavaland);
         }
 
         public List<Enum> getLayer(RegionEnum _RegionEnum)

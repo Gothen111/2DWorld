@@ -226,6 +226,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Gui\Menu\StartMenu\" />
+    <Folder Include="Region\Lavaland\Block\Environment\Chest\" />
+    <Folder Include="Region\Lavaland\Block\Environment\Farm\" />
+    <Folder Include="Region\Lavaland\Block\Environment\Flower\" />
     <Folder Include="Region\Snowland\Block\Environment\Chest\" />
     <Folder Include="Region\Snowland\Block\Environment\Farm\" />
     <Folder Include="Region\Snowland\Block\Environment\Flower\" />
@@ -441,6 +444,32 @@
       <Name>KryptonEffect</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Region\Lavaland\Block\Environment\Tree\Tree1.png">
+      <Name>Tree1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Region\Lavaland\Block\Layer1\Stone.png">
+      <Name>Stone</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Region\Lavaland\Block\Layer2\Stone2.png">
+      <Name>Stone2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Region\Lavaland\Block\Layer2\Stone3.png">
+      <Name>Stone3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

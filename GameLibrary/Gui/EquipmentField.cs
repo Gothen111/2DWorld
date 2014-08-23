@@ -94,9 +94,11 @@ namespace GameLibrary.Gui
                 //TODO: Überürufe welcher typ :D ob wawffe oder ücstung usw
                 if (this.item == null || this.Components.Contains(this.item))
                 {
-                    //this.setItem(((InventoryItem)_Component).ItemObject);
-                    this.itemDropedIn(((InventoryItem)_Component).ItemObject);
-                    return true;
+                    if (((InventoryItem)_Component).ItemObject.ItemEnum == this.acceptedItem)
+                    {
+                        this.itemDropedIn(((InventoryItem)_Component).ItemObject);
+                        return true;
+                    }
                 }
             }
             return false;

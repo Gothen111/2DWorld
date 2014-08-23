@@ -125,7 +125,6 @@ namespace GameLibrary.Model.Object
             }*/
 
             _DamageAmount = _DamageAmount / ((float)this.Body.getDefence());
-
             return _DamageAmount;
         }
 

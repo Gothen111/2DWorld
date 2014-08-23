@@ -28,6 +28,10 @@ namespace GameLibrary.Factory
                     {
                         return generateRegionSnowland(_Name, _PosX, _PosY, _ParentWorld);
                     }
+                case RegionEnum.Lavaland:
+                    {
+                        return generateRegionLavaland(_Name, _PosX, _PosY, _ParentWorld);
+                    }
             }
             return null;
         }
@@ -50,6 +54,17 @@ namespace GameLibrary.Factory
             Region var_Result;
 
             var_Result = new Region(_Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Snowland, _ParentWorld);
+
+            Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
+
+            return var_Result;
+        }
+
+        private Region generateRegionLavaland(String _Name, int _PosX, int _PosY, World _ParentWorld)
+        {
+            Region var_Result;
+
+            var_Result = new Region(_Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Lavaland, _ParentWorld);
 
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
 
@@ -81,6 +96,11 @@ namespace GameLibrary.Factory
                 case RegionEnum.Snowland:
                     {
                         var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Snowland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
+                        break;
+                    }
+                case RegionEnum.Lavaland:
+                    {
+                        var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Lavaland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
                         break;
                     }
             }

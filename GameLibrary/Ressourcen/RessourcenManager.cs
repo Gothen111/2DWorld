@@ -74,6 +74,10 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Region/Snowland/Block/Layer2/Ground1", "Region/Snowland/Block/Layer2/Gras");
             loadTexture(_ContentManager, "Region/Snowland/Block/Layer2/Ground2", "Region/Snowland/Block/Layer2/Dirt");
 
+            loadTexture(_ContentManager, "Region/Lavaland/Block/Layer1/Ground1", "Region/Lavaland/Block/Layer1/Stone");
+            loadTexture(_ContentManager, "Region/Lavaland/Block/Layer2/Ground1", "Region/Lavaland/Block/Layer2/Stone2");
+            loadTexture(_ContentManager, "Region/Lavaland/Block/Layer2/Ground2", "Region/Lavaland/Block/Layer2/Stone3");
+
             loadTexture(_ContentManager, "Region/Snowland/Block/Environment/Tree/Tree1", "Region/Snowland/Block/Environment/Tree/Tree1");
 
 

@@ -28,6 +28,10 @@ namespace GameLibrary.Factory
                     {
                         return generateChunkSnowland(_PosX, _PosY, Chunk.chunkSizeX, Chunk.chunkSizeY, _Layer, _ParentRegion);
                     }
+                case ChunkEnum.Lavaland:
+                    {
+                        return generateChunkLavaland(_PosX, _PosY, Chunk.chunkSizeX, Chunk.chunkSizeY, _Layer, _ParentRegion);
+                    }
             }
             return null;
         }
@@ -40,14 +44,14 @@ namespace GameLibrary.Factory
             this.fillChunkWithBlock(var_Result, BlockEnum.Ground1);
 
             var_Result.setAllNeighboursOfBlocks();
-            generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
+            //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             generateSecondLayer(var_Result, _Layer);
-            generateFlowers(var_Result);
-            generateTrees(var_Result);
+            //generateFlowers(var_Result);
+            //generateTrees(var_Result);
             //generateWall(var_Result);
             //if (var_Result.Id == 0)
             //{
-                generateNpc(var_Result);
+                //generateNpc(var_Result);
                 //generateHeightMap(var_Result);
             //}
 
@@ -58,6 +62,26 @@ namespace GameLibrary.Factory
         }
 
         private Chunk generateChunkSnowland(int _PosX, int _PosY, int _SizeX, int _SizeY, List<Enum> _Layer, Region _ParentRegion)
+        {
+            Chunk var_Result;
+
+            var_Result = new Chunk("Chunk", _PosX, _PosY, _SizeX, _SizeY, _ParentRegion);
+            this.fillChunkWithBlock(var_Result, BlockEnum.Ground1);
+
+            var_Result.setAllNeighboursOfBlocks();
+            //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
+            generateSecondLayer(var_Result, _Layer);
+            //generateFlowers(var_Result);
+            //generateTrees(var_Result);
+            //generateWall(var_Result);
+            //generateNpc(var_Result);
+
+            //generateCoins(var_Result);
+
+            return var_Result;
+        }
+
+        private Chunk generateChunkLavaland(int _PosX, int _PosY, int _SizeX, int _SizeY, List<Enum> _Layer, Region _ParentRegion)
         {
             Chunk var_Result;
 
@@ -385,7 +409,8 @@ namespace GameLibrary.Factory
             int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Util.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
-                GameLibrary.Model.Object.ItemObject var_itemObject = EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(WeaponEnum.Sword);
+                //GameLibrary.Model.Object.ItemObject var_itemObject = EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(WeaponEnum.Sword);
+                GameLibrary.Model.Object.ItemObject var_itemObject = EquipmentFactory.equipmentFactory.createEquipmentArmorObject(ArmorEnum.GoldenArmor);
 
                 int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
                 int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);

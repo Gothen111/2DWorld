@@ -559,6 +559,42 @@
       <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Shader\KryptonEffect.xnb</Output>
       <Time>2014-08-22T15:04:47.8329718+02:00</Time>
     </Item>
+    <Item>
+      <Source>Region\Lavaland\Block\Environment\Tree\Tree1.png</Source>
+      <Name>Region\Lavaland\Block\Environment\Tree\Tree1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Lavaland\Block\Environment\Tree\Tree1.xnb</Output>
+      <Time>2014-08-23T14:43:26.8107562+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Region\Lavaland\Block\Layer1\Stone.png</Source>
+      <Name>Region\Lavaland\Block\Layer1\Stone</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Lavaland\Block\Layer1\Stone.xnb</Output>
+      <Time>2014-08-23T14:46:31.3759505+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Region\Lavaland\Block\Layer2\Stone2.png</Source>
+      <Name>Region\Lavaland\Block\Layer2\Stone2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Lavaland\Block\Layer2\Stone2.xnb</Output>
+      <Time>2014-08-23T14:46:45.6655756+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Region\Lavaland\Block\Layer2\Stone3.png</Source>
+      <Name>Region\Lavaland\Block\Layer2\Stone3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programmieren\Projekte\Github\2DWorld\Client\Client\bin\x86\Debug\Content\Region\Lavaland\Block\Layer2\Stone3.xnb</Output>
+      <Time>2014-08-23T14:46:45.6655756+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
