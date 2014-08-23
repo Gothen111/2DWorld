@@ -71,6 +71,9 @@ namespace GameLibrary.Model.Map.World
                     }
                 }
             }
+
+            //Load Region
+
             return null;
         }
 
