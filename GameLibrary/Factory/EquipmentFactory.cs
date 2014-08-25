@@ -41,7 +41,7 @@ namespace GameLibrary.Factory
                         equipmentWeaponObject.ItemEnum = ItemEnum.Weapon;
                         equipmentWeaponObject.NormalDamage = 4;
                         equipmentWeaponObject.WeaponEnum = _WeaponEnum;
-                        Model.Object.Equipment.Attack.Attack var_Attack = new Model.Object.Equipment.Attack.Attack(50, 1.0f, 60.0f, Model.Object.Equipment.Attack.AttackType.Front);
+                        Model.Object.Equipment.Attack.Attack var_Attack = new Model.Object.Equipment.Attack.Attack(50, 1.0f, 20.0f, Model.Object.Equipment.Attack.AttackType.Front);
                         equipmentWeaponObject.Attacks.Add(var_Attack);
                         equipmentWeaponObject.Body.MainBody.TexturePath = "Character/Sword";
                         equipmentWeaponObject.ItemIconGraphicPath = "Object/Item/Small/Sword1";

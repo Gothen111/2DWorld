@@ -297,7 +297,7 @@ namespace GameLibrary.Model.Object
             knockBackVector.X = knockBackVector.X / knockBackVector.Length() * 20;
             knockBackVector.Y = knockBackVector.Y / knockBackVector.Length() * 20;
             knockBackVector.Z = knockBackVector.Z / knockBackVector.Length() * 20;
-            this.knockBack(knockBackVector);
+            //this.knockBack(knockBackVector);
 
             Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(this), GameMessageImportance.VeryImportant));
             Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectHealthMessage(this), GameMessageImportance.VeryImportant));

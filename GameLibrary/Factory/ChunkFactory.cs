@@ -51,7 +51,7 @@ namespace GameLibrary.Factory
             //generateWall(var_Result);
             //if (var_Result.Id == 0)
             //{
-                //generateNpc(var_Result);
+                generateNpc(var_Result);
                 //generateHeightMap(var_Result);
             //}
 
@@ -74,7 +74,7 @@ namespace GameLibrary.Factory
             //generateFlowers(var_Result);
             //generateTrees(var_Result);
             //generateWall(var_Result);
-            //generateNpc(var_Result);
+            generateNpc(var_Result);
 
             //generateCoins(var_Result);
 
@@ -94,7 +94,7 @@ namespace GameLibrary.Factory
             //generateFlowers(var_Result);
             //generateTrees(var_Result);
             //generateWall(var_Result);
-            //generateNpc(var_Result);
+            generateNpc(var_Result);
 
             //generateCoins(var_Result);
 
