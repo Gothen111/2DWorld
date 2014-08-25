@@ -24,9 +24,30 @@ namespace GameLibrary.Model.Map.World
             base.update();
 
             this.objectsToUpdate = new List<Object.Object>();
-            this.environmentObjectToDraw = new List<Object.Object>();
+            this.chunksOutOfRange = new List<Chunk.Chunk>();
+            foreach (Region.Region var_Region in this.regions)
+            {
+                foreach (Chunk.Chunk var_Chunk in var_Region.Chunks)
+                {
+                    this.chunksOutOfRange.Add(var_Chunk);
+                }
+            }
+
+            int var_SizeBefore = this.chunksOutOfRange.Count;
 
             this.updatePlayerObjectsNeighborhood();
+
+            int var_SizeAfter = this.chunksOutOfRange.Count;
+
+            //Console.WriteLine(var_SizeBefore - var_SizeAfter);
+
+            foreach (Chunk.Chunk var_Chunk in this.chunksOutOfRange)
+            {
+                this.removeChunk(var_Chunk);
+            }
+
+
+
 
             //TODO: Mache Kopie der Liste!!!! Falls objekte steben usw ;)
             try
@@ -64,7 +85,9 @@ namespace GameLibrary.Model.Map.World
                     {
                         this.addRegion(var_Region);
                         // mache noch get chunk. und darin load chunk
-                        var_Region.createChunkAt((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y);
+
+                        var_Chunk = var_Region.getChunkAtPosition((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y)
+                                    ?? var_Region.createChunkAt((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y);
                     }
                 }
                 else
@@ -102,138 +125,20 @@ namespace GameLibrary.Model.Map.World
                 //Bottom
                 this.updatePlayerObjectNeighborChunk(new Vector2((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize),
                                                     new Vector2((int)var_PlayerObjectRegion.Position.X, (int)var_PlayerObjectRegion.Position.Y + 1 * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
-                
 
-
-                /*Chunk.Chunk var_ChunkTop = (Chunk.Chunk)var_ChunkMid.TopNeighbour;
-                if (var_ChunkTop != null)
+                List<Chunk.Chunk> var_ChunksToRemove = new List<Chunk.Chunk>();
+                foreach (Chunk.Chunk var_Chunk in this.chunksOutOfRange)
                 {
-                    Chunk.Chunk var_ChunkTopLeft = (Chunk.Chunk)var_ChunkTop.LeftNeighbour;
-                    if (var_ChunkTopLeft != null)
+                    if (Vector2.Distance(var_Chunk.Position, new Vector2(_PlayerObject.Position.X, _PlayerObject.Position.Y)) <= Chunk.Chunk.chunkSizeX * Block.Block.BlockSize * 3)
                     {
-                    }
-                    else
-                    {
-                    }
-                    Chunk.Chunk var_ChunkTopRight = (Chunk.Chunk)var_ChunkTop.RightNeighbour;
-                    if (var_ChunkTopRight != null)
-                    {
-                    }
-                    else
-                    {
-                    }
-                }
-                else
-                {
-                    if (Configuration.Configuration.isHost)
-                    {
-                        Region.Region var_Region = World.world.getRegionAtPosition((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize)
-                                                 ?? World.world.createRegionAt((int)var_PlayerObjectRegion.Position.X, (int)var_PlayerObjectRegion.Position.Y - Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize);
-                        if (var_Region != null)
-                        {
-                            this.addRegion(var_Region);
-                            Chunk.Chunk var_Chunk = var_Region.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize);
-                        }
-                    }
-                    else
-                    {
-                        if (var_ChunkMid.TopNeighbourRequested)
-                        {
-                        }
-                        else
-                        {
-                            Event.EventList.Add(new Event(new RequestChunkMessage(new Vector2(var_ChunkMid.Position.X, var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize)), GameMessageImportance.VeryImportant));
-                            var_ChunkMid.TopNeighbourRequested = true;
-                        }
-                    }
-                }
-                Chunk.Chunk var_ChunkLeft = (Chunk.Chunk)var_ChunkMid.LeftNeighbour;
-                if (var_ChunkLeft != null)
-                {
-                }
-                else
-                {
-                    if (Configuration.Configuration.isHost)
-                    {
-                        Region.Region var_Region = World.world.getRegionAtPosition((int)var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y)
-                                                 ?? World.world.createRegionAt((int)var_ChunkMid.Position.X + -1 * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_PlayerObjectRegion.Position.Y);
-                        if (var_Region != null)
-                        {
-                            this.addRegion(var_Region);
-                            Chunk.Chunk var_Chunk = var_Region.createChunkAt((int)var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y);
-                        }
-                    }
-                    else
-                    {
-                        if (var_ChunkMid.LeftNeighbourRequested)
-                        {
-                        }
-                        else
-                        {
-                            Event.EventList.Add(new Event(new RequestChunkMessage(new Vector2(var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, var_ChunkMid.Position.Y)), GameMessageImportance.VeryImportant));
-                            var_ChunkMid.LeftNeighbourRequested = true;
-                        }
-                    }
-                }
-                Chunk.Chunk var_ChunkRight = (Chunk.Chunk)var_ChunkMid.RightNeighbour;
-                if (var_ChunkRight != null)
-                {
-                }
-                else
-                {
-                    if (Configuration.Configuration.isHost)
-                    {
-                        Chunk.Chunk var_Chunk = var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y);
-                    }
-                    else
-                    {
-                        if (var_ChunkMid.RightNeighbourRequested)
-                        {
-                        }
-                        else
-                        {
-                            Event.EventList.Add(new Event(new RequestChunkMessage(new Vector2(var_ChunkMid.Position.X + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, var_ChunkMid.Position.Y)), GameMessageImportance.VeryImportant));
-                            var_ChunkMid.RightNeighbourRequested = true;
-                        }
+                        var_ChunksToRemove.Add(var_Chunk);
                     }
                 }
 
-                Chunk.Chunk var_ChunkBottom = (Chunk.Chunk)var_ChunkMid.BottomNeighbour;
-                if (var_ChunkBottom != null)
+                foreach (Chunk.Chunk var_Chunk in var_ChunksToRemove)
                 {
-                    Chunk.Chunk var_ChunkBottomLeft = (Chunk.Chunk)var_ChunkBottom.LeftNeighbour;
-                    if (var_ChunkBottomLeft != null)
-                    {
-                    }
-                    else
-                    {
-                    }
-                    Chunk.Chunk var_ChunkBottomRight = (Chunk.Chunk)var_ChunkBottom.RightNeighbour;
-                    if (var_ChunkBottomRight != null)
-                    {
-                    }
-                    else
-                    {
-                    }
+                    this.chunksOutOfRange.Remove(var_Chunk);
                 }
-                else
-                {
-                    if (Configuration.Configuration.isHost)
-                    {
-                        Chunk.Chunk var_Chunk = var_PlayerObjectRegion.createChunkAt((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
-                    }
-                    else
-                    {
-                        if (var_ChunkMid.BottomNeighbourRequested)
-                        {
-                        }
-                        else
-                        {
-                            Event.EventList.Add(new Event(new RequestChunkMessage(new Vector2(var_ChunkMid.Position.X, var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize)), GameMessageImportance.VeryImportant));
-                            var_ChunkMid.BottomNeighbourRequested = true;
-                        }
-                    }
-                }*/
             }
 
             List<Object.Object> var_Objects = this.getObjectsInRange(_PlayerObject.Position, 400);
@@ -243,12 +148,6 @@ namespace GameLibrary.Model.Map.World
                 {
                     this.objectsToUpdate.Add(var_Object);
                 }
-            }
-
-            if (!Configuration.Configuration.isHost)
-            {
-                //TODO:Noch die foeach schleife machen damit nix doppelt ;) bzw. nur client quatsch oder so :D
-                this.environmentObjectToDraw = this.getObjectsInRange(_PlayerObject.Position, this.quadTreeEnvironmentObject.Root, 400);
             }
         }
         #endregion

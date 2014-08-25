@@ -322,10 +322,11 @@ namespace GameLibrary.Model.Object
                     //this.GraphicPath = this.GraphicPath + "_Dead";
                     Model.Map.World.World.world.removeObjectFromWorld(this);
                     //TODO: PreEnviornment
-                    /*Model.Map.World.World.world.
-                    this.CurrentBlock.ObjectsPreEnviorment.Add(this);
-                    this.CurrentBlock.removeObject(this);*/
-                    Model.Map.World.World.world.addPreEnvironmentObject(this);
+                    if (this.CurrentBlock != null)
+                    {
+                        this.CurrentBlock.ObjectsPreEnviorment.Add(this);
+                        this.CurrentBlock.removeObject(this);
+                    }
                 }
                 catch (Exception e)
                 {

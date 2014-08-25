@@ -48,8 +48,9 @@ namespace Server
             Configuration.networkManager = new ServerNetworkManager();
 
             Setting.logInstance = "Log/ServerLog-" + DateTime.Now.ToShortDateString() + "-" + DateTime.Now.ToShortTimeString().Replace(":",".") + ".txt";
+            Setting.drawWorld = false;
 
-            this.IsMouseVisible = true;
+            this.IsMouseVisible = true;          
         }
 
         /// <summary>
@@ -144,18 +145,9 @@ namespace Server
                     GameLibrary.Camera.Camera.camera.getMatrix());
             if (GameLibrary.Camera.Camera.camera.Target != null)
             {
-                GameLibrary.Model.Map.World.World.world.drawBlocks(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
+                GameLibrary.Model.Map.World.World.world.draw(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
             }
 
-            spriteBatch.End();
-
-            spriteBatch.Begin(SpriteSortMode.Deferred,
-                    BlendState.AlphaBlend, null, null, null, null,
-                    GameLibrary.Camera.Camera.camera.getMatrix());//spriteBatch.Begin();//SpriteSortMode.FrontToBack, BlendState.Opaque);
-            if (GameLibrary.Camera.Camera.camera.Target != null)
-            {
-                GameLibrary.Model.Map.World.World.world.drawObjects(GraphicsDevice, spriteBatch, GameLibrary.Camera.Camera.camera.Target);
-            }
             spriteBatch.End();
 
             spriteBatch.Begin();

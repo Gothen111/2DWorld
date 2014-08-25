@@ -97,6 +97,17 @@ namespace GameLibrary.Model.Map.World
             return null;
         }
 
+        public bool removeChunk(Chunk.Chunk _Chunk)
+        {
+            Region.Region var_Region = World.world.getRegionAtPosition(_Chunk.Position.X, _Chunk.Position.Y);
+            if (var_Region != null)
+            {
+                Chunk.Chunk var_Chunk = var_Region.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y);
+                return var_Region.Chunks.Remove(var_Chunk);
+            }
+            return false;
+        }
+
         #endregion
 
         #region Block

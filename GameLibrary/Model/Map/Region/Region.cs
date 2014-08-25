@@ -91,6 +91,13 @@ namespace GameLibrary.Model.Map.Region
                         {
                             //GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateChunkCommand(_Chunk));
                         }
+                        else
+                        {
+
+                        }
+
+                        //this.saveChunk(_Chunk);
+
                         return true;
                 /*    }
                 }*/
@@ -197,6 +204,16 @@ namespace GameLibrary.Model.Map.Region
                     }
                 }
             }
+
+            if (GameLibrary.Configuration.Configuration.isHost)
+            {
+
+            }
+            else
+            {
+                //return this.loadChunk(0);
+            }     
+
             return null;
         }
 
@@ -205,14 +222,28 @@ namespace GameLibrary.Model.Map.Region
             return GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
         }
 
-        public void loadChunk(int _ID)
+        public Chunk.Chunk loadChunk(int _ID)
         {
-
+            String var_Path = "Save/Chunks/" + _ID + ".sav";
+            if (System.IO.File.Exists(var_Path))
+            {
+                return (Chunk.Chunk) Util.Serializer.DeSerializeObject(var_Path);
+            }
+            return null;
         }
 
         public void saveChunk(Chunk.Chunk _Chunk)
         {
-
+            //Speichere erst mal nur blöcke
+            if (GameLibrary.Configuration.Configuration.isHost)
+            {
+                
+            }
+            else
+            {
+                String var_Path = "Save/Chunks/" + _Chunk.Id + ".sav";
+                Util.Serializer.SerializeObject(var_Path, _Chunk);
+            }           
         }
 
         public Chunk.Chunk getChunkObjectIsIn(GameLibrary.Model.Object.Object _Object)

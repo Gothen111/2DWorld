@@ -45,7 +45,7 @@ namespace GameLibrary.Model.Map.World
 
         private List<Object.Object> objectsToUpdate;
 
-        private List<Object.Object> environmentObjectToDraw;
+        private List<Chunk.Chunk> chunksOutOfRange;
 
         #endregion
 

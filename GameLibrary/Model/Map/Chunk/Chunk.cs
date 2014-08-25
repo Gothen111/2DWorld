@@ -150,13 +150,13 @@ namespace GameLibrary.Model.Map.Chunk
         public override void update()
         {
             base.update();
-            for (int x = 0; x < this.Size.X; x++)
+            /*for (int x = 0; x < this.Size.X; x++)
             {
                 for (int y = 0; y < this.Size.Y; y++)
                 {
                     this.getBlockAtPosition(x, y).update();
                 }
-            }
+            }*/
         }
 
         public List<Object.Object> getAllObjectsInChunk()

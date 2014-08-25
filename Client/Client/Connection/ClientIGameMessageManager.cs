@@ -57,9 +57,6 @@ namespace Client.Connection
                 case EIGameMessageType.UpdateCreatureInventoryMessage:
                     handleUpdateCreatureInventoryMessage(_NetIncomingMessage);
                     break;
-                case EIGameMessageType.UpdatePreEnvironmentObjectMessage:
-                    handleUpdatePreEnvironmentObjectMessage(_NetIncomingMessage);
-                    break;
                 case EIGameMessageType.UpdateAnimatedObjectBodyMessage:
                     handleUpdateAnimatedObjectBodyMessage(_NetIncomingMessage);
                     break;
@@ -139,13 +136,6 @@ namespace Client.Connection
                 if (GameLibrary.Model.Map.World.World.world.getObject(var_Object.Id) == null)
                 {
                     GameLibrary.Model.Map.World.World.world.addObject(var_Object);
-                }
-            }
-            foreach (GameLibrary.Model.Object.Object var_Object in message.Chunk.getAllEnvironmentObjectsInChunk())
-            {
-                if (GameLibrary.Model.Map.World.World.world.getPreEnvironmentObject(var_Object.Id) == null)
-                {
-                    GameLibrary.Model.Map.World.World.world.addPreEnvironmentObject(var_Object);
                 }
             }
 
@@ -268,18 +258,6 @@ namespace Client.Connection
             {
                 GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Inventar nicht geupdatet");
                 GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.RequestLivingObjectMessage(message.Id), GameLibrary.Connection.GameMessageImportance.UnImportant));
-            }
-        }
-
-        private static void handleUpdatePreEnvironmentObjectMessage(NetIncomingMessage _Im)
-        {
-            var message = new UpdatePreEnvironmentObjectMessage(_Im);
-
-            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
-            if (GameLibrary.Model.Map.World.World.world != null)
-            {
-                GameLibrary.Model.Object.Object var_Object = (GameLibrary.Model.Object.Object)(GameLibrary.Model.Map.World.World.world.getPreEnvironmentObject(message.Id) ?? GameLibrary.Model.Map.World.World.world.addPreEnvironmentObject(message.Object));//CreatureFactory.creatureFactory.createNpcObject(message.Id, RaceEnum.Human, FactionEnum.Castle_Test, CreatureEnum.Chieftain, GenderEnum.Male));
-                var_Object.Position = message.Position;
             }
         }
 

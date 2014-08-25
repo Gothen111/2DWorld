@@ -79,13 +79,9 @@ namespace GameLibrary.Model.Map.Block
             :base(info, ctxt)
         {
             this.layer = (BlockEnum[])info.GetValue("layer", typeof(BlockEnum[]));
-            //TODO: Alle Objekttypen müssen serialisierbar gemacht werden
             this.objects = (List<Object.Object>)info.GetValue("objects", typeof(List<Object.Object>));
             this.objectsPreEnviorment = (List<Object.Object>)info.GetValue("objectsPreEnviorment", typeof(List<Object.Object>));
             this.height = (int)info.GetValue("height", typeof(int));
-
-            //this.objects = new List<Object.LivingObject>();
-            //this.objectsPreEnviorment = new List<Object.LivingObject>();
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -151,46 +147,17 @@ namespace GameLibrary.Model.Map.Block
 
             Color var_Color = Color.White;
 
-            if (this.objects.Count > 0)
+            if (Setting.Setting.debugMode)
             {
-                var_Color = Color.Green;
+                if (this.objects.Count > 0)
+                {
+                    var_Color = Color.Green;
+                }
             }
 
             String var_RegionType = ((Region.Region)this.Parent.Parent).RegionEnum.ToString();
 
             BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
-            /*while ((int)var_Layer < this.layer.Length)
-            {
-                BlockEnum var_Enum = this.layer[(int)var_Layer];
-                if (var_Enum != BlockEnum.Nothing)
-                {
-                    if (var_Layer == BlockLayerEnum.Layer1)
-                    {
-                        if (var_Enum == BlockEnum.Ground1)
-                        {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/Layer1/Ground1"], var_DrawPosition, var_Color);
-                        }
-                        if (var_Enum == BlockEnum.Wall)
-                        {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/Layer1/Wall"], var_DrawPosition, var_Color);
-                        }
-                    }
-                    if (var_Layer == BlockLayerEnum.Layer2)
-                    {
-                        if (var_Enum == BlockEnum.Ground1)
-                        {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/Layer2/Ground1"], var_DrawPosition, var_Color);
-                        }
-                        if (var_Enum == BlockEnum.Ground2)
-                        {
-                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/Layer2/Ground2"], var_DrawPosition, var_Color);
-                        }
-                    }
-                }
-                var_Layer += 1;
-            }*/
-
-
             while ((int)var_Layer < this.layer.Length)
             {
                 BlockEnum var_Enum = this.layer[(int)var_Layer];
@@ -201,18 +168,6 @@ namespace GameLibrary.Model.Map.Block
                 var_Layer += 1;
             }
 
-        }
-
-        public void drawObjects(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
-        {
-            foreach (Object.LivingObject var_LivingObject in this.objects)
-            {
-                var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
-            }
-            foreach (Object.LivingObject var_LivingObject in this.objectsPreEnviorment)
-            {
-                var_LivingObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(0, 0, 0), Color.White);
-            }
         }
     }
 }
