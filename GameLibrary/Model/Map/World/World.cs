@@ -31,16 +31,6 @@ namespace GameLibrary.Model.Map.World
             set { quadTreeObject = value; }
         }
 
-        private QuadTree<Object.Object> quadTreeEnvironmentObject;
-
-        public QuadTree<Object.Object> QuadTreeEnvironmentObject
-        {
-            get { return quadTreeEnvironmentObject; }
-            set { quadTreeEnvironmentObject = value; }
-        }
-
-
-
         private List<PlayerObject> playerObjects;
 
         private List<Object.Object> objectsToUpdate;
@@ -56,11 +46,11 @@ namespace GameLibrary.Model.Map.World
             //if (Configuration.Configuration.isHost)
             //{
                 this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
-                this.quadTreeEnvironmentObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
             //}          
         }
 
-        public World(SerializationInfo info, StreamingContext ctxt) : this()
+        public World(SerializationInfo info, StreamingContext ctxt) 
+            : this()
         {
             this.playerObjects = new List<PlayerObject>();
             this.regions = new List<Region.Region>();

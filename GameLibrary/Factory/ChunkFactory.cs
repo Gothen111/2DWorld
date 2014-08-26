@@ -47,7 +47,7 @@ namespace GameLibrary.Factory
             //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             generateSecondLayer(var_Result, _Layer);
             generateFlowers(var_Result);
-            //generateTrees(var_Result);
+            generateTrees(var_Result);
             //generateWall(var_Result);
             //if (var_Result.Id == 0)
             //{
@@ -72,7 +72,7 @@ namespace GameLibrary.Factory
             //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             generateSecondLayer(var_Result, _Layer);
             //generateFlowers(var_Result);
-            //generateTrees(var_Result);
+            generateTrees(var_Result);
             //generateWall(var_Result);
             generateNpc(var_Result);
 
@@ -326,7 +326,7 @@ namespace GameLibrary.Factory
                 {
                     var_Block.ObjectsPreEnviorment.Add(var_EnvironmentObject);
                     var_EnvironmentObject.CurrentBlock = var_Block;
-                    ((Model.Map.World.World)_Chunk.Parent.Parent).QuadTreeEnvironmentObject.Insert(var_EnvironmentObject);
+                    //((Model.Map.World.World)_Chunk.Parent.Parent).QuadTreeEnvironmentObject.Insert(var_EnvironmentObject);
                     //Chunk ist noch null ;) in der world.... da noch nicht hinzugefügt
                     //((Model.Map.World.World)_Chunk.Parent.Parent).addPreEnvironmentObject(var_EnvironmentObject);
                 }
@@ -335,7 +335,7 @@ namespace GameLibrary.Factory
 
         private void generateNpc(Chunk _Chunk)
         {
-            int var_Count = 20;
+            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 5 / Util.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.NpcObject var_NpcObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Beerdrinker, CreatureEnum.Archer, GenderEnum.Male);

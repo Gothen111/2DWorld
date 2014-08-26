@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using GameLibrary.Model.Object.ObjectEnums;
 using GameLibrary.Model.Object.Body;
+using GameLibrary.Model.Map.Block;
 
 namespace GameLibrary.Model.Object
 {
@@ -287,11 +288,22 @@ namespace GameLibrary.Model.Object
             this.body.draw(_GraphicsDevice, _SpriteBatch, var_Position);
         }
 
+        public virtual void onChangedBlock()
+        {
+        }
+
+        public virtual void onChangedChunk()
+        {
+        }
+
         public void checkChangedBlock()
         {
             //TODO: Methode vebessern, über world get block usw ... vll ;) vll ist das ja auch nicht schneller :D
             if (this.CurrentBlock != null)
             {
+                bool var_BlockChanged = false;
+                Block var_OldBlock = this.CurrentBlock;
+
                 int var_BlockPosX = (int)this.CurrentBlock.Position.X / Map.Block.Block.BlockSize;
                 int var_BlockPosY = (int)this.CurrentBlock.Position.Y / Map.Block.Block.BlockSize;
 
@@ -303,6 +315,7 @@ namespace GameLibrary.Model.Object
                     if (this.CurrentBlock.LeftNeighbour != null)
                     {
                         ((Map.Block.Block)this.CurrentBlock.LeftNeighbour).addObject(this);
+                        var_BlockChanged = true;
                     }
                 }
                 else if (var_Position.X > (var_BlockPosX + 1) * Map.Block.Block.BlockSize)
@@ -311,6 +324,7 @@ namespace GameLibrary.Model.Object
                     if (this.CurrentBlock.RightNeighbour != null)
                     {
                         ((Map.Block.Block)this.CurrentBlock.RightNeighbour).addObject(this);
+                        var_BlockChanged = true;
                     }
                 }
                 else if (var_Position.Y < var_BlockPosY * Map.Block.Block.BlockSize)
@@ -319,6 +333,7 @@ namespace GameLibrary.Model.Object
                     if (this.CurrentBlock.TopNeighbour != null)
                     {
                         ((Map.Block.Block)this.CurrentBlock.TopNeighbour).addObject(this);
+                        var_BlockChanged = true;
                     }
                 }
                 else if (var_Position.Y > (var_BlockPosY + 1) * Map.Block.Block.BlockSize)
@@ -327,6 +342,16 @@ namespace GameLibrary.Model.Object
                     if (this.CurrentBlock.BottomNeighbour != null)
                     {
                         ((Map.Block.Block)this.CurrentBlock.BottomNeighbour).addObject(this);
+                        var_BlockChanged = true;
+                    }
+                }
+
+                if (var_BlockChanged)
+                {
+                    this.onChangedBlock();
+                    if (var_OldBlock.Parent != this.CurrentBlock.Parent)
+                    {
+                        this.onChangedChunk();
                     }
                 }
             }

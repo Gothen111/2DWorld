@@ -279,7 +279,10 @@ namespace GameLibrary.Model.Collison
                 }
 
                 if (!objectToNodeLookup.ContainsKey(quadObject))
-                    throw new KeyNotFoundException("QuadObject not found in dictionary for removal");
+                {
+                    //throw new KeyNotFoundException("QuadObject not found in dictionary for removal");
+                    return;
+                }
 
                 QuadNode containingNode = objectToNodeLookup[quadObject];
                 RemoveQuadObjectFromNode(quadObject);

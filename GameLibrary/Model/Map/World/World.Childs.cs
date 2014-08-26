@@ -79,6 +79,15 @@ namespace GameLibrary.Model.Map.World
 
         public Region.Region createRegionAt(int _PosX, int _PosY)
         {
+            int var_SizeX = (Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+            int var_SizeY = (Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize);
+
+            int var_RestX = _PosX % var_SizeX;
+            int var_RestY = _PosY % var_SizeY;
+
+            _PosX = _PosX + var_RestX;
+            _PosY = _PosY + var_RestY;
+
             int var_RegionType = Util.Random.GenerateGoodRandomNumber(0, Enum.GetValues(typeof(RegionEnum)).Length);
             return GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, _PosX, _PosY, (RegionEnum)var_RegionType, this);
         }

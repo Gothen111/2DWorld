@@ -25,8 +25,8 @@ namespace GameLibrary.Model.Map.Chunk
             set { id = value; }
         }
 
-        public static int chunkSizeX = 25; // 40
-        public static int chunkSizeY = 25; // 40
+        public static int chunkSizeX = 10;//25; // 40
+        public static int chunkSizeY = 10;//25; // 40
 
         private Block.Block[,] blocks;
 

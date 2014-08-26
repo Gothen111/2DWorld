@@ -38,11 +38,36 @@ namespace GameLibrary.Model.Map.World
             this.updatePlayerObjectsNeighborhood();
 
             int var_SizeAfter = this.chunksOutOfRange.Count;
+            Console.Write("Chunks: ");
+            Console.WriteLine(var_SizeBefore - var_SizeAfter);
+            /*Console.WriteLine("------------------------");
+            for (int y = -7; y <= 7; y++)
+            {
+                for (int x = -7; x <= 7; x++)
+                {
+                    if (this.getRegionAtPosition(x * 320 * 2, y * 320 * 2) != null)
+                    {
+                        Console.Write("X");
+                    }
+                    else
+                    {
+                        Console.Write("0");
+                    }
+                }
+                Console.WriteLine();
+            }*/
 
-            //Console.WriteLine(var_SizeBefore - var_SizeAfter);
+            foreach(Region.Region var_Region in this.regions)
+            {
+
+            }
 
             foreach (Chunk.Chunk var_Chunk in this.chunksOutOfRange)
             {
+                foreach(Object.Object var_Object in var_Chunk.getAllObjectsInChunk())
+                {
+                    this.quadTreeObject.Remove(var_Object);
+                }
                 this.removeChunk(var_Chunk);
             }
 
@@ -72,7 +97,7 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
-        private void updatePlayerObjectNeighborChunk(Vector2 _NewChunkPosition, Vector2 _PlayerRegionPos)
+        private void createPlayerObjectNeighbourChunk(Vector2 _NewChunkPosition)
         {
             Chunk.Chunk var_Chunk = this.getChunkAtPosition(_NewChunkPosition.X, _NewChunkPosition.Y);
             if (var_Chunk == null)
@@ -80,11 +105,10 @@ namespace GameLibrary.Model.Map.World
                 if (Configuration.Configuration.isHost)
                 {
                     Region.Region var_Region = World.world.getRegionAtPosition((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y)
-                                             ?? World.world.createRegionAt((int)_PlayerRegionPos.X, (int)_PlayerRegionPos.Y);
+                                             ?? World.world.createRegionAt((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y);
                     if (var_Region != null)
                     {
                         this.addRegion(var_Region);
-                        // mache noch get chunk. und darin load chunk
 
                         var_Chunk = var_Region.getChunkAtPosition((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y)
                                     ?? var_Region.createChunkAt((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y);
@@ -112,24 +136,25 @@ namespace GameLibrary.Model.Map.World
 
                 Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_PlayerObject.CurrentBlock.Parent;
 
-
+                /*
                 //Top
-                this.updatePlayerObjectNeighborChunk(new Vector2((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize),
+                this.createPlayerObjectNeighbourChunk(new Vector2((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize),
                                                     new Vector2((int)var_PlayerObjectRegion.Position.X, (int)var_PlayerObjectRegion.Position.Y + -1 * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
                 //Left
-                this.updatePlayerObjectNeighborChunk(new Vector2((int)var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y),
+                this.createPlayerObjectNeighbourChunk(new Vector2((int)var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y),
                                                     new Vector2((int)var_PlayerObjectRegion.Position.X + -1 * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_PlayerObjectRegion.Position.Y));
                 //Right
-                this.updatePlayerObjectNeighborChunk(new Vector2((int)var_ChunkMid.Position.X + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y),
+                this.createPlayerObjectNeighbourChunk(new Vector2((int)var_ChunkMid.Position.X + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y),
                                                     new Vector2((int)var_PlayerObjectRegion.Position.X + 1 * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_PlayerObjectRegion.Position.Y));
                 //Bottom
-                this.updatePlayerObjectNeighborChunk(new Vector2((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize),
+                this.createPlayerObjectNeighbourChunk(new Vector2((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize),
                                                     new Vector2((int)var_PlayerObjectRegion.Position.X, (int)var_PlayerObjectRegion.Position.Y + 1 * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
+                */
 
                 List<Chunk.Chunk> var_ChunksToRemove = new List<Chunk.Chunk>();
                 foreach (Chunk.Chunk var_Chunk in this.chunksOutOfRange)
                 {
-                    if (Vector2.Distance(var_Chunk.Position, new Vector2(_PlayerObject.Position.X, _PlayerObject.Position.Y)) <= Chunk.Chunk.chunkSizeX * Block.Block.BlockSize * 3)
+                    if (Vector2.Distance(var_Chunk.Position, new Vector2(_PlayerObject.Position.X, _PlayerObject.Position.Y)) <= (Setting.Setting.blockDrawRange * Block.Block.BlockSize))//(Setting.Setting.blockDrawRange * 4 * Block.Block.BlockSize))//Chunk.Chunk.chunkSizeX * Block.Block.BlockSize * 3)
                     {
                         var_ChunksToRemove.Add(var_Chunk);
                     }

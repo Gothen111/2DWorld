@@ -24,8 +24,8 @@ namespace GameLibrary.Model.Map.Region
             set { id = value; }
         }
 
-        public static int regionSizeX = 2;
-        public static int regionSizeY = 2;
+        public static int regionSizeX = 10;
+        public static int regionSizeY = 10;
 
         private List<Chunk.Chunk> chunks;
 

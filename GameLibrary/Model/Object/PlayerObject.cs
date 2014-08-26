@@ -30,6 +30,33 @@ namespace GameLibrary.Model.Object
         {
             base.GetObjectData(info, ctxt);
         }
+
+        public override void onChangedBlock()
+        {
+            base.onChangedBlock();
+            if (Configuration.Configuration.isHost)
+            {
+            }
+            else
+            {
+                //Request Blocks around!
+            }
+        }
+
+        public override void onChangedChunk()
+        {
+            base.onChangedChunk();
+            if (Configuration.Configuration.isHost)
+            {
+            }
+            else
+            {
+                //Request Chunks around!
+                //GameLibrary.Model.Map.World.World.world.checkPlayerObjectNeighbourChunks(this);       
+            }
+            GameLibrary.Model.Map.World.World.world.checkPlayerObjectNeighbourChunks(this);       
+        }
+
         public override void update()
         {
             base.update();
