@@ -132,7 +132,7 @@ namespace GameLibrary.Model.Object.Body
             info.AddValue("id", this.id, typeof(int));
         }
 
-        public virtual void update()
+        public void update()
         {
             this.animation.update();
             if (this.equipment != null)
@@ -141,7 +141,7 @@ namespace GameLibrary.Model.Object.Body
             }
         }
 
-        public virtual bool setEquipmentObject(EquipmentObject _EquipmentObject)
+        public bool setEquipmentObject(EquipmentObject _EquipmentObject)
         {
             if (this.equipment != null)
             {
@@ -171,7 +171,7 @@ namespace GameLibrary.Model.Object.Body
             }
         }
 
-        public virtual void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector2 _BodyCenter)
+        public void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector2 _BodyCenter)
         {
             Vector2 var_Position = new Vector2(this.position.X + _BodyCenter.X, this.position.Y + _BodyCenter.Y);
             Color var_DrawColor = this.color;

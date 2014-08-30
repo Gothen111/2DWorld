@@ -61,12 +61,31 @@ namespace GameLibrary.Model.Object.Body
             info.AddValue("bodyColor", this.bodyColor, typeof(Color));
         }
 
-        public virtual void stopWalk()
+        protected virtual void onStopWalk()
         {
-            this.mainBody.Animation = new StandAnimation(this.mainBody);
+            //TODO: es soll ja nicht alles sofot gestoppt werden. Z.b beim angriff oä.
+            //this.mainBody.Animation = new StandAnimation(this.mainBody);
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                var_BodyPart.Animation = new StandAnimation(var_BodyPart);
+            }
         }
 
-        public virtual void walk(Vector3 _Velocity)
+        public void stopWalk()
+        {
+            this.onStopWalk();
+        }
+
+        protected virtual void onWalk(Vector3 _Velocity)
+        {
+            //this.mainBody.Animation = new MoveAnimation(this.mainBody, _Velocity);
+            foreach (BodyPart var_BodyPart in this.bodyParts)
+            {
+                var_BodyPart.Animation = new MoveAnimation(var_BodyPart, _Velocity);
+            }
+        }
+
+        public void walk(Vector3 _Velocity)
         {
             if (this.mainBody.Animation is MoveAnimation)
             {
@@ -75,12 +94,12 @@ namespace GameLibrary.Model.Object.Body
             {
                 if (this.mainBody.Animation.finishedAnimation())
                 {
-                    this.mainBody.Animation = new MoveAnimation(this.mainBody, _Velocity);
+                    this.onWalk(_Velocity);
                 }
             }
         }
 
-        public Equipment.EquipmentWeapon attack()
+        public virtual Equipment.EquipmentWeapon attack()
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
@@ -95,7 +114,7 @@ namespace GameLibrary.Model.Object.Body
             return null;
         }
 
-        public int getDefence()
+        public virtual int getDefence()
         {
             int var_Result = 1;
             foreach (BodyPart var_BodyPart in this.bodyParts)
@@ -111,7 +130,7 @@ namespace GameLibrary.Model.Object.Body
             return var_Result;
         }
 
-        public virtual void setDirection(DirectionEnum _Direction)
+        public void setDirection(DirectionEnum _Direction)
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
@@ -119,7 +138,7 @@ namespace GameLibrary.Model.Object.Body
             }
         }
 
-        public virtual EquipmentObject getEquipmentAt(int _EquipmentPosition)
+        public EquipmentObject getEquipmentAt(int _EquipmentPosition)
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
@@ -131,7 +150,7 @@ namespace GameLibrary.Model.Object.Body
             return null;
         }
 
-        public virtual bool containsEquipmentObject(EquipmentObject _EquipmentObject)
+        public bool containsEquipmentObject(EquipmentObject _EquipmentObject)
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
@@ -143,7 +162,7 @@ namespace GameLibrary.Model.Object.Body
             return false;
         }
 
-        public virtual bool setEquipmentObject(EquipmentObject _EquipmentObject)
+        public bool setEquipmentObject(EquipmentObject _EquipmentObject)
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
@@ -155,7 +174,7 @@ namespace GameLibrary.Model.Object.Body
             return false;
         }
 
-        public virtual bool removeEquipment(EquipmentObject _EquipmentObject)
+        public bool removeEquipment(EquipmentObject _EquipmentObject)
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
@@ -171,7 +190,7 @@ namespace GameLibrary.Model.Object.Body
             return false;
         }
 
-        public virtual void setColor(Color _Color)
+        public void setColor(Color _Color)
         {
             this.bodyColor = _Color;
             foreach (BodyPart var_BodyPart in this.bodyParts)
@@ -180,7 +199,7 @@ namespace GameLibrary.Model.Object.Body
             }
         }
 
-        public virtual void setSize(Vector3 _Size)
+        public void setSize(Vector3 _Size)
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
@@ -188,7 +207,7 @@ namespace GameLibrary.Model.Object.Body
             }
         }
 
-        public virtual void update()
+        public void update()
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
@@ -196,7 +215,7 @@ namespace GameLibrary.Model.Object.Body
             }
         }
 
-        public virtual void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector2 _BodyCenter)
+        public void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Vector2 _BodyCenter)
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
