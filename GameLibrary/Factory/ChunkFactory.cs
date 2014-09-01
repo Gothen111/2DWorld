@@ -309,7 +309,7 @@ namespace GameLibrary.Factory
 
         private void generateFlowers(Chunk _Chunk)
         {
-            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / Util.Random.GenerateGoodRandomNumber(1,5);
+            int var_Count = 0;//Chunk.chunkSizeX * Chunk.chunkSizeY / Util.Random.GenerateGoodRandomNumber(1,5);
             for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(((Region)_Chunk.Parent).RegionEnum,  EnvironmentEnum.Flower_1);
@@ -335,7 +335,7 @@ namespace GameLibrary.Factory
 
         private void generateNpc(Chunk _Chunk)
         {
-            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 5 / Util.Random.GenerateGoodRandomNumber(1, 5);
+            int var_Count = 0;// Chunk.chunkSizeX * Chunk.chunkSizeY / 5 / Util.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.NpcObject var_NpcObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Beerdrinker, CreatureEnum.Archer, GenderEnum.Male);
@@ -358,7 +358,7 @@ namespace GameLibrary.Factory
 
         private void generateTrees(Chunk _Chunk)
         {
-            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Util.Random.GenerateGoodRandomNumber(1, 5);
+            int var_Count = 0;//Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Util.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(((Region)_Chunk.Parent).RegionEnum, EnvironmentEnum.Tree_Normal_1);

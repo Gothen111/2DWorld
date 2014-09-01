@@ -73,7 +73,10 @@ namespace GameLibrary.Model.Object.Body
 
         public void stopWalk()
         {
-            this.onStopWalk();
+            if (this.mainBody.Animation.finishedAnimation() || this.mainBody.Animation is MoveAnimation)
+            {
+                this.onStopWalk();
+            }
         }
 
         protected virtual void onWalk(Vector3 _Velocity)
@@ -101,6 +104,7 @@ namespace GameLibrary.Model.Object.Body
 
         public virtual Equipment.EquipmentWeapon attack()
         {
+            this.mainBody.Animation = new AttackAnimation(this.mainBody);
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
                 if (var_BodyPart.Equipment != null)

@@ -119,6 +119,7 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Object/Item/Small/Sword1", "Object/Item/Small/Sword1");
 
             loadTexture(_ContentManager, "Character/BodyMale", "Object/Character/BodyMale");
+            loadTexture(_ContentManager, "Character/BodyMale_Attack", "Object/Character/BodyMale_Attack");
             loadTexture(_ContentManager, "Character/BodyFemale", "Object/Character/BodyFemale");
 
             loadTexture(_ContentManager, "Character/GoldenArmor", "Object/Character/GoldenArmor");
