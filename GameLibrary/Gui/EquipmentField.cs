@@ -29,26 +29,26 @@ namespace GameLibrary.Gui
             set { fieldId = value; }
         }
 
-        private ItemEnum acceptedItem;
+        private List<ItemEnum> acceptedItemTypes;
 
-        public ItemEnum AcceptedItem
+        public List<ItemEnum> AcceptedItemTypes
         {
-            get { return acceptedItem; }
-            set { acceptedItem = value; }
+            get { return acceptedItemTypes; }
+            set { acceptedItemTypes = value; }
         }
 
         //Component itemSpace;
 
         InventoryItem item;
 
-        public EquipmentField(CreatureObject _InventoryOwner, int _FieldId, ItemEnum _AcceptedItem, Rectangle _Bounds)
+        public EquipmentField(CreatureObject _InventoryOwner, int _FieldId, List<ItemEnum> _AcceptedItemTypes, Rectangle _Bounds)
             :base(_Bounds)
         {
             this.inventoryOwner = _InventoryOwner;
 
             this.fieldId = _FieldId;
 
-            this.acceptedItem = _AcceptedItem;
+            this.acceptedItemTypes = _AcceptedItemTypes;
 
             /*this.itemSpace = new Component(new Rectangle(this.Bounds.X, this.Bounds.Y, this.Bounds.Width, this.Bounds.Height));
             this.itemSpace.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
@@ -94,7 +94,7 @@ namespace GameLibrary.Gui
                 //TODO: Überürufe welcher typ :D ob wawffe oder ücstung usw
                 if (this.item == null || this.Components.Contains(this.item))
                 {
-                    if (((InventoryItem)_Component).ItemObject.ItemEnum == this.acceptedItem)
+                    if (this.acceptedItemTypes.Contains(((InventoryItem)_Component).ItemObject.ItemEnum))
                     {
                         this.itemDropedIn(((InventoryItem)_Component).ItemObject);
                         return true;

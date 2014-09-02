@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using Microsoft.Xna.Framework;
 using GameLibrary.Model.Object.ObjectEnums;
 using Microsoft.Xna.Framework.Graphics;
+using GameLibrary.Factory.FactoryEnums;
 
 namespace GameLibrary.Model.Object.Body
 {
@@ -93,6 +94,14 @@ namespace GameLibrary.Model.Object.Body
             set { id = value; }
         }
 
+        private List<ItemEnum> acceptedItemTypes;
+
+        public List<ItemEnum> AcceptedItemTypes
+        {
+            get { return acceptedItemTypes; }
+            set { acceptedItemTypes = value; }
+        }
+
         public BodyPart(int _Id, Vector3 _Position, Color _Color, String _TexturePath)
         {
             this.position = _Position;
@@ -104,6 +113,7 @@ namespace GameLibrary.Model.Object.Body
             this.size = new Vector3(32, 32, 0);
             this.equipment = null;
             this.id = _Id;
+            this.acceptedItemTypes = new List<ItemEnum>();
         }
 
         public BodyPart(SerializationInfo info, StreamingContext ctxt)
@@ -116,6 +126,7 @@ namespace GameLibrary.Model.Object.Body
             this.size = (Vector3)info.GetValue("size", typeof(Vector3));
             this.equipment = (EquipmentObject)info.GetValue("equipment", typeof(EquipmentObject));
             this.id = (int)info.GetValue("id", typeof(int));
+            this.acceptedItemTypes = (List<ItemEnum>)info.GetValue("acceptedItemTypes", typeof(List<ItemEnum>));
 
             this.animation = new Animation.Animations.StandAnimation(this);
         }
@@ -130,6 +141,7 @@ namespace GameLibrary.Model.Object.Body
             info.AddValue("size", this.size, typeof(Vector3));
             info.AddValue("equipment", this.equipment, typeof(EquipmentObject));
             info.AddValue("id", this.id, typeof(int));
+            info.AddValue("acceptedItemTypes", this.acceptedItemTypes, typeof(List<ItemEnum>));
         }
 
         public void update()

@@ -200,6 +200,8 @@
     <Compile Include="Model\Map\Region\Region.cs" />
     <Compile Include="Model\Map\Region\RegionDependency.cs" />
     <Compile Include="Model\Map\Region\RegionEnum.cs" />
+    <Compile Include="Model\Map\World\SearchFlags\CreatureObjectFlag.cs" />
+    <Compile Include="Model\Map\World\SearchFlags\EnvironmentObjectFlag.cs" />
     <Compile Include="Model\Map\World\World.Player.cs" />
     <Compile Include="Model\Map\World\World.Update.cs" />
     <Compile Include="Model\Map\World\World.Collision.cs" />

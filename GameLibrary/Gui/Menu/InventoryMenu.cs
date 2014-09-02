@@ -26,8 +26,6 @@ namespace GameLibrary.Gui.Menu
         }
 
         Container equipmentContainer;
-        EquipmentField weaponComponent;
-        EquipmentField armorComponent;
 
         Container itemContainer;
 
@@ -44,30 +42,20 @@ namespace GameLibrary.Gui.Menu
 
             this.equipmentContainer = new Container(this.Bounds);
 
-            /*Component var_ItemSpaceWeapon = new Component(new Rectangle(this.Bounds.X + 33, this.Bounds.Y + 174, 36, 36));
-            var_ItemSpaceWeapon.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
-            this.equipmentContainer.add(var_ItemSpaceWeapon);*/
-
-            this.weaponComponent = new EquipmentField(this.inventoryOwner, 0, Factory.FactoryEnums.ItemEnum.Weapon, new Rectangle(this.Bounds.X + 33, this.Bounds.Y + 174, 36, 36));
-            //this.equipmentContainer.add(this.weaponComponent);
-
-            /*Component var_ItemSpaceArmor = new Component(new Rectangle(this.Bounds.X + 148, this.Bounds.Y + 182, 36, 36));
-            var_ItemSpaceArmor.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
-            this.equipmentContainer.add(var_ItemSpaceArmor);*/
-
-            this.armorComponent = new EquipmentField(this.inventoryOwner, 1, Factory.FactoryEnums.ItemEnum.Armor, new Rectangle(this.Bounds.X + 148, this.Bounds.Y + 182, 36, 36));
-            //this.equipmentContainer.add(this.armorComponent);
-
             int var_Count = this.inventoryOwner.Body.BodyParts.Count;
-
             for (int y = 0; y < var_Count; y++)
             {
-                EquipmentField var_EquipmentField = new EquipmentField(this.inventoryOwner, this.inventoryOwner.Body.BodyParts[y].Id, Factory.FactoryEnums.ItemEnum.Weapon, new Rectangle(this.Bounds.X, this.Bounds.Y + y*36, 36, 36));
-                this.equipmentContainer.add(var_EquipmentField);
+                Component var_InventoryItemSpace = new Component(new Rectangle(this.Bounds.X, this.Bounds.Y + y * 36, 36, 36));
+                var_InventoryItemSpace.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryItemSpace";
+                this.add(var_InventoryItemSpace);
             }
 
 
-
+            for (int y = 0; y < var_Count; y++)
+            {
+                EquipmentField var_EquipmentField = new EquipmentField(this.inventoryOwner, this.inventoryOwner.Body.BodyParts[y].Id, this.inventoryOwner.Body.BodyParts[y].AcceptedItemTypes, new Rectangle(this.Bounds.X, this.Bounds.Y + y * 36, 36, 36));
+                this.equipmentContainer.add(var_EquipmentField);
+            }
 
 
             this.itemContainer = new Container(new Rectangle(this.Bounds.X, this.Bounds.Y + 300, this.Bounds.Width, this.Bounds.Height));
@@ -126,7 +114,7 @@ namespace GameLibrary.Gui.Menu
                 }
                 foreach (InventoryField var_InventoryField in this.itemContainer.Components)
                 {
-                    Console.WriteLine(var_InventoryField.FieldId + " : " + var_InventoryField.Components.Count);
+                    //Console.WriteLine(var_InventoryField.FieldId + " : " + var_InventoryField.Components.Count);
                 }
 
             }
@@ -151,27 +139,6 @@ namespace GameLibrary.Gui.Menu
                         }
                     }
                 }
-
-
-                //BodyHuman var_HumanBody = this.inventoryOwner.Body as BodyHuman;
-
-                /*this.weaponComponent.removeItem();
-                if (var_HumanBody.getEquipmentObjectLeftHand() != null)
-                {
-                    this.weaponComponent.setItem(var_HumanBody.getEquipmentObjectLeftHand());
-                }*/
-
-                /*this.weaponComponent.removeItem();
-                if (this.inventoryOwner.getWeaponInHand() != null)
-                {
-                    this.weaponComponent.setItem(this.inventoryOwner.getWeaponInHand());
-                }
-
-                this.armorComponent.removeItem();
-                if (this.inventoryOwner.getWearingArmor() != null)
-                {
-                    this.armorComponent.setItem(this.inventoryOwner.getWearingArmor());
-                }*/
             }
         }
     }

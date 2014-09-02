@@ -33,12 +33,12 @@ namespace GameLibrary.Factory
             equipmentWeaponObject.Velocity = new Vector3(0, 0, 0);
             equipmentWeaponObject.StackMax = 1;
             equipmentWeaponObject.Size = new Microsoft.Xna.Framework.Vector3(32, 32, 0);
+            equipmentWeaponObject.ItemEnum = ItemEnum.Weapon;
 
             switch (_WeaponEnum)
             {
                 case WeaponEnum.Sword:
-                    {
-                        equipmentWeaponObject.ItemEnum = ItemEnum.Weapon;
+                    {           
                         equipmentWeaponObject.NormalDamage = 4;
                         equipmentWeaponObject.WeaponEnum = _WeaponEnum;
                         Model.Object.Equipment.Attack.Attack var_Attack = new Model.Object.Equipment.Attack.Attack(50, 1.0f, 20.0f, Model.Object.Equipment.Attack.AttackType.Front);
@@ -79,6 +79,7 @@ namespace GameLibrary.Factory
             equipmentArmorObject.StackMax = 1;
             equipmentArmorObject.Size = new Microsoft.Xna.Framework.Vector3(32, 32, 0);
             equipmentArmorObject.ArmorEnum = _ArmorEnum;
+            equipmentArmorObject.ItemEnum = ItemEnum.Armor;
 
             switch (_ArmorEnum)
             {

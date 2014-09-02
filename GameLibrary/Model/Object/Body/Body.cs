@@ -44,6 +44,7 @@ namespace GameLibrary.Model.Object.Body
             this.bodyColor = Color.White;
 
             this.mainBody = new BodyPart(0, new Vector3(0, 0, 0), this.BodyColor, "");
+            this.mainBody.AcceptedItemTypes.Add(Factory.FactoryEnums.ItemEnum.Armor);
             this.bodyParts.Add(this.mainBody);
         }
 
