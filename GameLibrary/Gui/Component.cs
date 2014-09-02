@@ -237,6 +237,10 @@ namespace GameLibrary.Gui
             return true;
         }
 
+        public virtual void update()
+        {
+        }
+
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
             if (this.backgroundGraphicPath != null && !this.backgroundGraphicPath.Equals(""))

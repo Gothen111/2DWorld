@@ -114,6 +114,9 @@ namespace Client
             }
             Configuration.networkManager.update();
             GameLibrary.Camera.Camera.camera.update(gameTime);
+
+            GameLibrary.Gui.MenuManager.menuManager.ActiveContainer.update();
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);

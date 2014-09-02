@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 using GameLibrary.Gui;
+using GameLibrary.MoodSystem.ParticleEngine;
 
 namespace GameLibrary.Gui.Menu
 {
@@ -21,6 +22,10 @@ namespace GameLibrary.Gui.Menu
 
         Button inventoryButton;
         InventoryMenu inventoryMenu;
+
+
+        //ParticleComponent particleComponent;
+
 
         public GameSurface()
             :base()

@@ -274,6 +274,13 @@
     <Compile Include="Model\Player\InputAction.cs" />
     <Compile Include="Model\Player\PlayerContoller.cs" />
     <Compile Include="Model\Path\PathFinderAStar.cs" />
+    <Compile Include="MoodSystem\ParticleEngine\Emitter.cs" />
+    <Compile Include="MoodSystem\ParticleEngine\Helpers\EmitterHelper.cs" />
+    <Compile Include="MoodSystem\ParticleEngine\Helpers\ParticleFader.cs" />
+    <Compile Include="MoodSystem\ParticleEngine\Helpers\ParticleScaler.cs" />
+    <Compile Include="MoodSystem\ParticleEngine\Helpers\RandomMinMax.cs" />
+    <Compile Include="MoodSystem\ParticleEngine\Particle.cs" />
+    <Compile Include="MoodSystem\ParticleEngine\ParticleComponent.cs" />
     <Compile Include="Peripherals\KeyboardManager.cs" />
     <Compile Include="Peripherals\MouseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

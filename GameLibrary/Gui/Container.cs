@@ -113,6 +113,15 @@ namespace GameLibrary.Gui
             return this;
         }
 
+        public override void update()
+        {
+            base.update();
+            foreach (Component var_Component in this.components)
+            {
+                var_Component.update();
+            }
+        }
+
         public override void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
             base.draw(_GraphicsDevice, _SpriteBatch);
