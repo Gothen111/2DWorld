@@ -85,8 +85,22 @@ namespace GameLibrary.Model.Map.World
             int var_RestX = _PosX % var_SizeX;
             int var_RestY = _PosY % var_SizeY;
 
-            _PosX = _PosX + var_RestX;
-            _PosY = _PosY + var_RestY;
+            if (_PosX < 0)
+            {
+                _PosX = _PosX - (var_SizeX + var_RestX);
+            }
+            else
+            {
+                _PosX = _PosX - var_RestX;
+            }
+            if (_PosY < 0)
+            {
+                _PosY = _PosY - (var_SizeY + var_RestY);
+            }
+            else
+            {
+                _PosY = _PosY - var_RestY;
+            }
 
             int var_RegionType = Util.Random.GenerateGoodRandomNumber(0, Enum.GetValues(typeof(RegionEnum)).Length);
             return GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, _PosX, _PosY, (RegionEnum)var_RegionType, this);

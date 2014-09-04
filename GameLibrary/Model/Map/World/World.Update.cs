@@ -38,8 +38,8 @@ namespace GameLibrary.Model.Map.World
             this.updatePlayerObjectsNeighborhood();
 
             int var_SizeAfter = this.chunksOutOfRange.Count;
-            Console.Write("Chunks: ");
-            Console.WriteLine(var_SizeBefore - var_SizeAfter);
+            //Console.Write("Chunks: ");
+            //Console.WriteLine(var_SizeBefore - var_SizeAfter);
             /*Console.WriteLine("------------------------");
             for (int y = -7; y <= 7; y++)
             {
@@ -135,21 +135,6 @@ namespace GameLibrary.Model.Map.World
                 Region.Region var_PlayerObjectRegion = (Region.Region)_PlayerObject.CurrentBlock.Parent.Parent;
 
                 Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_PlayerObject.CurrentBlock.Parent;
-
-                /*
-                //Top
-                this.createPlayerObjectNeighbourChunk(new Vector2((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + -1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize),
-                                                    new Vector2((int)var_PlayerObjectRegion.Position.X, (int)var_PlayerObjectRegion.Position.Y + -1 * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
-                //Left
-                this.createPlayerObjectNeighbourChunk(new Vector2((int)var_ChunkMid.Position.X + -1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y),
-                                                    new Vector2((int)var_PlayerObjectRegion.Position.X + -1 * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_PlayerObjectRegion.Position.Y));
-                //Right
-                this.createPlayerObjectNeighbourChunk(new Vector2((int)var_ChunkMid.Position.X + 1 * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_ChunkMid.Position.Y),
-                                                    new Vector2((int)var_PlayerObjectRegion.Position.X + 1 * Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, (int)var_PlayerObjectRegion.Position.Y));
-                //Bottom
-                this.createPlayerObjectNeighbourChunk(new Vector2((int)var_ChunkMid.Position.X, (int)var_ChunkMid.Position.Y + 1 * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize),
-                                                    new Vector2((int)var_PlayerObjectRegion.Position.X, (int)var_PlayerObjectRegion.Position.Y + 1 * Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
-                */
 
                 List<Chunk.Chunk> var_ChunksToRemove = new List<Chunk.Chunk>();
                 foreach (Chunk.Chunk var_Chunk in this.chunksOutOfRange)
