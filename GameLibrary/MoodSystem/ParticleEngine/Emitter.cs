@@ -22,7 +22,7 @@ namespace GameLibrary.MoodSystem.ParticleEngine
 		public List<Particle> ParticleList { get; set; }
 		public bool EmittedNewParticle { get; set; }
 		public Particle LastEmittedParticle { get; set; }
-		public List<Texture2D> TextureList { get; set; }
+		public List<String> TextureList { get; set; }
 		public bool Active { get; set; }
 		public int ParticleLifeTime { get; set; }
 		public Vector2 Position { get; set; }
@@ -43,7 +43,7 @@ namespace GameLibrary.MoodSystem.ParticleEngine
 		{
 			Active = true;
 			ParticleList = new List<Particle>();
-			TextureList = new List<Texture2D>();
+			TextureList = new List<String>();
 			Opacity = 255;
 		}
 
@@ -99,7 +99,7 @@ namespace GameLibrary.MoodSystem.ParticleEngine
 		{
 			if (i > TextureList.Count - 1) i = 0;
 
-			Particle particle = new Particle(TextureList[i],
+			Particle particle = new Particle(Ressourcen.RessourcenManager.ressourcenManager.Texture[TextureList[i]],
 																			 Position,
 																			 (float)emitterHelper.RandomizedDouble(ParticleSpeed),
 																			 (float)emitterHelper.RandomizedDouble(ParticleDirection),

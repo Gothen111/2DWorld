@@ -1,4 +1,0 @@
-D:\Projekte\2DWorld\Client\ClientContent\obj\x86\Debug\ClientContent.contentprojResolveAssemblyReference.cache
-C:\Users\Jonas\Documents\Mats Projekte\2DWorld\Client\ClientContent\obj\x86\Debug\ClientContent.contentprojResolveAssemblyReference.cache
-C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\ClientContent\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\Programmieren\Projekte\Github\2DWorld\Client\ClientContent\obj\x86\Debug\ClientContent.contentprojResolveAssemblyReference.cache
