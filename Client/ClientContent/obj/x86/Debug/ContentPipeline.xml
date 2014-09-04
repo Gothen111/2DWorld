@@ -595,6 +595,15 @@
       <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Shader\KryptonEffect.xnb</Output>
       <Time>2014-08-27T10:23:35.3340173+02:00</Time>
     </Item>
+    <Item>
+      <Source>Object\Character\BodyMale_Attack.png</Source>
+      <Name>Object\Character\BodyMale_Attack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tim-Laptop\Documents\Visual Studio 2010\Projects\2DWorld\Client\Client\bin\x86\Debug\Content\Object\Character\BodyMale_Attack.xnb</Output>
+      <Time>2014-09-02T18:52:54.795+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

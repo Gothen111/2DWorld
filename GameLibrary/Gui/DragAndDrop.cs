@@ -57,7 +57,7 @@ namespace GameLibrary.Gui
         public override void onClick(UserInterface.MouseEnum.MouseEnum mouseButton, Vector2 _MousePosition)
         {
             base.onClick(mouseButton, _MousePosition);
-            if (this.isDragAndDropAble)
+            if (this.isDragAndDropAble && mouseButton.Equals(UserInterface.MouseEnum.MouseEnum.Left))
             {
                 if (!this.isDraged)
                 {
