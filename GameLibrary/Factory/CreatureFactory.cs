@@ -18,6 +18,52 @@ namespace GameLibrary.Factory
         {
         }
 
+        private void createBodySettings(RaceObject _RaceObject, RaceEnum _ObjectRace, GenderEnum _ObjectGender)
+        {
+            switch (_ObjectRace)
+            {
+                case RaceEnum.Ogre:
+                    {
+                        _RaceObject.Body = new BodyHuman();
+                        ((BodyHuman)_RaceObject.Body).MainBody.TexturePath = "Character/Ogre1";
+                        _RaceObject.Size = new Vector3(80, 96, 0);
+                        _RaceObject.Body.setSize(new Vector3(80, 96, 0));
+                        //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
+                        break;
+                    }
+                case RaceEnum.Human:
+                    {
+                        _RaceObject.Body = new BodyHuman();
+
+                        switch (_ObjectGender)
+                        {
+                            case GenderEnum.Male:
+                                ((BodyHuman)_RaceObject.Body).MainBody.TexturePath = "Character/BodyMale";
+                                break;
+                            case GenderEnum.Female:
+                                ((BodyHuman)_RaceObject.Body).MainBody.TexturePath = "Character/BodyFemale";
+                                break;
+                        }
+
+                        _RaceObject.CollisionBounds.Add(new Rectangle(8, 20, 12, 2));
+
+                        ((BodyHuman)_RaceObject.Body).Hair.TexturePath = "Character/Hair1";
+
+                        EquipmentObject var_EquipmentObject_Armor = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.GoldenArmor);
+                        var_EquipmentObject_Armor.PositionInInventory = 0;
+
+                        _RaceObject.Body.setEquipmentObject(var_EquipmentObject_Armor);
+
+                        EquipmentObject var_EquipmentObject_Sword = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword);
+                        var_EquipmentObject_Sword.PositionInInventory = 1;
+
+                        _RaceObject.Body.setEquipmentObject(var_EquipmentObject_Sword);
+
+                        break;
+                    }
+            }
+        }
+
         public PlayerObject createPlayerObject(RaceEnum objectRace, FactionEnum objectFaction, CreatureEnum objectType, GenderEnum objectGender)
         {
             PlayerObject playerObject = new PlayerObject();
@@ -28,45 +74,7 @@ namespace GameLibrary.Factory
             playerObject.Gender = objectGender;
             playerObject.Name = NameFactory.getName(objectType, objectGender);
 
-            switch (objectRace)
-            {
-                case RaceEnum.Ogre:
-                    {
-                        playerObject.Body = new BodyHuman();
-                        ((BodyHuman)playerObject.Body).MainBody.TexturePath = "Character/Ogre1";
-                        playerObject.Size = new Vector3(80, 96, 0);
-                        playerObject.Body.setSize(new Vector3(80, 96, 0));
-                        //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
-                        break;
-                    }
-                case RaceEnum.Human:
-                    {
-                        playerObject.Body = new BodyHuman();
-                        switch (objectGender)
-                        {
-                            case GenderEnum.Male:
-                                ((BodyHuman)playerObject.Body).MainBody.TexturePath = "Character/BodyMale";
-                                break;
-                            case GenderEnum.Female:
-                                ((BodyHuman)playerObject.Body).MainBody.TexturePath = "Character/BodyFemale";
-                                break;
-                        }
-
-                        ((BodyHuman)playerObject.Body).Hair.TexturePath = "Character/Hair1";
-
-                        EquipmentObject var_EquipmentObject_Armor = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.GoldenArmor);
-                        var_EquipmentObject_Armor.PositionInInventory = 0;
-
-                        playerObject.Body.setEquipmentObject(var_EquipmentObject_Armor);
-
-                        EquipmentObject var_EquipmentObject_Sword = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword);
-                        var_EquipmentObject_Sword.PositionInInventory = 1;
-
-                        playerObject.Body.setEquipmentObject(var_EquipmentObject_Sword);
-
-                        break;
-                    }
-            }
+            this.createBodySettings(playerObject, objectRace, objectGender);
 
             return playerObject;
         }
@@ -94,43 +102,9 @@ namespace GameLibrary.Factory
             npcObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
             npcObject.Gender = objectGender;
             npcObject.Name = NameFactory.getName(objectType, objectGender);
-            switch (objectRace)
-            {
-                case RaceEnum.Ogre:
-                    {
-                        npcObject.Body = new BodyHuman();
-                        ((BodyHuman)npcObject.Body).MainBody.TexturePath = "Character/Ogre1";
-                        npcObject.Size = new Vector3(80, 96, 0);
-                        npcObject.Body.setSize(new Vector3(80, 96, 0));
-                        //npcObject.CollisionBounds.Add(new Rectangle(17 + (int)npcObject.Size.X / 2, 69 + (int)npcObject.Size.Y / 2, 49, 25));
-                        break;
-                    }
-                case RaceEnum.Human:
-                    {
-                        npcObject.Body = new BodyHuman();
-                        switch (objectGender)
-                        {
-                            case GenderEnum.Male:
-                                ((BodyHuman)npcObject.Body).MainBody.TexturePath = "Character/BodyMale";
-                                break;
-                            case GenderEnum.Female:
-                                ((BodyHuman)npcObject.Body).MainBody.TexturePath = "Character/BodyFemale";
-                                break;
-                        }
 
-                        EquipmentObject var_EquipmentObject_Armor = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentArmorObject(GameLibrary.Factory.FactoryEnums.ArmorEnum.Chest);
-                        var_EquipmentObject_Armor.PositionInInventory = 0;
+            this.createBodySettings(npcObject, objectRace, objectGender);
 
-                        npcObject.Body.setEquipmentObject(var_EquipmentObject_Armor);
-
-                        EquipmentObject var_EquipmentObject_Sword = GameLibrary.Factory.EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(GameLibrary.Factory.FactoryEnums.WeaponEnum.Sword);
-                        var_EquipmentObject_Sword.PositionInInventory = 1;
-
-                        npcObject.Body.setEquipmentObject(var_EquipmentObject_Sword);
-
-                        break;
-                    }
-            }
             npcObject.Tasks.Add(new Model.Object.Task.Tasks.AttackRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Attack_Random));
             //npcObject.Tasks.Add(new Model.Object.Task.Tasks.WalkRandomTask(npcObject, Model.Object.Task.Tasks.TaskPriority.Walk_Random));
 

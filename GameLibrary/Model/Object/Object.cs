@@ -26,8 +26,8 @@ namespace GameLibrary.Model.Object
         {
             get { return position; }
             set { 
-                position = value; 
-                bounds = new Rectangle((int)value.X, (int)value.Y, (int)size.X, (int)size.Y); 
+                position = value;
+                bounds = new Rectangle((int)value.X - (int)size.X / 2, (int)value.Y - (int)size.Y, (int)size.X, (int)size.Y); //???
             }
         }
 
@@ -36,7 +36,9 @@ namespace GameLibrary.Model.Object
         public Vector3 Size
         {
             get { return size; }
-            set { size = value; bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y); }
+            set { size = value;
+                  bounds = new Rectangle((int)position.X - (int)value.X/2, (int)position.Y - (int)value.Y, (int)value.X, (int)value.Y); //???
+            }
         }
 
         private Rectangle bounds;
@@ -91,7 +93,7 @@ namespace GameLibrary.Model.Object
             this.size = (Vector3)info.GetValue("size", typeof(Vector3));
             this.velocity = (Vector3)info.GetValue("velocity", typeof(Vector3));
 
-            this.bounds = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
+            this.bounds = new Rectangle((int)this.position.X - (int)size.X / 2, (int)this.position.Y - (int)size.Y, (int)size.X, (int)size.Y); //???
 
             this.objects = (List<Object>)info.GetValue("objects", typeof(List<Object>));
 

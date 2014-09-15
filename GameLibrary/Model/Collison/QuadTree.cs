@@ -57,7 +57,7 @@ namespace GameLibrary.Model.Collison
                     objectSortOrder.Add(quadObject, objectSortId++);
                 }
 
-                Rectangle bounds = new Rectangle((int)quadObject.Position.X, (int)quadObject.Position.Y, (int)quadObject.Size.X, (int)quadObject.Size.Y);
+                Rectangle bounds = quadObject.Bounds;//new Rectangle((int)quadObject.Position.X, (int)quadObject.Position.Y, (int)quadObject.Size.X, (int)quadObject.Size.Y); //???
                 if (root == null)
                 {
                     var rootSize = new Vector3((float)Math.Ceiling(bounds.Width / minLeafSize.X),

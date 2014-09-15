@@ -43,13 +43,13 @@ namespace GameLibrary.Model.Object
                 }
         }
 
-        public Rectangle DrawBounds
+        /*public Rectangle DrawBounds
         {
             get
             {
                 return new Rectangle((int)(this.Position.X - this.Size.X / 2), (int)(this.Position.Y - this.Size.Y), (int)this.Size.X, (int)this.Size.Y);
             }
-        }
+        }*/
 
         private float movementSpeed;
 
@@ -183,7 +183,7 @@ namespace GameLibrary.Model.Object
             this.Velocity = new Vector3(var_X, var_Y, 0);
             if (var_X != 0 || var_Y != 0)
             {
-                Rectangle nextBounds = new Rectangle((int)(this.DrawBounds.Left + this.Velocity.X), (int)(this.DrawBounds.Top + this.Velocity.Y), this.DrawBounds.Width, this.DrawBounds.Height);
+                Rectangle nextBounds = new Rectangle((int)(this.Bounds.Left + this.Velocity.X), (int)(this.Bounds.Top + this.Velocity.Y), this.Bounds.Width, this.Bounds.Height);
                 List<Object> objectsColliding = GameLibrary.Model.Map.World.World.world.getObjectsColliding(nextBounds); // World.getObjectsColliding(nextBounds);
                 objectsColliding.Remove(this as LivingObject);
                 if (objectsColliding.Count < 1)
@@ -278,7 +278,8 @@ namespace GameLibrary.Model.Object
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)
         {
             //TODO: An das Attribut Scale anpassen
-            Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y);
+            //Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y);
+            Vector2 var_Position = new Vector2(this.Bounds.X, this.Bounds.Y);
 
             /*if (this.animation.drawColor() != Color.White)
             {

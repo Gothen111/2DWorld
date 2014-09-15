@@ -50,6 +50,8 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Region/Grassland/Block/Layer2/Ground1", "Region/Grassland/Block/Layer2/Gras");
             loadTexture(_ContentManager, "Region/Grassland/Block/Layer2/Ground2", "Region/Grassland/Block/Layer2/Dirt");
 
+            //loadTexture(_ContentManager, "Region/Grassland/Block/Wall", "Region/Grassland/Block/Wall");
+
             loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Center", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Center");
             loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Corner1", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Corner1");
             loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Corner2", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Corner2");

@@ -247,7 +247,6 @@
     <Compile Include="Model\Object\Task\Aggro\AggroSystem.cs" />
     <Compile Include="Model\Object\Task\LivingObjectTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\AttackRandomTask.cs" />
-    <Compile Include="Model\Object\Task\Tasks\COPY\AttackRandomTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\StandTask.cs" />
     <Compile Include="Model\Object\Task\Tasks\TaskPriority.cs" />
     <Compile Include="Model\Object\Task\Tasks\WalkRandomTask.cs" />

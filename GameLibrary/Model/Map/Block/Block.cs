@@ -157,13 +157,18 @@ namespace GameLibrary.Model.Map.Block
 
             String var_RegionType = ((Region.Region)this.Parent.Parent).RegionEnum.ToString();
 
+            /*for(int i = 0; i < this.height; i++)
+            {
+                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/" + "Wall"], var_DrawPosition - new Vector2(0, BlockSize * i), var_Color);
+            }*/
+            
             BlockLayerEnum var_Layer = BlockLayerEnum.Layer1;
             while ((int)var_Layer < this.layer.Length)
             {
                 BlockEnum var_Enum = this.layer[(int)var_Layer];
                 if (var_Enum != BlockEnum.Nothing)
                 {
-                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/" + var_Layer + "/" + var_Enum], var_DrawPosition, var_Color);
+                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Region/" + var_RegionType + "/Block/" + var_Layer + "/" + var_Enum], var_DrawPosition /*- new Vector2(0,BlockSize * this.height)*/, var_Color);
                 }
                 var_Layer += 1;
             }

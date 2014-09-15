@@ -204,13 +204,13 @@ namespace GameLibrary.Model.Map.World
                         continue;
                     if (var_Object is AnimatedObject)
                     {
-                        if (Util.Intersection.RectangleIntersectsRectangle(bounds, ((AnimatedObject)var_Object).DrawBounds))
+                        if (Util.Intersection.RectangleIntersectsRectangle(bounds, ((AnimatedObject)var_Object).Bounds)) ///DrawBounds ???
                         {
                             if (var_Object.CollisionBounds != null && var_Object.CollisionBounds.Count > 0)
                             {
                                 foreach (Rectangle collisionBound in var_Object.CollisionBounds)
                                 {
-                                    if (Util.Intersection.RectangleIntersectsRectangle(bounds, collisionBound))
+                                    if (Util.Intersection.RectangleIntersectsRectangle(bounds, new Rectangle(collisionBound.X + var_Object.Bounds.X, collisionBound.Y + var_Object.Bounds.Y, collisionBound.Width, collisionBound.Height))) // collisionBound ???
                                     {
                                         result.Add(var_Object);
                                         break;

@@ -335,7 +335,7 @@ namespace GameLibrary.Factory
 
         private void generateNpc(Chunk _Chunk)
         {
-            int var_Count = 0;// Chunk.chunkSizeX * Chunk.chunkSizeY / 5 / Util.Random.GenerateGoodRandomNumber(1, 5);
+            int var_Count = 0;//Chunk.chunkSizeX * Chunk.chunkSizeY / 5 / Util.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.NpcObject var_NpcObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Beerdrinker, CreatureEnum.Archer, GenderEnum.Male);
@@ -367,7 +367,7 @@ namespace GameLibrary.Factory
                 int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
-                var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left + 15, var_EnvironmentObject.DrawBounds.Bottom - 30, var_EnvironmentObject.DrawBounds.Width - 30, 20));
+                //var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left + 15, var_EnvironmentObject.DrawBounds.Bottom - 30, var_EnvironmentObject.DrawBounds.Width - 30, 20));
 
                 Block var_Block = _Chunk.getBlockAtCoordinate(var_EnvironmentObject.Position.X, var_EnvironmentObject.Position.Y);
 
@@ -513,7 +513,7 @@ namespace GameLibrary.Factory
                     }
                 }
             }
-
+            /*
             for (int x = 0; x < var_HeightMap.GetLength(0); x++)
             {
                 for (int y = 0; y < var_HeightMap.GetLength(1); y++)
@@ -649,7 +649,7 @@ namespace GameLibrary.Factory
                         }
                     }
                 }
-            }
+            }*/
 
             //AUSGABE
             for (int y = 0; y < var_HeightMap.GetLength(1); y++)
