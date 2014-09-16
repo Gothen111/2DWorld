@@ -23,7 +23,7 @@ namespace GameLibrary.Factory
             int var_EndPositionX = var_StartPositionX + (int)_Region.Size.X * Chunk.chunkSizeX * Block.BlockSize;
             int var_EndPositionY = var_StartPositionY + (int)_Region.Size.Y * Chunk.chunkSizeY * Block.BlockSize;
 
-            int var_Count = Util.Random.GenerateGoodRandomNumber(0, _MaxCount);
+            int var_Count = Utility.Random.GenerateGoodRandomNumber(0, _MaxCount);
             var_Count = _MaxCount;
             for (int i = 0; i < var_Count; i++)
             {

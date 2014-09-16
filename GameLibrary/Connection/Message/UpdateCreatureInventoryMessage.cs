@@ -50,14 +50,14 @@ namespace GameLibrary.Connection.Message
         {
             this.MessageTime = im.ReadDouble();
             this.Id = im.ReadInt32();
-            this.Inventory = Util.Serializer.DeserializeObjectFromString<Inventory>(im.ReadString());
+            this.Inventory = Utility.Serializer.DeserializeObjectFromString<Inventory>(im.ReadString());
         }
 
         public void Encode(NetOutgoingMessage om)
         {
             om.Write(this.MessageTime);
             om.Write(this.Id);
-            om.Write(Util.Serializer.SerializeObjectToString(this.Inventory));
+            om.Write(Utility.Serializer.SerializeObjectToString(this.Inventory));
         }
 
         #endregion

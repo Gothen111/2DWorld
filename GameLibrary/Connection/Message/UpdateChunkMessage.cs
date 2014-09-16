@@ -54,7 +54,7 @@ namespace GameLibrary.Connection.Message
             this.MessageTime = im.ReadDouble();
             this.RegionId = im.ReadInt32();
 
-            this.Chunk = Util.Serializer.DeserializeObjectFromString<Model.Map.Chunk.Chunk>(im.ReadString());
+            this.Chunk = Utility.Serializer.DeserializeObjectFromString<Model.Map.Chunk.Chunk>(im.ReadString());
             this.Chunk.Parent = Model.Map.World.World.world.getRegion(this.RegionId);
             this.Chunk.setAllNeighboursOfBlocks();
         }
@@ -65,7 +65,7 @@ namespace GameLibrary.Connection.Message
             om.Write(this.MessageTime);
             om.Write(this.RegionId);
 
-            om.Write(Util.Serializer.SerializeObjectToString(this.Chunk));
+            om.Write(Utility.Serializer.SerializeObjectToString(this.Chunk));
         }
 
         #endregion

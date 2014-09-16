@@ -69,7 +69,7 @@ namespace GameLibrary.Connection.Message
             this.MoveDown = im.ReadBoolean();
             this.MoveLeft = im.ReadBoolean();
             this.MoveRight = im.ReadBoolean();*/
-            this.Object = Util.Serializer.DeserializeObjectFromString<Model.Object.Object>(im.ReadString());
+            this.Object = Utility.Serializer.DeserializeObjectFromString<Model.Object.Object>(im.ReadString());
         }
 
         public void Encode(NetOutgoingMessage om)
@@ -81,7 +81,7 @@ namespace GameLibrary.Connection.Message
             om.Write(this.MoveDown);
             om.Write(this.MoveLeft);
             om.Write(this.MoveRight);*/
-            om.Write(Util.Serializer.SerializeObjectToString(this.Object));
+            om.Write(Utility.Serializer.SerializeObjectToString(this.Object));
         }
 
         #endregion

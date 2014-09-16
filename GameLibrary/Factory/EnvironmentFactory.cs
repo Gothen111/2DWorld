@@ -36,7 +36,7 @@ namespace GameLibrary.Factory
                     {
                         environmentObject.Body.MainBody.TexturePath = "Region/" + _RegionEnum.ToString() + "/Block/Environment/Flower/Flower1";
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(32, 32, 0);
-                        environmentObject.Body.MainBody.StandartTextureShift = new Microsoft.Xna.Framework.Vector2(Util.Random.GenerateGoodRandomNumber(0, 9) * 32, 0);
+                        environmentObject.Body.MainBody.StandartTextureShift = new Microsoft.Xna.Framework.Vector2(Utility.Random.GenerateGoodRandomNumber(0, 9) * 32, 0);
                         break;
                     }
                 case EnvironmentEnum.Plant:

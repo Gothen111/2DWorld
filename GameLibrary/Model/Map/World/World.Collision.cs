@@ -33,7 +33,7 @@ namespace GameLibrary.Model.Map.World
 
         private void getObjectsColliding(Rectangle bounds, QuadTree<Object.Object>.QuadNode currentNode, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
-            if (Util.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
+            if (Utility.Collision.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
             {
                 //Circle fits in node, so search in subnodes
                 Boolean circleFitsInSubnode = false;
@@ -41,7 +41,7 @@ namespace GameLibrary.Model.Map.World
                 {
                     if (node != null)
                     {
-                        if (Util.Intersection.RectangleIsInRectangle(bounds, node.Bounds))
+                        if (Utility.Collision.Intersection.RectangleIsInRectangle(bounds, node.Bounds))
                         {
                             circleFitsInSubnode = true;
                             getObjectsInRange(bounds, node, result, _SearchFlags);

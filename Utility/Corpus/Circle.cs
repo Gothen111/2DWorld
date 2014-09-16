@@ -5,7 +5,7 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
-namespace GameLibrary.Util
+namespace Utility.Corpus
 {
     public class Circle
     {

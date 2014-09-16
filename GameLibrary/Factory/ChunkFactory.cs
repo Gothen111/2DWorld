@@ -44,7 +44,7 @@ namespace GameLibrary.Factory
             this.fillChunkWithBlock(var_Result, BlockEnum.Ground1);
 
             var_Result.setAllNeighboursOfBlocks();
-            //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
+            //generateWall(var_Result, Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             generateSecondLayer(var_Result, _Layer);
             generateFlowers(var_Result);
             generateTrees(var_Result);
@@ -69,7 +69,7 @@ namespace GameLibrary.Factory
             this.fillChunkWithBlock(var_Result, BlockEnum.Ground1);
 
             var_Result.setAllNeighboursOfBlocks();
-            //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
+            //generateWall(var_Result, Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             generateSecondLayer(var_Result, _Layer);
             //generateFlowers(var_Result);
             generateTrees(var_Result);
@@ -89,7 +89,7 @@ namespace GameLibrary.Factory
             this.fillChunkWithBlock(var_Result, BlockEnum.Ground1);
 
             var_Result.setAllNeighboursOfBlocks();
-            //generateWall(var_Result, Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Util.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
+            //generateWall(var_Result, Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
             generateSecondLayer(var_Result, _Layer);
             //generateFlowers(var_Result);
             //generateTrees(var_Result);
@@ -118,19 +118,19 @@ namespace GameLibrary.Factory
 
         private void generateSecondLayer(Chunk _Chunk, List<Enum> _Layer)
         {
-            int var_Count = Util.Random.GenerateGoodRandomNumber(0, (int)((_Chunk.Size.X * _Chunk.Size.Y)*0.1)); //  / 100
+            int var_Count = Utility.Random.GenerateGoodRandomNumber(0, (int)((_Chunk.Size.X * _Chunk.Size.Y)*0.1)); //  / 100
             for (int i = 0; i < var_Count; i++)
             {
-                int var_EnumId = Util.Random.GenerateGoodRandomNumber(0, _Layer.Count);
-                int var_PosX = Util.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.X);
-                int var_PosY = Util.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.Y);
+                int var_EnumId = Utility.Random.GenerateGoodRandomNumber(0, _Layer.Count);
+                int var_PosX = Utility.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.X);
+                int var_PosY = Utility.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.Y);
                 rekursiveSetBlock(_Chunk, _Layer.ElementAt(var_EnumId), var_PosX, var_PosY, 100, 20);
             }
         }
 
         private void rekursiveSetBlock(Chunk _Chunk, Enum _Enum, int _PosX, int _PosY, int _Chance, int _ChanceToDecrease)
         {
-            int var_Chance = Util.Random.GenerateGoodRandomNumber(0, 100);
+            int var_Chance = Utility.Random.GenerateGoodRandomNumber(0, 100);
 
             if (var_Chance <= _Chance)
             {
@@ -149,10 +149,10 @@ namespace GameLibrary.Factory
                         }
 
                         _Chunk.getBlockAtPosition(_PosX, _PosY).setLayerAt(_Enum, BlockLayerEnum.Layer2);
-                        rekursiveSetBlock(_Chunk, _Enum, _PosX + 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
-                        rekursiveSetBlock(_Chunk, _Enum, _PosX - 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
-                        rekursiveSetBlock(_Chunk, _Enum, _PosX, _PosY + 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
-                        rekursiveSetBlock(_Chunk, _Enum, _PosX, _PosY - 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetBlock(_Chunk, _Enum, _PosX + 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Utility.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetBlock(_Chunk, _Enum, _PosX - 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Utility.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetBlock(_Chunk, _Enum, _PosX, _PosY + 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Utility.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetBlock(_Chunk, _Enum, _PosX, _PosY - 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Utility.Random.GenerateGoodRandomNumber(1, 3));
                     }
                 }
             }
@@ -195,7 +195,7 @@ namespace GameLibrary.Factory
                 {
                     var_GoTo.Add(var_ComeFrom);
                 }
-                int var_Rand = Util.Random.GenerateGoodRandomNumber(0, var_GoTo.Count);
+                int var_Rand = Utility.Random.GenerateGoodRandomNumber(0, var_GoTo.Count);
 
                 int var_Choice = var_GoTo.ElementAt(var_Rand);
 
@@ -309,13 +309,13 @@ namespace GameLibrary.Factory
 
         private void generateFlowers(Chunk _Chunk)
         {
-            int var_Count = 0;//Chunk.chunkSizeX * Chunk.chunkSizeY / Util.Random.GenerateGoodRandomNumber(1,5);
+            int var_Count = 0;//Chunk.chunkSizeX * Chunk.chunkSizeY / Utility.Random.GenerateGoodRandomNumber(1,5);
             for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(((Region)_Chunk.Parent).RegionEnum,  EnvironmentEnum.Flower_1);
 
-                int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
-                int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_X = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
                 //var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left, var_EnvironmentObject.DrawBounds.Bottom, var_EnvironmentObject.DrawBounds.Width, 20));
@@ -335,13 +335,13 @@ namespace GameLibrary.Factory
 
         private void generateNpc(Chunk _Chunk)
         {
-            int var_Count = 0;//Chunk.chunkSizeX * Chunk.chunkSizeY / 5 / Util.Random.GenerateGoodRandomNumber(1, 5);
+            int var_Count = 0;//Chunk.chunkSizeX * Chunk.chunkSizeY / 5 / Utility.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.NpcObject var_NpcObject = CreatureFactory.creatureFactory.createNpcObject(RaceEnum.Human, FactionEnum.Beerdrinker, CreatureEnum.Archer, GenderEnum.Male);
 
-                int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
-                int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_X = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_NpcObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
 
@@ -358,13 +358,13 @@ namespace GameLibrary.Factory
 
         private void generateTrees(Chunk _Chunk)
         {
-            int var_Count = 0;//Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Util.Random.GenerateGoodRandomNumber(1, 5);
+            int var_Count = 0;//Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Utility.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.EnvironmentObject var_EnvironmentObject = EnvironmentFactory.environmentFactory.createEnvironmentObject(((Region)_Chunk.Parent).RegionEnum, EnvironmentEnum.Tree_Normal_1);
 
-                int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
-                int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_X = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
                 //var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left + 15, var_EnvironmentObject.DrawBounds.Bottom - 30, var_EnvironmentObject.DrawBounds.Width - 30, 20));
@@ -385,13 +385,13 @@ namespace GameLibrary.Factory
 
         private void generateCoins(Chunk _Chunk)
         {
-            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Util.Random.GenerateGoodRandomNumber(1, 5);
+            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Utility.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
                 GameLibrary.Model.Object.ItemObject var_itemObject = ItemFactory.itemFactory.createItemObject(ItemEnum.GoldCoin);
 
-                int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
-                int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_X = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_itemObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
 
@@ -406,14 +406,14 @@ namespace GameLibrary.Factory
 
         private void generateStuff(Chunk _Chunk)
         {
-            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Util.Random.GenerateGoodRandomNumber(1, 5);
+            int var_Count = Chunk.chunkSizeX * Chunk.chunkSizeY / 8 / Utility.Random.GenerateGoodRandomNumber(1, 5);
             for (int i = 0; i < var_Count; i++)
             {
                 //GameLibrary.Model.Object.ItemObject var_itemObject = EquipmentFactory.equipmentFactory.createEquipmentWeaponObject(WeaponEnum.Sword);
                 GameLibrary.Model.Object.ItemObject var_itemObject = EquipmentFactory.equipmentFactory.createEquipmentArmorObject(ArmorEnum.GoldenArmor);
 
-                int var_X = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
-                int var_Y = Util.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_X = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
+                int var_Y = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_itemObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
 
@@ -432,15 +432,15 @@ namespace GameLibrary.Factory
             int var_Count = 10;
             for (int i = 0; i < var_Count; i++)
             {
-                int var_PosX = Util.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.X);
-                int var_PosY = Util.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.Y);
+                int var_PosX = Utility.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.X);
+                int var_PosY = Utility.Random.GenerateGoodRandomNumber(0, (int)_Chunk.Size.Y);
                 rekursiveSetWall(_Chunk, BlockEnum.Wall, var_PosX, var_PosY, 100, 5);
             }
         }
 
         private void rekursiveSetWall(Chunk _Chunk, Enum _Enum, int _PosX, int _PosY, int _Chance, int _ChanceToDecrease)
         {
-            int var_Chance = Util.Random.GenerateGoodRandomNumber(0, 100);
+            int var_Chance = Utility.Random.GenerateGoodRandomNumber(0, 100);
 
             if (var_Chance <= _Chance)
             {
@@ -454,10 +454,10 @@ namespace GameLibrary.Factory
                         }
 
                         _Chunk.getBlockAtPosition(_PosX, _PosY).setFirstLayer(_Enum);
-                        rekursiveSetWall(_Chunk, _Enum, _PosX + 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
-                        rekursiveSetWall(_Chunk, _Enum, _PosX - 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
-                        rekursiveSetWall(_Chunk, _Enum, _PosX, _PosY + 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
-                        rekursiveSetWall(_Chunk, _Enum, _PosX, _PosY - 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Util.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetWall(_Chunk, _Enum, _PosX + 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Utility.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetWall(_Chunk, _Enum, _PosX - 1, _PosY, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Utility.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetWall(_Chunk, _Enum, _PosX, _PosY + 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Utility.Random.GenerateGoodRandomNumber(1, 3));
+                        rekursiveSetWall(_Chunk, _Enum, _PosX, _PosY - 1, (_Chance - _ChanceToDecrease), _ChanceToDecrease * Utility.Random.GenerateGoodRandomNumber(1, 3));
                     }
                 }
             }
@@ -475,7 +475,7 @@ namespace GameLibrary.Factory
             {
                 for (int y = 0; y < var_HeightMap.GetLength(1); y++)
                 {
-                    var_HeightMap[x, y] = var_Min + Util.Random.GenerateGoodRandomNumber(0, var_RandomRange);
+                    var_HeightMap[x, y] = var_Min + Utility.Random.GenerateGoodRandomNumber(0, var_RandomRange);
                 }
             }
 
@@ -500,7 +500,7 @@ namespace GameLibrary.Factory
                     {
                         var_Add += var_HeightMap[x, y + 1];
                     }
-                    var_HeightMap[x, y] = var_Add/4 + Util.Random.GenerateGoodRandomNumber(0, var_RandomRange) / 2;
+                    var_HeightMap[x, y] = var_Add/4 + Utility.Random.GenerateGoodRandomNumber(0, var_RandomRange) / 2;
                     if (var_HeightMap[x, y] > var_Max)
                     {
                         var_HeightMap[x, y] = var_Max;

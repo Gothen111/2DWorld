@@ -227,7 +227,7 @@ namespace GameLibrary.Model.Map.Region
             String var_Path = "Save/Chunks/" + _ID + ".sav";
             if (System.IO.File.Exists(var_Path))
             {
-                return (Chunk.Chunk) Util.Serializer.DeSerializeObject(var_Path);
+                return (Chunk.Chunk)Utility.Serializer.DeSerializeObject(var_Path);
             }
             return null;
         }
@@ -242,7 +242,7 @@ namespace GameLibrary.Model.Map.Region
             else
             {
                 String var_Path = "Save/Chunks/" + _Chunk.Id + ".sav";
-                Util.Serializer.SerializeObject(var_Path, _Chunk);
+                Utility.Serializer.SerializeObject(var_Path, _Chunk);
             }           
         }
 

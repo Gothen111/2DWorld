@@ -52,14 +52,14 @@ namespace GameLibrary.Connection.Message
         {
             this.MessageTime = im.ReadDouble();
             this.Id = im.ReadInt32();
-            this.Body = Util.Serializer.DeserializeObjectFromString<Body>(im.ReadString());
+            this.Body = Utility.Serializer.DeserializeObjectFromString<Body>(im.ReadString());
         }
 
         public void Encode(NetOutgoingMessage om)
         {
             om.Write(this.MessageTime);
             om.Write(this.Id);
-            om.Write(Util.Serializer.SerializeObjectToString(this.Body));
+            om.Write(Utility.Serializer.SerializeObjectToString(this.Body));
         }
 
         #endregion

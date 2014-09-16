@@ -45,13 +45,13 @@ namespace GameLibrary.Connection.Message
 
         public void Decode(NetIncomingMessage im)
         {
-            this.PlayerObject = Util.Serializer.DeserializeObjectFromString<PlayerObject>(im.ReadString());
+            this.PlayerObject = Utility.Serializer.DeserializeObjectFromString<PlayerObject>(im.ReadString());
             this.MessageTime = im.ReadDouble();
         }
 
         public void Encode(NetOutgoingMessage om)
         {
-            om.Write(Util.Serializer.SerializeObjectToString(this.PlayerObject));
+            om.Write(Utility.Serializer.SerializeObjectToString(this.PlayerObject));
             om.Write(this.MessageTime);
         }
 

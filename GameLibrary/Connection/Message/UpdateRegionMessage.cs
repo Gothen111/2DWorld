@@ -52,7 +52,7 @@ namespace GameLibrary.Connection.Message
             this.Id = im.ReadInt32();
             this.MessageTime = im.ReadDouble();
 
-            this.Region = Util.Serializer.DeserializeObjectFromString<Model.Map.Region.Region>(im.ReadString());
+            this.Region = Utility.Serializer.DeserializeObjectFromString<Model.Map.Region.Region>(im.ReadString());
             this.Region.Parent = Model.Map.World.World.world;
         }
 
@@ -61,7 +61,7 @@ namespace GameLibrary.Connection.Message
             om.Write(this.Id);
             om.Write(this.MessageTime);
 
-            om.Write(Util.Serializer.SerializeObjectToString(this.Region));
+            om.Write(Utility.Serializer.SerializeObjectToString(this.Region));
         }
 
         #endregion

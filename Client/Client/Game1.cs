@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 using GameLibrary.Configuration;
 using GameLibrary.Connection;
-using GameLibrary.Util;
+using Utility;
 
 using GameLibrary.Setting;
 

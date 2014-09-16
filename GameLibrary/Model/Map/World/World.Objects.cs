@@ -134,7 +134,7 @@ namespace GameLibrary.Model.Map.World
 
         public List<Object.Object> getObjectsInRange(Vector3 _Position, QuadTree<Object.Object>.QuadNode currentNode, float _Range, List<SearchFlags.Searchflag> _SearchFlags)
         {
-            Util.Circle circle = new Util.Circle(_Position, _Range);
+            Utility.Corpus.Circle circle = new Utility.Corpus.Circle(_Position, _Range);
             List<Object.Object> result = new List<Object.Object>();
             if (currentNode != null)
             {
@@ -164,13 +164,13 @@ namespace GameLibrary.Model.Map.World
 
         private void getObjectsInRange(Rectangle bounds, QuadTree<Object.Object>.QuadNode currentNode, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
-            if (Util.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
+            if (Utility.Collision.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
             {
                 foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
                 {
                     if (node != null)
                     {
-                        if (Util.Intersection.RectangleIsInRectangle(bounds, node.Bounds))
+                        if (Utility.Collision.Intersection.RectangleIsInRectangle(bounds, node.Bounds))
                         {
                             getObjectsInRange(bounds, node, result, _SearchFlags);
                         }
@@ -204,13 +204,13 @@ namespace GameLibrary.Model.Map.World
                         continue;
                     if (var_Object is AnimatedObject)
                     {
-                        if (Util.Intersection.RectangleIntersectsRectangle(bounds, ((AnimatedObject)var_Object).Bounds)) ///DrawBounds ???
+                        if (Utility.Collision.Intersection.RectangleIntersectsRectangle(bounds, ((AnimatedObject)var_Object).Bounds)) ///DrawBounds ???
                         {
                             if (var_Object.CollisionBounds != null && var_Object.CollisionBounds.Count > 0)
                             {
                                 foreach (Rectangle collisionBound in var_Object.CollisionBounds)
                                 {
-                                    if (Util.Intersection.RectangleIntersectsRectangle(bounds, new Rectangle(collisionBound.X + var_Object.Bounds.X, collisionBound.Y + var_Object.Bounds.Y, collisionBound.Width, collisionBound.Height))) // collisionBound ???
+                                    if (Utility.Collision.Intersection.RectangleIntersectsRectangle(bounds, new Rectangle(collisionBound.X + var_Object.Bounds.X, collisionBound.Y + var_Object.Bounds.Y, collisionBound.Width, collisionBound.Height))) // collisionBound ???
                                     {
                                         result.Add(var_Object);
                                         break;

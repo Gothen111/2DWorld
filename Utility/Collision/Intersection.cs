@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
-using GameLibrary.Util;
+using Utility.Corpus;
 
-namespace GameLibrary.Util
+namespace Utility.Collision
 {
     public class Intersection
     {

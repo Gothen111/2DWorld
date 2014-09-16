@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace GameLibrary.Util
+namespace Utility
 {
     public class Serializer
     {

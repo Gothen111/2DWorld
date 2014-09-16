@@ -46,13 +46,13 @@ namespace GameLibrary.Connection.Message
         public void Decode(NetIncomingMessage im)
         {
             this.MessageTime = im.ReadDouble();
-            this.World = Util.Serializer.DeserializeObjectFromString<World>(im.ReadString());
+            this.World = Utility.Serializer.DeserializeObjectFromString<World>(im.ReadString());
         }
 
         public void Encode(NetOutgoingMessage om)
         {
             om.Write(this.MessageTime);
-            om.Write(Util.Serializer.SerializeObjectToString(this.World));
+            om.Write(Utility.Serializer.SerializeObjectToString(this.World));
         }
 
         #endregion

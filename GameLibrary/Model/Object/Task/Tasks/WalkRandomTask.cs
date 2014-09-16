@@ -41,12 +41,12 @@ namespace GameLibrary.Model.Object.Task.Tasks
             : base(_TaskOwner, _Priority)
         {
             this.finishedWalking = false;
-            targetPosition = new Vector2(Util.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)), Util.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)));
+            targetPosition = new Vector2(Utility.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)), Utility.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)));
             this.TaskOwner.Path = createPath(new Vector2(this.TaskOwner.Position.X, this.TaskOwner.Position.Y), new Vector2(this.targetPosition.X, this.targetPosition.Y));
             int counter = 1;
             while (!isPathPossible() && counter >= 0)
             {
-                targetPosition = new Vector2(Util.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)), Util.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)));
+                targetPosition = new Vector2(Utility.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)), Utility.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)));
                 this.TaskOwner.Path = createPath(new Vector2(this.TaskOwner.Position.X, this.TaskOwner.Position.Y), new Vector2(this.targetPosition.X, this.targetPosition.Y));
                 counter--;
             }
@@ -69,7 +69,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
         {
             if (this.finishedWalking)
             {
-                targetPosition = new Vector2(Util.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)), Util.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)));
+                targetPosition = new Vector2(Utility.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)), Utility.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)));
                 this.TaskOwner.Path = GameLibrary.Model.Path.PathFinderAStar.generatePath(new Vector2(this.TaskOwner.Position.X, this.TaskOwner.Position.Y), new Vector2(this.targetPosition.X, this.targetPosition.Y));
             }
             else
@@ -84,7 +84,7 @@ namespace GameLibrary.Model.Object.Task.Tasks
                     int counter = 1;
                     while (!isPathPossible() && counter >= 0)
                     {
-                        targetPosition = new Vector2(Util.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)), Util.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)));
+                        targetPosition = new Vector2(Utility.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)), Utility.Random.GenerateGoodRandomNumber((int)(this.TaskOwner.Position.X - Chunk.chunkSizeX * Block.BlockSize / 2), (int)(this.TaskOwner.Position.X + Chunk.chunkSizeX * Block.BlockSize / 2)));
                         this.TaskOwner.Path = createPath(new Vector2(this.TaskOwner.Position.X, this.TaskOwner.Position.Y), new Vector2(this.targetPosition.X, this.targetPosition.Y));
                         counter--;
                     }*/

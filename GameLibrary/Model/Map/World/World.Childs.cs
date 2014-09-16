@@ -102,7 +102,7 @@ namespace GameLibrary.Model.Map.World
                 _PosY = _PosY - var_RestY;
             }
 
-            int var_RegionType = Util.Random.GenerateGoodRandomNumber(0, Enum.GetValues(typeof(RegionEnum)).Length);
+            int var_RegionType = Utility.Random.GenerateGoodRandomNumber(0, Enum.GetValues(typeof(RegionEnum)).Length);
             return GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, _PosX, _PosY, (RegionEnum)var_RegionType, this);
         }
 

@@ -70,7 +70,7 @@ namespace Server.Connection
             var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
 
             PlayerObject var_PlayerObject = CreatureFactory.creatureFactory.createPlayerObject(message.PlayerObject);
-            var_PlayerObject.Position = new Vector3(0, GameLibrary.Util.Random.GenerateGoodRandomNumber(0,100), 0);
+            var_PlayerObject.Position = new Vector3(0, Utility.Random.GenerateGoodRandomNumber(0,100), 0);
 
             GameLibrary.Model.Map.World.World.world.addPlayerObject(var_PlayerObject);
 

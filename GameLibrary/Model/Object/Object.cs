@@ -97,10 +97,10 @@ namespace GameLibrary.Model.Object
 
             this.objects = (List<Object>)info.GetValue("objects", typeof(List<Object>));
 
-            List<Util.Square> var_List = (List<Util.Square>)info.GetValue("collisionBounds", typeof(List<Util.Square>));
+            List<Utility.Corpus.Square> var_List = (List<Utility.Corpus.Square>)info.GetValue("collisionBounds", typeof(List<Utility.Corpus.Square>));
             this.collisionBounds = new List<Rectangle>();
 
-            foreach (Util.Square var_Square in var_List)
+            foreach (Utility.Corpus.Square var_Square in var_List)
             {
                 this.collisionBounds.Add(var_Square.Rectangle);
             }
@@ -116,13 +116,13 @@ namespace GameLibrary.Model.Object
 
             info.AddValue("objects", this.objects, typeof(List<Object>));
 
-            List<Util.Square> var_List = new List<Util.Square>();
+            List<Utility.Corpus.Square> var_List = new List<Utility.Corpus.Square>();
             foreach (Rectangle var_Rectangle in this.collisionBounds)
             {
-                var_List.Add(new Util.Square(var_Rectangle));
+                var_List.Add(new Utility.Corpus.Square(var_Rectangle));
             }
 
-            info.AddValue("collisionBounds", var_List, typeof(List<Util.Square>)); //???
+            info.AddValue("collisionBounds", var_List, typeof(List<Utility.Corpus.Square>)); //???
         }
 
         public virtual void update()

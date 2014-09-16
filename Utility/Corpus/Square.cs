@@ -6,10 +6,10 @@ using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 
-namespace GameLibrary.Util
+namespace Utility.Corpus
 {
     [Serializable()]
-    class Square
+    public class Square
     {
         private int x;
 

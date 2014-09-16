@@ -290,18 +290,16 @@
     <Compile Include="UserInterface\KeyboardListener.cs" />
     <Compile Include="UserInterface\MouseEnum\MouseEnum.cs" />
     <Compile Include="UserInterface\MouseListener.cs" />
-    <Compile Include="Util\Circle.cs" />
-    <Compile Include="Util\FrameCounter.cs" />
-    <Compile Include="Util\Intersection.cs" />
-    <Compile Include="Util\MapHandler.cs" />
-    <Compile Include="Util\Random.cs" />
-    <Compile Include="Util\Serializer.cs" />
-    <Compile Include="Util\Square.cs" />
     <Compile Include="Gui\Menu\CharacterMenu.cs" />
     <Compile Include="Gui\Menu\ConnectToServerMenu.cs" />
     <Compile Include="Gui\ListView.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{3DD5907D-720E-4B12-A687-01FF109537CA}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

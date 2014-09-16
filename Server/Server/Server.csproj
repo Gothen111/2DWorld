@@ -134,6 +134,10 @@
       <Project>{8E6C0DFD-71AF-48E4-8740-116100330B53}</Project>
       <Name>GameLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Utility\Utility.csproj">
+      <Project>{3DD5907D-720E-4B12-A687-01FF109537CA}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServerContent\ServerContent.contentproj">
       <Name>ServerContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
