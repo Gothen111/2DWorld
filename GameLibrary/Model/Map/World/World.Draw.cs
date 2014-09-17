@@ -53,7 +53,7 @@ namespace GameLibrary.Model.Map.World
                             var_PreEnviornmentObjectsToDraw.Sort(new Ressourcen.ObjectPositionComparer());
                             foreach (AnimatedObject var_AnimatedObject in var_PreEnviornmentObjectsToDraw)
                             {
-                                var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
+                                var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, Vector3.Zero, Color.White);
                             }
                         }
                         if (Setting.Setting.drawObjects)
@@ -61,7 +61,7 @@ namespace GameLibrary.Model.Map.World
                             var_ObjectsToDraw.Sort(new Ressourcen.ObjectPositionComparer());
                             foreach (AnimatedObject var_AnimatedObject in var_ObjectsToDraw)
                             {
-                                var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, new Vector3(), Color.White);
+                                var_AnimatedObject.draw(_GraphicsDevice, _SpriteBatch, Vector3.Zero, Color.White);
                             }
                         }
                     }

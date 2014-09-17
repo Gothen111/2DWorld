@@ -11,7 +11,7 @@ namespace GameLibrary.Setting
 
         public static bool drawWorld = true;
         public static bool drawBlocks = true;
-        public static int blockDrawRange = 60;
+        public static int blockDrawRange = 45;
         public static bool drawObjects = true;
         public static bool drawPreEnvironmentObjects = true;
 
