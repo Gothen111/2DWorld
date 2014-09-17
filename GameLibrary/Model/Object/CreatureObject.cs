@@ -20,8 +20,8 @@ namespace GameLibrary.Model.Object
             set { inventory = value; }
         }
 
-        //protected Armor armor;
         //protected Skill skill;
+
         private String name;
 
         public String Name
@@ -60,21 +60,6 @@ namespace GameLibrary.Model.Object
             base.attack();
             this.swingWeapon(Model.Object.Equipment.Attack.AttackType.Front);
         }
-        
-        /*public GameLibrary.Model.Object.Equipment.EquipmentWeapon getWeaponInHand()
-        {
-            GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = null;
-            foreach (EquipmentObject var_EquipmentObject in this.equipment)
-            {
-                if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentWeapon)
-                {
-                    var_EquipmentWeaponForAttack = ((GameLibrary.Model.Object.Equipment.EquipmentWeapon)var_EquipmentObject);
-                    var_EquipmentWeaponForAttack.PositionInInventory = 0;
-                }
-            }
-            return var_EquipmentWeaponForAttack;
-        }*/
-
 
         public void swingWeapon(Equipment.Attack.AttackType _AttackType)
         {
@@ -96,34 +81,8 @@ namespace GameLibrary.Model.Object
                 }
             }
         }
-
-        /*public GameLibrary.Model.Object.Equipment.EquipmentArmor getWearingArmor()
-        {
-            GameLibrary.Model.Object.Equipment.EquipmentArmor var_EquipmentArmor = null;
-            foreach (EquipmentObject var_EquipmentObject in this.equipment)
-            {
-                if (var_EquipmentObject is GameLibrary.Model.Object.Equipment.EquipmentArmor)
-                {
-                    var_EquipmentArmor = (GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentObject;
-                    var_EquipmentArmor.PositionInInventory = 1;
-                }
-            }
-            return var_EquipmentArmor;
-        }*/
-
-
-
         public override float calculateDamage(float _DamageAmount)
         {
-            /*if (this.equipment != null)
-            {
-                GameLibrary.Model.Object.Equipment.EquipmentArmor var_EquipmentArmor = this.getWearingArmor();
-                if (var_EquipmentArmor != null)
-                {
-                    _DamageAmount = _DamageAmount / ((float)((GameLibrary.Model.Object.Equipment.EquipmentArmor)var_EquipmentArmor).NormalArmor);
-                }
-            }*/
-
             _DamageAmount = _DamageAmount / ((float)this.Body.getDefence());
             return _DamageAmount;
         }
@@ -181,7 +140,6 @@ namespace GameLibrary.Model.Object
                 {
                     if (var_ItemObject is EquipmentObject)
                     {
-                        //this.equipment.Add((EquipmentObject)var_ItemObject);
                         var_ItemObject.PositionInInventory = _EquipmentPosition;
                         this.Body.setEquipmentObject((EquipmentObject)var_ItemObject);
                         var_ToRemove = var_ItemObject;
@@ -199,7 +157,7 @@ namespace GameLibrary.Model.Object
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Vector3 _DrawPositionExtra, Microsoft.Xna.Framework.Color _Color)
         {
             //TODO: An das Attribut Scale anpassen
-            Vector2 var_PositionShadow = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X / 2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y);
+            Vector2 var_PositionShadow = new Vector2(this.Bounds.X + _DrawPositionExtra.X, this.Bounds.Y + _DrawPositionExtra.Y);
              _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture["Character/Shadow"], var_PositionShadow, Color.White);
 
              Vector2 var_PositionState = new Vector2(this.Position.X, this.Position.Y) + new Vector2(-13, -7);

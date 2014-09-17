@@ -279,7 +279,7 @@ namespace GameLibrary.Model.Object
         {
             //TODO: An das Attribut Scale anpassen
             //Vector2 var_Position = new Vector2(this.Position.X + _DrawPositionExtra.X - this.Size.X/2, this.Position.Y + _DrawPositionExtra.Y - this.Size.Y);
-            Vector2 var_Position = new Vector2(this.Bounds.X, this.Bounds.Y);
+            Vector2 var_Position = new Vector2(this.Bounds.X, this.Bounds.Y) + new Vector2(_DrawPositionExtra.X, _DrawPositionExtra.Y);
 
             /*if (this.animation.drawColor() != Color.White)
             {
