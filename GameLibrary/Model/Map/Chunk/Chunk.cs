@@ -49,6 +49,7 @@ namespace GameLibrary.Model.Map.Chunk
             this.Name = _Name;
             this.Position = new Vector2(_PosX, _PosY);
             this.Size = new Vector2(_SizeX, _SizeY);
+            this.bounds = new Rectangle();
 
             blocks = new Block.Block[_SizeX, _SizeY];
 
