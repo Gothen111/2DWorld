@@ -77,34 +77,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Region\Grassland\Block\Layer1\Gras.png">
-      <Name>Gras</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Region\Grassland\Block\Layer1\Wall.png">
-      <Name>Wall</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Region\Grassland\Block\Layer2\Dirt.png">
-      <Name>Dirt</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Region\Grassland\Block\Layer2\Gras.png">
-      <Name>Gras</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Object\Character\Char1_Small.png">
       <Name>Char1_Small</Name>
       <Importer>TextureImporter</Importer>
@@ -229,6 +201,7 @@
     <Folder Include="Region\Lavaland\Block\Environment\Chest\" />
     <Folder Include="Region\Lavaland\Block\Environment\Farm\" />
     <Folder Include="Region\Lavaland\Block\Environment\Flower\" />
+    <Folder Include="Region\Lavaland\Block\Environment\Tree\" />
     <Folder Include="Region\Snowland\Block\Environment\Chest\" />
     <Folder Include="Region\Snowland\Block\Environment\Farm\" />
     <Folder Include="Region\Snowland\Block\Environment\Flower\" />
@@ -289,25 +262,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Region\Snowland\Block\Layer1\Snow.png">
-      <Name>Snow</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Region\Snowland\Block\Layer2\Dirt.png">
-      <Name>Dirt</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Snowland\Block\Layer2\Gras.png">
-      <Name>Gras</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Region\Snowland\Block\Environment\Tree\Tree1.png">
       <Name>Tree1</Name>
       <Importer>TextureImporter</Importer>
@@ -317,75 +271,6 @@
   <ItemGroup>
     <Compile Include="Gui\Menu\Inventory\InventoryMenu.png">
       <Name>InventoryMenu</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Bottom.png">
-      <Name>GrasHill1_Bottom</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Center.png">
-      <Name>GrasHill1_Center</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner1.png">
-      <Name>GrasHill1_Corner1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner2.png">
-      <Name>GrasHill1_Corner2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner3.png">
-      <Name>GrasHill1_Corner3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Corner4.png">
-      <Name>GrasHill1_Corner4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Left.png">
-      <Name>GrasHill1_Left</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Right.png">
-      <Name>GrasHill1_Right</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_Top.png">
-      <Name>GrasHill1_Top</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner1.png">
-      <Name>GrasHill1_InsideCorner1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner2.png">
-      <Name>GrasHill1_InsideCorner2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner3.png">
-      <Name>GrasHill1_InsideCorner3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Grassland\Block\Layer1\Hill1\GrasHill1_InsideCorner4.png">
-      <Name>GrasHill1_InsideCorner4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -447,32 +332,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Region\Lavaland\Block\Environment\Tree\Tree1.png">
-      <Name>Tree1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Region\Lavaland\Block\Layer1\Stone.png">
-      <Name>Stone</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Region\Lavaland\Block\Layer2\Stone2.png">
-      <Name>Stone2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Region\Lavaland\Block\Layer2\Stone3.png">
-      <Name>Stone3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Object\Character\BodyMale_Attack.png">
       <Name>BodyMale_Attack</Name>
       <Importer>TextureImporter</Importer>
@@ -482,6 +341,27 @@
   <ItemGroup>
     <Compile Include="Region\Grassland\Block\Wall.png">
       <Name>Wall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Region\Grassland\Grassland.png">
+      <Name>Grassland</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Region\Lavaland\Lavaland.png">
+      <Name>Lavaland</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Region\Snowland\Snowland.png">
+      <Name>Snowland</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -40,8 +40,8 @@ namespace Client
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 500;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
 
             this.IsMouseVisible = true;
 
@@ -99,9 +99,16 @@ namespace Client
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 this.Exit();
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.F))
+            {
+                graphics.ToggleFullScreen();
+            }
+
             GameLibrary.Model.Player.PlayerContoller.playerContoller.update();
             if (this.IsActive)
             {

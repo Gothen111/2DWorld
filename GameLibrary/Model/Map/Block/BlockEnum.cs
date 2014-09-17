@@ -8,6 +8,8 @@ namespace GameLibrary.Model.Map.Block
     public enum BlockEnum
     {
         Nothing,
+        Ground1,
+        Ground2,
         Gras,
         Stone,
         Dirt,
@@ -16,8 +18,6 @@ namespace GameLibrary.Model.Map.Block
         Desert,
         Forest,
         Wall,
-        Ground1,
-        Ground2,
         Hill1_Center,
         Hill1_Corner1,
         Hill1_Corner2,
