@@ -16,5 +16,8 @@ namespace GameLibrary.Setting
         public static bool drawPreEnvironmentObjects = true;
 
         public static bool debugMode = true;
+
+        public static int resolutionX = 1024;
+        public static int resolutionY = 768;
     }
 }

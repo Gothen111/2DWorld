@@ -30,23 +30,23 @@ namespace GameLibrary.Gui.Menu
         public GameSurface()
             :base()
         {
-            this.Bounds = new Rectangle(0, 0, 1000, 1000); // TODO: Größe an Bildschirm anpassen!
+            this.Bounds = new Rectangle(0, (int)(Setting.Setting.resolutionY * 0.7), Setting.Setting.resolutionX, (int)(Setting.Setting.resolutionY * 0.3));
 
             this.AllowMultipleFocus = true;
 
-            this.healthComponent = new Healthbar(new Rectangle(800 / 2 - 187 / 2 - 284, 500 - 188 - 7, 187, 188));
+            this.healthComponent = new Healthbar(new Rectangle((int)(this.Bounds.X + this.Bounds.Width * 0.106), (int)(this.Bounds.Y + this.Bounds.Height * 0.18), 187, 188));
             this.healthComponent.BackgroundGraphicPath = "Gui/Menu/GameSurface/Health";
             this.add(this.healthComponent);
 
-            this.manaComponent = new Component(new Rectangle(800 / 2 - 187/2 + 285, 500 - 188 - 6, 187, 188));
+            this.manaComponent = new Component(new Rectangle((int)(this.Bounds.X + this.Bounds.Width * 0.662), (int)(this.Bounds.Y + this.Bounds.Height * 0.18), 187, 188));
             this.manaComponent.BackgroundGraphicPath = "Gui/Menu/GameSurface/Mana";
             this.add(this.manaComponent);
 
-            this.interfaceComponent = new Component(new Rectangle(800 / 2 - 767/2, 500-201, 767, 201));
+            this.interfaceComponent = new Component(new Rectangle((int)(this.Bounds.X + this.Bounds.Width * 0.1), (int)(this.Bounds.Y + this.Bounds.Height * 0.15), 767, 201));
             this.interfaceComponent.BackgroundGraphicPath = "Gui/Menu/GameSurface/Interface";
             this.add(this.interfaceComponent);
 
-            this.inventoryButton = new Button(new Rectangle(800 / 2, 500 - 141, 25, 25));
+            this.inventoryButton = new Button(new Rectangle((int)(this.Bounds.X + this.Bounds.Width * 0.5), (int)(this.Bounds.Y + this.Bounds.Height * 0.3), 25, 25));
             this.inventoryButton.BackgroundGraphicPath = "Gui/Menu/Inventory/InventoryButton";
             this.inventoryButton.Action = inventoryButton_Click;
             this.inventoryButton.IsTextEditAble = false;

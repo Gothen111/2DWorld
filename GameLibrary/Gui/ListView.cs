@@ -62,8 +62,11 @@ namespace GameLibrary.Gui
 		public override void onClick(UserInterface.MouseEnum.MouseEnum mouseButton, Vector2 _MousePosition)
 		{
 			base.onClick(mouseButton, _MousePosition);
-
-			this.lastSelected = null;
+            if (this.lastSelected != null)
+            {
+                this.lastSelected.IsSelected = false;
+                this.lastSelected = null;
+            }
 
 			//TODO: Texture / Background anpassen!
 			foreach (Component var_Component in this.Components)
@@ -74,6 +77,8 @@ namespace GameLibrary.Gui
 					this.lastSelected = var_Component;
 				}
 			}
+            if (this.lastSelected != null)
+                this.lastSelected.IsSelected = true;
 		}
     }
 }

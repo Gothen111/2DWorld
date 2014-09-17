@@ -111,6 +111,14 @@ namespace GameLibrary.Gui
             set { isActive = value; }
         }
 
+        private bool isSelected;
+
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set { isSelected = value; }
+        }
+
         /*private bool allowsDropIn;
 
         public bool AllowsDropIn
@@ -247,9 +255,25 @@ namespace GameLibrary.Gui
             {
                 if(this.isActive && this.isVisible)
                 {
+                    Vector2 pos = new Vector2(this.Bounds.X, this.Bounds.Y);
                     if (!this.IsHovered)
                     {
-                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.sourceRectangle, this.componentColor, 0f, Vector2.Zero, this.scale, SpriteEffects.None, 0f);
+                        if (!this.isSelected)
+                        {
+                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], pos, this.componentColor);
+                        }
+                        else
+                        {
+                            try
+                            {
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Selected"], pos, this.componentColor);
+                            }
+                            catch (Exception e)
+                            {
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], pos, this.componentColor);
+                            }
+                        }
+                            
                     }
                     else
                     {
@@ -257,28 +281,56 @@ namespace GameLibrary.Gui
                         {
                             try
                             {
-                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], pos, this.componentColor);
                             }
                             catch (Exception e)
                             {
-                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
+                                if (!this.isSelected)
+                                {
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], pos, this.componentColor);
+                                }
+                                else
+                                {
+                                    try
+                                    {
+                                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Selected"], pos, this.componentColor);
+                                    }
+                                    catch (Exception f)
+                                    {
+                                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], pos, this.componentColor);
+                                    }
+                                }
                             }
                         }
                         else
                         {
                             try
                             {
-                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Pressed"], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
+                                _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Pressed"], pos, this.componentColor);
                             }
                             catch (Exception e)
                             {
                                 try
                                 {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
+                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Hover"], pos, this.componentColor);
                                 }
                                 catch (Exception f)
                                 {
-                                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.componentColor);
+                                    if (!this.isSelected)
+                                    {
+                                        _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], pos, this.componentColor);
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath + "_Selected"], pos, this.componentColor);
+                                        }
+                                        catch (Exception g)
+                                        {
+                                            _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.backgroundGraphicPath], pos, this.componentColor);
+                                        }
+                                    }
                                 }
                             }
                         }

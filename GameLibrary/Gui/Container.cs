@@ -128,10 +128,10 @@ namespace GameLibrary.Gui
 
             if (this.IsActive && this.IsVisible)
             {
-                if (this.BackgroundGraphicPath != null && !this.BackgroundGraphicPath.Equals(""))
-                {
-                    _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.BackgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.ComponentColor);
-                }
+                //if (this.BackgroundGraphicPath != null && !this.BackgroundGraphicPath.Equals(""))
+                //{
+                    //_SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.BackgroundGraphicPath], new Vector2(this.Bounds.X, this.Bounds.Y), this.ComponentColor);
+                //}
                 foreach (Component var_Component in this.components)
                 {
                     var_Component.draw(_GraphicsDevice, _SpriteBatch);

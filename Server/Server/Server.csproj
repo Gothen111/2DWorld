@@ -138,11 +138,6 @@
       <Project>{3DD5907D-720E-4B12-A687-01FF109537CA}</Project>
       <Name>Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServerContent\ServerContent.contentproj">
-      <Name>ServerContent %28Content%29</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-      <Project>{6C50673F-9FA4-481D-BCF0-06F2A49FC074}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

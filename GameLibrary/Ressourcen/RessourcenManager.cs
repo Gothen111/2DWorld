@@ -107,6 +107,7 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Gui/Button_Hover", "Gui/Button_Hover");
             loadTexture(_ContentManager, "Gui/Button_Pressed", "Gui/Button_Pressed");
             loadTexture(_ContentManager, "Gui/TextField", "Gui/TextField");
+            loadTexture(_ContentManager, "Gui/TextField_Selected", "Gui/TextField_Selected");
             loadTexture(_ContentManager, "Gui/Background", "Gui/Background");
 
             loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/Background", "Gui/Menu/CharacterCreation/Background");

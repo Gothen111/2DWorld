@@ -42,7 +42,7 @@ namespace GameLibrary.Camera
         {
             this.target = null;
             this.position = new Vector3(0, 0, 0);
-            this.zoom = 1f;
+            this.zoom = 1.0f;
             this.viewPort = _ViewPort;
             GameLibrary.Peripherals.KeyboardManager.keyboardFocus.Add(this);
         }
@@ -70,6 +70,7 @@ namespace GameLibrary.Camera
         {
             return Matrix.CreateTranslation(new Vector3(-this.position.X, -this.position.Y, 0))*
                 Matrix.CreateScale(new Vector3(this.zoom, this.zoom, 1))*
+                Matrix.CreateScale(new Vector3(viewPort.Width / Setting.Setting.resolutionX, viewPort.Height / Setting.Setting.resolutionY, 1))*
                 Matrix.CreateTranslation(new Vector3(viewPort.Width * 0.5f, viewPort.Height * 0.5f, 0));
         }
 

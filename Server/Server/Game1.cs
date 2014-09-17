@@ -40,8 +40,8 @@ namespace Server
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1500;
-            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = Setting.resolutionX;
+            graphics.PreferredBackBufferHeight = Setting.resolutionY;
 
             Configuration.isHost = true;
             Configuration.commandManager = new Commands.ServerCommandManager();

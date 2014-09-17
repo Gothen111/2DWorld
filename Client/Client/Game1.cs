@@ -40,8 +40,8 @@ namespace Client
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 900;
+            graphics.PreferredBackBufferWidth = Setting.resolutionX;
+            graphics.PreferredBackBufferHeight = Setting.resolutionY;
 
             this.IsMouseVisible = true;
 
