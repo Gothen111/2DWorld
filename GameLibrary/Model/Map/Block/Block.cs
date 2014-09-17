@@ -22,13 +22,6 @@ namespace GameLibrary.Model.Map.Block
             set { layer = value; }
         }
 
-        private Rectangle bounds;
-
-        public Rectangle Bounds
-        {
-            get { return bounds; }
-        }
-
         private List<Object.Object> objects;
 
         public List<Object.Object> Objects
@@ -174,16 +167,6 @@ namespace GameLibrary.Model.Map.Block
                 }
                 var_Layer += 1;
             }
-        }
-
-        public override void boundsChanged()
-        {
-            base.boundsChanged();
-
-            this.bounds.X = (int)this.Position.X;
-            this.bounds.Y = (int)this.Position.Y;
-            this.bounds.Width = (int)Block.BlockSize;
-            this.bounds.Height = (int)Block.BlockSize;
         }
     }
 }

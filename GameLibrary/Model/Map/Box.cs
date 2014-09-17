@@ -26,6 +26,14 @@ namespace GameLibrary.Model.Map
             set { position = value; this.boundsChanged(); }
         }
 
+        private Rectangle bounds;
+
+        public Rectangle Bounds
+        {
+            get { return bounds; }
+            set { bounds = value; }
+        }
+
         private String name;
 
         public String Name
@@ -124,6 +132,7 @@ namespace GameLibrary.Model.Map
             this.size = (Vector2)info.GetValue("size", typeof(Vector2));
             this.position = (Vector2)info.GetValue("position", typeof(Vector2));
             this.name = (String)info.GetValue("name", typeof(String));
+            this.Bounds = ((Utility.Corpus.Square)info.GetValue("bounds", typeof(Utility.Corpus.Square))).Rectangle;
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -131,6 +140,7 @@ namespace GameLibrary.Model.Map
             info.AddValue("size", this.size, typeof(Vector2));
             info.AddValue("position", this.position, typeof(Vector2));
             info.AddValue("name", this.name);
+            info.AddValue("bounds", new Utility.Corpus.Square(this.Bounds), typeof(Utility.Corpus.Square));
         }
 
         public virtual void update()
@@ -151,7 +161,7 @@ namespace GameLibrary.Model.Map
 
         public virtual void boundsChanged()
         {
-
+            this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.Bounds.Width, this.Bounds.Height);
         }
     }
 }

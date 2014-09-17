@@ -36,22 +36,13 @@ namespace GameLibrary.Model.Map.Chunk
             set { blocks = value; }
         }
 
-        private Rectangle bounds;
-
-        public Rectangle Bounds
-        {
-            get { return bounds; }
-        }
-
         public Chunk(String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, Region.Region _ParentRegion)
             :base()
         {
             this.Name = _Name;
             this.Position = new Vector2(_PosX, _PosY);
             this.Size = new Vector2(_SizeX, _SizeY);
-            this.bounds = new Rectangle();
-            this.bounds.Width = (int)chunkSizeX * Block.Block.BlockSize - 1;
-            this.bounds.Height = (int)chunkSizeY * Block.Block.BlockSize - 1;
+            this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, (int)(chunkSizeX * Block.Block.BlockSize - 1), (int)(chunkSizeY * Block.Block.BlockSize - 1));
 
             blocks = new Block.Block[_SizeX, _SizeY];
 
@@ -194,13 +185,6 @@ namespace GameLibrary.Model.Map.Chunk
                 }
             }
             return result;
-        }
-
-        public override void boundsChanged()
-        {
-            base.boundsChanged();
-            this.bounds.X = (int)this.Position.X;
-            this.bounds.Y = (int)this.Position.Y;
         }
     }
 }
