@@ -50,6 +50,8 @@ namespace GameLibrary.Model.Map.Chunk
             this.Position = new Vector2(_PosX, _PosY);
             this.Size = new Vector2(_SizeX, _SizeY);
             this.bounds = new Rectangle();
+            this.bounds.Width = (int)chunkSizeX * Block.Block.BlockSize - 1;
+            this.bounds.Height = (int)chunkSizeY * Block.Block.BlockSize - 1;
 
             blocks = new Block.Block[_SizeX, _SizeY];
 
@@ -196,10 +198,9 @@ namespace GameLibrary.Model.Map.Chunk
 
         public override void boundsChanged()
         {
+            base.boundsChanged();
             this.bounds.X = (int)this.Position.X;
             this.bounds.Y = (int)this.Position.Y;
-            this.bounds.Width = (int)this.Size.X;
-            this.bounds.Height = (int)this.Size.Y;
         }
     }
 }

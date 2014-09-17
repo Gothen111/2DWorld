@@ -15,7 +15,7 @@ namespace GameLibrary.Model.Map
         public Vector2 Size
         {
             get { return size; }
-            set { size = value; boundsChanged(); }
+            set { size = value; this.boundsChanged(); }
         }
 
         private Vector2 position;
@@ -23,7 +23,7 @@ namespace GameLibrary.Model.Map
         public Vector2 Position
         {
             get { return position; }
-            set { position = value; boundsChanged(); }
+            set { position = value; this.boundsChanged(); }
         }
 
         private String name;

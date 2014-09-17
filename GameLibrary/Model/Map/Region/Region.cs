@@ -35,9 +35,11 @@ namespace GameLibrary.Model.Map.Region
             set { chunks = value; }
         }
 
+        private Rectangle bounds;
+
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(Size.X * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize) - 1, (int)(Size.Y * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize) - 1); }
+            get { return bounds; }
         }
 
         private RegionEnum regionEnum;
@@ -52,6 +54,10 @@ namespace GameLibrary.Model.Map.Region
         {
             this.id = (int)info.GetValue("id", typeof(int));
             this.regionEnum = (RegionEnum)info.GetValue("regionEnum", typeof(int));
+
+            this.bounds = new Rectangle();
+            this.bounds.Width = (int)(regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize) - 1;
+            this.bounds.Height = (int)(regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize) - 1;
 
             this.chunks = new List<Chunk.Chunk>();
         }
@@ -68,6 +74,9 @@ namespace GameLibrary.Model.Map.Region
             this.Name = _Name;
             this.Position = new Vector2(_PosX, _PosY);
             this.Size = new Vector2(_SizeX, _SizeY);
+            this.bounds = new Rectangle();
+            this.bounds.Width = (int)(regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize) - 1;
+            this.bounds.Height = (int)(regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize) - 1;
 
             chunks = new List<Chunk.Chunk>();
 
@@ -278,6 +287,13 @@ namespace GameLibrary.Model.Map.Region
                 }
             }
             return null;
+        }
+
+        public override void boundsChanged()
+        {
+            base.boundsChanged();
+            this.bounds.X = (int)this.Position.X;
+            this.bounds.Y = (int)this.Position.Y;
         }
     }
 }
