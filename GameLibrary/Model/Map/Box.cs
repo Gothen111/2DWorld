@@ -15,9 +15,34 @@ namespace GameLibrary.Model.Map
         public Vector2 Size
         {
             get { return size; }
-            set { size = value; }
+            set { size = value; boundsChanged(); }
         }
 
+        private Vector2 position;
+
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; boundsChanged(); }
+        }
+
+        private String name;
+
+        public String Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        private Box parent;
+
+        public Box Parent
+        {
+            get { return parent; }
+            set { parent = value; }
+        }
+
+        #region neighbours
         private Box topNeighbour;
 
         public Box TopNeighbour
@@ -79,29 +104,7 @@ namespace GameLibrary.Model.Map
         private int neighbourRequestedTimer;
         private int neighbourRequestedTimerMax;
 
-        private Vector2 position;
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
-
-        private String name;
-
-        public String Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        private Box parent;
-
-        public Box Parent
-        {
-            get { return parent; }
-            set { parent = value; }
-        }
+        #endregion
 
         public Box()
         {
@@ -144,6 +147,11 @@ namespace GameLibrary.Model.Map
             {
                 this.neighbourRequestedTimer -= 1;
             }
+        }
+
+        public virtual void boundsChanged()
+        {
+
         }
     }
 }

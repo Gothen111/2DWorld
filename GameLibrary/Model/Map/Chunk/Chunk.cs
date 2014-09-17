@@ -36,9 +36,11 @@ namespace GameLibrary.Model.Map.Chunk
             set { blocks = value; }
         }
 
+        private Rectangle bounds;
+
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X * Block.Block.BlockSize - 1, (int)Size.Y * Block.Block.BlockSize - 1); }
+            get { return bounds; }
         }
 
         public Chunk(String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, Region.Region _ParentRegion)
@@ -189,6 +191,14 @@ namespace GameLibrary.Model.Map.Chunk
                 }
             }
             return result;
+        }
+
+        public override void boundsChanged()
+        {
+            this.bounds.X = (int)this.Position.X;
+            this.bounds.Y = (int)this.Position.Y;
+            this.bounds.Width = (int)this.Size.X;
+            this.bounds.Height = (int)this.Size.Y;
         }
     }
 }
