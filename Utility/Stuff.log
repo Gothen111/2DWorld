@@ -1,0 +1,16 @@
+﻿--------------------------------------------------
+Circular Motion:
+
+centerX = <center X coordinate>;
+centerY = <center Y coordinate>;
+radius = <radius of circle>;
+speed = <time to complete full circle in seconds>
+speedScale = (0.001 * 2 * Math.PI) / speed;
+angle = <game time in milliseconds> * speedScale;
+ 
+xCoord = centerX + sin(angle) * radius;
+yCoord = centerY + cos(angle) * radius;
+ 
+position = new Vector2(xCoord, yCoord);
+
+--------------------------------------------------
