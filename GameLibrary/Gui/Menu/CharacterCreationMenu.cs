@@ -51,13 +51,17 @@ namespace GameLibrary.Gui.Menu
             this.createColors();
             this.add(this.bodyColorPicker);
 
-            this.maleButton = new Button(new Rectangle(0, 50, 289, 85));
-            this.maleButton.Text = "Male";
+            this.maleButton = new Button(new Rectangle(0, 50, 60, 60));
+            //this.maleButton.Text = "Male";
+            this.maleButton.BackgroundGraphicPath = "Gui/Menu/CharacterCreation/MaleSymbol";
+            this.maleButton.Scale = 0.5f;
             this.maleButton.Action = this.selectedMale;
             this.add(this.maleButton);
 
-            this.femaleButton = new Button(new Rectangle(0, 50+85, 289, 85));
-            this.femaleButton.Text = "Female";
+            this.femaleButton = new Button(new Rectangle(60, 50, 60, 60));
+            //this.femaleButton.Text = "Female";
+            this.femaleButton.BackgroundGraphicPath = "Gui/Menu/CharacterCreation/FemaleSymbol";
+            this.femaleButton.Scale = 0.4f;
             this.femaleButton.Action = this.selectedFemale;
             this.add(this.femaleButton);
 

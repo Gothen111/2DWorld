@@ -47,13 +47,6 @@ namespace GameLibrary.Ressourcen
 
             loadTexture(_ContentManager, "Region/Grassland/Grassland", "Region/Grassland/Grassland");
 
-            /*loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Ground1", "Region/Grassland/Block/Layer1/Gras");
-            loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Wall", "Region/Grassland/Block/Layer1/Wall");
-            loadTexture(_ContentManager, "Region/Grassland/Block/Layer2/Ground1", "Region/Grassland/Block/Layer2/Gras");
-            loadTexture(_ContentManager, "Region/Grassland/Block/Layer2/Ground2", "Region/Grassland/Block/Layer2/Dirt");*/
-
-            //loadTexture(_ContentManager, "Region/Grassland/Block/Wall", "Region/Grassland/Block/Wall");
-
             /*loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Center", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Center");
             loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Corner1", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Corner1");
             loadTexture(_ContentManager, "Region/Grassland/Block/Layer1/Hill1_Corner2", "Region/Grassland/Block/Layer1/Hill1/GrasHill1_Corner2");
@@ -77,14 +70,6 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Region/Snowland/Snowland", "Region/Snowland/Snowland");
 
             loadTexture(_ContentManager, "Region/Lavaland/Lavaland", "Region/Lavaland/Lavaland");
-
-            /*loadTexture(_ContentManager, "Region/Snowland/Block/Layer1/Ground1", "Region/Snowland/Block/Layer1/Snow");
-            loadTexture(_ContentManager, "Region/Snowland/Block/Layer2/Ground1", "Region/Snowland/Block/Layer2/Gras");
-            loadTexture(_ContentManager, "Region/Snowland/Block/Layer2/Ground2", "Region/Snowland/Block/Layer2/Dirt");
-
-            loadTexture(_ContentManager, "Region/Lavaland/Block/Layer1/Ground1", "Region/Lavaland/Block/Layer1/Stone");
-            loadTexture(_ContentManager, "Region/Lavaland/Block/Layer2/Ground1", "Region/Lavaland/Block/Layer2/Stone2");
-            loadTexture(_ContentManager, "Region/Lavaland/Block/Layer2/Ground2", "Region/Lavaland/Block/Layer2/Stone3");*/
 
             loadTexture(_ContentManager, "Region/Snowland/Block/Environment/Tree/Tree1", "Region/Snowland/Block/Environment/Tree/Tree1");
 
@@ -113,6 +98,11 @@ namespace GameLibrary.Ressourcen
             loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/Background", "Gui/Menu/CharacterCreation/Background");
             loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/Plattform", "Gui/Menu/CharacterCreation/Plattform");
             loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/ColorField", "Gui/Menu/CharacterCreation/ColorField");
+
+            loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/FemaleSymbol", "Gui/Menu/CharacterCreation/FemaleSymbol");
+            loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/MaleSymbol", "Gui/Menu/CharacterCreation/MaleSymbol");
+            loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/HumanHead", "Gui/Menu/CharacterCreation/HumanHead");
+            loadTexture(_ContentManager, "Gui/Menu/CharacterCreation/UndeadHead", "Gui/Menu/CharacterCreation/UndeadHead");
 
             loadTexture(_ContentManager, "Gui/Menu/GameSurface/Interface", "Gui/Menu/GameSurface/Interface");
             loadTexture(_ContentManager, "Gui/Menu/GameSurface/Health", "Gui/Menu/GameSurface/Health");
