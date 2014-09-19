@@ -15,8 +15,11 @@ namespace Utility
             {
                 using (var gZipStream = new GZipStream(stream, CompressionMode.Compress))
                 {
-                    BinaryFormatter bFormatter = new BinaryFormatter();
-                    bFormatter.Serialize(gZipStream.BaseStream, objectToSerialize);
+                    using (StreamWriter streamWriter = new StreamWriter(gZipStream))
+                    {
+                        streamWriter.Write(SerializeObjectToString(objectToSerialize));
+                        streamWriter.Flush();
+                    }
                 }
             }
         }
@@ -28,8 +31,10 @@ namespace Utility
             {
                 using (var gZipStream = new GZipStream(stream, CompressionMode.Decompress))
                 {
-                    BinaryFormatter bFormatter = new BinaryFormatter();
-                    objectToSerialize = (ISerializable)bFormatter.Deserialize(gZipStream.BaseStream);
+                    using (StreamReader streamReader = new StreamReader(gZipStream))
+                    {
+                        objectToSerialize = DeserializeObjectFromString<ISerializable>(streamReader.ReadToEnd());
+                    }
                 }
             }
             return objectToSerialize;
@@ -73,6 +78,16 @@ namespace Utility
                 }
                 return Encoding.Unicode.GetString(mso.ToArray());
             }
+        }
+
+        public static Stream GenerateStreamFromString(String str)
+        {
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(str);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
     }
 }
