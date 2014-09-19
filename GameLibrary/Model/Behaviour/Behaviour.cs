@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 namespace GameLibrary.Model.Behaviour
 {
     [Serializable()]
-    abstract public class Behaviour<E, T>
+    abstract public class Behaviour<E, T> :ISerializable
     {
         protected List<BehaviourItem<E>> behaviour;
 

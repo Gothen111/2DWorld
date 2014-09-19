@@ -87,7 +87,7 @@ namespace GameLibrary.Model.Map.Region
                         if (GameLibrary.Configuration.Configuration.isHost)
                         {
                             //GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateChunkCommand(_Chunk));
-                            this.saveChunk(_Chunk);
+                            //this.saveChunk(_Chunk);
                         }
                         else
                         {
@@ -209,7 +209,7 @@ namespace GameLibrary.Model.Map.Region
             {
                 //return this.loadChunk(0);
             }
-            return this.loadChunk(_PosX, _PosY);
+            //return this.loadChunk(_PosX, _PosY);
             return null;
         }
 
@@ -223,7 +223,10 @@ namespace GameLibrary.Model.Map.Region
             String var_Path = "Save/Chunks/" + _PosX + "_" + _PosY + ".sav";
             if (System.IO.File.Exists(var_Path))
             {
-                return (Chunk.Chunk)Utility.Serializer.DeSerializeObject(var_Path);
+                Chunk.Chunk var_Chunk = (Chunk.Chunk)Utility.Serializer.DeSerializeObject(var_Path);
+                var_Chunk.Parent = Model.Map.World.World.world.getRegion(this.id);
+                var_Chunk.setAllNeighboursOfBlocks();
+                return var_Chunk;
             }
             return null;
         }

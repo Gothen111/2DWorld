@@ -53,7 +53,7 @@ namespace GameLibrary.Model.Map.Chunk
             :base(info, ctxt)
         {
             this.id = (int)info.GetValue("id", typeof(int));
-            //this.blocks = (Block.Block[,])info.GetValue("blocks", typeof(Block.Block[,]));
+            this.blocks = (Block.Block[,])info.GetValue("blocks", typeof(Block.Block[,]));
             setAllNeighboursOfBlocks();
         }
 
@@ -61,7 +61,7 @@ namespace GameLibrary.Model.Map.Chunk
         {
             base.GetObjectData(info, ctxt);
             info.AddValue("id", this.id);
-            //info.AddValue("blocks", this.blocks, typeof(Block.Block[,]));
+            info.AddValue("blocks", this.blocks, typeof(Block.Block[,]));
         }
 
         public bool setBlockAtPosition(int _PosX, int _PosY, Block.Block _Block)

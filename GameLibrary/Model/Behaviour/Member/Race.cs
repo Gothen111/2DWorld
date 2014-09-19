@@ -9,6 +9,7 @@ using GameLibrary.Factory.FactoryEnums;
 
 namespace GameLibrary.Model.Behaviour.Member
 {
+    [Serializable()]
     public class Race : Behaviour<Race, RaceEnum>
     {
         public Race(RaceEnum _type) : base(_type)
