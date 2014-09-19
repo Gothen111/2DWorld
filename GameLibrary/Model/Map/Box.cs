@@ -127,8 +127,7 @@ namespace GameLibrary.Model.Map
 
         public Box(SerializationInfo info, StreamingContext ctxt) 
             :this()
-        {
-            
+        {           
             this.size = (Vector2)info.GetValue("size", typeof(Vector2));
             this.position = (Vector2)info.GetValue("position", typeof(Vector2));
             this.name = (String)info.GetValue("name", typeof(String));

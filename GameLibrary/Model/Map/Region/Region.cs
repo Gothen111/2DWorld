@@ -87,13 +87,12 @@ namespace GameLibrary.Model.Map.Region
                         if (GameLibrary.Configuration.Configuration.isHost)
                         {
                             //GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateChunkCommand(_Chunk));
+                            this.saveChunk(_Chunk);
                         }
                         else
                         {
 
                         }
-
-                        //this.saveChunk(_Chunk);
 
                         return true;
                 /*    }
@@ -204,13 +203,13 @@ namespace GameLibrary.Model.Map.Region
 
             if (GameLibrary.Configuration.Configuration.isHost)
             {
-
+                //return this.loadChunk(0);
             }
             else
             {
                 //return this.loadChunk(0);
-            }     
-
+            }
+            return this.loadChunk(_PosX, _PosY);
             return null;
         }
 
@@ -219,9 +218,9 @@ namespace GameLibrary.Model.Map.Region
             return GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
         }
 
-        public Chunk.Chunk loadChunk(int _ID)
+        public Chunk.Chunk loadChunk(float _PosX, float _PosY)
         {
-            String var_Path = "Save/Chunks/" + _ID + ".sav";
+            String var_Path = "Save/Chunks/" + _PosX + "_" + _PosY + ".sav";
             if (System.IO.File.Exists(var_Path))
             {
                 return (Chunk.Chunk)Utility.Serializer.DeSerializeObject(var_Path);
@@ -232,15 +231,15 @@ namespace GameLibrary.Model.Map.Region
         public void saveChunk(Chunk.Chunk _Chunk)
         {
             //Speichere erst mal nur blöcke
-            if (GameLibrary.Configuration.Configuration.isHost)
+            /*if (GameLibrary.Configuration.Configuration.isHost)
             {
                 
             }
             else
-            {
-                String var_Path = "Save/Chunks/" + _Chunk.Id + ".sav";
+            {*/
+                String var_Path = "Save/Chunks/" + _Chunk.Position.X + "_"+ _Chunk.Position.Y + ".sav";
                 Utility.Serializer.SerializeObject(var_Path, _Chunk);
-            }           
+            //}           
         }
 
         public Chunk.Chunk getChunkObjectIsIn(GameLibrary.Model.Object.Object _Object)
