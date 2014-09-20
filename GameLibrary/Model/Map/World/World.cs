@@ -40,28 +40,8 @@ namespace GameLibrary.Model.Map.World
         #endregion
 
         #region Constructors
-        public World()
-            :base()
-        {
-            //if (Configuration.Configuration.isHost)
-            //{
-                this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
-            //}          
-        }
-
-        public World(SerializationInfo info, StreamingContext ctxt) 
-            : this()
-        {
-            this.playerObjects = new List<PlayerObject>();
-            this.regions = new List<Region.Region>();
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
-        {
-        }
 
         public World(String _Name)
-            :this()
         {
             this.Name = _Name;
 
@@ -69,8 +49,24 @@ namespace GameLibrary.Model.Map.World
 
             this.playerObjects = new List<PlayerObject>();
 
+            this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+
             Logger.Logger.LogInfo("Welt " + _Name + " wurde erstellt!");
         }
+
+        public World(SerializationInfo info, StreamingContext ctxt)
+            : base(info, ctxt)
+        {
+            this.playerObjects = new List<PlayerObject>();
+            this.regions = new List<Region.Region>();
+            this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
+        }
+
         #endregion      
     }
 }
