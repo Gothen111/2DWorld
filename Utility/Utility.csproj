@@ -101,6 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\IOManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Corpus\Circle.cs" />
     <Compile Include="FrameCounter.cs" />

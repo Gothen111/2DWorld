@@ -36,6 +36,16 @@ namespace GameLibrary.Model.Map.World
             if (!containsRegion(_Region.Id))
             {
                 this.regions.Add(_Region);
+
+                if (GameLibrary.Configuration.Configuration.isHost)
+                {
+                    this.saveRegion(_Region);
+                }
+                else
+                {
+
+                }
+
                 return false;
             }
             else
@@ -74,7 +84,36 @@ namespace GameLibrary.Model.Map.World
 
             //Load Region
 
+            if (GameLibrary.Configuration.Configuration.isHost)
+            {
+                //return this.loadChunk(0);
+            }
+            else
+            {
+                //return this.loadChunk(0);
+            }
+            //return this.loadRegion(_PosX, _PosY);
+
             return null;
+        }
+
+        public Region.Region loadRegion(float _PosX, float _PosY)
+        {
+            String var_Path = "Save/" + _PosX + "_" + _PosY + "/RegionInfo.sav";
+            if (System.IO.File.Exists(var_Path))
+            {
+                Region.Region var_Region = (Region.Region)Utility.Serializer.DeSerializeObject(var_Path);
+                var_Region.Parent = this;
+                //var_Region.setAllNeighboursOfBlocks();
+                return var_Region;
+            }
+            return null;
+        }
+
+        public void saveRegion(Region.Region _Region)
+        {
+            String var_Path = "Save/" + _Region.Position.X + "_" + _Region.Position.Y + "/RegionInfo.sav";
+            Utility.IO.IOManager.SaveISerializeAbleObjectToFile(var_Path, _Region);
         }
 
         public Region.Region createRegionAt(int _PosX, int _PosY)
@@ -102,8 +141,8 @@ namespace GameLibrary.Model.Map.World
                 _PosY = _PosY - var_RestY;
             }
 
-            int var_RegionType = Utility.Random.GenerateGoodRandomNumber(0, Enum.GetValues(typeof(RegionEnum)).Length);
-            return GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, _PosX, _PosY, (RegionEnum)var_RegionType, this);
+            int var_RegionType = Utility.Random.GenerateGoodRandomNumber(0, Enum.GetValues(typeof(RegionEnum)).Length);          
+            return this.loadRegion(_PosX, _PosY) ?? GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, _PosX, _PosY, (RegionEnum)var_RegionType, this);
         }
 
         #endregion

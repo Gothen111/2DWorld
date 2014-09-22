@@ -9,7 +9,7 @@ namespace Utility
 {
     public class Serializer
     {
-        public static void SerializeObject(string filename, ISerializable objectToSerialize)
+        public static bool SerializeObject(string filename, ISerializable objectToSerialize)
         {
             using (Stream stream = File.Open(filename, FileMode.Create))
             {
@@ -22,6 +22,7 @@ namespace Utility
                     }
                 }
             }
+            return true;
         }
 
         public static ISerializable DeSerializeObject(string filename)

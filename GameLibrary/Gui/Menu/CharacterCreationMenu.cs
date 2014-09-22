@@ -178,7 +178,7 @@ namespace GameLibrary.Gui.Menu
             if(!var_CreationProblem)
             {
                 this.playerObject.Name = this.playerNameTextField.Text;
-                Utility.Serializer.SerializeObject(var_Path, this.playerObject);
+                Utility.IO.IOManager.SaveISerializeAbleObjectToFile(var_Path, this.playerObject);
                 this.openCharacterMenu();
             }
         }
