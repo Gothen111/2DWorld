@@ -127,6 +127,9 @@ namespace GameLibrary.Model.Object
             this.canBeEffected = (bool)info.GetValue("canBeEffected", typeof(bool));
 
             this.gender = (GenderEnum)info.GetValue("gender", typeof(GenderEnum));
+            aggroSystem = new Task.Aggro.AggroSystem<LivingObject>();
+            tasks = new List<LivingObjectTask>();
+            this.interactions = new List<LivingObjectInteraction>();
 
             //this.aggroSystem = (Task.Aggro.AggroSystem<LivingObject>)info.GetValue("aggroSystem", typeof(Task.Aggro.AggroSystem<LivingObject>));
 
@@ -172,24 +175,27 @@ namespace GameLibrary.Model.Object
 
         private void updateAggroSystem()
         {
-            List<LivingObject> objectsToRemove = new List<LivingObject>();
-            foreach (LivingObject var_LivingObject in this.aggroSystem.AggroItems.Keys.ToList())
+            if (this.aggroSystem != null)
             {
-                if (var_LivingObject.isDead)
+                List<LivingObject> objectsToRemove = new List<LivingObject>();
+                foreach (LivingObject var_LivingObject in this.aggroSystem.AggroItems.Keys.ToList())
                 {
-                    objectsToRemove.Add(var_LivingObject);
-                }
-                else if (Vector3.Distance(this.Position, var_LivingObject.Position) > this.aggroRange)
-                {
-                    this.aggroSystem.modifyAggro(var_LivingObject, 0.9f);
-                    this.aggroSystem.addAggro(var_LivingObject, -2f);
-                    if (this.aggroSystem.AggroItems[var_LivingObject] <= 0)
+                    if (var_LivingObject.isDead)
+                    {
                         objectsToRemove.Add(var_LivingObject);
+                    }
+                    else if (Vector3.Distance(this.Position, var_LivingObject.Position) > this.aggroRange)
+                    {
+                        this.aggroSystem.modifyAggro(var_LivingObject, 0.9f);
+                        this.aggroSystem.addAggro(var_LivingObject, -2f);
+                        if (this.aggroSystem.AggroItems[var_LivingObject] <= 0)
+                            objectsToRemove.Add(var_LivingObject);
+                    }
                 }
-            }
-            foreach (LivingObject var_LivingObject in objectsToRemove)
-            {
-                this.aggroSystem.removeUnit(var_LivingObject);
+                foreach (LivingObject var_LivingObject in objectsToRemove)
+                {
+                    this.aggroSystem.removeUnit(var_LivingObject);
+                }
             }
         }
 
@@ -205,45 +211,49 @@ namespace GameLibrary.Model.Object
                     currentTask = null;
                 }
             }
-            LivingObjectTask var_TaskWantToDo = null;
-            foreach (LivingObjectTask var_Task in this.tasks)
+
+            if (this.tasks != null)
             {
-                if (var_Task.wantToDoTask())
+                LivingObjectTask var_TaskWantToDo = null;
+                foreach (LivingObjectTask var_Task in this.tasks)
                 {
-                    if (currentTask == null)
+                    if (var_Task.wantToDoTask())
                     {
-                        if (var_TaskWantToDo == null)
+                        if (currentTask == null)
                         {
-                            var_TaskWantToDo = var_Task;
-                        }
-                        else if (var_TaskWantToDo.Priority < var_Task.Priority)
-                        {
-                            var_TaskWantToDo = var_Task;
-                        }
-                    }
-                    else
-                    {
-                        if (var_TaskWantToDo == null)
-                        {
-                            if (this.currentTask.Priority < var_Task.Priority)
+                            if (var_TaskWantToDo == null)
+                            {
+                                var_TaskWantToDo = var_Task;
+                            }
+                            else if (var_TaskWantToDo.Priority < var_Task.Priority)
                             {
                                 var_TaskWantToDo = var_Task;
                             }
                         }
-                        else if (var_TaskWantToDo.Priority < var_Task.Priority)
+                        else
                         {
-                            var_TaskWantToDo = var_Task;
+                            if (var_TaskWantToDo == null)
+                            {
+                                if (this.currentTask.Priority < var_Task.Priority)
+                                {
+                                    var_TaskWantToDo = var_Task;
+                                }
+                            }
+                            else if (var_TaskWantToDo.Priority < var_Task.Priority)
+                            {
+                                var_TaskWantToDo = var_Task;
+                            }
                         }
                     }
                 }
-            }
-            if (var_TaskWantToDo != null)
-            {
-                this.currentTask = var_TaskWantToDo;
-            }
-            if (this.currentTask != null)
-            {
-                this.currentTask.update();
+                if (var_TaskWantToDo != null)
+                {
+                    this.currentTask = var_TaskWantToDo;
+                }
+                if (this.currentTask != null)
+                {
+                    this.currentTask.update();
+                }
             }
         }
 

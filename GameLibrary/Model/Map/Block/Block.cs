@@ -76,7 +76,16 @@ namespace GameLibrary.Model.Map.Block
         {
             this.layer = (BlockEnum[])info.GetValue("layer", typeof(BlockEnum[]));
             this.objects = (List<Object.Object>)info.GetValue("objects", typeof(List<Object.Object>));
+            foreach (Object.Object var_Object in this.objects)
+            {
+                Model.Map.World.World.world.QuadTreeObject.Insert(var_Object);
+                var_Object.CurrentBlock = this;
+            }
             this.objectsPreEnviorment = (List<Object.Object>)info.GetValue("objectsPreEnviorment", typeof(List<Object.Object>));
+            foreach (Object.Object var_Object in this.objectsPreEnviorment)
+            {
+                var_Object.CurrentBlock = this;
+            }
             this.height = (int)info.GetValue("height", typeof(int));
             this.isWalkAble = (bool)info.GetValue("isWalkAble", typeof(bool));
         }
