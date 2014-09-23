@@ -23,7 +23,19 @@ namespace GameLibrary.Model.Map.World
         {
             base.update();
 
-            this.objectsToUpdate = new List<Object.Object>();
+            bool var_NewUpdateObjectsList = false;
+
+            if (this.objectsToUpdateCounter <= 0)
+            {
+                this.objectsToUpdate = new List<Object.Object>();
+                var_NewUpdateObjectsList = true;
+                this.objectsToUpdateCounter = 30;
+            }
+            else
+            {
+                this.objectsToUpdateCounter -= 1;
+            }
+
             this.chunksOutOfRange = new List<Chunk.Chunk>();
             foreach (Region.Region var_Region in this.regions)
             {
@@ -35,7 +47,7 @@ namespace GameLibrary.Model.Map.World
 
             int var_SizeBefore = this.chunksOutOfRange.Count;
 
-            this.updatePlayerObjectsNeighborhood();
+            this.updatePlayerObjectsNeighborhood(var_NewUpdateObjectsList);
 
             int var_SizeAfter = this.chunksOutOfRange.Count;
             //Console.Write("Chunks: ");
@@ -71,6 +83,8 @@ namespace GameLibrary.Model.Map.World
                 this.removeChunk(var_Chunk);
             }
 
+            //Console.WriteLine(this.quadTreeObject.GetQuadObjectCount());
+
 
 
 
@@ -89,11 +103,11 @@ namespace GameLibrary.Model.Map.World
         }
 
 
-        private void updatePlayerObjectsNeighborhood()
+        private void updatePlayerObjectsNeighborhood(bool _NewUpdateObjectsList)
         {
             foreach (Object.PlayerObject var_PlayerObject in this.playerObjects)
             {
-                this.updatePlayerObjectNeighborhood(var_PlayerObject);
+                this.updatePlayerObjectNeighborhood(var_PlayerObject, _NewUpdateObjectsList);
             }
         }
 
@@ -128,7 +142,7 @@ namespace GameLibrary.Model.Map.World
             }
         }
 
-        private void updatePlayerObjectNeighborhood(Object.PlayerObject _PlayerObject)
+        private void updatePlayerObjectNeighborhood(Object.PlayerObject _PlayerObject, bool _NewUpdateObjectsList)
         {
             if (_PlayerObject.CurrentBlock != null)
             {
@@ -151,12 +165,15 @@ namespace GameLibrary.Model.Map.World
                 }
             }
 
-            List<Object.Object> var_Objects = this.getObjectsInRange(_PlayerObject.Position, 400);
-            foreach (Object.Object var_Object in var_Objects)
+            if (_NewUpdateObjectsList)
             {
-                if (!this.objectsToUpdate.Contains(var_Object))
+                List<Object.Object> var_Objects = this.getObjectsInRange(_PlayerObject.Position, 400);
+                foreach (Object.Object var_Object in var_Objects)
                 {
-                    this.objectsToUpdate.Add(var_Object);
+                    if (!this.objectsToUpdate.Contains(var_Object))
+                    {
+                        this.objectsToUpdate.Add(var_Object);
+                    }
                 }
             }
         }

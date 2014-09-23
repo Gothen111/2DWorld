@@ -35,6 +35,8 @@ namespace GameLibrary.Model.Map.World
 
         private List<Object.Object> objectsToUpdate;
 
+        private int objectsToUpdateCounter;
+
         private List<Chunk.Chunk> chunksOutOfRange;
 
         #endregion
@@ -51,6 +53,10 @@ namespace GameLibrary.Model.Map.World
 
             this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
 
+            this.objectsToUpdate = new List<Object.Object>();
+
+            this.objectsToUpdateCounter = 30;
+
             Logger.Logger.LogInfo("Welt " + _Name + " wurde erstellt!");
         }
 
@@ -60,6 +66,9 @@ namespace GameLibrary.Model.Map.World
             this.playerObjects = new List<PlayerObject>();
             this.regions = new List<Region.Region>();
             this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
+            this.objectsToUpdate = new List<Object.Object>();
+
+            this.objectsToUpdateCounter = 30;
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
