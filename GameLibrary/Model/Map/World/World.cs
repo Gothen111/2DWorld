@@ -55,7 +55,7 @@ namespace GameLibrary.Model.Map.World
 
             this.objectsToUpdate = new List<Object.Object>();
 
-            this.objectsToUpdateCounter = 30;
+            this.objectsToUpdateCounter = 0;
 
             Logger.Logger.LogInfo("Welt " + _Name + " wurde erstellt!");
         }
@@ -68,7 +68,7 @@ namespace GameLibrary.Model.Map.World
             this.quadTreeObject = new QuadTree<Object.Object>(new Vector3(32, 32, 0), 20);
             this.objectsToUpdate = new List<Object.Object>();
 
-            this.objectsToUpdateCounter = 30;
+            this.objectsToUpdateCounter = 0;
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
