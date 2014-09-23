@@ -60,6 +60,9 @@ namespace Client.Connection
                 case EIGameMessageType.UpdateAnimatedObjectBodyMessage:
                     handleUpdateAnimatedObjectBodyMessage(_NetIncomingMessage);
                     break;
+                case EIGameMessageType.UpdateRacesMessage:
+                    handleUpdateRacesMessage(_NetIncomingMessage);
+                    break;
 
             }
         }
@@ -280,6 +283,15 @@ namespace Client.Connection
                 GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Equipment nicht geupdatet");
                 GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.RequestLivingObjectMessage(message.Id), GameLibrary.Connection.GameMessageImportance.UnImportant));
             }
+        }
+
+        private static void handleUpdateRacesMessage(NetIncomingMessage _Im)
+        {
+            var message = new UpdateRacesMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Factory.BehaviourFactory.behaviourFactory.Races = message.races;
         }
     }
 }

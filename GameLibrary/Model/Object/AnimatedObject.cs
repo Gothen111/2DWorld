@@ -141,7 +141,11 @@ namespace GameLibrary.Model.Object
 
             Vector2 var_PositionBlockSizeOld = new Vector2((this.Position.X) / Map.Block.Block.BlockSize, (this.Position.Y) / Map.Block.Block.BlockSize);
             Vector2 var_PositionBlockSizeNew = new Vector2((this.Position.X + var_X) / Map.Block.Block.BlockSize, (this.Position.Y + var_Y) / Map.Block.Block.BlockSize);
-            
+
+            if (this.CurrentBlock == null)
+            {
+                this.CurrentBlock = Map.World.World.world.getBlockAtCoordinate(this.Position.X, this.Position.Y);
+            }
             Map.Block.Block var_Block = this.CurrentBlock;
 
             if (Configuration.Configuration.isHost)

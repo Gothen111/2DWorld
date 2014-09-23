@@ -82,6 +82,7 @@ namespace GameLibrary.Model.Object
         public Object()
         {
             this.collisionBounds = new List<Rectangle>();
+            this.objects = new List<Object>();
         }
 
         public Object(SerializationInfo info, StreamingContext ctxt)

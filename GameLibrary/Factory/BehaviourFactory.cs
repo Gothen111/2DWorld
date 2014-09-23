@@ -23,12 +23,14 @@ namespace GameLibrary.Factory
         protected List<Faction> factions;
         public List<Faction> Factions
         {
+            set { this.factions = value; }
             get { return factions; }
         }
 
         protected List<Race> races;
         public List<Race> Races
         {
+            set { this.races = value; }
             get { return races; }
         }
 

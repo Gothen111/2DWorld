@@ -68,6 +68,7 @@ namespace GameLibrary.Model.Map.Block
 
             this.isWalkAble = true;
             this.height = 0;
+            this.Size = new Vector2(Block.BlockSize, Block.BlockSize);
         }
 
         public Block(SerializationInfo info, StreamingContext ctxt) 
@@ -77,6 +78,7 @@ namespace GameLibrary.Model.Map.Block
             this.objects = (List<Object.Object>)info.GetValue("objects", typeof(List<Object.Object>));
             this.objectsPreEnviorment = (List<Object.Object>)info.GetValue("objectsPreEnviorment", typeof(List<Object.Object>));
             this.height = (int)info.GetValue("height", typeof(int));
+            this.isWalkAble = (bool)info.GetValue("isWalkAble", typeof(bool));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -86,6 +88,7 @@ namespace GameLibrary.Model.Map.Block
             info.AddValue("objects", this.objects, this.objects.GetType());
             info.AddValue("objectsPreEnviorment", this.objectsPreEnviorment, this.objectsPreEnviorment.GetType());
             info.AddValue("height", this.height, typeof(int));
+            info.AddValue("isWalkAble", this.isWalkAble, typeof(bool));
         }
 
         public void setLayerAt(Enum _Enum, BlockLayerEnum _Id)

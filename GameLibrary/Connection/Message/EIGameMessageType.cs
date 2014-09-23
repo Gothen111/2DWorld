@@ -20,6 +20,7 @@ namespace GameLibrary.Connection.Message
         UpdateAnimatedObjectBodyMessage,
         UpdateChunkMessage,
         UpdateCreatureInventoryMessage,
+        UpdateFactionsMessage,
         UpdateObjectMessage,
         UpdateObjectHealthMessage,
         UpdateObjectPositionMessage,

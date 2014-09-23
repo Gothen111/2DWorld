@@ -69,8 +69,8 @@ namespace GameLibrary.Factory
             PlayerObject playerObject = new PlayerObject();
             playerObject.Scale = 1;
             playerObject.Velocity = new Vector3(0, 0, 0);
-            playerObject.Faction = BehaviourFactory.behaviourFactory.getFaction(objectFaction);
-            playerObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
+            playerObject.FactionEnum = objectFaction;
+            playerObject.RaceEnum = objectRace;
             playerObject.Gender = objectGender;
             playerObject.Name = NameFactory.getName(objectType, objectGender);
 
@@ -84,8 +84,8 @@ namespace GameLibrary.Factory
             PlayerObject playerObject = this.createPlayerObject(RaceEnum.Human, FactionEnum.Beerdrinker, CreatureEnum.Archer, GenderEnum.Male);
             playerObject.Scale = _PlayerObject.Scale;
             playerObject.Velocity = new Vector3(0, 0, 0);
-            playerObject.Faction = _PlayerObject.Faction;
-            playerObject.Race = _PlayerObject.Race;
+            playerObject.FactionEnum = _PlayerObject.FactionEnum;
+            playerObject.RaceEnum = _PlayerObject.RaceEnum;
             playerObject.Gender = _PlayerObject.Gender;
             playerObject.Name = _PlayerObject.Name;
             playerObject.Body.setColor(_PlayerObject.Body.BodyColor);
@@ -98,8 +98,8 @@ namespace GameLibrary.Factory
             NpcObject npcObject = new NpcObject();
             npcObject.Scale = 1;
             npcObject.Velocity = new Vector3(0, 0, 0);
-            npcObject.Faction = BehaviourFactory.behaviourFactory.getFaction(objectFaction);
-            npcObject.Race = BehaviourFactory.behaviourFactory.getRace(objectRace);
+            npcObject.FactionEnum = objectFaction;
+            npcObject.RaceEnum = objectRace;
             npcObject.Gender = objectGender;
             npcObject.Name = NameFactory.getName(objectType, objectGender);
 

@@ -215,7 +215,14 @@ namespace GameLibrary.Model.Map.Region
 
         public Chunk.Chunk createChunkAt(int _PosX, int _PosY)
         {
-            return this.loadChunk(_PosX, _PosY) ?? GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
+            Chunk.Chunk var_Chunk = this.loadChunk(_PosX, _PosY);
+            if(var_Chunk == null)
+            {
+                var_Chunk = GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
+            }else{
+                setChunkAtPosition(_PosX, _PosY, var_Chunk);
+            }
+            return var_Chunk;
         }
 
         public Chunk.Chunk loadChunk(float _PosX, float _PosY)

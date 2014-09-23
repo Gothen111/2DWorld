@@ -77,6 +77,8 @@ namespace Server.Connection
             Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
             var_Client.PlayerObject = var_PlayerObject;
             Configuration.networkManager.SendMessageToClient(new UpdatePlayerMessage(var_PlayerObject), var_Client);
+            Configuration.networkManager.SendMessageToClient(new UpdateRacesMessage(GameLibrary.Factory.BehaviourFactory.behaviourFactory.Races), var_Client);
+            Configuration.networkManager.SendMessageToClient(new UpdateFactionsMessage(GameLibrary.Factory.BehaviourFactory.behaviourFactory.Factions), var_Client);
 
             GameLibrary.Camera.Camera.camera.setTarget(var_PlayerObject);
         }
