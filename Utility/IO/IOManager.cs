@@ -88,5 +88,10 @@ namespace Utility.IO
             }
             return false;
         }
+
+        public static ISerializable LoadISerializeAbleObjectFromFile(String _File)
+        {
+            return Utility.Serializer.DeSerializeObject(_File);
+        }
     }
 }

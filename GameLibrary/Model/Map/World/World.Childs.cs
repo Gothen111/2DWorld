@@ -102,9 +102,8 @@ namespace GameLibrary.Model.Map.World
             String var_Path = "Save/" + _PosX + "_" + _PosY + "/RegionInfo.sav";
             if (System.IO.File.Exists(var_Path))
             {
-                Region.Region var_Region = (Region.Region)Utility.Serializer.DeSerializeObject(var_Path);
+                Region.Region var_Region = (Region.Region)Utility.IO.IOManager.LoadISerializeAbleObjectFromFile(var_Path);//Utility.Serializer.DeSerializeObject(var_Path);
                 var_Region.Parent = this;
-                //var_Region.setAllNeighboursOfBlocks();
                 return var_Region;
             }
             return null;

@@ -220,7 +220,7 @@ namespace GameLibrary.Model.Map.Region
             {
                 var_Chunk = GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
             }else{
-                setChunkAtPosition(_PosX, _PosY, var_Chunk);
+                this.setChunkAtPosition(_PosX, _PosY, var_Chunk);
             }
             return var_Chunk;
         }
@@ -230,7 +230,7 @@ namespace GameLibrary.Model.Map.Region
             String var_Path = "Save/" + this.Position.X + "_" + this.Position.Y + "/Chunks/" + _PosX + "_" + _PosY + ".sav";
             if (System.IO.File.Exists(var_Path))
             {
-                Chunk.Chunk var_Chunk = (Chunk.Chunk)Utility.Serializer.DeSerializeObject(var_Path);
+                Chunk.Chunk var_Chunk = (Chunk.Chunk)Utility.IO.IOManager.LoadISerializeAbleObjectFromFile(var_Path);//Utility.Serializer.DeSerializeObject(var_Path);
                 var_Chunk.Parent = Model.Map.World.World.world.getRegion(this.id);
                 var_Chunk.setAllNeighboursOfBlocks();
                 return var_Chunk;

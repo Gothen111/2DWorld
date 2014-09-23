@@ -62,7 +62,7 @@ namespace GameLibrary.Gui.Menu
             {
                 try
                 {
-                    PlayerObject var_PlayerObject = (PlayerObject)Utility.Serializer.DeSerializeObject(var_Names[i]);
+                    PlayerObject var_PlayerObject = (PlayerObject)Utility.IO.IOManager.LoadISerializeAbleObjectFromFile(var_Names[i]);//Utility.Serializer.DeSerializeObject(var_Names[i]);
                     _CharactersList.Add(var_PlayerObject);
                 }
                 catch (TargetInvocationException e)
