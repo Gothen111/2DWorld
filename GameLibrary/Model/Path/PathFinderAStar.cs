@@ -59,7 +59,7 @@ namespace GameLibrary.Model.Path
                         int var_X = (int)_StartPosition.X + (-var_SizeX / 2 + x) * Block.BlockSize;
                         int var_Y = (int)_StartPosition.Y + (-var_SizeX / 2 + y) * Block.BlockSize;
 
-                        Block var_Block = World.world.getBlockAtCoordinate(var_X, var_Y);
+                        Block var_Block = World.world.getBlockAtCoordinate(new Vector3(var_X, var_Y, 0));
                         if (var_Block != null)
                         {
                             // TODO: Das Problem noch fixxen, falls object in/auf mauer/Wall! WEil dann ommt n komischer pfad ;)

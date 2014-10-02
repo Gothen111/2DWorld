@@ -6,6 +6,7 @@ using System.Text;
 using GameLibrary.Model.Map.Region;
 using Lidgren.Network;
 using Lidgren.Network.Xna;
+using Microsoft.Xna.Framework;
 
 namespace GameLibrary.Connection.Message
 {
@@ -24,6 +25,7 @@ namespace GameLibrary.Connection.Message
             this.MessageTime = NetTime.Now;
             this.RegionId = ((Region)_Chunk.Parent).Id;
             this.Chunk = _Chunk;
+            this.Position = _Chunk.Position;
         }
 
         #endregion
@@ -38,6 +40,7 @@ namespace GameLibrary.Connection.Message
 
         public Model.Map.Chunk.Chunk Chunk { get; set; }
 
+        public Vector3 Position { get; set; }
 
         #endregion
 
@@ -54,9 +57,34 @@ namespace GameLibrary.Connection.Message
             this.MessageTime = im.ReadDouble();
             this.RegionId = im.ReadInt32();
 
-            this.Chunk = Utility.Serializer.DeserializeObjectFromString<Model.Map.Chunk.Chunk>(im.ReadString());
-            this.Chunk.Parent = Model.Map.World.World.world.getRegion(this.RegionId);
-            this.Chunk.setAllNeighboursOfBlocks();
+            //this.Chunk = Utility.Serializer.DeserializeObjectFromString<Model.Map.Chunk.Chunk>(im.ReadString());
+            //this.Chunk.Parent = Model.Map.World.World.world.getRegion(this.RegionId);
+            //this.Chunk.setAllNeighboursOfBlocks();
+
+            this.Position = im.ReadVector3();
+
+            Model.Map.Chunk.Chunk var_Chunk =  Model.Map.World.World.world.getChunkAtPosition(Position);
+
+            /*if (var_Chunk.IsRequested)
+            {
+                int var_Size = Enum.GetValues(typeof(GameLibrary.Model.Map.Block.BlockLayerEnum)).Length;
+
+                if (var_Chunk != null)
+                {
+                    for (int x = 0; x < GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX; x++)
+                    {
+                        for (int y = 0; y < GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY; y++)
+                        {
+                            for (int i = 0; i < var_Size; i++)
+                            {
+                                var_Chunk.Blocks[x, y].Layer[i] = (Model.Map.Block.BlockEnum)im.ReadInt32();
+                            }
+                        }
+                    }
+                }
+
+                var_Chunk.IsRequested = false;
+            }*/
         }
 
         public void Encode(NetOutgoingMessage om)
@@ -65,7 +93,25 @@ namespace GameLibrary.Connection.Message
             om.Write(this.MessageTime);
             om.Write(this.RegionId);
 
-            om.Write(Utility.Serializer.SerializeObjectToString(this.Chunk));
+            //om.Write(Utility.Serializer.SerializeObjectToString(this.Chunk));
+
+            om.Write(this.Position);
+
+            /*int var_Size = Enum.GetValues(typeof(GameLibrary.Model.Map.Block.BlockLayerEnum)).Length;
+
+            if (this.Chunk != null)
+            {
+                for (int x = 0; x < GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX; x++)
+                {
+                    for (int y = 0; y < GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY; y++)
+                    {
+                        for (int i = 0; i < var_Size; i++)
+                        {
+                            om.Write((int)this.Chunk.Blocks[x, y].Layer[i]);
+                        }
+                    }
+                }
+            }*/
         }
 
         #endregion

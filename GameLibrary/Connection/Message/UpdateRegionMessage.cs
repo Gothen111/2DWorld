@@ -22,7 +22,9 @@ namespace GameLibrary.Connection.Message
         {
             this.Id = _Region.Id;
             this.MessageTime = NetTime.Now;
-            this.Region = _Region;
+            //this.Region = _Region;
+            this.Position = _Region.Position;
+            this.RegionEnum = _Region.RegionEnum;
         }
 
         #endregion
@@ -33,10 +35,11 @@ namespace GameLibrary.Connection.Message
 
         public double MessageTime { get; set; }
 
-        public Model.Map.Region.Region Region { get; set; }
+        //public Model.Map.Region.Region Region { get; set; }
 
-        public String Content { get; set; }
+        public GameLibrary.Model.Map.Region.RegionEnum RegionEnum { get; set; }
 
+        public Vector3 Position { get; set; }
 
         #endregion
 
@@ -52,8 +55,12 @@ namespace GameLibrary.Connection.Message
             this.Id = im.ReadInt32();
             this.MessageTime = im.ReadDouble();
 
-            this.Region = Utility.Serializer.DeserializeObjectFromString<Model.Map.Region.Region>(im.ReadString());
-            this.Region.Parent = Model.Map.World.World.world;
+            //this.Region = Utility.Serializer.DeserializeObjectFromString<Model.Map.Region.Region>(im.ReadString());
+            //this.Region.Parent = Model.Map.World.World.world;
+
+            this.Position = im.ReadVector3();
+
+            this.RegionEnum = (Model.Map.Region.RegionEnum)im.ReadInt32();
         }
 
         public void Encode(NetOutgoingMessage om)
@@ -61,7 +68,11 @@ namespace GameLibrary.Connection.Message
             om.Write(this.Id);
             om.Write(this.MessageTime);
 
-            om.Write(Utility.Serializer.SerializeObjectToString(this.Region));
+            //om.Write(Utility.Serializer.SerializeObjectToString(this.Region));
+
+            om.Write(this.Position);
+
+            om.Write((int)this.RegionEnum);
         }
 
         #endregion

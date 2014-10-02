@@ -23,9 +23,11 @@ namespace GameLibrary.Model.Map.World
         {
             if (this.quadTreeObject != null)
             {
-                foreach (QuadTree<Object.Object>.QuadNode var_QuadNode in this.quadTreeObject.GetAllNodes())
+                List<QuadTree<Object.Object>.QuadNode> var_Copy = new List<QuadTree<Object.Object>.QuadNode>(this.quadTreeObject.GetAllNodes());
+                foreach (QuadTree<Object.Object>.QuadNode var_QuadNode in var_Copy)
                 {
-                    foreach (Object.Object var_Object in var_QuadNode.Objects)
+                    System.Collections.ObjectModel.ReadOnlyCollection<Object.Object> var_Copy2 = new System.Collections.ObjectModel.ReadOnlyCollection<Object.Object>(var_QuadNode.Objects);
+                    foreach (Object.Object var_Object in var_Copy2)
                     {
                         if (var_Object.Id == _Id)
                         {
@@ -78,15 +80,18 @@ namespace GameLibrary.Model.Map.World
                 {
                     if(this.getObject(_Object.Id)==null)
                     {
-                        Block.Block block = chunk.getBlockAtCoordinate(_Object.Position.X, _Object.Position.Y);
-                        block.addObject(_Object);
-                        if (insertInQuadTree)
+                        Block.Block var_Block = chunk.getBlockAtCoordinate(_Object.Position);
+                        if (var_Block != null)
                         {
-                            this.quadTreeObject.Insert(_Object);
-                        }
-                        if (Configuration.Configuration.isHost)
-                        {
-                            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectMessage(_Object), GameMessageImportance.VeryImportant));
+                            var_Block.addObject(_Object);
+                            if (insertInQuadTree)
+                            {
+                                this.quadTreeObject.Insert(_Object);
+                            }
+                            if (Configuration.Configuration.isHost)
+                            {
+                                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectMessage(_Object), GameMessageImportance.VeryImportant));
+                            }
                         }
                     }
                 }
@@ -166,7 +171,9 @@ namespace GameLibrary.Model.Map.World
         {
             if (Utility.Collision.Intersection.RectangleIsInRectangle(bounds, currentNode.Bounds))
             {
-                foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
+                System.Collections.ObjectModel.ReadOnlyCollection<QuadTree<Object.Object>.QuadNode> var_Copy = new System.Collections.ObjectModel.ReadOnlyCollection<QuadTree<Object.Object>.QuadNode>(currentNode.Nodes);
+
+                foreach (QuadTree<Object.Object>.QuadNode node in var_Copy)
                 {
                     if (node != null)
                     {
@@ -189,46 +196,56 @@ namespace GameLibrary.Model.Map.World
 
         public void addAllObjectsInRange(QuadTree<Object.Object>.QuadNode currentNode, Rectangle bounds, List<Object.Object> result, List<SearchFlags.Searchflag> _SearchFlags)
         {
-            foreach (Object.Object var_Object in currentNode.Objects)
+            System.Collections.ObjectModel.ReadOnlyCollection<Object.Object> var_Copy = new System.Collections.ObjectModel.ReadOnlyCollection<Object.Object>(currentNode.Objects);
+            //TODO: Zusätzliche Informationen: Die Auflistung wurde geändert. Der Enumerationsvorgang kann möglicherweise nicht ausgeführt werden.
+            try
             {
-                if (!result.Contains(var_Object))// && !var_Object.IsDead)
+                foreach (Object.Object var_Object in var_Copy)
                 {
-                    Boolean containsAllFlags = true;
-                    foreach (SearchFlags.Searchflag searchFlag in _SearchFlags)
+                    if (!result.Contains(var_Object))// && !var_Object.IsDead)
                     {
-                        if (!searchFlag.hasFlag(var_Object))
-                            containsAllFlags = false;
-
-                    }
-                    if (!containsAllFlags)
-                        continue;
-                    if (var_Object is AnimatedObject)
-                    {
-                        if (Utility.Collision.Intersection.RectangleIntersectsRectangle(bounds, ((AnimatedObject)var_Object).Bounds)) ///DrawBounds ???
+                        Boolean containsAllFlags = true;
+                        foreach (SearchFlags.Searchflag searchFlag in _SearchFlags)
                         {
-                            if (var_Object.CollisionBounds != null && var_Object.CollisionBounds.Count > 0)
+                            if (!searchFlag.hasFlag(var_Object))
+                                containsAllFlags = false;
+
+                        }
+                        if (!containsAllFlags)
+                            continue;
+                        if (var_Object is AnimatedObject)
+                        {
+                            if (Utility.Collision.Intersection.RectangleIntersectsRectangle(bounds, ((AnimatedObject)var_Object).Bounds)) ///DrawBounds ???
                             {
-                                foreach (Rectangle collisionBound in var_Object.CollisionBounds)
+                                if (var_Object.CollisionBounds != null && var_Object.CollisionBounds.Count > 0)
                                 {
-                                    if (Utility.Collision.Intersection.RectangleIntersectsRectangle(bounds, new Rectangle(collisionBound.X + var_Object.Bounds.X, collisionBound.Y + var_Object.Bounds.Y, collisionBound.Width, collisionBound.Height))) // collisionBound ???
+                                    foreach (Rectangle collisionBound in var_Object.CollisionBounds)
                                     {
-                                        result.Add(var_Object);
-                                        break;
+                                        if (Utility.Collision.Intersection.RectangleIntersectsRectangle(bounds, new Rectangle(collisionBound.X + var_Object.Bounds.X, collisionBound.Y + var_Object.Bounds.Y, collisionBound.Width, collisionBound.Height))) // collisionBound ???
+                                        {
+                                            result.Add(var_Object);
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                            else
-                            {
-                                result.Add(var_Object);
+                                else
+                                {
+                                    result.Add(var_Object);
+                                }
                             }
                         }
                     }
                 }
+                System.Collections.ObjectModel.ReadOnlyCollection<QuadTree<Object.Object>.QuadNode> var_Copy2 = new System.Collections.ObjectModel.ReadOnlyCollection<QuadTree<Object.Object>.QuadNode>(currentNode.Nodes);
+                foreach (QuadTree<Object.Object>.QuadNode node in var_Copy2)
+                {
+                    if (node != null)
+                        addAllObjectsInRange(node, bounds, result, _SearchFlags);
+                }
             }
-            foreach (QuadTree<Object.Object>.QuadNode node in currentNode.Nodes)
+            catch (Exception e)
             {
-                if (node != null)
-                    addAllObjectsInRange(node, bounds, result, _SearchFlags);
+                Logger.Logger.LogErr(e.ToString());
             }
         }
         #endregion

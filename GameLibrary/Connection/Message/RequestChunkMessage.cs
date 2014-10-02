@@ -18,7 +18,7 @@ namespace GameLibrary.Connection.Message
             this.Decode(im);
         }
 
-        public RequestChunkMessage(Vector2 _Position)
+        public RequestChunkMessage(Vector3 _Position)
         {
             this.MessageTime = NetTime.Now;
             this.Position = _Position;
@@ -30,7 +30,7 @@ namespace GameLibrary.Connection.Message
 
         public double MessageTime { get; set; }
 
-        public Vector2 Position { get; set; }
+        public Vector3 Position { get; set; }
 
         #endregion
 
@@ -44,7 +44,7 @@ namespace GameLibrary.Connection.Message
         public void Decode(NetIncomingMessage im)
         {
             this.MessageTime = im.ReadDouble();
-            this.Position = im.ReadVector2();
+            this.Position = im.ReadVector3();
         }
 
         public void Encode(NetOutgoingMessage om)

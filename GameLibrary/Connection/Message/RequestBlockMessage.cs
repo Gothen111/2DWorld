@@ -9,16 +9,16 @@ using Lidgren.Network.Xna;
 
 namespace GameLibrary.Connection.Message
 {
-    public class RequestRegionMessage : IGameMessage
+    public class RequestBlockMessage : IGameMessage
     {
         #region Constructors and Destructors
 
-        public RequestRegionMessage(NetIncomingMessage im)
+        public RequestBlockMessage(NetIncomingMessage im)
         {
             this.Decode(im);
         }
 
-        public RequestRegionMessage(Vector3 _Position)
+        public RequestBlockMessage(Vector3 _Position)
         {
             this.MessageTime = NetTime.Now;
             this.Position = _Position;
@@ -38,7 +38,7 @@ namespace GameLibrary.Connection.Message
 
         public EIGameMessageType MessageType
         {
-            get { return EIGameMessageType.RequestRegionMessage; }
+            get { return EIGameMessageType.RequestBlockMessage; }
         }
 
         public void Decode(NetIncomingMessage im)

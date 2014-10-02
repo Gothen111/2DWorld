@@ -8,46 +8,30 @@ using Microsoft.Xna.Framework;
 namespace GameLibrary.Model.Map
 {
     [Serializable()]
-    public class Box : ISerializable
+    public class Box : WorldElement
     {
-        private Vector2 size;
-
-        public Vector2 Size
-        {
-            get { return size; }
-            set { size = value; this.boundsChanged(); }
-        }
-
-        private Vector2 position;
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; this.boundsChanged(); }
-        }
-
-        private Rectangle bounds;
-
-        public Rectangle Bounds
-        {
-            get { return bounds; }
-            set { bounds = value; }
-        }
-
-        private String name;
-
-        public String Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
         private Box parent;
 
         public Box Parent
         {
             get { return parent; }
             set { parent = value; }
+        }
+
+        private bool isRequested;
+
+        public bool IsRequested
+        {
+            get { return isRequested; }
+            set { isRequested = value; }
+        }
+
+        private bool hasReceived;
+
+        public bool HasReceived
+        {
+            get { return hasReceived; }
+            set { hasReceived = value; }
         }
 
         #region neighbours
@@ -80,87 +64,55 @@ namespace GameLibrary.Model.Map
             set { bottomNeighbour = value; }
         }
 
-        private bool topNeighbourRequested;
-
-        public bool TopNeighbourRequested
-        {
-            get { return topNeighbourRequested; }
-            set { topNeighbourRequested = value; }
-        }
-        private bool leftNeighbourRequested;
-
-        public bool LeftNeighbourRequested
-        {
-            get { return leftNeighbourRequested; }
-            set { leftNeighbourRequested = value; }
-        }
-        private bool rightNeighbourRequested;
-
-        public bool RightNeighbourRequested
-        {
-            get { return rightNeighbourRequested; }
-            set { rightNeighbourRequested = value; }
-        }
-        private bool bottomNeighbourRequested;
-
-        public bool BottomNeighbourRequested
-        {
-            get { return bottomNeighbourRequested; }
-            set { bottomNeighbourRequested = value; }
-        }
-
-        private int neighbourRequestedTimer;
-        private int neighbourRequestedTimerMax;
+        private int requestedTimer;
+        private int requestedTimerMax;
 
         #endregion
 
         public Box()
+            :base()
         {
-            this.topNeighbourRequested = false;
-            this.leftNeighbourRequested = false;
-            this.rightNeighbourRequested = false;
-            this.bottomNeighbourRequested = false;
-            this.neighbourRequestedTimerMax = 200;
-            this.neighbourRequestedTimer = this.neighbourRequestedTimerMax;
-            
+            this.isRequested = false;
+            this.hasReceived = false;
+
+            this.requestedTimerMax = 10;
+            this.requestedTimer = this.requestedTimerMax;
         }
 
-        public Box(SerializationInfo info, StreamingContext ctxt) 
-            :this()
-        {           
-            this.size = (Vector2)info.GetValue("size", typeof(Vector2));
-            this.position = (Vector2)info.GetValue("position", typeof(Vector2));
-            this.name = (String)info.GetValue("name", typeof(String));
-            this.Bounds = ((Utility.Corpus.Square)info.GetValue("bounds", typeof(Utility.Corpus.Square))).Rectangle;
+        public Box(SerializationInfo info, StreamingContext ctxt)
+            : base(info, ctxt)
+        {
         }
 
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            info.AddValue("size", this.size, typeof(Vector2));
-            info.AddValue("position", this.position, typeof(Vector2));
-            info.AddValue("name", this.name);
-            info.AddValue("bounds", new Utility.Corpus.Square(this.Bounds), typeof(Utility.Corpus.Square));
+            base.GetObjectData(info, ctxt);
         }
 
-        public virtual void update()
+        public virtual void update(GameTime _GameTime)
         {
-            if (this.neighbourRequestedTimer <= 0)
+            if (!Configuration.Configuration.isHost)
             {
-                this.topNeighbourRequested = false;
-                this.leftNeighbourRequested = false;
-                this.rightNeighbourRequested = false;
-                this.bottomNeighbourRequested = false;
-                this.neighbourRequestedTimer = this.neighbourRequestedTimerMax;
-            }
-            else
-            {
-                this.neighbourRequestedTimer -= 1;
+                if (this.requestedTimer <= 0 && this.isRequested)
+                {
+                    this.requestFromServer();
+                    this.requestedTimer = this.requestedTimerMax;
+                }
+                else
+                {
+                    this.requestedTimer -= 1;
+                }
             }
         }
 
-        public virtual void boundsChanged()
+        protected override void boundsChanged()
         {
             this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.Bounds.Width, this.Bounds.Height);
+        }
+
+        public virtual void requestFromServer()
+        {
+            this.isRequested = true;
         }
     }
 }

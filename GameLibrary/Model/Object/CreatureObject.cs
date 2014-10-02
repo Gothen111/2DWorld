@@ -22,13 +22,13 @@ namespace GameLibrary.Model.Object
 
         //protected Skill skill;
 
-        private String name;
+        /*private String name;
 
         public String Name
         {
             get { return name; }
             set { name = value; }
-        }
+        }*/
 
         public CreatureObject()
         {
@@ -39,20 +39,20 @@ namespace GameLibrary.Model.Object
             : base(info, ctxt)
         { 
             this.inventory = (Inventory.Inventory)info.GetValue("inventory", typeof(Inventory.Inventory));
-            this.name = (String)info.GetValue("name", typeof(String));
+            //this.name = (String)info.GetValue("name", typeof(String));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("inventory", inventory, typeof(Inventory.Inventory));
-            info.AddValue("name", this.name, typeof(String));
+            //info.AddValue("name", this.name, typeof(String));
 
             base.GetObjectData(info, ctxt);
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
+            base.update(_GameTime);
         }
 
         public override void attack()

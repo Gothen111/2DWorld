@@ -94,9 +94,9 @@ namespace GameLibrary.Model.Object
             base.GetObjectData(info, ctxt);
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
+            base.update(_GameTime);
         }
 
         public override void onCollide(AnimatedObject _CollideWith)

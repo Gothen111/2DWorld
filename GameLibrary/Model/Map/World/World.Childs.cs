@@ -39,7 +39,7 @@ namespace GameLibrary.Model.Map.World
 
                 if (GameLibrary.Configuration.Configuration.isHost)
                 {
-                    this.saveRegion(_Region);
+                    //this.saveRegion(_Region);
                 }
                 else
                 {
@@ -69,13 +69,13 @@ namespace GameLibrary.Model.Map.World
             return containsRegion(_Region.Id);
         }
 
-        public Region.Region getRegionAtPosition(float _PosX, float _PosY)
+        public Region.Region getRegionAtPosition(Vector3 _Position)
         {
             foreach (Region.Region var_Region in this.regions)
             {
-                if (var_Region.Bounds.Left <= _PosX && var_Region.Bounds.Right >= _PosX)
+                if (var_Region.Bounds.Left <= _Position.X && var_Region.Bounds.Right >= _Position.X)
                 {
-                    if (var_Region.Bounds.Top <= _PosY && var_Region.Bounds.Bottom >= _PosY)
+                    if (var_Region.Bounds.Top <= _Position.Y && var_Region.Bounds.Bottom >= _Position.Y)
                     {
                         return var_Region;
                     }
@@ -97,9 +97,9 @@ namespace GameLibrary.Model.Map.World
             return null;
         }
 
-        public Region.Region loadRegion(float _PosX, float _PosY)
+        public Region.Region loadRegion(Vector3 _Position)
         {
-            String var_Path = "Save/" + _PosX + "_" + _PosY + "/RegionInfo.sav";
+            String var_Path = "Save/" + _Position.X + "_" + _Position.Y + "/RegionInfo.sav";
             if (System.IO.File.Exists(var_Path))
             {
                 Region.Region var_Region = (Region.Region)Utility.IO.IOManager.LoadISerializeAbleObjectFromFile(var_Path);//Utility.Serializer.DeSerializeObject(var_Path);
@@ -115,9 +115,9 @@ namespace GameLibrary.Model.Map.World
             Utility.IO.IOManager.SaveISerializeAbleObjectToFile(var_Path, _Region);
         }
 
-        public Region.Region createRegionAt(int _PosX, int _PosY)
+        public Region.Region createRegionAt(Vector3 _Position)
         {
-            int var_SizeX = (Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+            /*int var_SizeX = (Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
             int var_SizeY = (Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize);
 
             int var_RestX = _PosX % var_SizeX;
@@ -138,32 +138,51 @@ namespace GameLibrary.Model.Map.World
             else
             {
                 _PosY = _PosY - var_RestY;
-            }
+            }*/
 
-            int var_RegionType = Utility.Random.GenerateGoodRandomNumber(0, Enum.GetValues(typeof(RegionEnum)).Length);          
-            return this.loadRegion(_PosX, _PosY) ?? GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, _PosX, _PosY, (RegionEnum)var_RegionType, this);
+            _Position = Region.Region.parsePosition(_Position);
+
+            Region.Region var_Region = this.loadRegion(_Position);
+            if (var_Region == null)
+            {
+                int var_RegionType = Utility.Random.GenerateGoodRandomNumber(0, Enum.GetValues(typeof(RegionEnum)).Length);
+                var_Region = GameLibrary.Factory.RegionFactory.regionFactory.generateRegion("Region" + Region.Region._id, (int)_Position.X, (int)_Position.Y, (RegionEnum)var_RegionType, this);
+            }
+            this.addRegion(var_Region);
+
+            return var_Region;
         }
 
         #endregion
 
         #region Chunk
 
-        public Chunk.Chunk getChunkAtPosition(float _PosX, float _PosY)
+        public Chunk.Chunk getChunkAtPosition(Vector3 _Position)
         {
-            Region.Region var_Region = World.world.getRegionAtPosition(_PosX, _PosY);
+            Region.Region var_Region = this.getRegionAtPosition(_Position);
             if (var_Region != null)
             {
-                return var_Region.getChunkAtPosition(_PosX, _PosY);
+                return var_Region.getChunkAtPosition(_Position);
+            }
+            return null;
+        }
+
+        public Chunk.Chunk createChunkAt(Vector3 _Position)
+        {
+            Region.Region var_Region = this.getRegionAtPosition(_Position);
+            if (var_Region != null)
+            {
+                return var_Region.createChunkAt(_Position);
             }
             return null;
         }
 
         public bool removeChunk(Chunk.Chunk _Chunk)
         {
-            Region.Region var_Region = World.world.getRegionAtPosition(_Chunk.Position.X, _Chunk.Position.Y);
+            Region.Region var_Region = this.getRegionAtPosition(_Chunk.Position);
             if (var_Region != null)
             {
-                Chunk.Chunk var_Chunk = var_Region.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y);
+                Chunk.Chunk var_Chunk = var_Region.getChunkAtPosition(_Chunk.Position);
                 return var_Region.Chunks.Remove(var_Chunk);
             }
             return false;
@@ -173,12 +192,12 @@ namespace GameLibrary.Model.Map.World
 
         #region Block
 
-        public Block.Block getBlockAtCoordinate(float _PosX, float _PosY)
+        public Block.Block getBlockAtCoordinate(Vector3 _Position)
         {
-            Chunk.Chunk var_Chunk = World.world.getChunkAtPosition(_PosX, _PosY);
+            Chunk.Chunk var_Chunk = World.world.getChunkAtPosition(_Position);
             if (var_Chunk != null)
             {
-                return var_Chunk.getBlockAtCoordinate(_PosX, _PosY);
+                return var_Chunk.getBlockAtCoordinate(_Position);
             }
             return null;
         }

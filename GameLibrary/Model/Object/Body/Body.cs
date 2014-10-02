@@ -212,11 +212,11 @@ namespace GameLibrary.Model.Object.Body
             }
         }
 
-        public void update()
+        public void update(GameTime _GameTime)
         {
             foreach (BodyPart var_BodyPart in this.bodyParts)
             {
-                var_BodyPart.update();
+                var_BodyPart.update(_GameTime);
             }
         }
 

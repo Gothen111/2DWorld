@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 
 using GameLibrary.Model.Behaviour.Member;
 using GameLibrary.Factory.FactoryEnums;
+using Microsoft.Xna.Framework;
 
 namespace GameLibrary.Model.Object
 {
@@ -43,9 +44,9 @@ namespace GameLibrary.Model.Object
             info.AddValue("factionEnum", this.factionEnum, typeof(FactionEnum));
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
+            base.update(_GameTime);
         }
     }
 }

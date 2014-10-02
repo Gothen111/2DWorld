@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 
 using GameLibrary.Factory.FactoryEnums;
+using Microsoft.Xna.Framework;
 
 namespace GameLibrary.Model.Object.Equipment
 {
@@ -57,7 +58,7 @@ namespace GameLibrary.Model.Object.Equipment
             base.GetObjectData(info, ctxt);
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
 
         }

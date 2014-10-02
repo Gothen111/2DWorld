@@ -9,6 +9,8 @@ using GameLibrary.Model.Map.Chunk;
 using GameLibrary.Model.Map.World;
 
 using Microsoft.Xna.Framework.Graphics;
+using GameLibrary.Connection;
+using GameLibrary.Connection.Message;
 
 namespace GameLibrary.Model.Map.Region
 {
@@ -40,6 +42,7 @@ namespace GameLibrary.Model.Map.Region
         public RegionEnum RegionEnum
         {
             get { return regionEnum; }
+            set { regionEnum = value; }
         }
 
         public Region(SerializationInfo info, StreamingContext ctxt) 
@@ -58,11 +61,11 @@ namespace GameLibrary.Model.Map.Region
             info.AddValue("regionEnum", this.regionEnum, typeof(int));
         }
 
-        public Region(String _Name, int _PosX, int _PosY, int _SizeX, int _SizeY, RegionEnum _RegionEnum, World.World _ParentWorld)
+        public Region(String _Name, int _PosX, int _PosY, RegionEnum _RegionEnum, World.World _ParentWorld)
         {
             this.Name = _Name;
-            this.Position = new Vector2(_PosX, _PosY);
-            this.Size = new Vector2(_SizeX, _SizeY);
+            this.Position = new Vector3(_PosX, _PosY, 0);
+            this.Size = new Vector3(regionSizeX, regionSizeY, 0);
             this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, (int)(regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize - 1), (int)(regionSizeX * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize - 1));
 
 
@@ -71,23 +74,33 @@ namespace GameLibrary.Model.Map.Region
             this.regionEnum = _RegionEnum;
 
             this.Parent = _ParentWorld;
+
+            if (Configuration.Configuration.isHost)
+            {
+            }
+            else
+            {
+                this.requestFromServer();
+            }
         }
 
-        public bool setChunkAtPosition(int _PosX, int _PosY, Chunk.Chunk _Chunk)
+        public bool setChunkAtPosition(Vector3 _Position, Chunk.Chunk _Chunk)
         {
-            if (!containsChunk(_Chunk.Id))
+            Chunk.Chunk var_Chunk = this.getChunkAtPosition(_Chunk.Position);
+            if (var_Chunk == null)
             {
                 /*if (_PosX >= Bounds.Left && _PosX <= Bounds.Right)
                 {
                     if (_PosY >= Bounds.Top && _PosY <= Bounds.Bottom)
                     {*/
                         this.chunks.Add(_Chunk);
-                        this.setAllNeighboursOfChunk(_Chunk);
+                        //this.setAllNeighboursOfChunk(_Chunk);
+                        this.setAllNeighboursOfChunks();
                         //World.World.world.setAllNeighboursOfRegion((Region)_Chunk.Parent);
                         if (GameLibrary.Configuration.Configuration.isHost)
                         {
                             //GameLibrary.Commands.Executer.Executer.executer.addCommand(new Commands.CommandTypes.UpdateChunkCommand(_Chunk));
-                            this.saveChunk(_Chunk);
+                            //this.saveChunk(_Chunk);
                         }
                         else
                         {
@@ -97,11 +110,20 @@ namespace GameLibrary.Model.Map.Region
                         return true;
                 /*    }
                 }*/
-                Logger.Logger.LogErr("Region->setChunkAtPosition(...) : Platzierung nicht möglich: PosX " + _PosX + " PosY " + _PosY);
+                        Logger.Logger.LogErr("Region->setChunkAtPosition(...) : Platzierung nicht möglich: PosX " + _Position.X + " PosY " + _Position.Y);
                 return false;
             }
             else
             {
+                if (var_Chunk.IsRequested)
+                {
+                    this.chunks.Remove(var_Chunk);
+                    this.chunks.Add(_Chunk);
+                    //this.setAllNeighboursOfChunk(_Chunk);
+                    this.setAllNeighboursOfChunks();
+                    //var_Chunk.IsRequested = false;
+                    //var_Chunk.HasReceived = true;
+                }
                 Logger.Logger.LogErr("Region->setChunkAtPosition(...) : Chunk mit Id: " + _Chunk.Id + " schon vorhanden!");
                 return false;
             }
@@ -121,6 +143,13 @@ namespace GameLibrary.Model.Map.Region
 
         public bool containsChunk(Chunk.Chunk _Chunk)
         {
+            foreach (Chunk.Chunk var_Chunk in this.chunks)
+            {
+                if (var_Chunk == _Chunk)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -135,7 +164,7 @@ namespace GameLibrary.Model.Map.Region
 
         public void setAllNeighboursOfChunk(Chunk.Chunk _Chunk)
         {
-            Chunk.Chunk var_ChunkNeighbourLeft = World.World.world.getChunkAtPosition(_Chunk.Position.X - Chunk.Chunk.chunkSizeX*Block.Block.BlockSize, _Chunk.Position.Y);
+            Chunk.Chunk var_ChunkNeighbourLeft = World.World.world.getChunkAtPosition(new Vector3(_Chunk.Position.X - Chunk.Chunk.chunkSizeX*Block.Block.BlockSize, _Chunk.Position.Y, 0));
 
             if (var_ChunkNeighbourLeft != null)
             {
@@ -143,12 +172,18 @@ namespace GameLibrary.Model.Map.Region
                 var_ChunkNeighbourLeft.RightNeighbour = _Chunk;
                 for (int blockY = 0; blockY < Chunk.Chunk.chunkSizeY; blockY++)
                 {
-                    _Chunk.getBlockAtPosition(0, blockY).LeftNeighbour = var_ChunkNeighbourLeft.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);
-                    var_ChunkNeighbourLeft.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY).RightNeighbour = _Chunk.getBlockAtPosition(0, blockY);
+                    Block.Block var_BlockRight = _Chunk.getBlockAtPosition(0, blockY);
+                    Block.Block var_BlockLeft = var_ChunkNeighbourLeft.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);
+
+                    if (var_BlockLeft != null && var_BlockRight != null)
+                    {
+                        var_BlockRight.LeftNeighbour = var_BlockLeft;
+                        var_BlockLeft.RightNeighbour = var_BlockRight;
+                    }
                 }
             }
 
-            Chunk.Chunk var_ChunkNeighbourRight = World.World.world.getChunkAtPosition(_Chunk.Position.X + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, _Chunk.Position.Y);
+            Chunk.Chunk var_ChunkNeighbourRight = World.World.world.getChunkAtPosition(new Vector3(_Chunk.Position.X + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, _Chunk.Position.Y, 0));
 
             if (var_ChunkNeighbourRight != null)
             {
@@ -156,12 +191,18 @@ namespace GameLibrary.Model.Map.Region
                 var_ChunkNeighbourRight.LeftNeighbour = _Chunk;
                 for (int blockY = 0; blockY < Chunk.Chunk.chunkSizeY; blockY++)
                 {
-                    _Chunk.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY).RightNeighbour = var_ChunkNeighbourRight.getBlockAtPosition(0, blockY);
-                    var_ChunkNeighbourRight.getBlockAtPosition(0, blockY).LeftNeighbour = _Chunk.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);                  
+                    Block.Block var_BlockRight = var_ChunkNeighbourRight.getBlockAtPosition(0, blockY);
+                    Block.Block var_BlockLeft = _Chunk.getBlockAtPosition(Chunk.Chunk.chunkSizeX - 1, blockY);
+
+                    if (var_BlockLeft != null && var_BlockRight != null)
+                    {
+                        var_BlockLeft.RightNeighbour = var_BlockRight;
+                        var_BlockRight.LeftNeighbour = var_BlockLeft;
+                    }
                 }
             }
 
-            Chunk.Chunk var_ChunkNeighbourTop = World.World.world.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y - Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+            Chunk.Chunk var_ChunkNeighbourTop = World.World.world.getChunkAtPosition(new Vector3(_Chunk.Position.X, _Chunk.Position.Y - Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, 0));
 
             if (var_ChunkNeighbourTop != null)
             {
@@ -169,12 +210,18 @@ namespace GameLibrary.Model.Map.Region
                 var_ChunkNeighbourTop.BottomNeighbour = _Chunk;
                 for (int blockX = 0; blockX < Chunk.Chunk.chunkSizeX; blockX++)
                 {
-                    _Chunk.getBlockAtPosition(blockX, 0).TopNeighbour = var_ChunkNeighbourTop.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
-                    var_ChunkNeighbourTop.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1).BottomNeighbour = _Chunk.getBlockAtPosition(blockX, 0);
+                    Block.Block var_BlockTop = var_ChunkNeighbourTop.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
+                    Block.Block var_BlockBottom = _Chunk.getBlockAtPosition(blockX, 0);
+
+                    if (var_BlockTop != null && var_BlockBottom != null)
+                    {
+                        var_BlockBottom.TopNeighbour = var_BlockTop;
+                        var_BlockTop.BottomNeighbour = var_BlockBottom;
+                    }
                 }
             }
 
-            Chunk.Chunk var_ChunkNeighbourBottom = World.World.world.getChunkAtPosition(_Chunk.Position.X, _Chunk.Position.Y + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+            Chunk.Chunk var_ChunkNeighbourBottom = World.World.world.getChunkAtPosition(new Vector3(_Chunk.Position.X, _Chunk.Position.Y + Chunk.Chunk.chunkSizeX * Block.Block.BlockSize, 0));
 
             if (var_ChunkNeighbourBottom != null)
             {
@@ -182,45 +229,45 @@ namespace GameLibrary.Model.Map.Region
                 var_ChunkNeighbourBottom.TopNeighbour = _Chunk;
                 for (int blockX = 0; blockX < Chunk.Chunk.chunkSizeX; blockX++)
                 {
-                    _Chunk.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1).BottomNeighbour = var_ChunkNeighbourBottom.getBlockAtPosition(blockX, 0);
-                    var_ChunkNeighbourBottom.getBlockAtPosition(blockX, 0).TopNeighbour = _Chunk.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
+                    Block.Block var_BlockTop = _Chunk.getBlockAtPosition(blockX, Chunk.Chunk.chunkSizeY - 1);
+                    Block.Block var_BlockBottom = var_ChunkNeighbourBottom.getBlockAtPosition(blockX, 0);
+
+                    if (var_BlockTop != null && var_BlockBottom != null)
+                    {
+                        var_BlockTop.BottomNeighbour = var_BlockBottom;
+                        var_BlockBottom.TopNeighbour = var_BlockTop;
+                    }
                 }
             }
         }
 
-        public Chunk.Chunk getChunkAtPosition(float _PosX, float _PosY)
+        public Chunk.Chunk getChunkAtPosition(Vector3 _Position)
         {
-            foreach (Chunk.Chunk var_Chunk in this.chunks)
+            List<Chunk.Chunk> var_Copy = new List<Chunk.Chunk>(this.chunks);
+            foreach (Chunk.Chunk var_Chunk in var_Copy)
             {
-                if (var_Chunk.Bounds.Left <= _PosX && var_Chunk.Bounds.Right >= _PosX)
+                if (var_Chunk.Bounds.Left <= _Position.X && var_Chunk.Bounds.Right >= _Position.X)
                 {
-                    if (var_Chunk.Bounds.Top <= _PosY && var_Chunk.Bounds.Bottom >= _PosY)
+                    if (var_Chunk.Bounds.Top <= _Position.Y && var_Chunk.Bounds.Bottom >= _Position.Y)
                     {
                         return var_Chunk;
                     }
                 }
             }
-
-            if (GameLibrary.Configuration.Configuration.isHost)
-            {
-                //return this.loadChunk(0);
-            }
-            else
-            {
-                //return this.loadChunk(0);
-            }
-            //return this.loadChunk(_PosX, _PosY);
             return null;
         }
 
-        public Chunk.Chunk createChunkAt(int _PosX, int _PosY)
+        public Chunk.Chunk createChunkAt(Vector3 _Position)
         {
-            Chunk.Chunk var_Chunk = this.loadChunk(_PosX, _PosY);
+            _Position = Chunk.Chunk.parsePosition(_Position);
+            Chunk.Chunk var_Chunk = this.loadChunk(_Position.X, _Position.Y);
             if(var_Chunk == null)
             {
-                var_Chunk = GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, _PosX, _PosY);
-            }else{
-                this.setChunkAtPosition(_PosX, _PosY, var_Chunk);
+                var_Chunk = GameLibrary.Factory.RegionFactory.regionFactory.createChunkInRegion(this, (int)_Position.X, (int)_Position.Y);
+            }
+            else
+            {
+                this.setChunkAtPosition(_Position, var_Chunk);
             }
             return var_Chunk;
         }
@@ -257,14 +304,13 @@ namespace GameLibrary.Model.Map.Region
             }
             else
             {
-                //return this.getChunkAtPosition(var_X, var_Y);
-                return this.getChunkAtPosition(_Object.Position.X, _Object.Position.Y);
+                return this.getChunkAtPosition(_Object.Position);
             }
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
+            base.update(_GameTime);
         }
 
         public Chunk.Chunk getChunk(int _Id)
@@ -277,6 +323,55 @@ namespace GameLibrary.Model.Map.Region
                 }
             }
             return null;
+        }
+
+        public static Vector3 parsePosition(Vector3 _Position)
+        {
+            int _PosX = (int)_Position.X;
+            int _PosY = (int)_Position.Y;
+
+            int var_SizeX = (Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize);
+            int var_SizeY = (Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize);
+
+            int var_RestX = _PosX % var_SizeX;
+            int var_RestY = _PosY % var_SizeY;
+
+            if (var_RestX != 0)
+            {
+                if (_PosX < 0)
+                {
+                    _PosX = _PosX - (var_SizeX + var_RestX);
+                }
+                else
+                {
+                    _PosX = _PosX - var_RestX;
+                }
+            }
+            if (var_RestY != 0)
+            {
+                if (_PosY < 0)
+                {
+                    _PosY = _PosY - (var_SizeY + var_RestY);
+                }
+                else
+                {
+                    _PosY = _PosY - var_RestY;
+                }
+            }
+
+            return new Vector3(_PosX, _PosY, _Position.Z);
+        }
+
+        public override void requestFromServer()
+        {
+            base.requestFromServer();
+            if (this.Parent == null)
+            {
+            }
+            else
+            {
+                Event.EventList.Add(new Event(new RequestRegionMessage(this.Position), GameMessageImportance.VeryImportant));
+            }
         }
     }
 }

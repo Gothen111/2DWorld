@@ -159,9 +159,9 @@ namespace GameLibrary.Model.Object
             //info.AddValue("tasks", this.tasks, typeof(List<LivingObjectTask>));
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
+            base.update(_GameTime);
             if (Configuration.Configuration.isHost)
             {
                 this.updateAggroSystem();

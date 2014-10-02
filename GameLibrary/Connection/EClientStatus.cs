@@ -16,6 +16,8 @@ namespace GameLibrary.Connection
         RequestedRegion,
         RequestChunk,
         RequestedChunk,
+        RequestBlock,
+        RequestedBlock,
         JoinWorld,
         JoinedWorld,
         InWorld,

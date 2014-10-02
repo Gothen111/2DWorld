@@ -123,6 +123,9 @@
     <Compile Include="Connection\Message\CreatureInventoryItemPositionChangeMessage.cs" />
     <Compile Include="Connection\Message\CreatureEquipmentToInventoryMessage.cs" />
     <Compile Include="Connection\Message\CreatureInventoryToEquipmentMessage.cs" />
+    <Compile Include="Connection\Message\UpdateObjectMovementMessage.cs" />
+    <Compile Include="Connection\Message\RequestBlockMessage.cs" />
+    <Compile Include="Connection\Message\UpdateBlockMessage.cs" />
     <Compile Include="Connection\Message\UpdateFactionsMessage.cs" />
     <Compile Include="Connection\Message\UpdateRacesMessage.cs" />
     <Compile Include="Connection\Message\UpdateAnimatedObjectBodyMessage.cs" />
@@ -275,6 +278,7 @@
     <Compile Include="Model\Player\InputAction.cs" />
     <Compile Include="Model\Player\PlayerContoller.cs" />
     <Compile Include="Model\Path\PathFinderAStar.cs" />
+    <Compile Include="Model\WorldElement.cs" />
     <Compile Include="MoodSystem\ParticleEngine\Emitter.cs" />
     <Compile Include="MoodSystem\ParticleEngine\Helpers\EmitterHelper.cs" />
     <Compile Include="MoodSystem\ParticleEngine\Helpers\ParticleFader.cs" />

@@ -16,6 +16,7 @@ namespace Client.Commands
         {
             if (!actor.MoveUp)
             {
+                actor.MoveUp = true;
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkTopCommand), GameMessageImportance.VeryImportant));
             }
         }
@@ -23,6 +24,7 @@ namespace Client.Commands
         {
             if (actor.MoveUp)
             {
+                actor.MoveUp = false;
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkTopCommand), GameMessageImportance.VeryImportant));
             }
         }
@@ -31,6 +33,7 @@ namespace Client.Commands
         {
             if (!actor.MoveDown)
             {
+                actor.MoveDown = true;
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkDownCommand), GameMessageImportance.VeryImportant));
             }
         }
@@ -38,6 +41,7 @@ namespace Client.Commands
         {
             if (actor.MoveDown)
             {
+                actor.MoveDown = false;
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkDownCommand), GameMessageImportance.VeryImportant));
             }
         }
@@ -46,6 +50,7 @@ namespace Client.Commands
         {
             if (!actor.MoveLeft)
             {
+                actor.MoveLeft = true;
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkLeftCommand), GameMessageImportance.VeryImportant));
             }
         }
@@ -53,6 +58,7 @@ namespace Client.Commands
         {
             if (actor.MoveLeft)
             {
+                actor.MoveLeft = false;
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkLeftCommand), GameMessageImportance.VeryImportant));
             }
         }
@@ -61,6 +67,7 @@ namespace Client.Commands
         {
             if (!actor.MoveRight)
             {
+                actor.MoveRight = true;
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkRightCommand), GameMessageImportance.VeryImportant));
             }
         }
@@ -68,6 +75,7 @@ namespace Client.Commands
         {
             if (actor.MoveRight)
             {
+                actor.MoveRight = false;
                 Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkRightCommand), GameMessageImportance.VeryImportant));
             }
         }

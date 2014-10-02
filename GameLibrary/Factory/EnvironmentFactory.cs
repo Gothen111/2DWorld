@@ -7,6 +7,7 @@ using GameLibrary.Factory.FactoryEnums;
 using GameLibrary.Model.Object;
 
 using GameLibrary.Model.Map.Region;
+using Microsoft.Xna.Framework;
 
 namespace GameLibrary.Factory
 {
@@ -30,6 +31,8 @@ namespace GameLibrary.Factory
                         environmentObject.Body.MainBody.TexturePath = "Region/" + _RegionEnum.ToString() + "/Block/Environment/Tree/Tree1";
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(64, 64, 0);
                         environmentObject.Body.setSize(new Microsoft.Xna.Framework.Vector3(64, 64, 0));
+                        environmentObject.CollisionBounds.Add(new Rectangle(22, 45, 12, 2));
+
                         break;
                     }
                 case EnvironmentEnum.Flower_1:

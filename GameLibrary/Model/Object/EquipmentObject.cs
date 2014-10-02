@@ -29,9 +29,9 @@ namespace GameLibrary.Model.Object
             base.GetObjectData(info, ctxt);
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
+            base.update(_GameTime);
         }
 
         public virtual void drawWearingEquipment(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch, Microsoft.Xna.Framework.Color _Color, Animation.AnimatedObjectAnimation _Animation)

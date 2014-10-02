@@ -6,6 +6,8 @@ using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameLibrary.Connection;
+using GameLibrary.Connection.Message;
 
 namespace GameLibrary.Model.Map.Block
 {
@@ -61,14 +63,14 @@ namespace GameLibrary.Model.Map.Block
             this.layer = new BlockEnum[Enum.GetValues(typeof(BlockLayerEnum)).Length];
             this.layer[0] = _BlockEnum;
             this.objects = new List<Object.Object>();
-            this.Position = new Vector2(_PosX, _PosY);
+            this.Position = new Vector3(_PosX, _PosY, 0);
             this.Parent = _ParentChunk;
 
             objectsPreEnviorment = new List<Object.Object>();
 
             this.isWalkAble = true;
             this.height = 0;
-            this.Size = new Vector2(Block.BlockSize, Block.BlockSize);
+            this.Size = new Vector3(Block.BlockSize, Block.BlockSize, 0);
         }
 
         public Block(SerializationInfo info, StreamingContext ctxt) 
@@ -132,10 +134,10 @@ namespace GameLibrary.Model.Map.Block
             this.objects.Remove(_Object);
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
-            foreach (Object.LivingObject var_LivingObject in objects.Reverse<Object.Object>())
+            base.update(_GameTime);
+            /*foreach (Object.LivingObject var_LivingObject in objects.Reverse<Object.Object>())
             {
                 if (var_LivingObject.IsDead)
                 {
@@ -145,12 +147,12 @@ namespace GameLibrary.Model.Map.Block
                 {
                     var_LivingObject.update();
                 }
-            }
+            }*/
         }
 
         public void drawBlock(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch)
         {
-            Vector2 var_DrawPosition = this.Position;
+            Vector2 var_DrawPosition = new Vector2(this.Position.X, this.Position.Y);
 
             Color var_Color = Color.White;
 
@@ -180,5 +182,71 @@ namespace GameLibrary.Model.Map.Block
                 var_Layer += 1;
             }
         }
+
+        public static Vector2 parsePosition(Vector2 _Position)
+        {
+            int _PosX = (int)_Position.X;
+            int _PosY = (int)_Position.Y;
+
+            int var_SizeX = (Block.BlockSize);
+            int var_SizeY = (Block.BlockSize);
+
+            int var_RestX = _PosX % var_SizeX;
+            int var_RestY = _PosY % var_SizeY;
+
+            if (var_RestX != 0)
+            {
+                if (_PosX < 0)
+                {
+                    _PosX = _PosX - (var_SizeX + var_RestX);
+                }
+                else
+                {
+                    _PosX = _PosX - var_RestX;
+                }
+            }
+            if (var_RestY != 0)
+            {
+                if (_PosY < 0)
+                {
+                    _PosY = _PosY - (var_SizeY + var_RestY);
+                }
+                else
+                {
+                    _PosY = _PosY - var_RestY;
+                }
+            }
+
+            return new Vector2(_PosX, _PosY);
+        }
+
+        public override void requestFromServer()
+        {
+            base.requestFromServer();
+            if (this.Parent == null)
+            {           
+            }
+            else
+            {
+                Event.EventList.Add(new Event(new RequestBlockMessage(this.Position), GameMessageImportance.VeryImportant));                   
+            }
+        }
+
+        /*public void requestFromServer(Vector2 _Position)
+        {
+            Region.Region var_Region = World.World.world.getRegionAtPosition(_Position.X, _Position.Y);
+            if (var_Region != null)
+            {
+                //Chunk.Chunk var_Chunk = World.World.world.getChunkAtPosition(_Position.X, _Position.Y);
+                if (this.Parent == null)
+                {
+                    //Event.EventList.Add(new Event(new RequestChunkMessage(Chunk.Chunk.parsePosition(_Position)), GameMessageImportance.VeryImportant));
+                }
+                else
+                {
+                    Event.EventList.Add(new Event(new RequestBlockMessage(_Position), GameMessageImportance.VeryImportant));
+                }
+            }
+        }*/
     }
 }

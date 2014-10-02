@@ -88,6 +88,9 @@ namespace GameLibrary.Model.Object
             set { moveDown = value; }
         }
 
+        private int updatePositionTimer;
+        private int updatePositionTimerMax;
+
         public AnimatedObject() : base()
         {
             this.body = new Body.Body();
@@ -95,6 +98,9 @@ namespace GameLibrary.Model.Object
             this.Size = new Vector3(32, 32, 0);
 
             this.movementSpeed = 1.0f;
+
+            this.updatePositionTimerMax = 5;
+            this.updatePositionTimer = this.updatePositionTimerMax;
         }
 
         public AnimatedObject(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
@@ -105,6 +111,11 @@ namespace GameLibrary.Model.Object
             this.directionEnum = (DirectionEnum)info.GetValue("directionEnum", typeof(DirectionEnum));
 
             this.body = (Body.Body)info.GetValue("body", typeof(Body.Body));
+
+            this.moveUp = (bool)info.GetValue("moveUp", typeof(bool));
+            this.moveLeft = (bool)info.GetValue("moveLeft", typeof(bool));
+            this.moveRight = (bool)info.GetValue("moveRight", typeof(bool));
+            this.moveDown = (bool)info.GetValue("moveDown", typeof(bool));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -116,13 +127,18 @@ namespace GameLibrary.Model.Object
 
             info.AddValue("body", this.body, typeof(Body.Body));
 
+            info.AddValue("moveUp", this.moveUp, typeof(bool));
+            info.AddValue("moveLeft", this.moveLeft, typeof(bool));
+            info.AddValue("moveRight", this.moveRight, typeof(bool));
+            info.AddValue("moveDown", this.moveDown, typeof(bool));
+
             base.GetObjectData(info, ctxt);
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
-            this.body.update();
+            base.update(_GameTime);
+            this.body.update(_GameTime);
             /*if (this.animation != null)
             {
                 this.animation.update();
@@ -131,10 +147,10 @@ namespace GameLibrary.Model.Object
                     this.animation = new Animation.Animations.StandAnimation(this);
                 }
             }*/
-            this.move();          
+            this.move(_GameTime);          
         }
 
-        private void move()
+        private void move(GameTime _GameTime)
         {
             float var_X = (-Convert.ToInt32(this.moveLeft) + Convert.ToInt32(this.moveRight)) * this.movementSpeed;
             float var_Y = (-Convert.ToInt32(this.moveUp) + Convert.ToInt32(this.moveDown)) * this.movementSpeed;
@@ -144,11 +160,14 @@ namespace GameLibrary.Model.Object
 
             if (this.CurrentBlock == null)
             {
-                this.CurrentBlock = Map.World.World.world.getBlockAtCoordinate(this.Position.X, this.Position.Y);
+                this.CurrentBlock = Map.World.World.world.getBlockAtCoordinate(this.Position);
             }
             Map.Block.Block var_Block = this.CurrentBlock;
 
-            if (Configuration.Configuration.isHost)
+            //if (Configuration.Configuration.isHost)
+            //{
+
+            if (Configuration.Configuration.isHost || (!Configuration.Configuration.isHost && this == Connection.NetworkManager.client.PlayerObject))
             {
                 if ((int)var_PositionBlockSizeOld.X < (int)var_PositionBlockSizeNew.X)
                 {
@@ -184,6 +203,8 @@ namespace GameLibrary.Model.Object
                 }
             }
 
+            Vector3 var_OldVelocity = this.Velocity;
+
             this.Velocity = new Vector3(var_X, var_Y, 0);
             if (var_X != 0 || var_Y != 0)
             {
@@ -192,15 +213,26 @@ namespace GameLibrary.Model.Object
                 objectsColliding.Remove(this as LivingObject);
                 if (objectsColliding.Count < 1)
                 {
+                    if ((Configuration.Configuration.isHost && !(this is PlayerObject)) || (!Configuration.Configuration.isHost && this == Connection.NetworkManager.client.PlayerObject))
+                    {
+                        this.Position += this.Velocity * (20 / _GameTime.ElapsedGameTime.Milliseconds);
+                        checkChangedBlock();
+                    }
                     if (Configuration.Configuration.isHost)
                     {
-                        this.Position += this.Velocity;
-                        GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+                        //GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectMovementMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+                        GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.UnImportant));
                     }
-                    checkChangedBlock();
+                    else
+                    {
+                    }
                 }
                 else
                 {
+                    /*this.moveDown = false;
+                    this.moveLeft = false;
+                    this.moveRight = false;
+                    this.moveUp = false;*/
                     if (Configuration.Configuration.isHost)
                     {
                         foreach (AnimatedObject var_AnimatedObject in objectsColliding)
@@ -211,6 +243,64 @@ namespace GameLibrary.Model.Object
                     }
                 }
             }
+            else
+            {
+                if (Configuration.Configuration.isHost)
+                {
+                    GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectMovementMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.UnImportant));
+                }
+            }
+
+            
+                /*if (this is PlayerObject)
+                {
+                    GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+                }
+                else
+                {*/
+                    /*if (this.Velocity.X != var_OldVelocity.X || this.Velocity.Y != var_OldVelocity.Y || this.Velocity.Z != var_OldVelocity.Z)
+                    {
+                        if (Configuration.Configuration.isHost)
+                        {
+                            GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+                        }
+                    }
+                    else
+                    {*/
+            /*
+                        if (this.updatePositionTimer <= 0)
+                        {
+                            if (Configuration.Configuration.isHost)
+                            {
+                                //GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+                            }
+                            else
+                            {
+                                /*if (this is PlayerObject)
+                                {
+                                    GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+                                }*/
+                        /*  }
+                            this.updatePositionTimer = this.updatePositionTimerMax;
+                        }
+                        else
+                        {
+                            this.updatePositionTimer -= 1;
+                        }
+            */
+                        if (Configuration.Configuration.isHost)
+                        {
+                        }
+                        else
+                        {
+                            if (this == Connection.NetworkManager.client.PlayerObject)
+                            {
+                                GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
+                            }
+                        }
+                    //}
+                //}
+
 
 
             if (this.Velocity.X != 0 || this.Velocity.Y != 0)

@@ -10,6 +10,8 @@ using GameLibrary.Connection;
 using GameLibrary.Connection.Message;
 using GameLibrary.Model.Object;
 
+using System.Threading;
+
 namespace GameLibrary.Connection
 {
     public class NetworkManager
@@ -17,12 +19,18 @@ namespace GameLibrary.Connection
         public static Client client;
         public static List<Client> serverClients;
 
+
+        Thread workerThread;//???
+
+
         public NetworkManager()
         {
         }
 
         public virtual void Start(String _Ip, String _Port)
         {
+            this.workerThread = new Thread(this.updateThread);
+            this.workerThread.Start();
         }
 
         public virtual void Connect(String _Ip, String _Port)
@@ -63,13 +71,24 @@ namespace GameLibrary.Connection
         {
             for (int i = 0; i < Event.EventList.Count; i++)
             {
-                IGameMessage var_IGameMessage = Event.EventList[i].getIGameMessage();
-                GameMessageImportance var_Importance= Event.EventList[i].getImportance();
+                if (Event.EventList[i] != null)
+                {
+                    IGameMessage var_IGameMessage = Event.EventList[i].getIGameMessage();
+                    GameMessageImportance var_Importance = Event.EventList[i].getImportance();
 
-                SendMessage(var_IGameMessage, var_Importance);
-
+                    SendMessage(var_IGameMessage, var_Importance);
+                }
                 Event.EventList.Remove(Event.EventList[i]);
                 i -= 1;
+            }
+        }
+
+        public void updateThread()
+        {
+            while (true)
+            {
+                this.update();
+                Thread.Sleep(1);
             }
         }
 

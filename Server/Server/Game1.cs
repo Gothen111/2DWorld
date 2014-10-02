@@ -48,7 +48,7 @@ namespace Server
             Configuration.networkManager = new ServerNetworkManager();
 
             Setting.logInstance = "Log/ServerLog-" + DateTime.Now.ToShortDateString() + "-" + DateTime.Now.ToShortTimeString().Replace(":",".") + ".txt";
-            Setting.drawWorld = false;
+            Setting.drawWorld = true;
 
             this.IsMouseVisible = true;          
         }
@@ -102,10 +102,10 @@ namespace Server
         {
             GameLibrary.Commands.Executer.Executer.executer.update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
             GameLibrary.Model.Player.PlayerContoller.playerContoller.update();
-            GameLibrary.Model.Map.World.World.world.update();
+            GameLibrary.Model.Map.World.World.world.update(gameTime);
             GameLibrary.Camera.Camera.camera.update(gameTime);
 
-            Configuration.networkManager.update();
+            //Configuration.networkManager.update();//???
 
 
             /*if (counter <= 0)

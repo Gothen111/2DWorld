@@ -144,12 +144,12 @@ namespace GameLibrary.Model.Object.Body
             info.AddValue("acceptedItemTypes", this.acceptedItemTypes, typeof(List<ItemEnum>));
         }
 
-        public void update()
+        public void update(GameTime _GameTime)
         {
             this.animation.update();
             if (this.equipment != null)
             {
-                this.equipment.update();
+                this.equipment.update(_GameTime);
             }
         }
 

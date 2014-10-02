@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using Microsoft.Xna.Framework;
 
 namespace GameLibrary.Model.Object
 {
@@ -25,9 +26,9 @@ namespace GameLibrary.Model.Object
             base.GetObjectData(info, ctxt);
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
+            base.update(_GameTime);
         }
     }
 }

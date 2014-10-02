@@ -9,7 +9,7 @@ using GameLibrary.Model.Map.Chunk;
 namespace GameLibrary.Model.Object
 {
     [Serializable()]
-    public class Object : ISerializable
+    public class Object : WorldElement
     {
         public static int _id = 0;
         private int id = _id++;
@@ -18,35 +18,6 @@ namespace GameLibrary.Model.Object
         {
             get { return id; }
             set { id = value; }
-        }
-
-        private Vector3 position;
-
-        public Vector3 Position
-        {
-            get { return position; }
-            set { 
-                position = value;
-                bounds = new Rectangle((int)value.X - (int)size.X / 2, (int)value.Y - (int)size.Y, (int)size.X, (int)size.Y); //???
-            }
-        }
-
-        private Vector3 size;
-
-        public Vector3 Size
-        {
-            get { return size; }
-            set { size = value;
-                  bounds = new Rectangle((int)position.X - (int)value.X/2, (int)position.Y - (int)value.Y, (int)value.X, (int)value.Y); //???
-            }
-        }
-
-        private Rectangle bounds;
-
-        public Rectangle Bounds
-        {
-            get { return bounds; }
-            set { bounds = value; }
         }
 
         private List<Rectangle> collisionBounds;
@@ -86,15 +57,13 @@ namespace GameLibrary.Model.Object
         }
 
         public Object(SerializationInfo info, StreamingContext ctxt)
-            :this()
+            : base(info, ctxt)
         {
             this.Id = (int)info.GetValue("Id", typeof(int));
 
-            this.position = (Vector3)info.GetValue("position", typeof(Vector3));
-            this.size = (Vector3)info.GetValue("size", typeof(Vector3));
             this.velocity = (Vector3)info.GetValue("velocity", typeof(Vector3));
 
-            this.bounds = new Rectangle((int)this.position.X - (int)size.X / 2, (int)this.position.Y - (int)size.Y, (int)size.X, (int)size.Y); //???
+            this.boundsChanged();
 
             this.objects = (List<Object>)info.GetValue("objects", typeof(List<Object>));
 
@@ -107,12 +76,11 @@ namespace GameLibrary.Model.Object
             }
         }
 
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
+            base.GetObjectData(info, ctxt);
             info.AddValue("Id", this.Id, typeof(int));
 
-            info.AddValue("position", this.position, typeof(Vector3));
-            info.AddValue("size", this.size, typeof(Vector3));
             info.AddValue("velocity", this.velocity, typeof(Vector3));
 
             info.AddValue("objects", this.objects, typeof(List<Object>));
@@ -126,8 +94,14 @@ namespace GameLibrary.Model.Object
             info.AddValue("collisionBounds", var_List, typeof(List<Utility.Corpus.Square>)); //???
         }
 
-        public virtual void update()
+        public virtual void update(GameTime _GameTime)
         {
+        }
+
+        protected override void boundsChanged()
+        {
+            base.boundsChanged();
+            this.Bounds = new Rectangle((int)this.Position.X - (int)this.Size.X / 2, (int)this.Position.Y - (int)this.Size.Y, (int)this.Size.X, (int)this.Size.Y);
         }
     }
 }

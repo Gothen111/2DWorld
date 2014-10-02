@@ -42,11 +42,14 @@ namespace Server.Connection
                 case EIGameMessageType.RequestRegionMessage:
                     handleRequestRegionMessage(_NetIncomingMessage);
                     break;
-                case EIGameMessageType.PlayerCommandMessage:
-                    handlePlayerCommandMessage(_NetIncomingMessage);
-                    break;
                 case EIGameMessageType.RequestChunkMessage:
                     handleRequestChunkMessage(_NetIncomingMessage);
+                    break;
+                case EIGameMessageType.PlayerCommandMessage:
+                    handlePlayerCommandMessage(_NetIncomingMessage);
+                    break;               
+                case EIGameMessageType.RequestBlockMessage:
+                    handleRequestBlockMessage(_NetIncomingMessage);
                     break;
                 case EIGameMessageType.RequestLivingObjectMessage:
                     handleRequestLivingObjectMessage(_NetIncomingMessage);
@@ -59,6 +62,9 @@ namespace Server.Connection
                     break;
                 case EIGameMessageType.CreatureInventoryToEquipmentMessage:
                     handleCreatureInventoryToEquipmentMessage(_NetIncomingMessage);
+                    break;
+                case EIGameMessageType.UpdateObjectPositionMessage:
+                    handleUpdateObjectPositionMessage(_NetIncomingMessage);
                     break;
             }
         }
@@ -101,7 +107,7 @@ namespace Server.Connection
 
             Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
 
-            GameLibrary.Model.Map.Region.Region var_Region = GameLibrary.Model.Map.World.World.world.getRegionAtPosition(message.Position.X, message.Position.Y);
+            GameLibrary.Model.Map.Region.Region var_Region = GameLibrary.Model.Map.World.World.world.getRegionAtPosition(message.Position);
 
             if (var_Region != null)
             {
@@ -109,7 +115,7 @@ namespace Server.Connection
             }
             else
             {
-                GameLibrary.Logger.Logger.LogErr("ServerIGameMessageManager->handleRequestChunkMessage(...): Region an Position X: " + message.Position.X + " Y: " + message.Position.Y + " existiert nicht!");
+                GameLibrary.Logger.Logger.LogErr("ServerIGameMessageManager->handleRequestRegionMessage(...): Region an Position X: " + message.Position.X + " Y: " + message.Position.Y + " existiert nicht!");
             }
         }
 
@@ -121,18 +127,52 @@ namespace Server.Connection
 
             Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
 
-            GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
+            GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position);
 
-            GameLibrary.Logger.Logger.LogDeb("Client Requested Chunk at X: " + message.Position.X + " Y: " + message.Position.Y);
+            //GameLibrary.Logger.Logger.LogDeb("Client Requested Chunk at X: " + message.Position.X + " Y: " + message.Position.Y);
 
             if (var_Chunk != null)
             {
-                Configuration.networkManager.SendMessageToClient(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), var_Client);
+                //Configuration.networkManager.SendMessageToClient(new UpdateRegionMessage((GameLibrary.Model.Map.Region.Region)var_Chunk.Parent), var_Client);
                 Configuration.networkManager.SendMessageToClient(new UpdateChunkMessage(var_Chunk), var_Client);
+
+                /*foreach (AnimatedObject var_AnimatedObject in var_Chunk.getAllObjectsInChunk())
+                {
+                    Configuration.networkManager.SendMessageToClient(new UpdateObjectMessage(var_AnimatedObject), var_Client);
+                }*/
             }
             else
             {
                 GameLibrary.Logger.Logger.LogErr("ServerIGameMessageManager->handleRequestChunkMessage(...): Chunk an Position X: " + message.Position.X + " Y: " + message.Position.Y + " existiert nicht!");
+            }
+        }
+
+        private static void handleRequestBlockMessage(NetIncomingMessage _Im)
+        {
+            var message = new RequestBlockMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
+
+            //GameLibrary.Model.Map.Chunk.Chunk var_Chunk = GameLibrary.Model.Map.World.World.world.getChunkAtPosition(message.Position.X, message.Position.Y);
+            GameLibrary.Model.Map.Block.Block var_Block = GameLibrary.Model.Map.World.World.world.getBlockAtCoordinate(message.Position);
+
+            //GameLibrary.Logger.Logger.LogDeb("Client Requested Block at X: " + message.Position.X + " Y: " + message.Position.Y);
+
+            if (var_Block != null)
+            {
+                //Configuration.networkManager.SendMessageToClient(new UpdateChunkMessage((GameLibrary.Model.Map.Chunk.Chunk)var_Block.Parent), var_Client);
+                Configuration.networkManager.SendMessageToClient(new UpdateBlockMessage(var_Block), var_Client);
+                List<GameLibrary.Model.Object.Object> var_Copy = new List<GameLibrary.Model.Object.Object>(var_Block.Objects);
+                foreach (AnimatedObject var_AnimatedObject in var_Copy)
+                {
+                    Configuration.networkManager.SendMessageToClient(new UpdateObjectMessage(var_AnimatedObject), var_Client);
+                }
+            }
+            else
+            {
+                GameLibrary.Logger.Logger.LogErr("ServerIGameMessageManager->handleRequestBlockMessage(...): Block an Position X: " + message.Position.X + " Y: " + message.Position.Y + " existiert nicht!");
             }
         }
 
@@ -240,6 +280,41 @@ namespace Server.Connection
                 if (var_Object is GameLibrary.Model.Object.CreatureObject)
                 {
                     ((GameLibrary.Model.Object.CreatureObject)var_Object).setItemFromInventoryToEquipment(message.InventoryPosition, message.EquipmentPosition);
+                }
+            }
+        }
+
+        private static void handleUpdateObjectPositionMessage(NetIncomingMessage _Im)
+        {
+            var message = new UpdateObjectPositionMessage(_Im);
+
+            var timeDelay = (float)(NetTime.Now - _Im.SenderConnection.GetLocalTime(message.MessageTime));
+
+            GameLibrary.Model.Object.LivingObject var_LivingObject = (GameLibrary.Model.Object.LivingObject)GameLibrary.Model.Map.World.World.world.getObject(message.Id);
+                
+
+            Client var_Client = Configuration.networkManager.getClient(_Im.SenderEndPoint);
+
+            if (var_Client.PlayerObject == var_LivingObject)
+            {
+                if (var_LivingObject != null)
+                {
+                    if (var_LivingObject.LastUpdateTime < message.MessageTime)
+                    {
+                        var_LivingObject.Position = message.Position;
+                        //var_LivingObject.MoveUp = message.MoveUp;
+                        //var_LivingObject.MoveDown = message.MoveDown;
+                        //var_LivingObject.MoveLeft = message.MoveLeft;
+                        //var_LivingObject.MoveRight = message.MoveRight;
+                        var_LivingObject.checkChangedBlock();
+
+                        var_LivingObject.LastUpdateTime = message.MessageTime;
+                    }
+                }
+                else
+                {
+                    //GameLibrary.Logger.Logger.LogErr("Object mit Id: " + message.Id + " konnte nicht im Quadtree gefunden werden -> Position wird nicht geupdatet");
+                    //GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.RequestLivingObjectMessage(message.Id), GameLibrary.Connection.GameMessageImportance.UnImportant));
                 }
             }
         }

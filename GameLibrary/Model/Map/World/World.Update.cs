@@ -19,9 +19,9 @@ namespace GameLibrary.Model.Map.World
     {
         #region update-Methoden
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
-            base.update();
+            base.update(_GameTime);
 
             bool var_NewUpdateObjectsList = false;
 
@@ -29,7 +29,7 @@ namespace GameLibrary.Model.Map.World
             {
                 this.objectsToUpdate = new List<Object.Object>();
                 var_NewUpdateObjectsList = true;
-                this.objectsToUpdateCounter = 30;
+                this.objectsToUpdateCounter = 50;
             }
             else
             {
@@ -41,13 +41,14 @@ namespace GameLibrary.Model.Map.World
             {
                 foreach (Chunk.Chunk var_Chunk in var_Region.Chunks)
                 {
+                    var_Chunk.update(_GameTime);
                     this.chunksOutOfRange.Add(var_Chunk);
                 }
             }
 
             int var_SizeBefore = this.chunksOutOfRange.Count;
 
-            this.updatePlayerObjectsNeighborhood(var_NewUpdateObjectsList);
+            this.updatePlayerObjectsNeighborhood(_GameTime, var_NewUpdateObjectsList);
 
             int var_SizeAfter = this.chunksOutOfRange.Count;
             //Console.Write("Chunks: ");
@@ -71,7 +72,7 @@ namespace GameLibrary.Model.Map.World
 
             foreach(Region.Region var_Region in this.regions)
             {
-
+                var_Region.update(_GameTime);
             }
 
             foreach (Chunk.Chunk var_Chunk in this.chunksOutOfRange)
@@ -93,7 +94,7 @@ namespace GameLibrary.Model.Map.World
             {
                 foreach (Object.Object var_Object in this.objectsToUpdate)
                 {
-                    var_Object.update();
+                    var_Object.update(_GameTime);
                 }
             }
             catch (Exception e)
@@ -103,57 +104,48 @@ namespace GameLibrary.Model.Map.World
         }
 
 
-        private void updatePlayerObjectsNeighborhood(bool _NewUpdateObjectsList)
+        private void updatePlayerObjectsNeighborhood(GameTime _GameTime, bool _NewUpdateObjectsList)
         {
-            foreach (Object.PlayerObject var_PlayerObject in this.playerObjects)
+            List<PlayerObject> var_Copy = new List<PlayerObject>(this.playerObjects);
+            foreach (Object.PlayerObject var_PlayerObject in var_Copy)
             {
-                this.updatePlayerObjectNeighborhood(var_PlayerObject, _NewUpdateObjectsList);
+                this.updatePlayerObjectNeighborhood(_GameTime, var_PlayerObject, _NewUpdateObjectsList);
             }
         }
 
-        private void createPlayerObjectNeighbourChunk(Vector2 _NewChunkPosition)
+        private void createPlayerObjectNeighbourChunk(Vector3 _NewChunkPosition)
         {
-            Chunk.Chunk var_Chunk = this.getChunkAtPosition(_NewChunkPosition.X, _NewChunkPosition.Y);
+            Chunk.Chunk var_Chunk = this.getChunkAtPosition(_NewChunkPosition);
             if (var_Chunk == null)
             {
                 if (Configuration.Configuration.isHost)
                 {
-                    Region.Region var_Region = World.world.getRegionAtPosition((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y)
-                                             ?? World.world.createRegionAt((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y);
+                    Region.Region var_Region = World.world.getRegionAtPosition(_NewChunkPosition)
+                                             ?? World.world.createRegionAt(_NewChunkPosition);
                     if (var_Region != null)
                     {
-                        this.addRegion(var_Region);
-
-                        var_Chunk = var_Region.getChunkAtPosition((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y)
-                                    ?? var_Region.createChunkAt((int)_NewChunkPosition.X, (int)_NewChunkPosition.Y);
+                        var_Chunk = var_Region.getChunkAtPosition(_NewChunkPosition)
+                                    ?? var_Region.createChunkAt(_NewChunkPosition);
                     }
                 }
                 else
                 {
-                    /*if (var_ChunkMid.TopNeighbourRequested)
-                    {
-                    }
-                    else
-                    {*/
-                        Event.EventList.Add(new Event(new RequestChunkMessage(new Vector2(_NewChunkPosition.X, _NewChunkPosition.Y)), GameMessageImportance.VeryImportant));
-                        //var_ChunkMid.TopNeighbourRequested = true;
-                    //}
                 }
             }
         }
 
-        private void updatePlayerObjectNeighborhood(Object.PlayerObject _PlayerObject, bool _NewUpdateObjectsList)
+        private void updatePlayerObjectNeighborhood(GameTime _GameTime, Object.PlayerObject _PlayerObject, bool _NewUpdateObjectsList)
         {
-            if (_PlayerObject.CurrentBlock != null)
-            {
-                Region.Region var_PlayerObjectRegion = (Region.Region)_PlayerObject.CurrentBlock.Parent.Parent;
+            //if (_PlayerObject.CurrentBlock != null)
+            //{
+                //Region.Region var_PlayerObjectRegion = (Region.Region)_PlayerObject.CurrentBlock.Parent.Parent;
 
-                Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_PlayerObject.CurrentBlock.Parent;
+                //Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_PlayerObject.CurrentBlock.Parent;
 
                 List<Chunk.Chunk> var_ChunksToRemove = new List<Chunk.Chunk>();
                 foreach (Chunk.Chunk var_Chunk in this.chunksOutOfRange)
                 {
-                    if (Vector2.Distance(var_Chunk.Position, new Vector2(_PlayerObject.Position.X, _PlayerObject.Position.Y)) <= (Setting.Setting.blockDrawRange * Block.Block.BlockSize))//(Setting.Setting.blockDrawRange * 4 * Block.Block.BlockSize))//Chunk.Chunk.chunkSizeX * Block.Block.BlockSize * 3)
+                    if (Vector3.Distance(var_Chunk.Position, new Vector3(_PlayerObject.Position.X, _PlayerObject.Position.Y, 0)) <= (Setting.Setting.blockDrawRange * Block.Block.BlockSize))//(Setting.Setting.blockDrawRange * 4 * Block.Block.BlockSize))//Chunk.Chunk.chunkSizeX * Block.Block.BlockSize * 3)
                     {
                         var_ChunksToRemove.Add(var_Chunk);
                     }
@@ -163,7 +155,46 @@ namespace GameLibrary.Model.Map.World
                 {
                     this.chunksOutOfRange.Remove(var_Chunk);
                 }
+            //}
+
+            if (_PlayerObject != null && !Configuration.Configuration.isHost && _NewUpdateObjectsList)
+            {
+                if (_PlayerObject.CurrentBlock != null)
+                {
+                    int var_DrawSizeX = Setting.Setting.blockDrawRange;
+                    int var_DrawSizeY = Setting.Setting.blockDrawRange;
+
+                    for (int x = 0; x < var_DrawSizeX; x++)
+                    {
+                        for (int y = 0; y < var_DrawSizeY; y++)
+                        {
+                            Vector3 var_Position = new Vector3(_PlayerObject.CurrentBlock.Position.X + (-var_DrawSizeX / 2 + x) * Block.Block.BlockSize, _PlayerObject.CurrentBlock.Position.Y + (-var_DrawSizeY / 2 + y) * Block.Block.BlockSize, 0);
+                            Block.Block var_Block = this.getBlockAtCoordinate(var_Position);
+                            if (var_Block != null)
+                            {
+                                var_Block.update(_GameTime);
+                            }
+                            else
+                            {
+                                Region.Region var_Region = this.getRegionAtPosition(var_Position);
+                                if (var_Region == null)
+                                {
+                                    var_Region = this.createRegionAt(var_Position);
+                                }
+                                else
+                                {
+                                    Chunk.Chunk var_Chunk = this.getChunkAtPosition(var_Position);
+                                    if (var_Chunk == null)
+                                    {
+                                        var_Chunk = this.createChunkAt(var_Position);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
+
 
             if (_NewUpdateObjectsList)
             {

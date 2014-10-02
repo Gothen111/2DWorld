@@ -11,21 +11,19 @@ using Lidgren.Network.Xna;
 
 namespace GameLibrary.Connection.Message
 {
-    public class UpdateObjectPositionMessage : IGameMessage
+    public class UpdateObjectMovementMessage : IGameMessage
     {
         #region Constructors and Destructors
 
-        public UpdateObjectPositionMessage(NetIncomingMessage im)
+        public UpdateObjectMovementMessage(NetIncomingMessage im)
         {
             this.Decode(im);
         }
 
-        public UpdateObjectPositionMessage(Model.Object.LivingObject _LivingObject)
+        public UpdateObjectMovementMessage(Model.Object.LivingObject _LivingObject)
         {
             this.Id = _LivingObject.Id;
             this.MessageTime = NetTime.Now;
-            this.Position = _LivingObject.Position;
-            this.Velocity = _LivingObject.Velocity;
             this.MoveUp = _LivingObject.MoveUp;
             this.MoveDown = _LivingObject.MoveDown;
             this.MoveLeft = _LivingObject.MoveLeft;
@@ -40,10 +38,6 @@ namespace GameLibrary.Connection.Message
 
         public double MessageTime { get; set; }
 
-        public Vector3 Position { get; set; }
-
-        public Vector3 Velocity { get; set; }
-
         public bool MoveUp { get; set; }
 
         public bool MoveDown { get; set; }
@@ -54,7 +48,7 @@ namespace GameLibrary.Connection.Message
 
         public EIGameMessageType MessageType
         {
-            get { return EIGameMessageType.UpdateObjectPositionMessage; }
+            get { return EIGameMessageType.UpdateObjectMovementMessage; }
         }
 
         #endregion
@@ -65,8 +59,6 @@ namespace GameLibrary.Connection.Message
         {
             this.Id = im.ReadInt32();
             this.MessageTime = im.ReadDouble();
-            this.Position = im.ReadVector3();
-            this.Velocity = im.ReadVector3();
             this.MoveUp = im.ReadBoolean();
             this.MoveDown = im.ReadBoolean();
             this.MoveLeft = im.ReadBoolean();
@@ -77,8 +69,6 @@ namespace GameLibrary.Connection.Message
         {
             om.Write(this.Id);
             om.Write(this.MessageTime);
-            om.Write(this.Position);
-            om.Write(this.Velocity);
             om.Write(this.MoveUp);
             om.Write(this.MoveDown);
             om.Write(this.MoveLeft);

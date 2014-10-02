@@ -9,6 +9,7 @@ using GameLibrary.Model.Map.Chunk;
 using GameLibrary.Model.Map.Block;
 using GameLibrary.Factory.FactoryEnums;
 using GameLibrary.Factory;
+using Microsoft.Xna.Framework;
 
 namespace GameLibrary.Factory
 {
@@ -40,7 +41,7 @@ namespace GameLibrary.Factory
         {
             Region var_Result;
 
-            var_Result = new Region(_Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Grassland, _ParentWorld);
+            var_Result = new Region(_Name, _PosX, _PosY, RegionEnum.Grassland, _ParentWorld);
 
             //FarmFactory.farmFactory.generateFarms(var_Result, 1, 0);
 
@@ -53,7 +54,7 @@ namespace GameLibrary.Factory
         {
             Region var_Result;
 
-            var_Result = new Region(_Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Snowland, _ParentWorld);
+            var_Result = new Region(_Name, _PosX, _PosY, RegionEnum.Snowland, _ParentWorld);
 
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
 
@@ -64,7 +65,7 @@ namespace GameLibrary.Factory
         {
             Region var_Result;
 
-            var_Result = new Region(_Name, _PosX, _PosY, Region.regionSizeX, Region.regionSizeY, RegionEnum.Lavaland, _ParentWorld);
+            var_Result = new Region(_Name, _PosX, _PosY, RegionEnum.Lavaland, _ParentWorld);
 
             Logger.Logger.LogInfo("Region " + var_Result.Name + " wurde erstellt!");
 
@@ -73,7 +74,7 @@ namespace GameLibrary.Factory
 
         private void addChunkToRegion(Region _Region, int _PosX, int _PosY, Chunk _ChunkToAdd)
         {
-            if (_Region.setChunkAtPosition(_PosX, _PosY, _ChunkToAdd))
+            if (_Region.setChunkAtPosition(new Vector3(_PosX, _PosY, 0), _ChunkToAdd))
             {
 
             }

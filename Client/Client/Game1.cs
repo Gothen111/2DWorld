@@ -117,9 +117,9 @@ namespace Client
             }
             if (GameLibrary.Model.Map.World.World.world != null)
             {
-                GameLibrary.Model.Map.World.World.world.update();
+                GameLibrary.Model.Map.World.World.world.update(gameTime);
             }
-            Configuration.networkManager.update();
+            //Configuration.networkManager.update();//???
             GameLibrary.Camera.Camera.camera.update(gameTime);
 
             GameLibrary.Gui.MenuManager.menuManager.ActiveContainer.update();

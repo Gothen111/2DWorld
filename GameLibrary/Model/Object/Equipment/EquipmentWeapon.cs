@@ -76,7 +76,7 @@ namespace GameLibrary.Model.Object.Equipment
             base.GetObjectData(info, ctxt);
         }
 
-        public override void update()
+        public override void update(GameTime _GameTime)
         {
             foreach (Attack.Attack var_Attack in this.attacks)
                 var_Attack.update();
