@@ -278,9 +278,17 @@ namespace GameLibrary.Model.Map.Region
             if (System.IO.File.Exists(var_Path))
             {
                 Chunk.Chunk var_Chunk = (Chunk.Chunk)Utility.IO.IOManager.LoadISerializeAbleObjectFromFile(var_Path);//Utility.Serializer.DeSerializeObject(var_Path);
-                var_Chunk.Parent = Model.Map.World.World.world.getRegion(this.id);
-                var_Chunk.setAllNeighboursOfBlocks();
-                return var_Chunk;
+                if (var_Chunk != null)
+                {
+                    var_Chunk.Parent = Model.Map.World.World.world.getRegion(this.id);
+                    var_Chunk.setAllNeighboursOfBlocks();
+                    return var_Chunk;
+                }
+                else
+                {
+                    System.IO.File.Delete(var_Path);
+                    Logger.Logger.LogErr("Chunk konnte nicht geladen werden, obwohl vorhanden -> Datei wird gelöscht");
+                }
             }
             return null;
         }

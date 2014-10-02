@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 using Microsoft.Xna.Framework;
 using GameLibrary.Model.Map.World;
@@ -10,6 +11,7 @@ using GameLibrary.Commands.CommandTypes;
 
 namespace GameLibrary.Model.Object.Task.Tasks
 {
+    [Serializable()]
     public class AttackRandomTask : LivingObjectTask
     {
         private LivingObject target;
@@ -34,6 +36,33 @@ namespace GameLibrary.Model.Object.Task.Tasks
         public AttackRandomTask(LivingObject _TaskOwner, TaskPriority _Priority) : base(_TaskOwner, _Priority)
         {
             target = null;
+        }
+
+        public AttackRandomTask(SerializationInfo info, StreamingContext ctxt) : base(info, ctxt)
+        {
+            wantToDoTaskCheck = true;
+            int targetId = (int)info.GetValue("targetId", typeof(int));
+            if (targetId >= 0)
+            {
+                this.target = World.world.getObject(targetId) as LivingObject;
+            }
+            else
+            {
+                this.target = null;
+            }
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
+            if (this.target != null)
+            {
+                info.AddValue("targetId", this.target.Id, typeof(int));
+            }
+            else
+            {
+                info.AddValue("targetId", -1, typeof(int));
+            }
         }
 
         public override bool wantToDoTask()

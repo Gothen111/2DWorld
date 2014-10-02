@@ -128,7 +128,7 @@ namespace GameLibrary.Model.Object
 
             this.gender = (GenderEnum)info.GetValue("gender", typeof(GenderEnum));
             aggroSystem = new Task.Aggro.AggroSystem<LivingObject>();
-            tasks = new List<LivingObjectTask>();
+            //tasks = new List<LivingObjectTask>();
             this.interactions = new List<LivingObjectInteraction>();
 
             //this.aggroSystem = (Task.Aggro.AggroSystem<LivingObject>)info.GetValue("aggroSystem", typeof(Task.Aggro.AggroSystem<LivingObject>));
@@ -136,7 +136,7 @@ namespace GameLibrary.Model.Object
             //TODO: Verändere Methoden, sodass Interaction und Tasks nicht mehr den Owner speichern, sonst gibt es eine Kettenspeicherung bei Serialisierung
             //this.interactions = (List<LivingObjectInteraction>)info.GetValue("interactions", typeof(List<LivingObjectInteraction>));
 
-            //this.tasks = (List<LivingObjectTask>)info.GetValue("tasks", typeof(List<LivingObjectTask>));
+            this.tasks = (List<LivingObjectTask>)info.GetValue("tasks", typeof(List<LivingObjectTask>));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -156,7 +156,7 @@ namespace GameLibrary.Model.Object
 
             //info.AddValue("interactions", this.interactions, typeof(List<LivingObjectInteraction>));
 
-            //info.AddValue("tasks", this.tasks, typeof(List<LivingObjectTask>));
+            info.AddValue("tasks", this.tasks, typeof(List<LivingObjectTask>));
         }
 
         public override void update(GameTime _GameTime)
