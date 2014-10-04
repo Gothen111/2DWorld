@@ -90,7 +90,7 @@ namespace GameLibrary.Model.Map.World
                             }
                             if (Configuration.Configuration.isHost)
                             {
-                                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectMessage(_Object), GameMessageImportance.VeryImportant));
+                                Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateObjectMessage(_Object), GameMessageImportance.VeryImportant);
                             }
                         }
                     }
@@ -115,7 +115,7 @@ namespace GameLibrary.Model.Map.World
 
             if (Configuration.Configuration.isHost)
             {
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.RemoveObjectMessage(_Object), GameMessageImportance.VeryImportant));
+                Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.RemoveObjectMessage(_Object), GameMessageImportance.VeryImportant);
             }
         }
 

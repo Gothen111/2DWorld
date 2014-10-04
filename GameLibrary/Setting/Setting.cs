@@ -13,6 +13,8 @@ namespace GameLibrary.Setting
         public static bool drawBlocks = true;
         public static int blockDrawRange = 40;
         public static bool drawObjects = true;
+
+        public static bool createPreEnvironmentObjects = true;
         public static bool drawPreEnvironmentObjects = true;
 
         public static bool debugMode = true;

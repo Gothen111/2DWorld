@@ -23,6 +23,7 @@ namespace GameLibrary.Factory
         {
             EnvironmentObject environmentObject = new EnvironmentObject();
             environmentObject.Body.MainBody.StandartTextureShift = new Microsoft.Xna.Framework.Vector2(0, 0);
+            environmentObject.EnvironmentEnum = objectType;
 
             switch(objectType)
             {
@@ -32,7 +33,6 @@ namespace GameLibrary.Factory
                         environmentObject.Size = new Microsoft.Xna.Framework.Vector3(64, 64, 0);
                         environmentObject.Body.setSize(new Microsoft.Xna.Framework.Vector3(64, 64, 0));
                         environmentObject.CollisionBounds.Add(new Rectangle(22, 45, 12, 2));
-
                         break;
                     }
                 case EnvironmentEnum.Flower_1:

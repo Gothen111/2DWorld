@@ -136,28 +136,21 @@ namespace GameLibrary.Model.Map.World
 
         private void updatePlayerObjectNeighborhood(GameTime _GameTime, Object.PlayerObject _PlayerObject, bool _NewUpdateObjectsList)
         {
-            //if (_PlayerObject.CurrentBlock != null)
-            //{
-                //Region.Region var_PlayerObjectRegion = (Region.Region)_PlayerObject.CurrentBlock.Parent.Parent;
-
-                //Chunk.Chunk var_ChunkMid = (Chunk.Chunk)_PlayerObject.CurrentBlock.Parent;
-
-                List<Chunk.Chunk> var_ChunksToRemove = new List<Chunk.Chunk>();
-                foreach (Chunk.Chunk var_Chunk in this.chunksOutOfRange)
+            List<Chunk.Chunk> var_ChunksToRemove = new List<Chunk.Chunk>();
+            foreach (Chunk.Chunk var_Chunk in this.chunksOutOfRange)
+            {
+                if (Vector3.Distance(var_Chunk.Position, new Vector3(_PlayerObject.Position.X, _PlayerObject.Position.Y, 0)) <= (Setting.Setting.blockDrawRange * Block.Block.BlockSize))//(Setting.Setting.blockDrawRange * 4 * Block.Block.BlockSize))//Chunk.Chunk.chunkSizeX * Block.Block.BlockSize * 3)
                 {
-                    if (Vector3.Distance(var_Chunk.Position, new Vector3(_PlayerObject.Position.X, _PlayerObject.Position.Y, 0)) <= (Setting.Setting.blockDrawRange * Block.Block.BlockSize))//(Setting.Setting.blockDrawRange * 4 * Block.Block.BlockSize))//Chunk.Chunk.chunkSizeX * Block.Block.BlockSize * 3)
-                    {
-                        var_ChunksToRemove.Add(var_Chunk);
-                    }
+                    var_ChunksToRemove.Add(var_Chunk);
                 }
+            }
 
-                foreach (Chunk.Chunk var_Chunk in var_ChunksToRemove)
-                {
-                    this.chunksOutOfRange.Remove(var_Chunk);
-                }
-            //}
+            foreach (Chunk.Chunk var_Chunk in var_ChunksToRemove)
+            {
+                this.chunksOutOfRange.Remove(var_Chunk);
+            }
 
-            if (_PlayerObject != null && !Configuration.Configuration.isHost && _NewUpdateObjectsList)
+            if (_PlayerObject != null && !Configuration.Configuration.isHost && _NewUpdateObjectsList && _PlayerObject.CurrentBlock != null)
             {
                 if (_PlayerObject.CurrentBlock != null)
                 {

@@ -124,7 +124,7 @@ namespace GameLibrary.Gui.Menu
 		{
 			if (this.characterHasBeenChoosen()) 
 			{
-                GameLibrary.Connection.NetworkManager.client.PlayerObject = this.getPlayerObjectFromCharactersListView();
+                Configuration.Configuration.networkManager.client.PlayerObject = this.getPlayerObjectFromCharactersListView();
                 MenuManager.menuManager.setMenu(new ConnectToServerMenu());
 			}
 		}

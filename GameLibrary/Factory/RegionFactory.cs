@@ -76,7 +76,6 @@ namespace GameLibrary.Factory
         {
             if (_Region.setChunkAtPosition(new Vector3(_PosX, _PosY, 0), _ChunkToAdd))
             {
-
             }
             else
             {
@@ -91,17 +90,17 @@ namespace GameLibrary.Factory
             {
                 case RegionEnum.Grassland:
                     {
-                        var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
+                        var_Chunk = ChunkFactory.chunkFactory.createChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Grassland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
                         break;
                     }
                 case RegionEnum.Snowland:
                     {
-                        var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Snowland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
+                        var_Chunk = ChunkFactory.chunkFactory.createChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Snowland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
                         break;
                     }
                 case RegionEnum.Lavaland:
                     {
-                        var_Chunk = ChunkFactory.chunkFactory.generateChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Lavaland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
+                        var_Chunk = ChunkFactory.chunkFactory.createChunk((int)(_PosX), (int)(_PosY), ChunkEnum.Lavaland, RegionDependency.regionDependency.getLayer(_Region.RegionEnum), _Region);
                         break;
                     }
             }
@@ -109,7 +108,9 @@ namespace GameLibrary.Factory
             if (var_Chunk != null)
             {
                 this.addChunkToRegion(_Region, _PosY, _PosY, var_Chunk);
-            }   
+
+                ChunkFactory.chunkFactory.generateChunk(var_Chunk);
+            }  
 
             return var_Chunk;
         }

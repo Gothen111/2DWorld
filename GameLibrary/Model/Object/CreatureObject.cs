@@ -22,14 +22,6 @@ namespace GameLibrary.Model.Object
 
         //protected Skill skill;
 
-        /*private String name;
-
-        public String Name
-        {
-            get { return name; }
-            set { name = value; }
-        }*/
-
         public CreatureObject()
         {
             this.inventory = new Inventory.Inventory();
@@ -39,13 +31,11 @@ namespace GameLibrary.Model.Object
             : base(info, ctxt)
         { 
             this.inventory = (Inventory.Inventory)info.GetValue("inventory", typeof(Inventory.Inventory));
-            //this.name = (String)info.GetValue("name", typeof(String));
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
             info.AddValue("inventory", inventory, typeof(Inventory.Inventory));
-            //info.AddValue("name", this.name, typeof(String));
 
             base.GetObjectData(info, ctxt);
         }
@@ -63,9 +53,9 @@ namespace GameLibrary.Model.Object
 
         public void swingWeapon(Equipment.Attack.AttackType _AttackType)
         {
-            GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = this.Body.attack();//null;// this.getWeaponInHand();
+            GameLibrary.Model.Object.Equipment.EquipmentWeapon var_EquipmentWeaponForAttack = this.Body.attack();
             if (var_EquipmentWeaponForAttack != null && var_EquipmentWeaponForAttack.isAttackReady(_AttackType))
-	    {
+	        {
                 List<Object> var_Objects = GameLibrary.Model.Map.World.World.world.getObjectsInRange(this.Position, var_EquipmentWeaponForAttack.getAttack(_AttackType).Range, var_EquipmentWeaponForAttack.SearchFlags);
                 var_Objects.Remove(this);
                 foreach (Object var_Object in var_Objects)
@@ -91,7 +81,7 @@ namespace GameLibrary.Model.Object
         {
             if(this.inventory.addItemObjectToInventory(_ItemObject))
             {
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
+                Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant);
             }
         }
 
@@ -107,8 +97,8 @@ namespace GameLibrary.Model.Object
             if (this.inventory.addItemObjectToInventoryAt(var_ToRemove, _InventoryPosition))
             {
                 this.Body.removeEquipment(var_ToRemove);
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateAnimatedObjectBodyMessage(this.Id, this.Body), GameMessageImportance.VeryImportant));                    
+                Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant);
+                Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateAnimatedObjectBodyMessage(this.Id, this.Body), GameMessageImportance.VeryImportant);                    
             }
         }
 
@@ -118,7 +108,7 @@ namespace GameLibrary.Model.Object
             {
                 if(this.inventory.Items.Contains(_ItemObject))
                 {
-                    Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureInventoryToEquipmentMessage(this.Id, _ItemObject.PositionInInventory, _FieldId), GameMessageImportance.VeryImportant));
+                    Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.CreatureInventoryToEquipmentMessage(this.Id, _ItemObject.PositionInInventory, _FieldId), GameMessageImportance.VeryImportant);
                 }
                 else
                 {
@@ -149,8 +139,8 @@ namespace GameLibrary.Model.Object
             if (var_ToRemove != null)
             {
                 this.inventory.Items.Remove(var_ToRemove);
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant));
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateAnimatedObjectBodyMessage(this.Id, this.Body), GameMessageImportance.VeryImportant));                    
+                Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateCreatureInventoryMessage(this.Id, this.inventory), GameMessageImportance.VeryImportant);
+                Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateAnimatedObjectBodyMessage(this.Id, this.Body), GameMessageImportance.VeryImportant);                    
             }
         }
 

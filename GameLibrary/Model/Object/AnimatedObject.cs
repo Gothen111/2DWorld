@@ -37,19 +37,8 @@ namespace GameLibrary.Model.Object
         public DirectionEnum DirectionEnum
         {
             get { return directionEnum; }
-            set { 
-                    
-                    directionEnum = value; 
-                }
+            set { directionEnum = value; }
         }
-
-        /*public Rectangle DrawBounds
-        {
-            get
-            {
-                return new Rectangle((int)(this.Position.X - this.Size.X / 2), (int)(this.Position.Y - this.Size.Y), (int)this.Size.X, (int)this.Size.Y);
-            }
-        }*/
 
         private float movementSpeed;
 
@@ -139,14 +128,6 @@ namespace GameLibrary.Model.Object
         {
             base.update(_GameTime);
             this.body.update(_GameTime);
-            /*if (this.animation != null)
-            {
-                this.animation.update();
-                if (this.animation.finishedAnimation() || this.Velocity.Equals(Vector3.Zero))// && !(this.animation is Animation.Animations.MoveAnimation || this.Velocity != Vector3.Zero))
-                {
-                    this.animation = new Animation.Animations.StandAnimation(this);
-                }
-            }*/
             this.move(_GameTime);          
         }
 
@@ -164,10 +145,7 @@ namespace GameLibrary.Model.Object
             }
             Map.Block.Block var_Block = this.CurrentBlock;
 
-            //if (Configuration.Configuration.isHost)
-            //{
-
-            if (Configuration.Configuration.isHost || (!Configuration.Configuration.isHost && this == Connection.NetworkManager.client.PlayerObject))
+            if (Configuration.Configuration.isHost || (!Configuration.Configuration.isHost && this == Configuration.Configuration.networkManager.client.PlayerObject))
             {
                 if ((int)var_PositionBlockSizeOld.X < (int)var_PositionBlockSizeNew.X)
                 {
@@ -213,26 +191,25 @@ namespace GameLibrary.Model.Object
                 objectsColliding.Remove(this as LivingObject);
                 if (objectsColliding.Count < 1)
                 {
-                    if ((Configuration.Configuration.isHost && !(this is PlayerObject)) || (!Configuration.Configuration.isHost && this == Connection.NetworkManager.client.PlayerObject))
+                    if ((Configuration.Configuration.isHost && !(this is PlayerObject)) || (!Configuration.Configuration.isHost && this == Configuration.Configuration.networkManager.client.PlayerObject))
                     {
                         this.Position += this.Velocity * (20 / _GameTime.ElapsedGameTime.Milliseconds);
                         checkChangedBlock();
                     }
                     if (Configuration.Configuration.isHost)
                     {
-                        //GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectMovementMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
-                        GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.UnImportant));
+                        Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.UnImportant);
                     }
                     else
                     {
+                        if (this == Configuration.Configuration.networkManager.client.PlayerObject)
+                        {
+                            Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant);
+                        }
                     }
                 }
                 else
                 {
-                    /*this.moveDown = false;
-                    this.moveLeft = false;
-                    this.moveRight = false;
-                    this.moveUp = false;*/
                     if (Configuration.Configuration.isHost)
                     {
                         foreach (AnimatedObject var_AnimatedObject in objectsColliding)
@@ -247,61 +224,9 @@ namespace GameLibrary.Model.Object
             {
                 if (Configuration.Configuration.isHost)
                 {
-                    GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectMovementMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.UnImportant));
+                    Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateObjectMovementMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.UnImportant);
                 }
             }
-
-            
-                /*if (this is PlayerObject)
-                {
-                    GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
-                }
-                else
-                {*/
-                    /*if (this.Velocity.X != var_OldVelocity.X || this.Velocity.Y != var_OldVelocity.Y || this.Velocity.Z != var_OldVelocity.Z)
-                    {
-                        if (Configuration.Configuration.isHost)
-                        {
-                            GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
-                        }
-                    }
-                    else
-                    {*/
-            /*
-                        if (this.updatePositionTimer <= 0)
-                        {
-                            if (Configuration.Configuration.isHost)
-                            {
-                                //GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
-                            }
-                            else
-                            {
-                                /*if (this is PlayerObject)
-                                {
-                                    GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
-                                }*/
-                        /*  }
-                            this.updatePositionTimer = this.updatePositionTimerMax;
-                        }
-                        else
-                        {
-                            this.updatePositionTimer -= 1;
-                        }
-            */
-                        if (Configuration.Configuration.isHost)
-                        {
-                        }
-                        else
-                        {
-                            if (this == Connection.NetworkManager.client.PlayerObject)
-                            {
-                                GameLibrary.Connection.Event.EventList.Add(new GameLibrary.Connection.Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage((LivingObject)this), GameLibrary.Connection.GameMessageImportance.VeryImportant));
-                            }
-                        }
-                    //}
-                //}
-
-
 
             if (this.Velocity.X != 0 || this.Velocity.Y != 0)
             {
@@ -366,7 +291,6 @@ namespace GameLibrary.Model.Object
 
         public virtual void onCollide(AnimatedObject _CollideWith)
         {
-
         }
 
         public virtual void draw(GraphicsDevice _GraphicsDevice, SpriteBatch _SpriteBatch, Vector3 _DrawPositionExtra, Color _Color)

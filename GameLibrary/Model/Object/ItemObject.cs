@@ -87,11 +87,11 @@ namespace GameLibrary.Model.Object
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
+            base.GetObjectData(info, ctxt);
             info.AddValue("itemEnum", this.itemEnum, typeof(int));
             info.AddValue("onStack", this.onStack, typeof(int));
             info.AddValue("positionInInventory", this.positionInInventory, typeof(int));
             info.AddValue("itemIconGraphicPath", this.itemIconGraphicPath, typeof(String));
-            base.GetObjectData(info, ctxt);
         }
 
         public override void update(GameTime _GameTime)

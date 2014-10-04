@@ -201,7 +201,7 @@ namespace GameLibrary.Model.Object.Inventory
                 {
                     if (_InventoryOwner.Body.containsEquipmentObject((EquipmentObject)_ItemObject))
                     {
-                        Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureEquipmentToInventoryMessage(_InventoryOwner.Id, _ItemObject.PositionInInventory, _NewPosition), GameMessageImportance.VeryImportant));
+                        Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.CreatureEquipmentToInventoryMessage(_InventoryOwner.Id, _ItemObject.PositionInInventory, _NewPosition), GameMessageImportance.VeryImportant);
                     }
                     else
                     {
@@ -229,7 +229,7 @@ namespace GameLibrary.Model.Object.Inventory
                 }
                 else
                 {
-                    Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureInventoryItemPositionChangeMessage(_InventoryOwner.Id, var_OldPosition, _NewPosition), GameMessageImportance.VeryImportant));
+                    Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.CreatureInventoryItemPositionChangeMessage(_InventoryOwner.Id, var_OldPosition, _NewPosition), GameMessageImportance.VeryImportant);
                 }
             }
         }
@@ -274,7 +274,7 @@ namespace GameLibrary.Model.Object.Inventory
             }
             else
             {
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.CreatureInventoryItemPositionChangeMessage(_InventoryOwner.Id, _ItemObject.PositionInInventory, -1), GameMessageImportance.VeryImportant));
+                Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.CreatureInventoryItemPositionChangeMessage(_InventoryOwner.Id, _ItemObject.PositionInInventory, -1), GameMessageImportance.VeryImportant);
             }
         }
     }

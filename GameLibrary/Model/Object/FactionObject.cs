@@ -28,7 +28,6 @@ namespace GameLibrary.Model.Object
 
         public FactionObject()
         {
-
         }
 
 

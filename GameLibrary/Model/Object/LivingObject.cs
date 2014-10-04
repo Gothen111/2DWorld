@@ -11,7 +11,6 @@ using GameLibrary.Factory.FactoryEnums;
 using GameLibrary.Model.Object.Interaction;
 using GameLibrary.Model.Object.Task;
 using GameLibrary.Connection;
-//using Server.GameLibrary.Model.Object.Task.Tasks;
 
 namespace GameLibrary.Model.Object
 {
@@ -284,7 +283,6 @@ namespace GameLibrary.Model.Object
 
         public void attackLivingObject(LivingObject _Target, int _Damage)
         {
-            //this.Animation = new Animation.Animations.AttackAnimation(this);
             if(Configuration.Configuration.isHost)
                 _Target.onAttacked(this, _Damage);
         }
@@ -309,8 +307,8 @@ namespace GameLibrary.Model.Object
             knockBackVector.Z = knockBackVector.Z / knockBackVector.Length() * 20;
             //this.knockBack(knockBackVector);
 
-            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(this), GameMessageImportance.VeryImportant));
-            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.UpdateObjectHealthMessage(this), GameMessageImportance.VeryImportant));
+            Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateObjectPositionMessage(this), GameMessageImportance.VeryImportant);
+            Configuration.Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.UpdateObjectHealthMessage(this), GameMessageImportance.VeryImportant);
 
             this.checkChangedBlock();
         }

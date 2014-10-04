@@ -228,7 +228,7 @@ namespace GameLibrary.Model.Map.Block
             }
             else
             {
-                Event.EventList.Add(new Event(new RequestBlockMessage(this.Position), GameMessageImportance.VeryImportant));                   
+                Configuration.Configuration.networkManager.addEvent(new RequestBlockMessage(this.Position), GameMessageImportance.VeryImportant);                   
             }
         }
 

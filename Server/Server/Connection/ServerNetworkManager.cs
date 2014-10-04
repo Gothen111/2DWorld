@@ -34,7 +34,7 @@ namespace Server.Connection
             netServer = new NetServer(config);
             netServer.Start();
 
-            NetworkManager.serverClients = new List<Client>();
+            this.serverClients = new List<Client>();
         }
 
         public override NetIncomingMessage ReadMessage()
@@ -68,25 +68,31 @@ namespace Server.Connection
 
         public override void UpdateSendingEvents()
         {
-            for (int i = 0; i < Event.EventList.Count; i++)
+            for (int i = 0; i < this.LastIndex; i++)
             {
-                if (Event.EventList[i] != null)
-                {
-                    IGameMessage var_IGameMessage = Event.EventList[i].getIGameMessage();
-                    GameMessageImportance var_Importance = Event.EventList[i].getImportance();
+                //if (EventList[i] != null)
+                //{
+                IGameMessage var_IGameMessage = EventList[i].IGameMessage;
+                GameMessageImportance var_Importance = EventList[i].Importance;
 
-                    SendMessage(var_IGameMessage, var_Importance);
-                }
-                Event.EventList.Remove(Event.EventList[i]);
-                i -= 1;
+                SendMessage(var_IGameMessage, var_Importance);
+
+                //TODO: Position des Objektes fehlt natürich noch ;D
+                //this.sendMessageToClientsInRange(var_IGameMessage, var_Importance);
+
+                //}
+                //Event.EventList.Remove(EventList[i]);
+                //i -= 1;
             }
+            this.LastIndex = 0;
         }
 
+        //TODO: Position des Objektes fehlt natürich noch ;D
         private void sendMessageToClientsInRange(IGameMessage _IGameMessage, GameMessageImportance _GameMessageImportance)
         {
             int var_Range = 500;
 
-            foreach (Client var_Client in NetworkManager.serverClients)
+            foreach (Client var_Client in this.serverClients)
             {
                 if (var_Client.PlayerObject != null)
                 {

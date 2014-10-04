@@ -27,8 +27,8 @@ namespace GameLibrary.Model.Map.Chunk
             set { id = value; }
         }
 
-        public static int chunkSizeX = 10;//25; // 40
-        public static int chunkSizeY = 10;//25; // 40
+        public static int chunkSizeX = 10;
+        public static int chunkSizeY = 10;
 
         private Block.Block[,] blocks;
 
@@ -36,6 +36,22 @@ namespace GameLibrary.Model.Map.Chunk
         {
             get { return blocks; }
             set { blocks = value; }
+        }
+
+        private List<Vector3> pathEntries;
+
+        public List<Vector3> PathEntries
+        {
+            get { return pathEntries; }
+            set { pathEntries = value; }
+        }
+
+        private ChunkEnum chunkEnum;
+
+        public ChunkEnum ChunkEnum
+        {
+            get { return chunkEnum; }
+            set { chunkEnum = value; }
         }
 
         public Chunk(String _Name, int _PosX, int _PosY, Region.Region _ParentRegion)
@@ -47,16 +63,8 @@ namespace GameLibrary.Model.Map.Chunk
             this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, (int)(chunkSizeX * Block.Block.BlockSize - 1), (int)(chunkSizeY * Block.Block.BlockSize - 1));
 
             this.blocks = new Block.Block[chunkSizeX, chunkSizeY];
-            /*for (int x = 0; x < this.Size.X; x++)
-            {
-                for (int y = 0; y < this.Size.Y; y++)
-                {
-                    //this.blocks[x, y] = new Block.Block((int)this.Position.X + Block.Block.BlockSize * x, (int)this.Position.Y + Block.Block.BlockSize * y, Block.BlockEnum.Ground1, this);
-                    this.blocks[x, y].requestFromServer();
-                }
-            }*/
 
-            //this.setAllNeighboursOfBlocks();
+            this.pathEntries = new List<Vector3>();
 
             this.Parent = _ParentRegion;
 
@@ -268,7 +276,7 @@ namespace GameLibrary.Model.Map.Chunk
             }
             else
             {
-                Event.EventList.Add(new Event(new RequestChunkMessage(this.Position), GameMessageImportance.VeryImportant));
+                Configuration.Configuration.networkManager.addEvent(new RequestChunkMessage(this.Position), GameMessageImportance.VeryImportant);
             }
         }
     }

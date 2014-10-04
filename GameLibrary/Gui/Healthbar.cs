@@ -17,7 +17,7 @@ namespace GameLibrary.Gui
 
         public override void draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice _GraphicsDevice, Microsoft.Xna.Framework.Graphics.SpriteBatch _SpriteBatch)
         {
-            float percentageLife = GameLibrary.Connection.NetworkManager.client.PlayerObject.HealthPoints / GameLibrary.Connection.NetworkManager.client.PlayerObject.MaxHealthPoints;
+            float percentageLife = Configuration.Configuration.networkManager.client.PlayerObject.HealthPoints / Configuration.Configuration.networkManager.client.PlayerObject.MaxHealthPoints;
             Rectangle source = new Rectangle(0, (int)((1-percentageLife) * this.Bounds.Height), this.Bounds.Width, (int)(this.Bounds.Height * percentageLife));
             Rectangle destination = new Rectangle(this.Bounds.X, (int)(this.Bounds.Y + (1 - percentageLife) * this.Bounds.Height), this.Bounds.Width, (int)(this.Bounds.Height * percentageLife));
             _SpriteBatch.Draw(Ressourcen.RessourcenManager.ressourcenManager.Texture[this.BackgroundGraphicPath], destination, source , this.ComponentColor);            

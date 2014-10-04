@@ -65,26 +65,13 @@ namespace GameLibrary.Connection.Message
 
             Model.Map.Chunk.Chunk var_Chunk =  Model.Map.World.World.world.getChunkAtPosition(Position);
 
-            /*if (var_Chunk.IsRequested)
+            if (var_Chunk != null)
             {
-                int var_Size = Enum.GetValues(typeof(GameLibrary.Model.Map.Block.BlockLayerEnum)).Length;
-
-                if (var_Chunk != null)
+                if (var_Chunk.IsRequested)
                 {
-                    for (int x = 0; x < GameLibrary.Model.Map.Chunk.Chunk.chunkSizeX; x++)
-                    {
-                        for (int y = 0; y < GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY; y++)
-                        {
-                            for (int i = 0; i < var_Size; i++)
-                            {
-                                var_Chunk.Blocks[x, y].Layer[i] = (Model.Map.Block.BlockEnum)im.ReadInt32();
-                            }
-                        }
-                    }
+                    var_Chunk.IsRequested = false;
                 }
-
-                var_Chunk.IsRequested = false;
-            }*/
+            }
         }
 
         public void Encode(NetOutgoingMessage om)

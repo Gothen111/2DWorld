@@ -52,7 +52,7 @@ namespace GameLibrary.Gui.Menu
             this.inventoryButton.IsTextEditAble = false;
             this.add(this.inventoryButton);
 
-            this.inventoryMenu = new InventoryMenu(Connection.NetworkManager.client.PlayerObject);
+            this.inventoryMenu = new InventoryMenu(Configuration.Configuration.networkManager.client.PlayerObject);
             this.inventoryMenu.setIsActive(false);
             this.add(this.inventoryMenu);
         }

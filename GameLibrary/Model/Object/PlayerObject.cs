@@ -18,7 +18,6 @@ namespace GameLibrary.Model.Object
         public PlayerObject(SerializationInfo info, StreamingContext ctxt)
             : base(info, ctxt)
         {
-            
         }
 
         public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -29,13 +28,6 @@ namespace GameLibrary.Model.Object
         public override void onChangedBlock()
         {
             base.onChangedBlock();
-            if (Configuration.Configuration.isHost)
-            {
-            }
-            else
-            {
-                //Request Blocks around!
-            }
         }
 
         public override void onChangedChunk()
@@ -43,13 +35,11 @@ namespace GameLibrary.Model.Object
             base.onChangedChunk();
             if (Configuration.Configuration.isHost)
             {
+                GameLibrary.Model.Map.World.World.world.checkPlayerObjectNeighbourChunks(this);
             }
             else
-            {
-                //Request Chunks around!
-                //GameLibrary.Model.Map.World.World.world.checkPlayerObjectNeighbourChunks(this);       
-            }
-            GameLibrary.Model.Map.World.World.world.checkPlayerObjectNeighbourChunks(this);       
+            {   
+            }   
         }
     }
 }

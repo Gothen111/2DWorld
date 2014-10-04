@@ -49,28 +49,19 @@ namespace GameLibrary.Model.Map.World
 
                 if (!_OnlyToPlayerList)
                 {
-                    //if (Configuration.Configuration.isHost)
-                    //{
-                        //Vector2 var_Position_Region = new Vector2(_PlayerObject.Position.X - _PlayerObject.Position.X % (Region.Region.regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize), _PlayerObject.Position.Y - _PlayerObject.Position.Y % (Region.Region.regionSizeY * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
-
-                        Region.Region var_Region = World.world.getRegionAtPosition(_PlayerObject.Position)
-                                                    ?? World.world.createRegionAt(_PlayerObject.Position);
-                        if (var_Region != null)
-                        {
-                            //this.addRegion(var_Region);
-
-                            //Vector2 var_Position_Chunk = new Vector2(_PlayerObject.Position.X - _PlayerObject.Position.X % (Chunk.Chunk.chunkSizeX * Block.Block.BlockSize), _PlayerObject.Position.Y - _PlayerObject.Position.Y % (Chunk.Chunk.chunkSizeY * Block.Block.BlockSize));
-
-                            Chunk.Chunk var_Chunk = var_Region.getChunkAtPosition(_PlayerObject.Position)
-                                                    ?? var_Region.createChunkAt(_PlayerObject.Position);
-                        }
-                    //}
+                    Region.Region var_Region = World.world.getRegionAtPosition(_PlayerObject.Position)
+                                                ?? World.world.createRegionAt(_PlayerObject.Position);
+                    if (var_Region != null)
+                    {
+                        Chunk.Chunk var_Chunk = var_Region.getChunkAtPosition(_PlayerObject.Position)
+                                                ?? var_Region.createChunkAt(_PlayerObject.Position);
+                    }
                     this.addObject(_PlayerObject);
                 }
-                //if (Configuration.Configuration.isHost)
-                //{
-                this.checkPlayerObjectNeighbourChunks(_PlayerObject);
-                //}
+                if (Configuration.Configuration.isHost)
+                {
+                    this.checkPlayerObjectNeighbourChunks(_PlayerObject);
+                }
             }
         }
 

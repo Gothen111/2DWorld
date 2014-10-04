@@ -27,7 +27,6 @@ namespace GameLibrary.Model.Object
 
         public RaceObject() :base()
         {
-            
         }
 
         public RaceObject(SerializationInfo info, StreamingContext ctxt)

@@ -16,15 +16,20 @@ namespace GameLibrary.Connection
 {
     public class NetworkManager
     {
-        public static Client client;
-        public static List<Client> serverClients;
+        public Client client;
+        public List<Client> serverClients;
 
+        Thread workerThread;
 
-        Thread workerThread;//???
-
+        public int LastIndex;
+        public int LastIndexMax;
+        public Event[] EventList;
 
         public NetworkManager()
         {
+            this.LastIndex = 0;
+            this.LastIndexMax = 2000;
+            this.EventList = new Event[this.LastIndexMax];
         }
 
         public virtual void Start(String _Ip, String _Port)
@@ -67,20 +72,36 @@ namespace GameLibrary.Connection
         {
         }
 
+        public void addEvent(IGameMessage _IGameMessage)
+        {
+            this.addEvent(_IGameMessage, GameMessageImportance.UnImportant);
+        }
+
+        public virtual void addEvent(IGameMessage _IGameMessage, GameMessageImportance _GameMessageImportance)
+        {
+            Event var_Event = new Event(_IGameMessage, _GameMessageImportance);
+            if (this.LastIndex < this.LastIndexMax)
+            {
+                this.EventList[this.LastIndex] = var_Event;
+                this.LastIndex += 1;
+            }
+        }
+
         public virtual void UpdateSendingEvents()
         {
-            for (int i = 0; i < Event.EventList.Count; i++)
+            for (int i = 0; i < this.LastIndex; i++)
             {
-                if (Event.EventList[i] != null)
-                {
-                    IGameMessage var_IGameMessage = Event.EventList[i].getIGameMessage();
-                    GameMessageImportance var_Importance = Event.EventList[i].getImportance();
+                //if (EventList[i] != null)
+                //{
+                    IGameMessage var_IGameMessage = EventList[i].IGameMessage;
+                    GameMessageImportance var_Importance = EventList[i].Importance;
 
                     SendMessage(var_IGameMessage, var_Importance);
-                }
-                Event.EventList.Remove(Event.EventList[i]);
-                i -= 1;
+                //}
+                //Event.EventList.Remove(EventList[i]);
+                //i -= 1;
             }
+            this.LastIndex = 0;
         }
 
         public void updateThread()

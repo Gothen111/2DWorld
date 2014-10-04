@@ -51,7 +51,7 @@ namespace Client
 
             Setting.logInstance = "Log/ClientLog-" + DateTime.Now.ToShortDateString() + "-" + DateTime.Now.ToShortTimeString().Replace(":", ".") + ".txt";
 
-            GameLibrary.Connection.NetworkManager.client = new GameLibrary.Connection.Client();
+            Configuration.networkManager.client = new GameLibrary.Connection.Client();
         }
 
         /// <summary>

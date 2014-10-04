@@ -7,7 +7,7 @@ using GameLibrary.Connection.Message;
 
 namespace GameLibrary.Connection
 {
-    public class Event
+    /*public class Event
     {
         public static List<Event> EventList = new List<Event>();
 
@@ -30,6 +30,17 @@ namespace GameLibrary.Connection
         {
             iGameMessage = _iGameMessage;
             Importance = _Importance;
+        }
+    }*/
+
+    public struct Event
+    {
+        public IGameMessage IGameMessage;
+        public GameMessageImportance Importance;
+        public Event(IGameMessage _IGameMessage, GameMessageImportance _GameMessageImportance)
+        {
+            this.IGameMessage = _IGameMessage;
+            this.Importance = _GameMessageImportance;
         }
     }
 

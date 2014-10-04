@@ -378,7 +378,7 @@ namespace GameLibrary.Model.Map.Region
             }
             else
             {
-                Event.EventList.Add(new Event(new RequestRegionMessage(this.Position), GameMessageImportance.VeryImportant));
+                Configuration.Configuration.networkManager.addEvent(new RequestRegionMessage(this.Position), GameMessageImportance.VeryImportant);
             }
         }
     }

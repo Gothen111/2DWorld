@@ -7,6 +7,7 @@ using GameLibrary.Model.Object;
 using GameLibrary.Commands.CommandTypes;
 using GameLibrary.Connection;
 using GameLibrary.Commands;
+using GameLibrary.Configuration;
 
 namespace Client.Commands
 {
@@ -17,7 +18,7 @@ namespace Client.Commands
             if (!actor.MoveUp)
             {
                 actor.MoveUp = true;
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkTopCommand), GameMessageImportance.VeryImportant));
+                Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkTopCommand), GameMessageImportance.VeryImportant);
             }
         }
         public override void stopWalkUpCommand(LivingObject actor)
@@ -25,7 +26,7 @@ namespace Client.Commands
             if (actor.MoveUp)
             {
                 actor.MoveUp = false;
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkTopCommand), GameMessageImportance.VeryImportant));
+                Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkTopCommand), GameMessageImportance.VeryImportant);
             }
         }
 
@@ -34,7 +35,7 @@ namespace Client.Commands
             if (!actor.MoveDown)
             {
                 actor.MoveDown = true;
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkDownCommand), GameMessageImportance.VeryImportant));
+                Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkDownCommand), GameMessageImportance.VeryImportant);
             }
         }
         public override void stopWalkDownCommand(LivingObject actor)
@@ -42,7 +43,7 @@ namespace Client.Commands
             if (actor.MoveDown)
             {
                 actor.MoveDown = false;
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkDownCommand), GameMessageImportance.VeryImportant));
+                Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkDownCommand), GameMessageImportance.VeryImportant);
             }
         }
 
@@ -51,7 +52,7 @@ namespace Client.Commands
             if (!actor.MoveLeft)
             {
                 actor.MoveLeft = true;
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkLeftCommand), GameMessageImportance.VeryImportant));
+                Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkLeftCommand), GameMessageImportance.VeryImportant);
             }
         }
         public override void stopWalkLeftCommand(LivingObject actor)
@@ -59,7 +60,7 @@ namespace Client.Commands
             if (actor.MoveLeft)
             {
                 actor.MoveLeft = false;
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkLeftCommand), GameMessageImportance.VeryImportant));
+                Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkLeftCommand), GameMessageImportance.VeryImportant);
             }
         }
 
@@ -68,7 +69,7 @@ namespace Client.Commands
             if (!actor.MoveRight)
             {
                 actor.MoveRight = true;
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkRightCommand), GameMessageImportance.VeryImportant));
+                Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.WalkRightCommand), GameMessageImportance.VeryImportant);
             }
         }
         public override void stopWalkRightCommand(LivingObject actor)
@@ -76,14 +77,14 @@ namespace Client.Commands
             if (actor.MoveRight)
             {
                 actor.MoveRight = false;
-                Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkRightCommand), GameMessageImportance.VeryImportant));
+                Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.StopWalkRightCommand), GameMessageImportance.VeryImportant);
             }
         }
 
         public override void handleAttackCommand(LivingObject actor)
         {
             actor.attack();//actor.attackLivingObject(null, 0); //TODO: Noch Response einbauen, dass Attackanimation nur dann gestartet wird, wenn ein Objekt getroffen wurde
-            Event.EventList.Add(new Event(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.AttackCommand), GameMessageImportance.VeryImportant));
+            Configuration.networkManager.addEvent(new GameLibrary.Connection.Message.PlayerCommandMessage(actor as PlayerObject, ECommandType.AttackCommand), GameMessageImportance.VeryImportant);
         }
     }
 }
