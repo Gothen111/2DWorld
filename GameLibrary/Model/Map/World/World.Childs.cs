@@ -182,8 +182,9 @@ namespace GameLibrary.Model.Map.World
             Region.Region var_Region = this.getRegionAtPosition(_Chunk.Position);
             if (var_Region != null)
             {
-                Chunk.Chunk var_Chunk = var_Region.getChunkAtPosition(_Chunk.Position);
-                return var_Region.Chunks.Remove(var_Chunk);
+                return var_Region.removeChunk(_Chunk);
+                //Chunk.Chunk var_Chunk = var_Region.getChunkAtPosition(_Chunk.Position);
+                //return var_Region.Chunks.Remove(var_Chunk);
             }
             return false;
         }

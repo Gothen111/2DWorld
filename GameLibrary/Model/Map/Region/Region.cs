@@ -29,9 +29,17 @@ namespace GameLibrary.Model.Map.Region
         public static int regionSizeX = 10;
         public static int regionSizeY = 10;
 
-        private List<Chunk.Chunk> chunks;
+        /*private List<Chunk.Chunk> chunks;
 
         public List<Chunk.Chunk> Chunks
+        {
+            get { return chunks; }
+            set { chunks = value; }
+        }*/
+
+        private Chunk.Chunk[] chunks;
+
+        public Chunk.Chunk[] Chunks
         {
             get { return chunks; }
             set { chunks = value; }
@@ -45,22 +53,6 @@ namespace GameLibrary.Model.Map.Region
             set { regionEnum = value; }
         }
 
-        public Region(SerializationInfo info, StreamingContext ctxt) 
-            : base(info, ctxt)
-        {
-            this.id = (int)info.GetValue("id", typeof(int));
-            this.regionEnum = (RegionEnum)info.GetValue("regionEnum", typeof(int));
-
-            this.chunks = new List<Chunk.Chunk>();
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
-        {
-            base.GetObjectData(info, ctxt);
-            info.AddValue("id", this.id, typeof(int));
-            info.AddValue("regionEnum", this.regionEnum, typeof(int));
-        }
-
         public Region(String _Name, int _PosX, int _PosY, RegionEnum _RegionEnum, World.World _ParentWorld)
         {
             this.Name = _Name;
@@ -68,8 +60,7 @@ namespace GameLibrary.Model.Map.Region
             this.Size = new Vector3(regionSizeX, regionSizeY, 0);
             this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, (int)(regionSizeX * Chunk.Chunk.chunkSizeX * Block.Block.BlockSize - 1), (int)(regionSizeX * Chunk.Chunk.chunkSizeY * Block.Block.BlockSize - 1));
 
-
-            chunks = new List<Chunk.Chunk>();
+            chunks = new Chunk.Chunk[regionSizeX * regionSizeY];
 
             this.regionEnum = _RegionEnum;
 
@@ -84,6 +75,22 @@ namespace GameLibrary.Model.Map.Region
             }
         }
 
+        public Region(SerializationInfo info, StreamingContext ctxt) 
+            : base(info, ctxt)
+        {
+            this.id = (int)info.GetValue("id", typeof(int));
+            this.regionEnum = (RegionEnum)info.GetValue("regionEnum", typeof(int));
+
+            this.chunks = new Chunk.Chunk[regionSizeX * regionSizeY];
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+        {
+            base.GetObjectData(info, ctxt);
+            info.AddValue("id", this.id, typeof(int));
+            info.AddValue("regionEnum", this.regionEnum, typeof(int));
+        }
+
         public bool setChunkAtPosition(Vector3 _Position, Chunk.Chunk _Chunk)
         {
             Chunk.Chunk var_Chunk = this.getChunkAtPosition(_Chunk.Position);
@@ -93,7 +100,11 @@ namespace GameLibrary.Model.Map.Region
                 {
                     if (_PosY >= Bounds.Top && _PosY <= Bounds.Bottom)
                     {*/
-                        this.chunks.Add(_Chunk);
+                        int var_X = (int)Math.Abs(_Position.X - this.Position.X) / (Block.Block.BlockSize * Chunk.Chunk.chunkSizeX);
+                        int var_Y = (int)Math.Abs(_Position.Y - this.Position.Y) / (Block.Block.BlockSize * Chunk.Chunk.chunkSizeY);
+
+                        int var_Position = (int)(var_X + var_Y * regionSizeY);
+                        this.chunks[var_Position] = _Chunk;
                         //this.setAllNeighboursOfChunk(_Chunk);
                         this.setAllNeighboursOfChunks();
                         //World.World.world.setAllNeighboursOfRegion((Region)_Chunk.Parent);
@@ -115,15 +126,6 @@ namespace GameLibrary.Model.Map.Region
             }
             else
             {
-                if (var_Chunk.IsRequested)
-                {
-                    this.chunks.Remove(var_Chunk);
-                    this.chunks.Add(_Chunk);
-                    //this.setAllNeighboursOfChunk(_Chunk);
-                    this.setAllNeighboursOfChunks();
-                    //var_Chunk.IsRequested = false;
-                    //var_Chunk.HasReceived = true;
-                }
                 Logger.Logger.LogErr("Region->setChunkAtPosition(...) : Chunk mit Id: " + _Chunk.Id + " schon vorhanden!");
                 return false;
             }
@@ -141,15 +143,18 @@ namespace GameLibrary.Model.Map.Region
             return false;
         }
 
-        public bool containsChunk(Chunk.Chunk _Chunk)
+        public bool removeChunk(Chunk.Chunk _Chunk)
         {
-            foreach (Chunk.Chunk var_Chunk in this.chunks)
+            int var_X = (int)Math.Abs(_Chunk.Position.X - this.Position.X) / (Block.Block.BlockSize * Chunk.Chunk.chunkSizeX);
+            int var_Y = (int)Math.Abs(_Chunk.Position.Y - this.Position.Y) / (Block.Block.BlockSize * Chunk.Chunk.chunkSizeY);
+
+            int var_Position = (int)(var_X + var_Y * regionSizeY);
+            if (var_Position < this.chunks.Length)
             {
-                if (var_Chunk == _Chunk)
-                {
-                    return true;
-                }
+                this.chunks[var_Position] = null;
+                return true;
             }
+
             return false;
         }
 
@@ -157,8 +162,11 @@ namespace GameLibrary.Model.Map.Region
         {
             foreach (Chunk.Chunk var_Chunk in this.chunks)
             {
-                var_Chunk.Parent = this;
-                setAllNeighboursOfChunk(var_Chunk);
+                if (var_Chunk != null)
+                {
+                    var_Chunk.Parent = this;
+                    setAllNeighboursOfChunk(var_Chunk);
+                }
             }
         }
 
@@ -243,16 +251,13 @@ namespace GameLibrary.Model.Map.Region
 
         public Chunk.Chunk getChunkAtPosition(Vector3 _Position)
         {
-            List<Chunk.Chunk> var_Copy = new List<Chunk.Chunk>(this.chunks);
-            foreach (Chunk.Chunk var_Chunk in var_Copy)
+            int var_X = (int)Math.Abs(_Position.X - this.Position.X) / (Block.Block.BlockSize * Chunk.Chunk.chunkSizeX);
+            int var_Y = (int)Math.Abs(_Position.Y - this.Position.Y) / (Block.Block.BlockSize * Chunk.Chunk.chunkSizeY);
+
+            int var_Position = (int)(var_X + var_Y * regionSizeY);
+            if (var_Position < this.chunks.Length)
             {
-                if (var_Chunk.Bounds.Left <= _Position.X && var_Chunk.Bounds.Right >= _Position.X)
-                {
-                    if (var_Chunk.Bounds.Top <= _Position.Y && var_Chunk.Bounds.Bottom >= _Position.Y)
-                    {
-                        return var_Chunk;
-                    }
-                }
+                return this.chunks[var_Position];
             }
             return null;
         }
@@ -325,9 +330,12 @@ namespace GameLibrary.Model.Map.Region
         {
             foreach (Chunk.Chunk var_Chunk in chunks)
             {
-                if (var_Chunk.Id == _Id)
+                if (var_Chunk != null)
                 {
-                    return var_Chunk;
+                    if (var_Chunk.Id == _Id)
+                    {
+                        return var_Chunk;
+                    }
                 }
             }
             return null;

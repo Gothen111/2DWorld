@@ -41,8 +41,11 @@ namespace GameLibrary.Model.Map.World
             {
                 foreach (Chunk.Chunk var_Chunk in var_Region.Chunks)
                 {
-                    var_Chunk.update(_GameTime);
-                    this.chunksOutOfRange.Add(var_Chunk);
+                    if (var_Chunk != null)
+                    {
+                        var_Chunk.update(_GameTime);
+                        this.chunksOutOfRange.Add(var_Chunk);
+                    }
                 }
             }
 

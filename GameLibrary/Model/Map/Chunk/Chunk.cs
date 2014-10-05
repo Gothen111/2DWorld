@@ -30,9 +30,9 @@ namespace GameLibrary.Model.Map.Chunk
         public static int chunkSizeX = 10;
         public static int chunkSizeY = 10;
 
-        private Block.Block[,] blocks;
+        private Block.Block[] blocks;
 
-        public Block.Block[,] Blocks
+        public Block.Block[] Blocks
         {
             get { return blocks; }
             set { blocks = value; }
@@ -62,7 +62,7 @@ namespace GameLibrary.Model.Map.Chunk
             this.Size = new Vector3(chunkSizeX, chunkSizeY, 0);
             this.Bounds = new Rectangle((int)this.Position.X, (int)this.Position.Y, (int)(chunkSizeX * Block.Block.BlockSize - 1), (int)(chunkSizeY * Block.Block.BlockSize - 1));
 
-            this.blocks = new Block.Block[chunkSizeX, chunkSizeY];
+            this.blocks = new Block.Block[chunkSizeX * chunkSizeY];
 
             this.pathEntries = new List<Vector3>();
 
@@ -82,7 +82,7 @@ namespace GameLibrary.Model.Map.Chunk
         {
             this.id = (int)info.GetValue("id", typeof(int));
             //this.blocks = (Block.Block[,])info.GetValue("blocks", typeof(Block.Block[,]));
-            this.blocks = new Block.Block[(int)this.Size.X, (int)this.Size.Y];
+            this.blocks = new Block.Block[(int)this.Size.X * (int)this.Size.Y];
             //setAllNeighboursOfBlocks();
         }
 
@@ -106,7 +106,8 @@ namespace GameLibrary.Model.Map.Chunk
             {
                 if (_PosY >= 0 && _PosY < this.Size.Y)
                 {
-                    this.blocks[_PosX, _PosY] = _Block;
+                    int var_Pos = (int)(_PosX + chunkSizeY * _PosY);
+                    this.blocks[var_Pos] = _Block;
                     this.setAllNeighboursOfBlocks();
                     return true;
                 }
@@ -179,8 +180,11 @@ namespace GameLibrary.Model.Map.Chunk
 
         public Block.Block getBlockAtPosition(float _PosX, float _PosY)
         {
-            if(_PosX >= 0 && _PosX < Chunk.chunkSizeX && _PosY >= 0 && _PosY < Chunk.chunkSizeY)
-                return blocks[(int)(_PosX), ((int)_PosY)];
+            if (_PosX >= 0 && _PosX < Chunk.chunkSizeX && _PosY >= 0 && _PosY < Chunk.chunkSizeY)
+            {
+                int var_Pos = (int)(_PosX + chunkSizeY * _PosY);
+                return blocks[var_Pos];//blocks[(int)(_PosX), ((int)_PosY)];
+            }
             return null;
         }
 

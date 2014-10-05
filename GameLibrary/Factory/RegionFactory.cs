@@ -107,7 +107,7 @@ namespace GameLibrary.Factory
 
             if (var_Chunk != null)
             {
-                this.addChunkToRegion(_Region, _PosY, _PosY, var_Chunk);
+                this.addChunkToRegion(_Region, _PosX, _PosY, var_Chunk);
 
                 ChunkFactory.chunkFactory.generateChunk(var_Chunk);
             }  
