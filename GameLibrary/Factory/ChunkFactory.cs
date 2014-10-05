@@ -69,7 +69,7 @@ namespace GameLibrary.Factory
             if (Configuration.Configuration.isHost)
             {
                 //generateWall(var_Result, Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
-                generateSecondLayer(var_Result, _Layer);
+                //generateSecondLayer(var_Result, _Layer);
             }
             else
             {
@@ -91,7 +91,7 @@ namespace GameLibrary.Factory
             if (Configuration.Configuration.isHost)
             {
                 //generateWall(var_Result, Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
-                generateSecondLayer(var_Result, _Layer);
+                //generateSecondLayer(var_Result, _Layer);
             }
             else
             {
@@ -112,7 +112,7 @@ namespace GameLibrary.Factory
             if (Configuration.Configuration.isHost)
             {
                 //generateWall(var_Result, Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeX), Utility.Random.GenerateGoodRandomNumber(0, Chunk.chunkSizeY));
-                generateSecondLayer(var_Result, _Layer);
+                //generateSecondLayer(var_Result, _Layer);
             }
             else 
             { 
@@ -140,6 +140,7 @@ namespace GameLibrary.Factory
         {
             if (Configuration.Configuration.isHost)
             {
+                generatePaths(_Chunk);
                 generateTrees(_Chunk);
                 generateNpc(_Chunk);
             }
@@ -154,6 +155,7 @@ namespace GameLibrary.Factory
         {
             if (Configuration.Configuration.isHost)
             {
+                generatePaths(_Chunk);
                 generateNpc(_Chunk);
             }
             else
@@ -382,7 +384,84 @@ namespace GameLibrary.Factory
 
         private void generatePaths(Chunk _Chunk)
         {
+            List<Vector3> var_PossiblePathEntries = new List<Vector3>();
+            if (_Chunk.LeftNeighbour != null)
+            {
+                foreach (Vector3 var_Entry in ((Chunk)_Chunk.LeftNeighbour).PathEntries)
+                {
+                    if (var_Entry.X >= _Chunk.Position.X - (Block.BlockSize + 5))
+                    {
+                        var_PossiblePathEntries.Add(var_Entry + new Vector3(Block.BlockSize,0,0));
+                    }
+                }
+            }
+            if (_Chunk.RightNeighbour != null)
+            {
+                foreach (Vector3 var_Entry in ((Chunk)_Chunk.RightNeighbour).PathEntries)
+                {
+                    if (var_Entry.X <= _Chunk.Bounds.Right + (Block.BlockSize + 5))
+                    {
+                        var_PossiblePathEntries.Add(var_Entry + new Vector3(-Block.BlockSize, 0, 0));
+                    }
+                }
+            }
+            if (_Chunk.TopNeighbour != null)
+            {
+                foreach (Vector3 var_Entry in ((Chunk)_Chunk.TopNeighbour).PathEntries)
+                {
+                    if (var_Entry.Y >= _Chunk.Position.Y - (Block.BlockSize + 5))
+                    {
+                        var_PossiblePathEntries.Add(var_Entry + new Vector3(0, Block.BlockSize, 0));
+                    }
+                }
+            }
+            if (_Chunk.BottomNeighbour != null)
+            {
+                foreach (Vector3 var_Entry in ((Chunk)_Chunk.BottomNeighbour).PathEntries)
+                {
+                    if (var_Entry.Y <= _Chunk.Bounds.Bottom + (Block.BlockSize + 5))
+                    {
+                        var_PossiblePathEntries.Add(var_Entry + new Vector3(0, -Block.BlockSize, 0));
+                    }
+                }
+            }
 
+            if(var_PossiblePathEntries.Count == 0)
+            {
+                var_PossiblePathEntries.Add(_Chunk.Position);
+            }
+
+            foreach (Vector3 var_Entry in var_PossiblePathEntries)
+            {
+                Block var_BlockEntry =_Chunk.getBlockAtCoordinate(var_Entry);
+                if (var_BlockEntry != null)
+                {
+                    var_BlockEntry.setLayerAt(BlockEnum.Ground1, BlockLayerEnum.Layer2);
+                    _Chunk.PathEntries.Add(var_Entry);
+                }
+
+                Block var_BlockExit = _Chunk.getBlockAtCoordinate(var_Entry + new Vector3(0, (Chunk.chunkSizeY - 1) * Block.BlockSize, 0));
+                if (var_BlockExit != null)
+                {
+                    var_BlockExit.setLayerAt(BlockEnum.Ground1, BlockLayerEnum.Layer2);
+                    _Chunk.PathEntries.Add(var_BlockExit.Position);
+                }
+                this.generatePathFromTwoPoints(_Chunk, var_BlockEntry, var_BlockExit);
+            }
+        }
+
+        private void generatePathFromTwoPoints(Chunk _Chunk, Block _Entry, Block _Exit)
+        {
+            /*Vector3 var_Entry = _Entry.Position;
+            Vector3 var_Exit = _Exit.Position;
+
+            while (var_Entry != var_Exit)
+            {
+                if (var_Entry.X > var_Exit.X)
+                {
+                    var_Entry.X 
+                }
+            }*/
         }
 
         private void generateFlowers(Chunk _Chunk)
@@ -423,7 +502,6 @@ namespace GameLibrary.Factory
                 var_NpcObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
 
                 Block var_Block = _Chunk.getBlockAtCoordinate(var_NpcObject.Position);
-                //Block var_Block = _Chunk.getBlockAtCoordinate(var_X, var_Y);
                 if (var_Block.IsWalkAble && var_Block.Layer[1] == BlockEnum.Nothing)
                 {
                     var_Block.Objects.Add(var_NpcObject);
@@ -444,8 +522,7 @@ namespace GameLibrary.Factory
                 int var_Y = Utility.Random.GenerateGoodRandomNumber(1, GameLibrary.Model.Map.Chunk.Chunk.chunkSizeY * (GameLibrary.Model.Map.Block.Block.BlockSize) - 1);
 
                 var_EnvironmentObject.Position = new Vector3(var_X + _Chunk.Position.X, var_Y + _Chunk.Position.Y, 0);
-                //var_EnvironmentObject.CollisionBounds.Add(new Rectangle(var_EnvironmentObject.DrawBounds.Left + 15, var_EnvironmentObject.DrawBounds.Bottom - 30, var_EnvironmentObject.DrawBounds.Width - 30, 20));
-
+                
                 Block var_Block = _Chunk.getBlockAtCoordinate(var_EnvironmentObject.Position);
 
                 if (var_Block.IsWalkAble)
